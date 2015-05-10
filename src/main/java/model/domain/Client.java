@@ -5,11 +5,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
-/**
- * @author Ciprian on 5/10/2015.
- *         <p>
- *         rain
- */
 @Entity
 public class Client {
     private int idClient;

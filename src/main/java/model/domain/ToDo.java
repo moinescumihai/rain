@@ -2,11 +2,6 @@ package model.domain;
 
 import javax.persistence.*;
 
-/**
- * @author Ciprian on 5/10/2015.
- *         <p>
- *         rain
- */
 @Entity
 @Table(name = "to_do", schema = "", catalog = "raindrop")
 public class ToDo {

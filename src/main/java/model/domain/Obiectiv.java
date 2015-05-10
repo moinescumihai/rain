@@ -3,18 +3,25 @@ package model.domain;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 
-/**
- * @author Ciprian on 5/10/2015.
- *         <p>
- *         rain
- */
 @Entity
 public class Obiectiv {
+    private long idObiectiv;
     private String nume;
     private String descriere;
     private long idProiect;
     private long idMilestone;
+
+    @Id
+    @Column(name = "id_obiectiv")
+    public long getIdObiectiv() {
+        return idObiectiv;
+    }
+
+    public void setIdObiectiv(long idObiectiv) {
+        this.idObiectiv = idObiectiv;
+    }
 
     @Basic
     @Column(name = "nume", nullable = false, insertable = true, updatable = true, length = 150)

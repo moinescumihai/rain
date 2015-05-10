@@ -7,11 +7,6 @@ import javax.persistence.Id;
 import java.sql.Date;
 import java.sql.Timestamp;
 
-/**
- * @author Ciprian on 5/10/2015.
- *         <p>
- *         rain
- */
 @Entity
 public class Proiect {
     private long idProiect;

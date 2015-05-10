@@ -6,11 +6,6 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import java.sql.Timestamp;
 
-/**
- * @author Ciprian on 5/10/2015.
- *         <p>
- *         rain
- */
 @Entity
 public class Fisiere {
     private long idFile;

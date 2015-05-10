@@ -6,11 +6,6 @@ import javax.persistence.Id;
 import java.sql.Date;
 import java.sql.Timestamp;
 
-/**
- * @author Ciprian on 5/10/2015.
- *         <p>
- *         rain
- */
 @Entity
 @javax.persistence.Table(name = "resurse_umane", schema = "", catalog = "raindrop")
 public class ResurseUmane {

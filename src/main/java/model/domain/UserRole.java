@@ -1,20 +1,23 @@
 package model.domain;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 
-/**
- * @author Ciprian on 5/10/2015.
- *         <p>
- *         rain
- */
 @Entity
 @Table(name = "user_role", schema = "", catalog = "raindrop")
 public class UserRole {
+    private long idRole;
     private String username;
     private String role;
+
+    @Id
+    @Column(name = "id_role")
+    public long getIdRole() {
+        return idRole;
+    }
+
+    public void setIdRole(long idRole) {
+        this.idRole = idRole;
+    }
 
     @Basic
     @Column(name = "username", nullable = false, insertable = true, updatable = true, length = 150)

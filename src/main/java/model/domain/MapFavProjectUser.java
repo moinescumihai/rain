@@ -1,20 +1,23 @@
 package model.domain;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 
-/**
- * @author Ciprian on 5/10/2015.
- *         <p>
- *         rain
- */
 @Entity
 @Table(name = "map_fav_project_user", schema = "", catalog = "raindrop")
 public class MapFavProjectUser {
+    private long idMapFavProjectUser;
     private int idUser;
     private long idProiect;
+
+    @Id
+    @Column(name = "id_map_fav_project_user")
+    public long getIdMapFavProjectUser() {
+        return idMapFavProjectUser;
+    }
+
+    public void setIdMapFavProjectUser(long idMapFavProjectUser) {
+        this.idMapFavProjectUser = idMapFavProjectUser;
+    }
 
     @Basic
     @Column(name = "id_user", nullable = false, insertable = true, updatable = true)

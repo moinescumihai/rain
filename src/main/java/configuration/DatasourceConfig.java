@@ -60,23 +60,23 @@ public class DatasourceConfig {
 
         //Configures the used database dialect. This allows Hibernate to create SQL
         //that is optimized for the used database.
-        jpaProperties.put(PROPERTY_NAME_HIBERNATE_DIALECT, env.getRequiredProperty(PROPERTY_NAME_HIBERNATE_DIALECT));
+        jpaProperties.put(PROPERTY_NAME_HIBERNATE_DIALECT, env.getProperty(PROPERTY_NAME_HIBERNATE_DIALECT));
 
         //Specifies the action that is invoked to the database when the Hibernate
         //SessionFactory is created or closed.
-        jpaProperties.put(PROPERTY_NAME_HIBERNATE_HBM2DDL_AUTO, env.getRequiredProperty(PROPERTY_NAME_HIBERNATE_HBM2DDL_AUTO));
+        jpaProperties.put(PROPERTY_NAME_HIBERNATE_HBM2DDL_AUTO, env.getProperty(PROPERTY_NAME_HIBERNATE_HBM2DDL_AUTO));
 
         //Configures the naming strategy that is used when Hibernate creates
         //new database objects and schema elements
-        jpaProperties.put(PROPERTY_NAME_HIBERNATE_NAMING_STRATEGY, env.getRequiredProperty(PROPERTY_NAME_HIBERNATE_NAMING_STRATEGY));
+        jpaProperties.put(PROPERTY_NAME_HIBERNATE_NAMING_STRATEGY, env.getProperty(PROPERTY_NAME_HIBERNATE_NAMING_STRATEGY));
 
         //If the value of this property is true, Hibernate writes all SQL
         //statements to the console.
-        jpaProperties.put(PROPERTY_NAME_HIBERNATE_SHOW_SQL, env.getRequiredProperty(PROPERTY_NAME_HIBERNATE_SHOW_SQL));
+        jpaProperties.put(PROPERTY_NAME_HIBERNATE_SHOW_SQL, env.getProperty(PROPERTY_NAME_HIBERNATE_SHOW_SQL));
 
         //If the value of this property is true, Hibernate will use prettyprint
         //when it writes SQL to the console.
-        jpaProperties.put(PROPERTY_NAME_HIBERNATE_FORMAT_SQL, env.getRequiredProperty(PROPERTY_NAME_HIBERNATE_FORMAT_SQL));
+        jpaProperties.put(PROPERTY_NAME_HIBERNATE_FORMAT_SQL, env.getProperty(PROPERTY_NAME_HIBERNATE_FORMAT_SQL));
 
         entityManagerFactoryBean.setJpaProperties(jpaProperties);
 

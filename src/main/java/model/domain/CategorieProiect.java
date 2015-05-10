@@ -1,21 +1,25 @@
 package model.domain;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 
-/**
- * @author Ciprian on 5/10/2015.
- *         <p>
- *         rain
- */
+
 @Entity
 @Table(name = "categorie_proiect", schema = "", catalog = "raindrop")
 public class CategorieProiect {
+    private long idCategorieProiect;
     private String nume;
     private Integer idCategorieParinte;
     private Byte esteSubcategorie;
+
+    @Id
+    @Column(name="id_categorie_proiect")
+    public long getIdCategorieProiect() {
+        return idCategorieProiect;
+    }
+
+    public void setIdCategorieProiect(long idCategorieProiect) {
+        this.idCategorieProiect = idCategorieProiect;
+    }
 
     @Basic
     @Column(name = "nume", nullable = false, insertable = true, updatable = true, length = 150)

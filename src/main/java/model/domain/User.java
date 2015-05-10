@@ -3,22 +3,29 @@ package model.domain;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import java.sql.Timestamp;
 import java.util.Arrays;
 
-/**
- * @author Ciprian on 5/10/2015.
- *         <p>
- *         rain
- */
 @Entity
 public class User {
+    private long idUser;
     private String username;
     private String password;
     private Timestamp lastLogin;
     private Timestamp lastPassChange;
     private byte[] userphoto;
     private int enabled;
+
+    @Id
+    @Column(name = "id_user", nullable = false, updatable = true)
+    public long getIdUser() {
+        return idUser;
+    }
+
+    public void setIdUser(long idUser) {
+        this.idUser = idUser;
+    }
 
     @Basic
     @Column(name = "username", nullable = false, insertable = true, updatable = true, length = 45)

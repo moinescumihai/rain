@@ -4,11 +4,6 @@ import javax.persistence.*;
 import java.sql.Date;
 import java.sql.Timestamp;
 
-/**
- * @author Ciprian on 5/10/2015.
- *         <p>
- *         rain
- */
 @Entity
 @Table(name = "tranzactie_stoc", schema = "", catalog = "raindrop")
 public class TranzactieStoc {

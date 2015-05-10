@@ -3,11 +3,6 @@ package model.domain;
 import javax.persistence.*;
 import java.sql.Timestamp;
 
-/**
- * @author Ciprian on 5/10/2015.
- *         <p>
- *         rain
- */
 @Entity
 @Table(name = "chat_message", schema = "", catalog = "raindrop")
 public class ChatMessage {
