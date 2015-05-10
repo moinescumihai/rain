@@ -39,19 +39,19 @@
       <primary-key name="PRIMARY" columns="id_cashflow"/>
     </table>
     <table name="categorie_buget" schema="" catalog="raindrop" type="TABLE">
-      <column name="id_categorie_buget" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="id_categorie_buget" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" autoIncrement="true"/>
       <column name="nume" sqlType="VARCHAR" precision="150" scale="0" nullable="false" jdbcType="12"/>
       <primary-key name="PRIMARY" columns="id_categorie_buget"/>
     </table>
     <table name="categorie_proiect" schema="" catalog="raindrop" type="TABLE">
-      <column name="id_categorie_proiect" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="id_categorie_proiect" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" autoIncrement="true"/>
       <column name="nume" sqlType="VARCHAR" precision="150" scale="0" nullable="false" jdbcType="12"/>
       <column name="id_categorie_parinte" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4" def="MA=="/>
       <column name="este_subcategorie" sqlType="TINYINT" precision="3" scale="0" nullable="true" jdbcType="-6" def="MA=="/>
       <primary-key name="PRIMARY" columns="id_categorie_proiect"/>
     </table>
     <table name="categorie_stoc" schema="" catalog="raindrop" type="TABLE">
-      <column name="id_categorie_stoc" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="id_categorie_stoc" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" autoIncrement="true"/>
       <column name="nume" sqlType="VARCHAR" precision="150" scale="0" nullable="false" jdbcType="12"/>
       <column name="id_categorie_parinte" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4" def="MA=="/>
       <column name="este_subcategorie" sqlType="TINYINT" precision="3" scale="0" nullable="true" jdbcType="-6" def="MA=="/>
@@ -82,14 +82,6 @@
       <column name="id_tara" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
       <column name="id_industrie" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
       <primary-key name="PRIMARY" columns="id_client"/>
-    </table>
-    <table name="exceptions" schema="" catalog="raindrop" type="TABLE">
-      <column name="id_exception" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
-      <column name="class" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
-      <column name="message" sqlType="TEXT" precision="65535" scale="0" nullable="false" jdbcType="-1"/>
-      <column name="stacktrace" sqlType="LONGTEXT" precision="2147483647" scale="0" nullable="false" jdbcType="-1"/>
-      <column name="time" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93" def="Q1VSUkVOVF9USU1FU1RBTVA="/>
-      <primary-key name="PRIMARY" columns="id_exception"/>
     </table>
     <table name="fisiere" schema="" catalog="raindrop" type="TABLE">
       <column name="id_file" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" autoIncrement="true"/>
@@ -151,13 +143,13 @@
       <primary-key name="PRIMARY" columns="id_tara"/>
     </table>
     <table name="map_fav_project_user" schema="" catalog="raindrop" type="TABLE">
-      <column name="idmap_fav_project_user" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" autoIncrement="true"/>
+      <column name="id_map_fav_project_user" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" autoIncrement="true"/>
       <column name="id_user" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
       <column name="id_proiect" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
-      <primary-key name="PRIMARY" columns="idmap_fav_project_user"/>
+      <primary-key name="PRIMARY" columns="id_map_fav_project_user"/>
     </table>
     <table name="obiectiv" schema="" catalog="raindrop" type="TABLE">
-      <column name="id_obiectiv" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="id_obiectiv" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" autoIncrement="true"/>
       <column name="nume" sqlType="VARCHAR" precision="150" scale="0" nullable="false" jdbcType="12"/>
       <column name="descriere" sqlType="LONGTEXT" precision="2147483647" scale="0" nullable="true" jdbcType="-1"/>
       <column name="id_proiect" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
@@ -165,7 +157,7 @@
       <primary-key name="PRIMARY" columns="id_obiectiv"/>
     </table>
     <table name="organigrama" schema="" catalog="raindrop" type="TABLE">
-      <column name="id_organigrama" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="id_organigrama" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" autoIncrement="true"/>
       <column name="id_parinte" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
       <column name="id_fiu" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
       <primary-key name="PRIMARY" columns="id_organigrama"/>
@@ -241,7 +233,7 @@
       <primary-key name="PRIMARY" columns="id_risc"/>
     </table>
     <table name="roles" schema="" catalog="raindrop" type="TABLE">
-      <column name="id_role" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="id_role" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" autoIncrement="true"/>
       <column name="role" sqlType="VARCHAR" precision="150" scale="0" nullable="false" jdbcType="12"/>
       <primary-key name="PRIMARY" columns="id_role"/>
     </table>
@@ -275,7 +267,7 @@
       <index name="cod_stoc_UNIQUE" unique="true" columns="cod_stoc"/>
     </table>
     <table name="tip_contract" schema="" catalog="raindrop" type="TABLE">
-      <column name="id_tip_contract" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="id_tip_contract" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" autoIncrement="true"/>
       <column name="nume_tip_contract" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
       <column name="durata_contract" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
       <column name="descriere_tip_contract" sqlType="TEXT" precision="65535" scale="0" nullable="true" jdbcType="-1"/>
@@ -283,6 +275,7 @@
     </table>
     <table name="to_do" schema="" catalog="raindrop" type="TABLE">
       <column name="id_to_do" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" autoIncrement="true"/>
+      <column name="id_proiect" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" def="MA=="/>
       <column name="nume" sqlType="VARCHAR" precision="150" scale="0" nullable="false" jdbcType="12"/>
       <column name="valoare" sqlType="TEXT" precision="65535" scale="0" nullable="false" jdbcType="-1"/>
       <column name="id_user" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
@@ -302,24 +295,24 @@
       <primary-key name="PRIMARY" columns="id_tranzactie_stoc"/>
     </table>
     <table name="u_m_buget" schema="" catalog="raindrop" type="TABLE">
-      <column name="id_u_m_buget" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="id_u_m_buget" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" autoIncrement="true"/>
       <column name="nume" sqlType="VARCHAR" precision="150" scale="0" nullable="true" jdbcType="12"/>
       <primary-key name="PRIMARY" columns="id_u_m_buget"/>
     </table>
     <table name="u_m_pontaj" schema="" catalog="raindrop" type="TABLE">
-      <column name="id_u_m_pontaj" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="id_u_m_pontaj" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" autoIncrement="true"/>
       <column name="nume" sqlType="VARCHAR" precision="150" scale="0" nullable="false" jdbcType="12"/>
       <column name="valoare" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
       <primary-key name="PRIMARY" columns="id_u_m_pontaj"/>
     </table>
     <table name="u_m_stoc" schema="" catalog="raindrop" type="TABLE">
-      <column name="id_u_m_stoc" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="id_u_m_stoc" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" autoIncrement="true"/>
       <column name="nume" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
       <column name="sistem" sqlType="ENUM" precision="8" scale="0" nullable="false" jdbcType="1"/>
       <primary-key name="PRIMARY" columns="id_u_m_stoc"/>
     </table>
     <table name="user" schema="" catalog="raindrop" type="TABLE">
-      <column name="id_user" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="id_user" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" autoIncrement="true"/>
       <column name="username" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
       <column name="password" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
       <column name="last_login" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93"/>
@@ -329,7 +322,7 @@
       <primary-key name="PRIMARY" columns="id_user"/>
     </table>
     <table name="user_role" schema="" catalog="raindrop" type="TABLE">
-      <column name="id_role" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="id_role" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" autoIncrement="true"/>
       <column name="username" sqlType="VARCHAR" precision="150" scale="0" nullable="false" jdbcType="12"/>
       <column name="role" sqlType="VARCHAR" precision="150" scale="0" nullable="false" jdbcType="12"/>
       <primary-key name="PRIMARY" columns="id_role"/>
