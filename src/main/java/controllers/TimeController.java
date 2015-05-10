@@ -9,7 +9,7 @@ import org.springframework.web.servlet.ModelAndView;
 public class TimeController {
 
     @RequestMapping(value = "/time", method = RequestMethod.GET)
-    public ModelAndView time(){
+    public ModelAndView time() {
         ModelAndView model = new ModelAndView();
 
         model.setViewName("time");

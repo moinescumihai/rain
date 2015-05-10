@@ -156,7 +156,7 @@ public class AppConfig extends WebMvcConfigurerAdapter {
     }
 
     @Bean
-    public HttpSessionCsrfTokenRepository httpSessionCsrfTokenRepository(){
+    public HttpSessionCsrfTokenRepository httpSessionCsrfTokenRepository() {
         HttpSessionCsrfTokenRepository httpSessionCsrfTokenRepository = new HttpSessionCsrfTokenRepository();
         httpSessionCsrfTokenRepository.setHeaderName("X-SECURITY");
 
@@ -164,7 +164,7 @@ public class AppConfig extends WebMvcConfigurerAdapter {
     }
 
     @Bean
-    public CsrfFilter csrfFilter(HttpSessionCsrfTokenRepository httpSessionCsrfTokenRepository){
+    public CsrfFilter csrfFilter(HttpSessionCsrfTokenRepository httpSessionCsrfTokenRepository) {
         httpSessionCsrfTokenRepository.setHeaderName("X-SECURITY");
 
         return new CsrfFilter(httpSessionCsrfTokenRepository);

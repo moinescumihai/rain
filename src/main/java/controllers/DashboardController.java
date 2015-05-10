@@ -6,14 +6,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-public class MainController {
+public class DashboardController {
 
-    @RequestMapping(value = {"/overview","/"}, method = RequestMethod.GET)
-    public ModelAndView overview(){
+    @RequestMapping(value = {"/dashboard", "/"}, method = RequestMethod.GET)
+    public ModelAndView overview() {
         ModelAndView model = new ModelAndView();
 
 
-        model.setViewName("main");
+        model.setViewName("dashboard");
 
         return model;
     }

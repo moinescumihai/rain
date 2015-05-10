@@ -11,3 +11,8 @@
     <div></div>
     [/@content]
 [/@layout.basic]
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('#projects').addClass('active');
+    });
+</script>

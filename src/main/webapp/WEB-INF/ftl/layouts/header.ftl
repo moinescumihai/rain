@@ -1,18 +1,18 @@
 [#ftl]
-<div class="navbar navbar-default navbar-fixed-top navbar-inverse unselectable" role="navigation">
+<nav class="navbar navbar-inverse navbar-fixed-top unselectable" role="navigation">
     <div class="container">
         <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
                 <span class="sr-only">Toggle navigation</span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/"><img style="height:55px;width: auto; display: inline;" src="/img/raindrop-logo.png" /></a>
+            <a class="navbar-brand" href="/"><img style="height:55px;width: auto; display: inline;" src="/img/raindrop-logo.png"/></a>
         </div>
-        <div class="navbar-collapse collapse">
+        <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <li id="overview"><a href="/overview">[@spring.message "OVERVIEW"/]</a></li>
+                <li id="dashboard"><a href="/">[@spring.message "DASHBOARD"/]</a></li>
                 <li id="projects"><a href="/projects">[@spring.message "PROJECTS"/]</a></li>
                 <li id="tasks"><a href="/tasks">[@spring.message "TASKS"/]</a></li>
                 <li id="personnel"><a href="/personnel">[@spring.message "PERSONNEL"/]</a></li>
@@ -23,138 +23,51 @@
                 <li id="reports"><a href="/reports">[@spring.message "REPORTS"/]</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li class="hidden-xs"><a class="dropdown-toggle" href="javascript:;" data-toggle="dropdown" title="Notifications"><span class="fa fa-bell fa-lg icon-animated-bell"><span class="count-circle count-circle-middle slide-up">1</span></span></a>
-                    <div class="dropdown-menu" role="menu" style="min-width:250px;">
-                        <div class="list-group margin-bottom-5">
-                            <a href="javascript:;" class="list-group-item small"><span class="badge bg-warning pulse">5</span> Logging overages in sector C.</a>
-                            <a href="javascript:;" class="list-group-item small"><span class="badge bg-danger">14</span> <span class="text-warning">Users with request timed out.</span></a>
-                            <a href="javascript:;" class="list-group-item small"><span class="badge bg-success">0</span> Service errors since 12:01AM.</a>
-                            <a href="javascript:;" class="list-group-item small"><span class="badge">1</span> Blade server pending backup.</a>
-                        </div>
-                    </div>
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria=expanded="false" title="Notifications">
+                    <span class="fa fa-bell fa-lg icon-animated-bell">
+                    <span class="count-circle count-circle-middle slide-up">1</span>
+                    </span>
+                    </a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li class="dropdown-header"><i class=" fa fa-bell-o"></i> [@spring.message "NOTIFICATIONS"/] </li>
+                        <li class="divider"></li>
+                        <li class="bg-warning text-warninge -pulse"><a>Logging overages in sector C.</a></li>
+                        <li class="bg-danger text-danger"><a>Users with request timed out.</span></a></li>
+                        <li><a>Service errors since 12:01AM.</a></li>
+                        <li><a>Blade server pending backup.</a></li>
+                        <li class="divider"></li>
+                        <li class="dropdown-footer">
+                            <a href="/notifications"> [@spring.message "ALL_NOTIFICATIONS"/] <i class="fa fa-arrow-right"></i> </a>
+                        </li>
+                    </ul>
                 </li>
 
                 <li class="dropdown">
-                    <a id="messages" class="dropdown-toggle" href="javascript:;" data-toggle="dropdown" title="Messages">
+                    <a id="messages" class="dropdown-toggle" data-toggle="dropdown" title="Messages">
                         <span id="new-message-received" class="fa fa-envelope fa-lg">
                             <span id="message-count"></span>
                         </span>
                     </a>
                     <ul class="dropdown-menu pull-right">
-                        <li class="dropdown-header">
-                            <i class=" fa fa-envelope-o"></i>
-                            5 Messages
-                        </li>
-
-                        <li><a id="user-message"><span id="user">Salut, am venit si eu</span></a> </li>
-                        <li class="dropdown-content ace-scroll" style="position: relative;"><div class="scroll-track scroll-active" style="display: block; height: 200px;"><div class="scroll-bar" style="height: 111px; top: 0px;"></div></div><div class="scroll-content" style="max-height: 200px;">
-                            <ul class="dropdown-menu dropdown-navbar">
-                                <li>
-                                    <a href="#" class="clearfix">
-                                        <img src="http://api.randomuser.me/portraits/men/3.jpg" class="msg-photo" alt="Alex's Avatar">
-                                        <span class="msg-body">
-                                            <span class="msg-title">
-                                                <span class="blue">Alex:</span>
-                                                Ciao sociis natoque penatibus et auctor ...
-                                            </span>
-
-                                            <span class="msg-time">
-                                                <i class=" fa fa-clock-o"></i>
-                                                <span>a moment ago</span>
-                                            </span>
-                                        </span>
-                                    </a>
-                                </li>
-
-                                <li>
-                                    <a href="#" class="clearfix">
-                                        <img src="http://api.randomuser.me/portraits/men/4.jpg" class="msg-photo" alt="Susan's Avatar">
-                                        <span class="msg-body">
-                                            <span class="msg-title">
-                                                <span class="blue">Susan:</span>
-                                                Vestibulum id ligula porta felis euismod ...
-                                            </span>
-
-                                            <span class="msg-time">
-                                                <i class=" fa fa-clock-o"></i>
-                                                <span>20 minutes ago</span>
-                                            </span>
-                                        </span>
-                                    </a>
-                                </li>
-
-                                <li>
-                                    <a href="#" class="clearfix">
-                                        <img src="http://api.randomuser.me/portraits/men/2.jpg" class="msg-photo" alt="Bob's Avatar">
-                                        <span class="msg-body">
-                                            <span class="msg-title">
-                                                <span class="blue">Bob:</span>
-                                                Nullam quis risus eget urna mollis ornare ...
-                                            </span>
-
-                                            <span class="msg-time">
-                                                <i class=" fa fa-clock-o"></i>
-                                                <span>3:15 pm</span>
-                                            </span>
-                                        </span>
-                                    </a>
-                                </li>
-
-                                <li>
-                                    <a href="#" class="clearfix">
-                                        <img src="http://api.randomuser.me/portraits/men/4.jpg" class="msg-photo" alt="Kate's Avatar">
-                                        <span class="msg-body">
-                                            <span class="msg-title">
-                                                <span class="blue">Kate:</span>
-                                                Ciao sociis natoque eget urna mollis ornare ...
-                                            </span>
-
-                                            <span class="msg-time">
-                                                <i class=" fa fa-clock-o"></i>
-                                                <span>1:33 pm</span>
-                                            </span>
-                                        </span>
-                                    </a>
-                                </li>
-
-                                <li>
-                                    <a href="#" class="clearfix">
-                                        <img src="http://api.randomuser.me/portraits/men/4.jpg" class="msg-photo" alt="Fred's Avatar">
-                                        <span class="msg-body">
-                                            <span class="msg-title">
-                                                <span class="blue">Fred:</span>
-                                                Vestibulum id penatibus et auctor  ...
-                                            </span>
-
-                                            <span class="msg-time">
-                                                <i class=" fa fa-clock-o"></i>
-                                                <span>10:09 am</span>
-                                            </span>
-                                        </span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                        </li>
-
-                        <li class="dropdown-footer">
-                            <a href="inbox.html">
-                                See all messages
-                                <i class=" fa fa-arrow-right"></i>
-                            </a>
-                        </li>
-                        <li class="dropdown-header text-center"><span class="fa fa-envelope-o">&nbsp;[@spring.message "UNREAD.MESSAGES"/]</span></li>
+                        <li class="dropdown-header"><i class=" fa fa-envelope-o"></i> [@spring.message "MESSAGES"/] </li>
+                        <li class="divider"></li>
+                        <li><a id="user-message"><span id="user">Salut, am venit si eu</span></a></li>
                         <li><a>FW: All developers on the Trello..</a></li>
                         <li><a>Notice from corporate---- Your HR..</a></li>
                         <li><a>Hi Joe, I left the keys for the..</a></li>
                         <li><a>All, The SPG group will meet every..</a></li>
+                        <li class="divider"></li>
+                        <li class="dropdown-footer">
+                            <a href="/inbox"> [@spring.message "ALL_MESSAGES"/] <i class="fa fa-arrow-right"></i> </a>
+                        </li>
+
                     </ul>
                 </li>
 
                 <li class="dropdown">
-                    <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" style="padding-top:7px;padding-bottom:6px;">
+                    <a class="dropdown-toggle" data-toggle="dropdown" style="padding-top:7px;padding-bottom:6px;">
                         <img width="36px" class="img-rounded" src="http://api.randomuser.me/portraits/men/4.jpg">
-                        <span>${.template_name}</span>
                     </a>
                     <ul class="dropdown-menu pull-right">
                         <li data-toggle="modal" data-target="#userprofile">
@@ -171,10 +84,7 @@
                         </li>
                     </ul>
                 </li>
-
             </ul>
         </div>
-        <!--/.nav-collapse -->
     </div>
-</div>
-<!-- Fixed navbar -->
+</nav>

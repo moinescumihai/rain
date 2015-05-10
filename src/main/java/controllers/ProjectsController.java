@@ -23,14 +23,14 @@ public class ProjectsController {
 
 
     @RequestMapping(value = "/projects", method = RequestMethod.GET)
-    public ModelAndView getProjects(){
+    public ModelAndView getProjects() {
         ModelAndView model = new ModelAndView();
 
-        Map<Integer,String> listaIndustrie = new HashMap<>();
+        Map<Integer, String> listaIndustrie = new HashMap<>();
         for (Industrie industry : industrieDAO.findAll()) {
             listaIndustrie.put(industry.getIdIndustrie(), industry.getNume());
         }
-        Map<Integer,String> listaTari = new HashMap<>();
+        Map<Integer, String> listaTari = new HashMap<>();
         for (ListaTari tariList : tariDAO.findAll()) {
             listaTari.put(tariList.getIdTara(), tariList.getNume());
         }

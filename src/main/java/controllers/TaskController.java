@@ -9,7 +9,7 @@ import org.springframework.web.servlet.ModelAndView;
 public class TaskController {
 
     @RequestMapping(value = "/tasks", method = RequestMethod.GET)
-    public ModelAndView tasks(){
+    public ModelAndView tasks() {
         ModelAndView model = new ModelAndView();
 
 

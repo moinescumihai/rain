@@ -11,3 +11,8 @@
     <div></div>
     [/@content]
 [/@layout.basic]
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('#tasks').addClass('active');
+    });
+</script>

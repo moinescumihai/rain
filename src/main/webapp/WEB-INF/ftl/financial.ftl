@@ -1,6 +1,6 @@
 [#ftl]
-[#import "layouts/layouts.ftl" as layout]
-[#include "content.ftl"]
+[#import "layouts/layouts.ftl" as layout /]
+[#include "content.ftl" /]
 [@layout.basic]
     [@sidebar]
     <div>
@@ -11,3 +11,8 @@
     <div></div>
     [/@content]
 [/@layout.basic]
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('#financial').addClass('active');
+    });
+</script>

@@ -129,7 +129,7 @@ function toJSDate(dateParam, timeParam, locale) {
 function showModal(id, title, content, buttons) {
     var modalHtml = '';
     var modalId = '#' + id;
-    if(!buttons){
+    if (!buttons) {
         buttons = '<button type="button" id="' + id + '-close" class="btn btn-default" data-dismiss="modal"><span class="fa fa-times">&nbsp;</span>Close</button>';
     }
     if (id && title && content) {
@@ -153,6 +153,10 @@ function showModal(id, title, content, buttons) {
     }
 }
 
+function formSubmit() {
+    document.getElementById("logoutForm").submit();
+}
+
 $(window).scroll(function () {
     if ($(document).scrollTop() > 0) {
         $('#scrollUp').fadeIn(400)
@@ -163,6 +167,15 @@ $(window).scroll(function () {
 
 $(document).ready(function () {
     $('#an-copyright').text(new Date().getFullYear());
+
+    $(".chosen-select").chosen({
+        disable_search_threshold: 10,
+        allow_single_deselect: true,
+        inherit_select_classes: true,
+        search_contains: true,
+        width: '100%'
+    });
+
     $('a').on('click', function (e) {
         var linkLocation = $($(this).attr('href')).offset();
         if (linkLocation)

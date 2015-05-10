@@ -15,7 +15,9 @@
     <meta name="_csrf" content="${_csrf.token}"/>
     <meta name="_csrf_header" content="${_csrf.headerName}"/>
 
-    <title>[@spring.messageText "WELCOME" "Welcome to Raindrop" /]</title>
+    <link rel="icon" href="/img/raindrop-logo.png">
+
+    <title>[@spring.message "WELCOME"/]</title>
 
     <link href="/css/bootstrap.min.css" rel="stylesheet">
     <link href="/css/raindrop.css" rel="stylesheet">
@@ -37,10 +39,10 @@
             <div class="msg">[@spring.message "LOGOUTMSG" /]</div>
         [/#if]
             <div>
-                <input name="username" id="username" autocomplete="off" type="text" class="form-control" placeholder="[@spring.messageText "USER" "username" /]"/>
+                <input name="username" id="username" autocomplete="off" type="text" class="form-control" placeholder="[@spring.message "USER"/]"/>
             </div>
             <div>
-                <input name="password" id="password" type="password" autocomplete="off" class="form-control" placeholder="[@spring.messageText "PASSWORD" "password" /]"/>
+                <input name="password" id="password" type="password" autocomplete="off" class="form-control" placeholder="[@spring.message "PASSWORD"/]"/>
             </div>
             <button id="btnLogin" class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
             <div class="lost-pass">
@@ -51,10 +53,8 @@
     </div>
 
     <div class="custom-footer">
-        <a id="scrollUp" href="#top" style="position: fixed; z-index: 2147483647; display: none;"></a>
-
         <p><span class="copyright">Copyright &copy; &middot; <span class="green">Raindrop Solutions <span
-                id="an-copyright"></span></span>&bull;&nbsp;<a>[@spring.messageText "APPTITLE" "Raindrop" /]</a></p>
+                id="an-copyright"></span></span>&bull;&nbsp;<a>[@spring.message "APPTITLE"/]</a></p>
     </div>
 
 </div>
@@ -67,6 +67,7 @@
 </html>
 <script type="text/javascript">
     $(document).ready(function () {
+        $('#an-copyright').text(new Date().getFullYear());
         $('#username').focus();
     });
 </script>

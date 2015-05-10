@@ -23,11 +23,7 @@ import java.util.Properties;
 @EnableTransactionManagement
 public class DatasourceConfig {
 
-    @Autowired
-    private Environment env;
-
     private static final String[] ENTITY_PACKAGES = {"model"};
-
     private static final String PROPERTY_NAME_DB_DRIVER_CLASS = "db.driver";
     private static final String PROPERTY_NAME_DB_PASSWORD = "db.password";
     private static final String PROPERTY_NAME_DB_URL = "db.url";
@@ -37,6 +33,8 @@ public class DatasourceConfig {
     private static final String PROPERTY_NAME_HIBERNATE_HBM2DDL_AUTO = "hibernate.hbm2ddl.auto";
     private static final String PROPERTY_NAME_HIBERNATE_NAMING_STRATEGY = "hibernate.ejb.naming_strategy";
     private static final String PROPERTY_NAME_HIBERNATE_SHOW_SQL = "hibernate.show_sql";
+    @Autowired
+    private Environment env;
 
     @Bean(destroyMethod = "close")
     public DataSource dataSource() {
@@ -86,7 +84,8 @@ public class DatasourceConfig {
     /**
      * Creates the transaction manager bean that integrates the used JPA provider with the
      * Spring transaction mechanism.
-     * @param entityManagerFactory  The used JPA entity manager factory.
+     *
+     * @param entityManagerFactory The used JPA entity manager factory.
      * @return
      */
     @Bean

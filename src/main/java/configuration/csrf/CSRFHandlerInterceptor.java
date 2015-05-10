@@ -10,7 +10,7 @@ public class CSRFHandlerInterceptor extends HandlerInterceptorAdapter {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 
-        if (!request.getMethod().equalsIgnoreCase("POST") ) {
+        if (!request.getMethod().equalsIgnoreCase("POST")) {
             // Not a POST - allow the request
             return true;
         } else {

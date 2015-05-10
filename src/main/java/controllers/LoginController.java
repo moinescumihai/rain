@@ -11,11 +11,11 @@ public class LoginController {
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public ModelAndView login(@RequestParam(value = "error", required = false) String error,
-                                  @RequestParam(value = "logout", required = false) String logout,
-                                  @RequestParam(value = "lang", required = false) String lang) {
+                              @RequestParam(value = "logout", required = false) String logout,
+                              @RequestParam(value = "lang", required = false) String lang) {
         ModelAndView model = new ModelAndView();
         if (error != null) {
-            model.addObject("error",true);
+            model.addObject("error", true);
         }
         if (logout != null) {
             model.addObject("msg", true);

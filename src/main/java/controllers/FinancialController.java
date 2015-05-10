@@ -9,7 +9,7 @@ import org.springframework.web.servlet.ModelAndView;
 public class FinancialController {
 
     @RequestMapping(value = "/financial", method = RequestMethod.GET)
-    public ModelAndView financial(){
+    public ModelAndView financial() {
         ModelAndView model = new ModelAndView();
 
 

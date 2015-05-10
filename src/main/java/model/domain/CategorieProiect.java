@@ -12,7 +12,7 @@ public class CategorieProiect {
     private Byte esteSubcategorie;
 
     @Id
-    @Column(name="id_categorie_proiect")
+    @Column(name = "id_categorie_proiect")
     public long getIdCategorieProiect() {
         return idCategorieProiect;
     }

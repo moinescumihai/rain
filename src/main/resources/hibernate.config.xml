@@ -1,44 +1,44 @@
 <?xml version='1.0' encoding='utf-8'?>
 <!DOCTYPE hibernate-configuration PUBLIC
-    "-//Hibernate/Hibernate Configuration DTD//EN"
-    "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+        "-//Hibernate/Hibernate Configuration DTD//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
-  <session-factory>
-    <property name="connection.url">jdbc:mysql://localhost:3306/raindrop</property>
-    <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
-    <mapping class="model.domain.BugetProiect"/>
-    <mapping resource="hibernate-mapping.xml"/>
-    <mapping class="model.domain.Cashflow"/>
-    <mapping class="model.domain.CategorieBuget"/>
-    <mapping class="model.domain.CategorieProiect"/>
-    <mapping class="model.domain.CategorieStoc"/>
-    <mapping class="model.domain.ChatMessage"/>
-    <mapping class="model.domain.Client"/>
-    <mapping class="model.domain.Fisiere"/>
-    <mapping class="model.domain.GantAssigs"/>
-    <mapping class="model.domain.GantProiect"/>
-    <mapping class="model.domain.GantTask"/>
-    <mapping class="model.domain.Industrie"/>
-    <mapping class="model.domain.ListaTari"/>
-    <mapping class="model.domain.MapFavProjectUser"/>
-    <mapping class="model.domain.Obiectiv"/>
-    <mapping class="model.domain.Organigrama"/>
-    <mapping class="model.domain.Pontaj"/>
-    <mapping class="model.domain.Proiect"/>
-    <mapping class="model.domain.ResurseUmane"/>
-    <mapping class="model.domain.Risc"/>
-    <mapping class="model.domain.Roles"/>
-    <mapping class="model.domain.StatusProiect"/>
-    <mapping class="model.domain.Stoc"/>
-    <mapping class="model.domain.TipContract"/>
-    <mapping class="model.domain.ToDo"/>
-    <mapping class="model.domain.TranzactieStoc"/>
-    <mapping class="model.domain.UMBuget"/>
-    <mapping class="model.domain.UMPontaj"/>
-    <mapping class="model.domain.UMStoc"/>
-    <mapping class="model.domain.User"/>
-    <mapping class="model.domain.UserRole"/>
-    <!-- DB schema will be updated if needed -->
-    <!-- <property name="hbm2ddl.auto">update</property> -->
-  </session-factory>
+    <session-factory>
+        <property name="connection.url">jdbc:mysql://localhost:3306/raindrop</property>
+        <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
+        <mapping class="model.domain.BugetProiect"/>
+        <mapping resource="hibernate-mapping.xml"/>
+        <mapping class="model.domain.Cashflow"/>
+        <mapping class="model.domain.CategorieBuget"/>
+        <mapping class="model.domain.CategorieProiect"/>
+        <mapping class="model.domain.CategorieStoc"/>
+        <mapping class="model.domain.ChatMessage"/>
+        <mapping class="model.domain.Client"/>
+        <mapping class="model.domain.Fisiere"/>
+        <mapping class="model.domain.GantAssigs"/>
+        <mapping class="model.domain.GantProiect"/>
+        <mapping class="model.domain.GantTask"/>
+        <mapping class="model.domain.Industrie"/>
+        <mapping class="model.domain.ListaTari"/>
+        <mapping class="model.domain.MapFavProjectUser"/>
+        <mapping class="model.domain.Obiectiv"/>
+        <mapping class="model.domain.Organigrama"/>
+        <mapping class="model.domain.Pontaj"/>
+        <mapping class="model.domain.Proiect"/>
+        <mapping class="model.domain.ResurseUmane"/>
+        <mapping class="model.domain.Risc"/>
+        <mapping class="model.domain.Roles"/>
+        <mapping class="model.domain.StatusProiect"/>
+        <mapping class="model.domain.Stoc"/>
+        <mapping class="model.domain.TipContract"/>
+        <mapping class="model.domain.ToDo"/>
+        <mapping class="model.domain.TranzactieStoc"/>
+        <mapping class="model.domain.UMBuget"/>
+        <mapping class="model.domain.UMPontaj"/>
+        <mapping class="model.domain.UMStoc"/>
+        <mapping class="model.domain.User"/>
+        <mapping class="model.domain.UserRole"/>
+        <!-- DB schema will be updated if needed -->
+        <!-- <property name="hbm2ddl.auto">update</property> -->
+    </session-factory>
 </hibernate-configuration>

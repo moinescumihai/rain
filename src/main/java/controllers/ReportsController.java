@@ -9,7 +9,7 @@ import org.springframework.web.servlet.ModelAndView;
 public class ReportsController {
 
     @RequestMapping(value = "/reports", method = RequestMethod.GET)
-    public ModelAndView reports(){
+    public ModelAndView reports() {
         ModelAndView model = new ModelAndView();
 
 
