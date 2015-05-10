@@ -36,7 +36,7 @@
     position: fixed!important;
     bottom: 0;
     width: 100%;
-    padding: 10px 15px;
+    padding: 0px 15px;
     /* Set the fixed height of the footer here */
     height: 40px;
     background-color: rgba(176, 176, 176, 0.91);
@@ -554,7 +554,7 @@
 }
 
 .green {
-    color: #4ac847;
+    color: #397937;
     font-size: 13pt;
 }
 
