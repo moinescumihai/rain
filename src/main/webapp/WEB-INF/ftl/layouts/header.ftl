@@ -71,7 +71,7 @@
                     </a>
                     <ul class="dropdown-menu pull-right">
                         <li data-toggle="modal" data-target="#userprofile">
-                            <a href="#userprofile" onclick="getRaindropUser();"><span class="fa fa-user fa-fw">&nbsp;</span>[@spring.message "PROFILE"/]</a>
+                            <a href="/app/secure/profile/admin"><span class="fa fa-user fa-fw">&nbsp;</span>[@spring.message "PROFILE"/]</a>
                         </li>
                         <li><a data-toggle="modal" data-target="#settings" href="#settings">
                             <span class="fa fa-cogs fa-fw">&nbsp;</span>[@spring.message "SETTINGS"/]</a>

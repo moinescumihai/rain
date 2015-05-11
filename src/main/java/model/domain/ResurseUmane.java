@@ -1,5 +1,10 @@
 package model.domain;
 
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedBy;
+import org.springframework.data.annotation.LastModifiedDate;
+
 import javax.persistence.Basic;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -312,6 +317,7 @@ public class ResurseUmane {
     }
 
     @Basic
+    @CreatedBy
     @javax.persistence.Column(name = "creat_de", nullable = false, insertable = true, updatable = true, length = 150)
     public String getCreatDe() {
         return creatDe;
@@ -322,6 +328,7 @@ public class ResurseUmane {
     }
 
     @Basic
+    @CreatedDate
     @javax.persistence.Column(name = "creat_la", nullable = true, insertable = true, updatable = true)
     public Timestamp getCreatLa() {
         return creatLa;
@@ -332,6 +339,7 @@ public class ResurseUmane {
     }
 
     @Basic
+    @LastModifiedBy
     @javax.persistence.Column(name = "modificat_de", nullable = true, insertable = true, updatable = true, length = 150)
     public String getModificatDe() {
         return modificatDe;
@@ -342,6 +350,7 @@ public class ResurseUmane {
     }
 
     @Basic
+    @LastModifiedDate
     @javax.persistence.Column(name = "modificat_la", nullable = true, insertable = true, updatable = true)
     public Timestamp getModificatLa() {
         return modificatLa;

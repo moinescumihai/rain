@@ -19,6 +19,8 @@
             <element id="library" level="project" name="Maven: org.springframework:spring-tx:4.1.6.RELEASE" />
             <element id="library" level="project" name="Maven: org.springframework:spring-orm:4.1.6.RELEASE" />
             <element id="library" level="project" name="Maven: org.springframework:spring-jdbc:4.1.6.RELEASE" />
+            <element id="library" level="project" name="Maven: org.springframework:spring-aspects:4.1.6.RELEASE" />
+            <element id="library" level="project" name="Maven: org.aspectj:aspectjweaver:1.8.5" />
             <element id="library" level="project" name="Maven: org.springframework:spring-oxm:4.1.6.RELEASE" />
             <element id="library" level="project" name="Maven: org.springframework:spring-web:4.1.6.RELEASE" />
             <element id="library" level="project" name="Maven: org.springframework:spring-webmvc:4.1.6.RELEASE" />
@@ -141,6 +143,9 @@
       </driver-properties>
       <libraries />
     </data-source>
+  </component>
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/src/main/java/controllers/rest/ProfileRestController.java" charset="UTF-8" />
   </component>
   <component name="EntryPointsManager">
     <entry_points version="2.0" />
@@ -1188,6 +1193,17 @@
         <root url="jar://$MAVEN_REPOSITORY$/org/aspectj/aspectjrt/1.8.5/aspectjrt-1.8.5-sources.jar!/" />
       </SOURCES>
     </library>
+    <library name="Maven: org.aspectj:aspectjweaver:1.8.5">
+      <CLASSES>
+        <root url="jar://$MAVEN_REPOSITORY$/org/aspectj/aspectjweaver/1.8.5/aspectjweaver-1.8.5.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar://$MAVEN_REPOSITORY$/org/aspectj/aspectjweaver/1.8.5/aspectjweaver-1.8.5-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar://$MAVEN_REPOSITORY$/org/aspectj/aspectjweaver/1.8.5/aspectjweaver-1.8.5-sources.jar!/" />
+      </SOURCES>
+    </library>
     <library name="Maven: org.codehaus.jackson:jackson-core-asl:1.8.3">
       <CLASSES>
         <root url="jar://$MAVEN_REPOSITORY$/org/codehaus/jackson/jackson-core-asl/1.8.3/jackson-core-asl-1.8.3.jar!/" />
@@ -1494,6 +1510,17 @@
       </JAVADOC>
       <SOURCES>
         <root url="jar://$MAVEN_REPOSITORY$/org/springframework/spring-aop/4.1.6.RELEASE/spring-aop-4.1.6.RELEASE-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Maven: org.springframework:spring-aspects:4.1.6.RELEASE">
+      <CLASSES>
+        <root url="jar://$MAVEN_REPOSITORY$/org/springframework/spring-aspects/4.1.6.RELEASE/spring-aspects-4.1.6.RELEASE.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar://$MAVEN_REPOSITORY$/org/springframework/spring-aspects/4.1.6.RELEASE/spring-aspects-4.1.6.RELEASE-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar://$MAVEN_REPOSITORY$/org/springframework/spring-aspects/4.1.6.RELEASE/spring-aspects-4.1.6.RELEASE-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: org.springframework:spring-beans:4.1.6.RELEASE">

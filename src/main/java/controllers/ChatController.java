@@ -31,7 +31,7 @@ public class ChatController {
         message.setUnitate(obj.getString("unitate"));
         message.setReceived(new Timestamp(System.currentTimeMillis()));
 
-        chatService.create(message);
+        chatService.save(message);
 
         return new Result(message.toString());
 

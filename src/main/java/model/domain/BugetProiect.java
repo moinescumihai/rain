@@ -1,5 +1,10 @@
 package model.domain;
 
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedBy;
+import org.springframework.data.annotation.LastModifiedDate;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 
@@ -144,6 +149,7 @@ public class BugetProiect {
     }
 
     @Basic
+    @CreatedBy
     @Column(name = "creat_de", nullable = false, insertable = true, updatable = true, length = 150)
     public String getCreatDe() {
         return creatDe;
@@ -154,6 +160,7 @@ public class BugetProiect {
     }
 
     @Basic
+    @CreatedDate
     @Column(name = "creat_la", nullable = true, insertable = true, updatable = true)
     public Timestamp getCreatLa() {
         return creatLa;
@@ -164,6 +171,7 @@ public class BugetProiect {
     }
 
     @Basic
+    @LastModifiedBy
     @Column(name = "modificat_de", nullable = true, insertable = true, updatable = true, length = 150)
     public String getModificatDe() {
         return modificatDe;
@@ -174,6 +182,7 @@ public class BugetProiect {
     }
 
     @Basic
+    @LastModifiedDate
     @Column(name = "modificat_la", nullable = false, insertable = true, updatable = true)
     public Timestamp getModificatLa() {
         return modificatLa;

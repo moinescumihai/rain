@@ -35,7 +35,7 @@ public class ChatMessageDecoder implements Decoder.Text<ChatMessage> {
         chatMessage.setUnitate(obj.getString("unitate"));
         chatMessage.setReceived(new Timestamp(System.currentTimeMillis()));
 
-        chatService.create(chatMessage);
+        chatService.save(chatMessage);
         return chatMessage;
     }
 

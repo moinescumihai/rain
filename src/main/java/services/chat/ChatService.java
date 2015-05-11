@@ -5,6 +5,6 @@ import model.domain.ChatMessage;
 
 public interface ChatService {
 
-    ChatMessage create(ChatMessage chatMessage);
+    ChatMessage save(ChatMessage chatMessage);
 
 }

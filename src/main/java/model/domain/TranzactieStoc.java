@@ -1,5 +1,8 @@
 package model.domain;
 
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.CreatedDate;
+
 import javax.persistence.*;
 import java.sql.Date;
 import java.sql.Timestamp;
@@ -99,6 +102,7 @@ public class TranzactieStoc {
     }
 
     @Basic
+    @CreatedBy
     @Column(name = "creat_de", nullable = false, insertable = true, updatable = true, length = 150)
     public String getCreatDe() {
         return creatDe;
@@ -109,6 +113,7 @@ public class TranzactieStoc {
     }
 
     @Basic
+    @CreatedDate
     @Column(name = "creat_la", nullable = true, insertable = true, updatable = true)
     public Timestamp getCreatLa() {
         return creatLa;
