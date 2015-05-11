@@ -10,7 +10,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 import services.ResurseUmaneService;
 import services.user.UserService;
 
@@ -54,16 +53,5 @@ public class ProfileRestController {
 
         User user = userService.findByUsername(name);
         return resurseUmaneService.findOne(user.getIdUser());
-    }
-
-    @ExceptionHandler(Exception.class)
-    public ModelAndView handleAllException(Exception e) {
-
-        ModelAndView model = new ModelAndView();
-        model.setViewName("error");
-        model.addObject("errMsg", "There was an error on the server. Please contact administrators!");
-
-        return model;
-
     }
 }
