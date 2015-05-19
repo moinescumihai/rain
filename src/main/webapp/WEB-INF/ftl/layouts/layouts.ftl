@@ -1,4 +1,5 @@
 [#ftl]
+[#assign security=JspTaglibs["http://www.springframework.org/security/tags"] /]
 [#macro basic]
 <!DOCTYPE html>
 <html lang="en">
@@ -18,6 +19,7 @@
     <link href="/css/bootstrap.min.css" rel="stylesheet">
     <link href="/fonts/font-awesome/css/font-awesome.min.css" rel="stylesheet">
     <link href="/css/chosen.css" rel="stylesheet">
+    <link href="/css/bootstrap-datepicker.css" rel="stylesheet">
     <link href="/css/raindrop.css" rel="stylesheet">
 </head>
 <body class="unselectable" oncontextmenu="return false;">
@@ -32,6 +34,7 @@
 <script src="/js/jquery-2.1.4.min.js"></script>
 <script src="/js/bootstrap.min.js"></script>
 <script src="/js/chosen.jquery.js"></script>
+<script src="/js/bootstrap-datepicker.min.js"></script>
 <script src="/js/dataTables.min.js"></script>
 <script src="/js/dataTables-bootstrap.js"></script>
 <script src="/js/notify.js"></script>

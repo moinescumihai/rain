@@ -130,7 +130,7 @@ function showModal(id, title, content, buttons) {
     var modalHtml = '';
     var modalId = '#' + id;
     if (!buttons) {
-        buttons = '<button type="button" id="' + id + '-close" class="btn btn-default" data-dismiss="modal"><span class="fa fa-times">&nbsp;</span>Close</button>';
+        buttons = '<button type="button" id="' + id + '-close" class="btn btn-default" data-dismiss="modal"><span class="fa fa-times"></span>&nbsp;&nbsp;Close</button>';
     }
     if (id && title && content) {
         modalHtml += '<div class="modal fade" id="' + id + '">'
@@ -138,12 +138,13 @@ function showModal(id, title, content, buttons) {
                 .concat('<div class="modal-content">')
                 .concat('<div class="modal-header">')
                 .concat('<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>')
-                .concat('<h4 class="modal-title">').concat(title).concat('</h4>')
-                .concat('</div><div class="modal-body">')
+                .concat('<h4 class="modal-title">').concat(title).concat('</h4></div>')
+                .concat('<form id="' + id + '-form">')
+                .concat('<div class="modal-body">')
                 .concat(content)
                 .concat('</div><div class="modal-footer">')
                 .concat(buttons)
-                .concat('</div></div></div></div>');
+                .concat('</div></form></div></div></div>');
 
         $('body').append(modalHtml);
 
@@ -167,6 +168,31 @@ $(window).scroll(function () {
 
 $(document).ready(function () {
     $('#an-copyright').text(new Date().getFullYear());
+    (function () {
+        var projectDropdown = $('#project-dropdown')
+        projectDropdown.empty();
+        var token = $("meta[name='_csrf']").attr("content");
+        var header = $("meta[name='_csrf_header']").attr("content");
+        $.ajax({
+            method: 'get',
+            dataType: "json",
+            url: '/app/secure/projects/getprojects',
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader(header, token);
+            },
+            success: function (response) {
+                var items = [];
+                if(response.length <= 0){
+                    items.push('<li><a class="text-muted"> No projects are defined </a></li>');
+                }
+                $.each(response, function (e) {
+                    items.push('<li><a href="/app/secure/projects/' + $(this).idProiect + '">' + $(this).numeProiect + '</a></li>');
+                });
+                projectDropdown.html(items.join('') + '<li class="divider"></li><li><a href="/projects"> See all projects  <i class="fa fa-arrow-right"></i> </a></li>');
+            }
+        });
+
+    })();
 
     $(".chosen-select").chosen({
         disable_search_threshold: 10,
@@ -174,6 +200,15 @@ $(document).ready(function () {
         inherit_select_classes: true,
         search_contains: true,
         width: '100%'
+    });
+
+    $('.datepicker').datepicker({
+        daysOfWeekDisabled: [0,6],
+        todayBtn: true,
+        todayHighlight: true,
+        weekStart: 1,
+        minViewMode: 'days',
+        autoclose: true
     });
 
     $('a').on('click', function (e) {

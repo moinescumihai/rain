@@ -6,13 +6,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-public class InboxController {
+public class AdminController {
 
-    @RequestMapping(value = "/messages", method = RequestMethod.GET)
-    public ModelAndView hr() {
+    @RequestMapping(value = "/administration", method = RequestMethod.GET)
+    public ModelAndView reports() {
         ModelAndView model = new ModelAndView();
 
-        model.setViewName("inbox");
+
+        model.setViewName("admin");
 
         return model;
     }

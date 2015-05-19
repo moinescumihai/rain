@@ -716,3 +716,20 @@ textarea {
     /* bring your own prefixes */
     transform: translate(-50%, -50%);
 }
+
+.text-muted {
+    color: #777!important;
+}
+
+.container-modal {
+    padding-right: 5px;
+    padding-left: 5px;
+    margin-top: 15px;
+    margin-right: auto;
+    margin-left: auto;
+    width: 100%;
+}
+
+.modal {
+    top: 75px;
+}

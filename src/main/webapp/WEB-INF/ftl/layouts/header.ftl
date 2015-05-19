@@ -13,7 +13,13 @@
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
                 <li id="dashboard"><a href="/">[@spring.message "DASHBOARD"/]</a></li>
-                <li id="projects"><a href="/projects">[@spring.message "PROJECTS"/]</a></li>
+                <li id="projects">
+                    <a href="/projects" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">[@spring.message "PROJECTS"/]&nbsp;<span class="caret"></a>
+                    <ul id="project-dropdown" class="dropdown-menu" role="menu">
+
+
+                    </ul>
+                </li>
                 <li id="tasks"><a href="/tasks">[@spring.message "TASKS"/]</a></li>
                 <li id="personnel"><a href="/personnel">[@spring.message "PERSONNEL"/]</a></li>
                 <li id="time"><a href="/time">[@spring.message "TIME"/]</a></li>
@@ -23,6 +29,9 @@
                 <li id="reports"><a href="/reports">[@spring.message "REPORTS"/]</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
+                [@security.authorize ifAnyGranted="ROLE_ADMIN"]
+                <li id="admin"><a href="/administration">[@spring.message "ADMIN"/]</a></li>
+                [/@security.authorize]
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria=expanded="false" title="Notifications">
                     <span class="fa fa-bell fa-lg icon-animated-bell">
@@ -59,7 +68,7 @@
                         <li><a>All, The SPG group will meet every..</a></li>
                         <li class="divider"></li>
                         <li class="dropdown-footer">
-                            <a href="/inbox"> [@spring.message "ALL_MESSAGES"/] <i class="fa fa-arrow-right"></i> </a>
+                            <a href="/messages"> [@spring.message "ALL_MESSAGES"/] <i class="fa fa-arrow-right"></i> </a>
                         </li>
 
                     </ul>
