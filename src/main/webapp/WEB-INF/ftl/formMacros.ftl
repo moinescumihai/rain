@@ -52,10 +52,10 @@
 </div>
 [/#macro]
 
-[#macro datepicker id name label size="3"]
+[#macro datepicker id name label placeholder size="3"]
 <div class="form-group col-md-${size}">
     <label for="${id}">[@spring.message label/]</label>
-    <input class="datepicker form-control input-sm" id="${id}" name="${name}" title="[@spring.message label /]" data-date-format="mm-dd-yyyy">
+    <input type="text" class="datepicker form-control input-sm" id="${id}" name="${name}" placeholder="[@spring.message placeholder /]" title="[@spring.message label /]" data-date-format="mm-dd-yyyy">
 
     <div id="${name}-error"></div>
 </div>

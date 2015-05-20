@@ -208,7 +208,8 @@ $(document).ready(function () {
         todayHighlight: true,
         weekStart: 1,
         minViewMode: 'days',
-        autoclose: true
+        autoclose: true,
+        calendarWeeks: true
     });
 
     $('a').on('click', function (e) {

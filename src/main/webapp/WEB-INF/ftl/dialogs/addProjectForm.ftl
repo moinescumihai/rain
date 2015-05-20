@@ -23,7 +23,7 @@
             [@tabPaneContainer ]
                 [@selectBox "addProject-form-client" "idClient" "CLIENT" "SELECT.PLACEHOLDER" "SEARCH.NO_RESULTS" "6" /]
                 [@infobox "client-info" "INFOBOX.ADDCLIENT"/]
-                [@modalLink "addclient" "MODAL.ADDCLIENT"/]
+                [@modalLink "modal-addClient" "MODAL.ADDCLIENT"/]
             [/@tabPaneContainer]
         </div>
         <div class="tab-pane fade" id="category-project" role="tabpanel">
@@ -35,9 +35,9 @@
         </div>
         <div class="tab-pane fade" id="dates-project" role="tabpanel">
             [@tabPaneContainer ]
-                [@datepicker "addProject-form-start-date" "dataStart" "STARTDATE" "6" /]
+                [@datepicker "addProject-form-start-date" "dataStart" "STARTDATE" "DATE.PLACEHOLDER" "6" /]
                 [@rowBreak/]
-                [@datepicker "addProject-form-end-date" "dataEndEstimativa" "ENDDATE" "6" /]
+                [@datepicker "addProject-form-end-date" "dataEndEstimativa" "ENDDATE" "DATE.PLACEHOLDER" "6" /]
                 [@infobox "client-info" "INFOBOX.ADDDATE"/]
             [/@tabPaneContainer]
         </div>

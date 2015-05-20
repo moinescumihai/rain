@@ -1,7 +1,5 @@
 package configuration;
 
-import configuration.csrf.CSRFHandlerInterceptor;
-import configuration.csrf.CSRFRequestDataValueProcessor;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -15,8 +13,6 @@ import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.http.converter.support.AllEncompassingFormHttpMessageConverter;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
-import org.springframework.security.web.csrf.CsrfFilter;
-import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
 import org.springframework.util.StringUtils;
 import org.springframework.web.accept.ContentNegotiationManagerFactoryBean;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
@@ -59,7 +55,6 @@ public class AppConfig extends WebMvcConfigurerAdapter {
         LocaleChangeInterceptor localeChangeInterceptor = new LocaleChangeInterceptor();
         localeChangeInterceptor.setParamName("lang");
         registry.addInterceptor(localeChangeInterceptor);
-        registry.addInterceptor(new CSRFHandlerInterceptor());
     }
 
     @Bean
@@ -150,23 +145,4 @@ public class AppConfig extends WebMvcConfigurerAdapter {
         return multipartResolver;
     }
 
-    @Bean
-    public CSRFRequestDataValueProcessor requestDataValueProcessor() {
-        return new CSRFRequestDataValueProcessor();
-    }
-
-    @Bean
-    public HttpSessionCsrfTokenRepository httpSessionCsrfTokenRepository() {
-        HttpSessionCsrfTokenRepository httpSessionCsrfTokenRepository = new HttpSessionCsrfTokenRepository();
-        httpSessionCsrfTokenRepository.setHeaderName("X-SECURITY");
-
-        return httpSessionCsrfTokenRepository;
-    }
-
-    @Bean
-    public CsrfFilter csrfFilter(HttpSessionCsrfTokenRepository httpSessionCsrfTokenRepository) {
-        httpSessionCsrfTokenRepository.setHeaderName("X-SECURITY");
-
-        return new CsrfFilter(httpSessionCsrfTokenRepository);
-    }
 }

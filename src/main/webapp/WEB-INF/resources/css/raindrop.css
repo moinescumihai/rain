@@ -730,6 +730,6 @@ textarea {
     width: 100%;
 }
 
-.modal {
-    top: 75px;
+.input-sm {
+    padding: 5px 10px;
 }

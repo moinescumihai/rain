@@ -25,6 +25,7 @@ public class FreemarkerConfig {
         freeMarkerSettings.setProperty("datetime_format", "MM/dd/yyyy");
         freeMarkerSettings.setProperty("number_format", "0.##");
         freeMarkerSettings.setProperty("whitespace_stripping", "true");
+        freeMarkerSettings.setProperty("api_builtin_enabled", "true");
         freeMarkerSettings.setProperty("auto_import", "layouts/layouts.ftl as layout");
         freeMarkerSettings.setProperty("auto_import", "/spring.ftl as spring");
         freeMarkerConfigurationFactoryBean.setFreemarkerSettings(freeMarkerSettings);

@@ -12,8 +12,8 @@
     <meta name="description" content="Login into Raindrop">
     <meta name="author" content="Raindrop Solutions">
 
-    <meta name="_csrf" content="${_csrf.token}"/>
-    <meta name="_csrf_header" content="${_csrf.headerName}"/>
+    [#--<meta name="_csrf" content="${_csrf.token}"/>--]
+    [#--<meta name="_csrf_header" content="${_csrf.headerName}"/>--]
 
     <link rel="icon" href="/img/raindrop-logo.png">
 

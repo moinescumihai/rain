@@ -27,4 +27,9 @@ public class ProjectsServiceImpl implements ProjectsService {
             return Collections.emptyList();
         }
     }
+
+    @Override
+    public Proiect save(Proiect entity) {
+        return proiectRepository.save(entity);
+    }
 }

@@ -5,7 +5,7 @@
 [@layout.basic]
     [@dashboard]
     <div class="container jumbotron centered">
-        [@selectBox "test" "APPTITLE" ]
+        [@selectBox "test" "test" "APPTITLE" ]
 
             [#assign seq = ["winter", "spring", "summer", "autumn", "dudu" , "mudu", "fudu", "spring", "summer", "autumn", "dudu" , "mudu", "fudu" ] /]
             [#list seq as x]
@@ -13,7 +13,7 @@
             [/#list]
         [/@selectBox]
 
-        [@selectBoxMulti "testing" "APPTITLE" ]
+        [@selectBoxMulti "testing" "testing" "APPTITLE" ]
 
             [#assign seq = ["winter", "spring", "summer", "autumn", "dudu" , "mudu", "fudu", "spring", "summer", "autumn", "dudu" , "mudu", "fudu"] /]
             [#list seq as x]
@@ -21,11 +21,11 @@
             [/#list]
         [/@selectBoxMulti]
 
-        [@input "test" "APPTITLE" "WELCOMETORAINDROP" /]
+        [@input "test" "test" "APPTITLE" "WELCOMETORAINDROP" /]
 
-        [@password "parola" "APPTITLE" "WELCOME" /]
+        [@password "parola" "parola" "APPTITLE" "WELCOME" /]
 
-        [@textarea "text-min-area" "APPTITLE" "WELCOME"/]
+        [@textarea "text-min-area" "text-min-area" "APPTITLE" "WELCOME"/]
 
         [@checkbox "checkbox" "APPTITLE" "WELCOME" "a"/]
         [@button "btn1" "APPTITLE"/]

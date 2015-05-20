@@ -7,4 +7,6 @@ import java.util.List;
 public interface ProjectsService {
 
     List<Proiect> findAll();
+
+    Proiect save(Proiect entity);
 }

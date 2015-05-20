@@ -17,22 +17,22 @@ import java.util.Map;
 public class ProjectsController {
 
     @Autowired
-    private IndustrieRepository industrieDAO;
+    private IndustrieRepository industrieRepository;
     @Autowired
-    private ListaTariRepository tariDAO;
+    private ListaTariRepository listaTariRepository;
 
 
     @RequestMapping(value = "/projects", method = RequestMethod.GET)
     public ModelAndView getProjects() {
         ModelAndView model = new ModelAndView();
 
-        Map<Integer, String> listaIndustrie = new HashMap<>();
-        for (Industrie industry : industrieDAO.findAll()) {
-            listaIndustrie.put(industry.getIdIndustrie(), industry.getNume());
+        Map<String, String> listaIndustrie = new HashMap<>();
+        for (Industrie industry : industrieRepository.findAll()) {
+            listaIndustrie.put(String.valueOf(industry.getIdIndustrie()), industry.getNume());
         }
-        Map<Integer, String> listaTari = new HashMap<>();
-        for (ListaTari tariList : tariDAO.findAll()) {
-            listaTari.put(tariList.getIdTara(), tariList.getNume());
+        Map<String, String> listaTari = new HashMap<>();
+        for (ListaTari tariList : listaTariRepository.findAll()) {
+            listaTari.put(String.valueOf(tariList.getIdTara()), tariList.getNume());
         }
         model.addObject("listaIndustrie", listaIndustrie);
         model.addObject("listaTari", listaTari);
