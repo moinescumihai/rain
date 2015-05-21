@@ -2,8 +2,12 @@
 [#include "../formMacros.ftl"]
 
 [@input "addProject-form-nume" "numeProiect" "MODAL.PROJECTNAME" "MODAL.NAME" "" "6"/]
-[@selectBox "addProject-form-status" "idStatusProiect" "MODAL.PROJECTSTATUS" "SELECT.PLACEHOLDER" "SEARCH.NO_RESULTS" "6" /]
-<br/>
+[@selectBox "addProject-form-status" "idStatusProiect" "MODAL.PROJECTSTATUS" "SELECT.PLACEHOLDER" "SEARCH.NO_RESULTS" "6" ]
+    [#list listaStatus?keys as key]
+        <option id="${key}" value="${key}">${listaStatus[key]}</option>
+    [/#list]
+[/@selectBox]
+[@rowBreak/]
 <div role="tabpanel">
     <!-- Nav tabs -->
     <ul class="nav nav-tabs" role="tablist">

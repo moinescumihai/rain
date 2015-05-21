@@ -18,7 +18,7 @@
                 [@input "addClient-form-fax" "fax" "MODAL.CLIENT.FAX" "MODAL.CLIENT.FAX.PLACEHOLDER" "" "7"/]
                 [@selectBox "addClient-form-industrie" "idIndustrie" "MODAL.CLIENT.INDUSTRIE" "MODAL.CLIENT.INDUSTRIE.PLACEHOLDER" "SEARCH.NO_RESULTS" "7"]
                     [#list listaIndustrie?keys as key]
-                        <option id="${key}" value="${listaIndustrie[key]}">${listaIndustrie[key]}</option>
+                        <option id="${key}" value="${key}">${listaIndustrie[key]}</option>
                     [/#list]
                 [/@selectBox]
             [/@tabPaneContainer]
@@ -31,7 +31,7 @@
                 [@input "addClient-form-cod-postal" "codPostal" "MODAL.CLIENT.CODPOSTAL" "MODAL.CLIENT.CODPOSTAL.PLACEHOLDER" "" "7"/]
                 [@selectBox "addClient-form-tara" "idTara" "MODAL.CLIENT.TARI" "MODAL.CLIENT.TARI.PLACEHOLDER" "SEARCH.NO_RESULTS" "7"]
                     [#list listaTari?keys as key]
-                        <option id="${key}" value="${listaTari[key]}">${listaTari[key]}</option>
+                        <option id="${key}" value="${key}">${listaTari[key]}</option>
                     [/#list]
                 [/@selectBox]
             [/@tabPaneContainer]

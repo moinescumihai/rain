@@ -18,5 +18,6 @@
 <script src="/js/dataTables.min.js"></script>
 <script src="/js/dataTables-bootstrap.js"></script>
 <script src="/js/notify.js"></script>
+<script src="/js/dropzone.js"></script>
 <script src="/js/raindrop.js"></script>
 [/#macro]

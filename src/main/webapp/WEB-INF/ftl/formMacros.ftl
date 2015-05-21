@@ -26,7 +26,7 @@
         [#nested]
     </select>
 
-    <div id="${name}-error"></div>
+    <div id="${name}-error" class="help-block"></div>
 </div>
 [/#macro]
 
@@ -39,7 +39,7 @@
         [#nested]
     </select>
 
-    <div id="${name}-error"></div>
+    <div id="${name}-error" class="help-block"></div>
 </div>
 [/#macro]
 
@@ -48,7 +48,7 @@
     <label for="${id}">[@spring.message label/]</label>
     <input type="text" class="form-control input-sm" id="${id}" name="${name}" title="[@spring.message label /]" placeholder="[@spring.message placeholder /]" value="${value}">
 
-    <div id="${name}-error"></div>
+    <div id="${name}-error" class="help-block"></div>
 </div>
 [/#macro]
 
@@ -57,7 +57,7 @@
     <label for="${id}">[@spring.message label/]</label>
     <input type="text" class="datepicker form-control input-sm" id="${id}" name="${name}" placeholder="[@spring.message placeholder /]" title="[@spring.message label /]" data-date-format="mm-dd-yyyy">
 
-    <div id="${name}-error"></div>
+    <div id="${name}-error" class="help-block"></div>
 </div>
 [/#macro]
 
@@ -66,7 +66,7 @@
     <label for="${id}">[@spring.message label/]</label>
     <textarea class="form-control" id="${id}" rows="4" name="${name}" title="[@spring.message label /]" placeholder="[@spring.message placeholder /]"></textarea>
 
-    <div id="${name}-error"></div>
+    <div id="${name}-error" class="help-block"></div>
 </div>
 [/#macro]
 
@@ -75,7 +75,7 @@
     <label for="${id}">[@spring.message label/]</label>
     <input type="password" class="form-control input-sm" id="${id}" name="${name}" title="[@spring.message label /]" placeholder="[@spring.message placeholder /]">
 
-    <div id="${name}-error"></div>
+    <div id="${name}-error" class="help-block"></div>
 </div>
 [/#macro]
 
@@ -84,7 +84,7 @@
     <div class="checkbox">
         <label><input type="checkbox" id="${id}" name="${name}" title="[@spring.message label /]"> [@spring.message label/]</label>
     </div>
-    <div id="${name}-error"></div>
+    <div id="${name}-error" class="help-block"></div>
 </div>
 [/#macro]
 

@@ -9,6 +9,9 @@
     [/@sidebar]
     [@content]
     <div></div>
+    <form action="/file-upload"
+          class="dropzone"
+          id="file-dropzone"></form>
     [/@content]
 [/@layout.basic]
 <script type="text/javascript">
