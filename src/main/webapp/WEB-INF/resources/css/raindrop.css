@@ -619,6 +619,10 @@ span.app-title {
     border-top-right-radius: 0.4em;
 }
 
+.modal-footer {
+    background-color: rgba(232, 232, 232, 0.35) !important;
+}
+
 #scrollUp {
     background-image: url("../img/top_grey.png");
     bottom: 45px;

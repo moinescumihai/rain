@@ -30,7 +30,7 @@
             [@tabPaneContainer ]
                 [@selectBox "addProject-form-category" "idCategorieProiect" "CATEGORY" "SELECT.PLACEHOLDER" "SEARCH.NO_RESULTS" "6" /]
                 [@infobox "client-info" "INFOBOX.ADDCATEGORY"/]
-                [@modalLink "addcategory" "MODAL.ADDCATEGORY"/]
+                [@modalLink "modal-addCategory" "MODAL.ADDCATEGORY"/]
             [/@tabPaneContainer]
         </div>
         <div class="tab-pane fade" id="dates-project" role="tabpanel">

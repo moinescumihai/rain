@@ -13,8 +13,13 @@
         [@modalForm "modal-addProiect" "MODAL.ADDPROJECT" "/app/secure/projects/addproject" "PROJECTS.ADDPROJECT" "book"]
             [#include "dialogs/addProjectForm.ftl"]
         [/@modalForm]
+
         [@modalForm "modal-addClient" "MODAL.ADDCLIENT" "/app/secure/clients/addclient" "MODAL.ADDCLIENT" "group"]
             [#include "dialogs/addClientForm.ftl"]
+        [/@modalForm]
+
+        [@modalForm "modal-addCategory" "MODAL.ADDCATEGORY" "/app/secure/category/addcategory" "MODAL.ADDCATEGORY" "tag"]
+            [#include "dialogs/addCategoryForm.ftl"]
         [/@modalForm]
     [/@content]
 [/@layout.basic]
