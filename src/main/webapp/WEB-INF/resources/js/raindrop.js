@@ -29,6 +29,30 @@ $('.navbar-collapse ul li a').click(function () {
 });
 
 function showNotification(message, title, type) {
+    if (typeof(type) === "undefined") {
+        type = SUCCESS;
+    }
+
+    toastr.options = {
+        "closeButton": true,
+        "debug": false,
+        "progressBar": false,
+        "positionClass": "toast-top-center",
+        "onclick": null,
+        "showDuration": "7500",
+        "hideDuration": "1500",
+        "timeOut": "10500",
+        "extendedTimeOut": "10000",
+        "showEasing": "swing",
+        "hideEasing": "linear",
+        "showMethod": "fadeIn",
+        "hideMethod": "fadeOut"
+    };
+    toastr[type](message, title)
+}
+
+function showNotif(message, title, type) {
+
     var delay = 3500;
     var icon;
     if (typeof(type) === "undefined") {
@@ -182,7 +206,7 @@ $(document).ready(function () {
             },
             success: function (response) {
                 var items = [];
-                if(response.length <= 0){
+                if (response.length <= 0) {
                     items.push('<li><a class="text-muted"> No projects are defined </a></li>');
                 }
                 $.each(response, function (e) {
@@ -203,7 +227,7 @@ $(document).ready(function () {
     });
 
     $('.datepicker').datepicker({
-        daysOfWeekDisabled: [0,6],
+        daysOfWeekDisabled: [0, 6],
         todayBtn: true,
         todayHighlight: true,
         weekStart: 1,
