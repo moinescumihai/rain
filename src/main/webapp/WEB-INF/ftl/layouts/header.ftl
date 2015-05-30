@@ -19,6 +19,9 @@
     <link href="/fonts/font-awesome/css/font-awesome.min.css" rel="stylesheet">
     <link href="/css/chosen.css" rel="stylesheet">
     <link href="/css/bootstrap-datepicker.css" rel="stylesheet">
+    <link href="/css/inbox.css" rel="stylesheet">
+    <link href="/css/timeline.css" rel="stylesheet">
+    <link href="/css/tree.css" rel="stylesheet">
     <link href="/css/raindrop.css" rel="stylesheet">
 </head>
 <body class="unselectable" oncontextmenu="return false;">

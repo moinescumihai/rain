@@ -12,9 +12,6 @@
     <meta name="description" content="Login into Raindrop">
     <meta name="author" content="Raindrop Solutions">
 
-    [#--<meta name="_csrf" content="${_csrf.token}"/>--]
-    [#--<meta name="_csrf_header" content="${_csrf.headerName}"/>--]
-
     <link rel="icon" href="/img/raindrop-logo.png">
 
     <title>[@spring.message "WELCOME"/]</title>
@@ -46,8 +43,7 @@
             </div>
             <button id="btnLogin" class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
             <div class="lost-pass">
-                <a class="lefta">Lost your password?</a>
-                <a class="righta">Register</a>
+                <a class="righta">Lost your password?</a>
             </div>
         </form>
     </div>
