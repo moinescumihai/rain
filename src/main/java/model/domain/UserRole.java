@@ -10,6 +10,7 @@ public class UserRole {
     private String role;
 
     @Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
     @Column(name = "id_role")
     public long getIdRole() {
         return idRole;

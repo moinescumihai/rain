@@ -9,6 +9,7 @@ public class UMBuget {
     private String nume;
 
     @Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
     @Column(name = "id_u_m_buget")
     public long getIdUMBuget() {
         return idUMBuget;

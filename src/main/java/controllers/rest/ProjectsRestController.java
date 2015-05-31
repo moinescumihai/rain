@@ -1,6 +1,8 @@
 package controllers.rest;
 
 import model.common.JSONResponse;
+import model.domain.CategorieProiect;
+import model.domain.Client;
 import model.domain.Proiect;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,6 +15,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
+import services.ClientsService;
+import services.ProjectCategoryService;
 import services.ProjectsService;
 
 import javax.validation.Valid;
@@ -32,6 +36,12 @@ public class ProjectsRestController {
     private ProjectsService projectsService;
     @Autowired
     private MessageSource messageSource;
+    @Autowired
+    private ClientsService clientsService;
+    @Autowired
+    private ProjectCategoryService projectCategoryService;
+    @Autowired
+    private ProjectCategoryService projectCategoryServiceImpl;
 
 
     @InitBinder
@@ -58,7 +68,21 @@ public class ProjectsRestController {
         return projectsService.findAll();
     }
 
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
+    @RequestMapping(value = "/getclients", method = RequestMethod.GET, produces = "application/json")
+    @ResponseBody
+    public List<Client> getClients() {
+        return clientsService.findAll();
+    }
+
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
+    @RequestMapping(value = "/getcategories", method = RequestMethod.GET, produces = "application/json")
+    @ResponseBody
+    public List<CategorieProiect> getCategories() {
+        return projectCategoryServiceImpl.findAll();
+    }
+
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_SUPERUSER')")
     @RequestMapping(value = "/addproject", method = RequestMethod.POST, produces = "application/json")
     @ResponseBody
     public JSONResponse addProiect(@Valid @RequestBody Proiect proiect, BindingResult result) {
@@ -76,6 +100,44 @@ public class ProjectsRestController {
                 response.setMessage("Added new project: " + proiect.getNumeProiect());
             } catch (DataAccessException e) {
                 response.setMessage("Project not added");
+            }
+        }
+        return response;
+    }
+
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_SUPERUSER')")
+    @RequestMapping(value = "/addclient", method = RequestMethod.POST, produces = "application/json")
+    @ResponseBody
+    public JSONResponse addClient(@Valid @RequestBody Client client, BindingResult result) {
+        JSONResponse response = new JSONResponse();
+        if (result.hasErrors()) {
+            Map<String, String> errors = getValidationErrorMap(result);
+            response.setErrorsMap(errors);
+        } else {
+            try {
+                clientsService.save(client);
+                response.setMessage("Added new client: " + client.getNumeClient());
+            } catch (DataAccessException e) {
+                response.setMessage("Client not added");
+            }
+        }
+        return response;
+    }
+
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_SUPERUSER')")
+    @RequestMapping(value = "/addcategory", method = RequestMethod.POST, produces = "application/json")
+    @ResponseBody
+    public JSONResponse addCategory(@Valid @RequestBody CategorieProiect categorieProiect, BindingResult result) {
+        JSONResponse response = new JSONResponse();
+        if (result.hasErrors()) {
+            Map<String, String> errors = getValidationErrorMap(result);
+            response.setErrorsMap(errors);
+        } else {
+            try {
+                projectCategoryService.save(categorieProiect);
+                response.setMessage("Added new category: " + categorieProiect.getNume());
+            } catch (DataAccessException e) {
+                response.setMessage("Category not added");
             }
         }
         return response;

@@ -5,9 +5,7 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 
-import javax.persistence.Basic;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.sql.Date;
 import java.sql.Timestamp;
 
@@ -47,6 +45,7 @@ public class ResurseUmane {
     private Timestamp modificatLa;
 
     @Id
+    @GeneratedValue(strategy= GenerationType.AUTO)
     @javax.persistence.Column(name = "id_resurse_umane", nullable = false, insertable = true, updatable = true)
     public long getIdResurseUmane() {
         return idResurseUmane;

@@ -10,6 +10,7 @@ public class MapFavProjectUser {
     private long idProiect;
 
     @Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
     @Column(name = "id_map_fav_project_user")
     public long getIdMapFavProjectUser() {
         return idMapFavProjectUser;

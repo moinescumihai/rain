@@ -8,10 +8,7 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -36,6 +33,7 @@ public class Proiect {
     private Timestamp modificatLa;
 
     @Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
     @Column(name = "id_proiect", nullable = false, insertable = true, updatable = true)
     public long getIdProiect() {
         return idProiect;
@@ -68,7 +66,7 @@ public class Proiect {
     }
 
     @NotNull
-    @Min(value = 1)
+    @Min(value = 0)
     @Basic
     @Column(name = "id_client", nullable = false, insertable = true, updatable = true)
     public long getIdClient() {

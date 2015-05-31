@@ -10,6 +10,7 @@ public class CategorieBuget {
     private String nume;
 
     @Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
     @Column(name = "id_categorie_buget")
     public long getIdCategorieBuget() {
         return idCategorieBuget;

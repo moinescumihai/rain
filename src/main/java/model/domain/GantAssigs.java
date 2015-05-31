@@ -12,6 +12,7 @@ public class GantAssigs {
     private String effort;
 
     @Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
     @Column(name = "id_assigs", nullable = false, insertable = true, updatable = true)
     public int getIdAssigs() {
         return idAssigs;

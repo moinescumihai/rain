@@ -1,9 +1,6 @@
 package model.domain;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Industrie {
@@ -11,6 +8,7 @@ public class Industrie {
     private String nume;
 
     @Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
     @Column(name = "id_industrie", nullable = false, insertable = true, updatable = true)
     public int getIdIndustrie() {
         return idIndustrie;

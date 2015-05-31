@@ -12,6 +12,7 @@ public class CategorieStoc {
     private Byte esteSubcategorie;
 
     @Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
     @Column(name = "id_categorie_stoc")
     public long getIdCategorieStoc() {
         return idCategorieStoc;

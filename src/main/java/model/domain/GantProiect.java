@@ -16,6 +16,7 @@ public class GantProiect {
     private String deletedTaskIds;
 
     @Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
     @Column(name = "id_gant_proiect", nullable = false, insertable = true, updatable = true)
     public long getIdGantProiect() {
         return idGantProiect;

@@ -10,6 +10,7 @@ public class UMPontaj {
     private String valoare;
 
     @Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
     @Column(name = "id_u_m_pontaj")
     public long getIdUMPontaj() {
         return idUMPontaj;

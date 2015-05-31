@@ -21,7 +21,7 @@
 <div class="form-group col-md-${size}">
     <label for="${id}">[@spring.message label /]</label>
     <select data-placeholder="[@spring.message placeholder /]" data-no_results_text="[@spring.message noResultsText/]"
-            class="chosen-select" id="${id}" name="${name}" title="[@spring.message label /]">
+            class="chosen-select" id="${id}" name="${name}" title="[@spring.message label /]" required="true">
         <option></option>
         [#nested]
     </select>
@@ -34,7 +34,7 @@
 <div class="form-group col-md-${size}">
     <label for="${id}">[@spring.message label /]</label>
     <select data-placeholder="[@spring.message placeholder /]" multiple data-no_results_text="[@spring.message noResultsText/]"
-            class="chosen-select" id="${id}" name="${name}" title="[@spring.message label /]">
+            class="chosen-select" id="${id}" name="${name}" title="[@spring.message label /]" required="true">
         <option></option>
         [#nested]
     </select>
@@ -46,7 +46,7 @@
 [#macro input id name label placeholder value="" size="3"]
 <div class="form-group col-md-${size}">
     <label for="${id}">[@spring.message label/]</label>
-    <input type="text" class="form-control input-sm" id="${id}" name="${name}" title="[@spring.message label /]" placeholder="[@spring.message placeholder /]" value="${value}">
+    <input type="text" class="form-control input-sm" id="${id}" name="${name}" title="[@spring.message label /]" placeholder="[@spring.message placeholder /]" value="${value}" required="true">
 
     <div id="${name}-error" class="help-block"></div>
 </div>
@@ -55,7 +55,7 @@
 [#macro datepicker id name label placeholder size="3"]
 <div class="form-group col-md-${size}">
     <label for="${id}">[@spring.message label/]</label>
-    <input type="text" class="datepicker form-control input-sm" id="${id}" name="${name}" placeholder="[@spring.message placeholder /]" title="[@spring.message label /]" data-date-format="mm-dd-yyyy">
+    <input type="text" class="datepicker form-control input-sm" id="${id}" name="${name}" placeholder="[@spring.message placeholder /]" title="[@spring.message label /]" data-date-format="mm-dd-yyyy" required="true">
 
     <div id="${name}-error" class="help-block"></div>
 </div>
@@ -64,7 +64,7 @@
 [#macro textarea id name label placeholder size="3"]
 <div class="form-group col-md-${size}">
     <label for="${id}">[@spring.message label/]</label>
-    <textarea class="form-control" id="${id}" rows="4" name="${name}" title="[@spring.message label /]" placeholder="[@spring.message placeholder /]"></textarea>
+    <textarea class="form-control" id="${id}" rows="4" name="${name}" title="[@spring.message label /]" placeholder="[@spring.message placeholder /]" required="true"></textarea>
 
     <div id="${name}-error" class="help-block"></div>
 </div>
@@ -73,7 +73,7 @@
 [#macro password id name label placeholder size="3"]
 <div class="form-group col-md-${size}">
     <label for="${id}">[@spring.message label/]</label>
-    <input type="password" class="form-control input-sm" id="${id}" name="${name}" title="[@spring.message label /]" placeholder="[@spring.message placeholder /]">
+    <input type="password" class="form-control input-sm" id="${id}" name="${name}" title="[@spring.message label /]" placeholder="[@spring.message placeholder /]" required="true">
 
     <div id="${name}-error" class="help-block"></div>
 </div>
@@ -82,7 +82,7 @@
 [#macro checkbox id name label placeholder value="" size="3"]
 <div class="form-group col-md-${size}">
     <div class="checkbox">
-        <label><input type="checkbox" id="${id}" name="${name}" title="[@spring.message label /]"> [@spring.message label/]</label>
+        <label><input type="checkbox" id="${id}" name="${name}" title="[@spring.message label /]" required="true"> [@spring.message label/]</label>
     </div>
     <div id="${name}-error" class="help-block"></div>
 </div>

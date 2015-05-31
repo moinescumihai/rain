@@ -1,9 +1,6 @@
 package model.domain;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Organigrama {
@@ -12,6 +9,7 @@ public class Organigrama {
     private long idFiu;
 
     @Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
     @Column(name = "id_organigrama")
     public long getIdOrganigrama() {
         return idOrganigrama;

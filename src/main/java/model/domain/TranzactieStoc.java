@@ -22,6 +22,7 @@ public class TranzactieStoc {
     private Timestamp creatLa;
 
     @Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
     @Column(name = "id_tranzactie_stoc", nullable = false, insertable = true, updatable = true)
     public long getIdTranzactieStoc() {
         return idTranzactieStoc;

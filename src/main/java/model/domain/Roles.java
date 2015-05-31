@@ -1,9 +1,6 @@
 package model.domain;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Roles {
@@ -11,6 +8,7 @@ public class Roles {
     private String role;
 
     @Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
     @Column(name = "id_role")
     public long getIdRole() {
         return idRole;

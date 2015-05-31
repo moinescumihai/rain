@@ -1,9 +1,6 @@
 package model.domain;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Obiectiv {
@@ -14,6 +11,7 @@ public class Obiectiv {
     private long idMilestone;
 
     @Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
     @Column(name = "id_obiectiv")
     public long getIdObiectiv() {
         return idObiectiv;

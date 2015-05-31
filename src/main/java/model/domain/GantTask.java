@@ -21,6 +21,7 @@ public class GantTask {
     private int progress;
 
     @Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
     @Column(name = "id_activitate", nullable = false, insertable = true, updatable = true)
     public long getIdActivitate() {
         return idActivitate;

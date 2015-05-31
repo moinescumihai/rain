@@ -15,8 +15,8 @@ public class ChatServiceImpl implements ChatService {
     @Autowired
     ChatMessageRepository chatMessageRepository;
 
-    @Transactional
     @Override
+    @Transactional
     public ChatMessage save(ChatMessage chatMessage) {
         return chatMessageRepository.save(chatMessage);
     }

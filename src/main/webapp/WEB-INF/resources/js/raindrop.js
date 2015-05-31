@@ -1,10 +1,11 @@
 var SUCCESS = 'success';
 var DANGER = 'danger';
+var ERROR = 'error';
 var WARNING = 'warning';
 var PRIMARY = 'primary';
 var INFO = 'info';
 var EMPTY = '';
-var UNSELECT = -1;
+var UNSELECT = [];
 var ZERO = 0;
 var chosenUpdated = 'chosen:updated';
 
@@ -243,3 +244,45 @@ $(document).ready(function () {
     });
 });
 
+jQuery.validator.setDefaults({
+    ignore: [".ignore", ":hidden:not(select)"],
+    focusCleanup: true,
+    errorClass: "text-danger",
+    errorElement: "span",
+    ignoreTitle: true,
+    focusInvalid: false,
+    highlight: function (element) {
+        $(element).closest('.form-group').addClass('has-error');
+        if ($(element).parent().hasClass("chosen-search")) {
+            $(element).parent().closest("div.form-group").addClass('has-error');
+        }
+        var tab_content = $(element).parent().parent().parent();
+        if ($(tab_content).find('div.has-error').length > ZERO) {
+            var id = $(tab_content).attr("id");
+                $('a[href="#' + id + '"]').css('color', '#a94442');
+            }
+    },
+    unhighlight: function (element) {
+        if ($(element).hasClass("chosen-select")) {
+            $(element).closest("div.form-group").find(".help-block").html(EMPTY);
+        }
+        if ($(element).parent().hasClass("chosen-search")) {
+            $(element).closest("div.form-group").find(".help-block").html(EMPTY);
+            $(element).closest("div.form-group").removeClass('has-error');
+        }
+        $(element).closest('.form-group').removeClass('has-error');
+        var tab_content = $(element).parent().parent().parent();
+        if ($(tab_content).find('div.has-error').length == ZERO) {
+            var id = $(tab_content).attr("id");
+            $('a[href="#' + id + '"]').css('color', '#333');
+        }
+    },
+    errorPlacement: function (error, element) {
+        if (element.hasClass("chosen-select")) {
+            element.closest("div.form-group").find(".help-block").html(error);
+        } else {
+            error.insertAfter(element);
+        }
+    }
+
+});

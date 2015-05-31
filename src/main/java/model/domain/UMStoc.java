@@ -10,6 +10,7 @@ public class UMStoc {
     private String sistem;
 
     @Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
     @Column(name = "id_u_m_stoc")
     public long getIdUMStoc() {
         return idUMStoc;

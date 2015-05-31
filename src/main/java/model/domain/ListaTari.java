@@ -9,6 +9,7 @@ public class ListaTari {
     private String nume;
 
     @Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
     @Column(name = "id_tara", nullable = false, insertable = true, updatable = true)
     public int getIdTara() {
         return idTara;

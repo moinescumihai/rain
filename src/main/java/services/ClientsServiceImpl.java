@@ -1,7 +1,7 @@
 package services;
 
-import model.domain.Proiect;
-import model.repository.ProiectRepository;
+import model.domain.Client;
+import model.repository.ClientRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,19 +15,20 @@ import java.util.Collections;
 import java.util.List;
 
 @Service
-public class ProjectsServiceImpl implements ProjectsService {
-    private static final Logger LOGGER = LoggerFactory.getLogger(ProjectsServiceImpl.class);
+public class ClientsServiceImpl implements ClientsService {
+    private static final Logger LOGGER = LoggerFactory.getLogger(ClientsServiceImpl.class);
 
     @Autowired
-    private ProiectRepository proiectRepository;
+    private ClientRepository clientRepository;
+
 
     @Override
     @Transactional
-    public List<Proiect> findAll() {
+    public List<Client> findAll() {
         try {
-            return (List<Proiect>) proiectRepository.findAll();
+            return (List<Client>) clientRepository.findAll();
         } catch (DataAccessException e) {
-            LOGGER.error("PROJECTS.NO_PROJECTS", e);
+            LOGGER.error("CLIENTS.NO_CLIENTS", e);
             return Collections.emptyList();
         }
     }
@@ -35,7 +36,7 @@ public class ProjectsServiceImpl implements ProjectsService {
     @Override
     @Transactional
     @Lock(LockModeType.READ)
-    public Proiect save(Proiect entity) {
-        return proiectRepository.save(entity);
+    public Client save(Client entity) {
+        return clientRepository.save(entity);
     }
 }

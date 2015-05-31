@@ -11,6 +11,7 @@ public class TipContract {
     private String descriereTipContract;
 
     @Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
     @Column(name = "id_tip_contract")
     public long getIdTipContract() {
         return idTipContract;
