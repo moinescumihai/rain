@@ -24,5 +24,6 @@
 <script src="/js/tree.min.js"></script>
 <script src="/js/jquery.validate.min.js"></script>
 <script src="/js/additional-methods.min.js"></script>
+<script src="/js/popover.js"></script>
 <script src="/js/raindrop.js"></script>
 [/#macro]

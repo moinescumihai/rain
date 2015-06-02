@@ -31,6 +31,7 @@ public class Proiect {
     private Timestamp creatLa;
     private String modificatDe;
     private Timestamp modificatLa;
+    private byte deleted;
 
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
@@ -204,5 +205,15 @@ public class Proiect {
         result = 31 * result + (modificatDe != null ? modificatDe.hashCode() : 0);
         result = 31 * result + (modificatLa != null ? modificatLa.hashCode() : 0);
         return result;
+    }
+
+    @Basic
+    @Column(name = "deleted", nullable = false, insertable = true, updatable = true)
+    public byte getDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(byte deleted) {
+        this.deleted = deleted;
     }
 }

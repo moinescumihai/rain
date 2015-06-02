@@ -40,9 +40,6 @@ public class ProjectsRestController {
     private ClientsService clientsService;
     @Autowired
     private ProjectCategoryService projectCategoryService;
-    @Autowired
-    private ProjectCategoryService projectCategoryServiceImpl;
-
 
     @InitBinder
     public void initBinder(WebDataBinder binder) {
@@ -79,7 +76,22 @@ public class ProjectsRestController {
     @RequestMapping(value = "/getcategories", method = RequestMethod.GET, produces = "application/json")
     @ResponseBody
     public List<CategorieProiect> getCategories() {
-        return projectCategoryServiceImpl.findAll();
+        return projectCategoryService.findAll();
+    }
+
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
+    @RequestMapping(value = "/deleteproject/{id}", method = RequestMethod.GET, produces = "application/json")
+    @ResponseBody
+    public JSONResponse deleteProject(@PathVariable long id) {
+        JSONResponse response = new JSONResponse();
+        try {
+            projectsService.delete(id);
+            response.setMessage("Deleted project successfully");
+        } catch (DataAccessException e) {
+            response.setMessage("Project not added");
+
+        }
+        return response;
     }
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_SUPERUSER')")

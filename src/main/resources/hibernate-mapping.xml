@@ -469,6 +469,9 @@
             <basic name="modificatLa">
                 <column name="modificat_la" precision="19"/>
             </basic>
+            <basic name="deleted">
+                <column name="deleted" precision="3"/>
+            </basic>
         </attributes>
     </entity>
     <entity class="model.domain.ResurseUmane">

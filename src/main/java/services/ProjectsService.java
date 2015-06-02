@@ -8,5 +8,11 @@ public interface ProjectsService {
 
     List<Proiect> findAll();
 
+    Proiect findOne(long id);
+
     Proiect save(Proiect entity);
+
+    void delete(long id);
+
+    long emptyTrash();
 }

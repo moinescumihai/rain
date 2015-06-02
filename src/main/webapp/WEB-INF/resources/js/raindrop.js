@@ -179,6 +179,28 @@ function showModal(id, title, content, buttons) {
     }
 }
 
+function confirmModal(id, title) {
+    var modalHtml = '';
+    var modalId = '#' + id;
+    var buttons = '<button type="button" id="' + id + '-yes" class="btn btn-success" onclick="javascript:return true;"><span class="fa fa-check"></span>&nbsp;&nbsp;Yes</button>';
+        buttons += '<button type="button" class="btn btn-danger" data-dismiss="modal"><span class="fa fa-times"></span>&nbsp;&nbsp;No</button>';
+
+        modalHtml += '<div class="modal fade" id="' + id + '">'
+                .concat('<div class="modal-dialog">')
+                .concat('<div class="modal-content">')
+                .concat('<div class="modal-header">')
+                .concat('<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>')
+                .concat('<h4 class="modal-title"><span class="fa fa-question-circle">&nbsp;</span>').concat("Are you sure?").concat('</h4></div>')
+                .concat('<div class="modal-body">')
+                .concat('<h4>' + title + '</h4>')
+                .concat('</div><div class="modal-footer">')
+                .concat(buttons)
+                .concat('</div></div></div></div>');
+
+        $('body').append(modalHtml);
+        $(modalId).modal('show');
+
+}
 function formSubmit() {
     document.getElementById("logoutForm").submit();
 }
@@ -194,10 +216,11 @@ $(window).scroll(function () {
 $(document).ready(function () {
     $('#an-copyright').text(new Date().getFullYear());
     (function () {
-        var projectDropdown = $('#project-dropdown')
+        var projectDropdown = $('#project-dropdown');
         projectDropdown.empty();
         var token = $("meta[name='_csrf']").attr("content");
         var header = $("meta[name='_csrf_header']").attr("content");
+
         $.ajax({
             method: 'get',
             dataType: "json",
@@ -210,10 +233,10 @@ $(document).ready(function () {
                 if (response.length <= 0) {
                     items.push('<li><a class="text-muted"> No projects are defined </a></li>');
                 }
-                $.each(response, function (e) {
-                    items.push('<li><a href="/app/secure/projects/' + $(this).idProiect + '">' + $(this).numeProiect + '</a></li>');
+                $.each(response, function (i, proj) {
+                    items.push('<li><a href="/app/secure/projects/' + proj.idProiect + '">' + proj.numeProiect + '</a></li>');
                 });
-                projectDropdown.html(items.join('') + '<li class="divider"></li><li><a href="/projects"> See all projects  <i class="fa fa-arrow-right"></i> </a></li>');
+                projectDropdown.html(items.join('') + '<li class="divider"></li><li><a href="/projects" class="bg-info"> See all projects  <i class="fa fa-arrow-right"></i> </a></li>');
             }
         });
 
@@ -236,6 +259,8 @@ $(document).ready(function () {
         autoclose: true,
         calendarWeeks: true
     });
+
+    $('[rel=tooltip]').tooltip();
 
     $('a').on('click', function (e) {
         var linkLocation = $($(this).attr('href')).offset();

@@ -169,6 +169,7 @@
       <column name="creat_la" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93"/>
       <column name="data_end_estimativa" sqlType="DATE" precision="10" scale="0" nullable="true" jdbcType="91"/>
       <column name="data_start" sqlType="DATE" precision="10" scale="0" nullable="true" jdbcType="91"/>
+      <column name="deleted" sqlType="BIT" precision="1" scale="0" nullable="false" jdbcType="-7" def="YicwJw=="/>
       <column name="descriere" sqlType="LONGTEXT" precision="2147483647" scale="0" nullable="true" jdbcType="-1"/>
       <column name="id_categorie_proiect" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
       <column name="id_client" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>

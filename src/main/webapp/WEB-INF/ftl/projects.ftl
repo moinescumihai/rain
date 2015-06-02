@@ -9,7 +9,7 @@
     </div>
     [/@sidebar]
     [@content]
-    <div></div>
+    <div id="project-container" class="col-md-7"></div>
         [@modalForm "modal-addProiect" "MODAL.ADDPROJECT" "/app/secure/projects/addproject" "PROJECTS.ADDPROJECT" "book"]
             [#include "dialogs/addProjectForm.ftl"]
         [/@modalForm]
