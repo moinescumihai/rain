@@ -111,7 +111,7 @@ function getProjects() {
         }
     });
 
-};
+}
 
 $(document).ready(function () {
     $('#projects').addClass('active');
@@ -388,6 +388,7 @@ $(document).ready(function () {
                     addProjectForm.trigger('reset');
                     $('#modal-addProiect-close').click();
                     showNotification(response.message, 'Success', SUCCESS);
+                    getProjects();
                 }
             },
             error: function () {

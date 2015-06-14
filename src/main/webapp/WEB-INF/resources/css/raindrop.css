@@ -655,7 +655,7 @@ textarea {
     width: 35%;
     position: absolute;
     right: 6%;
-    bottom: 5%;
+    bottom: 15%;
 }
 
 .content {
@@ -1518,7 +1518,7 @@ a.dropdown-carret:focus {
     position: absolute;
     margin-left: -15px;
     margin-right: -15px;
-    background: url(../img/loading.gif) no-repeat;
+    background: url(../img/ajax-loader.gif) no-repeat;
 }
 @-webkit-keyframes rotate {
     100% {
@@ -1531,3 +1531,17 @@ a.dropdown-carret:focus {
     }
 }
 
+.logo {
+    -webkit-filter: drop-shadow(0 0 1px #283335);
+}
+
+.container-raindrop {
+    padding-right: 55px;
+    padding-left: 55px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.form-link {
+    padding-left: 15px;
+}

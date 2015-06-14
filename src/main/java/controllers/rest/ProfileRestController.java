@@ -1,31 +1,30 @@
 package controllers.rest;
 
+import model.domain.ListaTari;
 import model.domain.ResurseUmane;
-import model.domain.User;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
-import services.ResurseUmaneService;
-import services.user.UserService;
+import services.ListaTariService;
+import services.ProfileService;
 
 import java.beans.PropertyEditorSupport;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/app/secure/profile")
 public class ProfileRestController {
-    private static final Logger LOGGER = LoggerFactory.getLogger(ProfileRestController.class);
 
     @Autowired
-    private UserService userService;
+    private ProfileService profileService;
     @Autowired
-    private ResurseUmaneService resurseUmaneService;
+    private ListaTariService listaTariService;
 
     @InitBinder
     public void initBinder(WebDataBinder binder) {
@@ -44,14 +43,22 @@ public class ProfileRestController {
         });
     }
 
-//    @PreAuthorize("isAuthentificated()")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
     @RequestMapping(value = "/{username}", method = RequestMethod.GET, produces = "application/json")
     @ResponseBody
-    public ResurseUmane getRaindropUser() {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String name = auth.getName(); //get logged in username
+    public ResurseUmane getRaindropUser(@PathVariable("username") String username, Model model) {
+        Map<String, String> listaTari = new HashMap<>();
+        for (ListaTari tariList : listaTariService.getTari()) {
+            listaTari.put(String.valueOf(tariList.getIdTara()), tariList.getNume());
+        }
+        model.addAttribute("listaTari", listaTari);
+        return profileService.getRaindropUser(username);
+    }
 
-        User user = userService.findByUsername(name);
-        return resurseUmaneService.findOne(user.getIdUser());
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
+    @RequestMapping(value = "/", method = RequestMethod.GET, produces = "application/json")
+    @ResponseBody
+    public ResurseUmane getLoggedInUser() {
+        return profileService.getLoggedInRaindropUser();
     }
 }

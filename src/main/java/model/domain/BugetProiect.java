@@ -29,7 +29,7 @@ public class BugetProiect {
     private Timestamp modificatLa;
 
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id_buget", nullable = false, insertable = true, updatable = true)
     public long getIdBuget() {
         return idBuget;

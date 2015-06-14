@@ -7,8 +7,8 @@ public class FileBean {
     private long idFile;
     private String filename;
     private String location;
-    private Long idProiect;
-    private Long idUser;
+    private long idProiect;
+    private long idUser;
     private int versiune;
     private Long idVersiunePrecedenta;
     private String creatDe;
@@ -23,14 +23,14 @@ public class FileBean {
         FileBean fileBean = (FileBean) o;
 
         if (idFile != fileBean.idFile) return false;
+        if (idProiect != fileBean.idProiect) return false;
+        if (idUser != fileBean.idUser) return false;
         if (versiune != fileBean.versiune) return false;
         if (!filename.equals(fileBean.filename)) return false;
         if (!location.equals(fileBean.location)) return false;
-        if (idProiect != null ? !idProiect.equals(fileBean.idProiect) : fileBean.idProiect != null) return false;
-        if (idUser != null ? !idUser.equals(fileBean.idUser) : fileBean.idUser != null) return false;
         if (idVersiunePrecedenta != null ? !idVersiunePrecedenta.equals(fileBean.idVersiunePrecedenta) : fileBean.idVersiunePrecedenta != null) return false;
-        if (!creatDe.equals(fileBean.creatDe)) return false;
-        if (!creatLa.equals(fileBean.creatLa)) return false;
+        if (creatDe != null ? !creatDe.equals(fileBean.creatDe) : fileBean.creatDe != null) return false;
+        if (creatLa != null ? !creatLa.equals(fileBean.creatLa) : fileBean.creatLa != null) return false;
         return Arrays.equals(file, fileBean.file);
 
     }
@@ -40,19 +40,19 @@ public class FileBean {
         int result = (int) (idFile ^ (idFile >>> 32));
         result = 31 * result + filename.hashCode();
         result = 31 * result + location.hashCode();
-        result = 31 * result + (idProiect != null ? idProiect.hashCode() : 0);
-        result = 31 * result + (idUser != null ? idUser.hashCode() : 0);
+        result = 31 * result + (int) (idProiect ^ (idProiect >>> 32));
+        result = 31 * result + (int) (idUser ^ (idUser >>> 32));
         result = 31 * result + versiune;
         result = 31 * result + (idVersiunePrecedenta != null ? idVersiunePrecedenta.hashCode() : 0);
-        result = 31 * result + creatDe.hashCode();
-        result = 31 * result + creatLa.hashCode();
+        result = 31 * result + (creatDe != null ? creatDe.hashCode() : 0);
+        result = 31 * result + (creatLa != null ? creatLa.hashCode() : 0);
         result = 31 * result + (file != null ? Arrays.hashCode(file) : 0);
         return result;
     }
 
     @Override
     public String toString() {
-        final StringBuffer sb = new StringBuffer("FileBean{");
+        final StringBuilder sb = new StringBuilder("FileBean{");
         sb.append("idFile=").append(idFile);
         sb.append(", filename='").append(filename).append('\'');
         sb.append(", location='").append(location).append('\'');

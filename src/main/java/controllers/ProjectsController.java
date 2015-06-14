@@ -4,13 +4,13 @@ import model.domain.Industrie;
 import model.domain.ListaTari;
 import model.domain.StatusProiect;
 import model.repository.IndustrieRepository;
-import model.repository.ListaTariRepository;
 import model.repository.StatusProiectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+import services.ListaTariService;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -21,7 +21,7 @@ public class ProjectsController {
     @Autowired
     private IndustrieRepository industrieRepository;
     @Autowired
-    private ListaTariRepository listaTariRepository;
+    private ListaTariService listaTariRepository;
     @Autowired
     private StatusProiectRepository statusProiectRepository;
 
@@ -39,7 +39,7 @@ public class ProjectsController {
             listaIndustrie.put(String.valueOf(industry.getIdIndustrie()), industry.getNume());
         }
         Map<String, String> listaTari = new HashMap<>();
-        for (ListaTari tariList : listaTariRepository.findAll()) {
+        for (ListaTari tariList : listaTariRepository.getTari()) {
             listaTari.put(String.valueOf(tariList.getIdTara()), tariList.getNume());
         }
         model.addObject("listaIndustrie", listaIndustrie);

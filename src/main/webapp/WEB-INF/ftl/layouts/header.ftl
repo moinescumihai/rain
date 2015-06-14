@@ -26,7 +26,7 @@
 </head>
 <body class="unselectable" oncontextmenu="return false;">
 <nav class="navbar navbar-inverse navbar-fixed-top unselectable" role="navigation">
-    <div class="container">
+    <div class="container-raindrop">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
                 <span class="sr-only">Toggle navigation</span>
@@ -34,7 +34,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/"><img style="height:55px;width: auto; display: inline;" src="/img/raindrop-logo.png"/></a>
+            <a class="navbar-brand" href="/"><img style="height:55px;width: auto; display: inline;" src="/img/raindrop-logo.png" class="logo"/></a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
@@ -102,11 +102,15 @@
                         <img width="36px" class="img-rounded" src="http://api.randomuser.me/portraits/men/4.jpg">
                     </a>
                     <ul class="dropdown-menu pull-right">
-                        <li data-toggle="modal" data-target="#userprofile">
-                            <a href="/app/secure/profile/admin"><span class="fa fa-user fa-fw">&nbsp;</span>[@spring.message "PROFILE"/]</a>
+                        <li>
+                            <a data-toggle="modal" data-target="#modal-userProfile">
+                                <span class="fa fa-user fa-fw">&nbsp;</span>[@spring.message "PROFILE"/]
+                            </a>
                         </li>
-                        <li><a data-toggle="modal" data-target="#settings" href="#settings">
-                            <span class="fa fa-cogs fa-fw">&nbsp;</span>[@spring.message "SETTINGS"/]</a>
+                        <li>
+                            <a data-toggle="modal" data-target="#settings" href="#settings">
+                                <span class="fa fa-cogs fa-fw">&nbsp;</span>[@spring.message "SETTINGS"/]
+                            </a>
                         </li>
                         <li class="divider"></li>
                         <li>

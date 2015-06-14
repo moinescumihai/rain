@@ -790,6 +790,9 @@
             <basic name="enabled">
                 <column name="enabled" nullable="false" precision="10"/>
             </basic>
+            <basic name="activeProject">
+                <column name="active_project" nullable="true" precision="20"/>
+            </basic>
         </attributes>
     </entity>
     <entity class="model.domain.UserRole">

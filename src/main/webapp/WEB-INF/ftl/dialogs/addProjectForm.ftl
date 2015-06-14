@@ -1,7 +1,6 @@
 [#ftl]
 [#include "../formMacros.ftl"]
 
-
 [@rowBreak/]
 <div role="tabpanel">
     <!-- Nav tabs -->
@@ -26,16 +25,20 @@
         </div>
         <div class="tab-pane fade" id="company-project" role="tabpanel">
             [@tabPaneContainer ]
-                [@selectBox "addProject-form-client" "idClient" "CLIENT" "SELECT.PLACEHOLDER" "SEARCH.NO_RESULTS" "6" /]
+                [@elementWithLink "modal-addClient" "MODAL.ADDCLIENT" "6"]
+                    [@selectBox "addProject-form-client" "idClient" "CLIENT" "SELECT.PLACEHOLDER" "SEARCH.NO_RESULTS" "12" ]
+                    [/@selectBox]
+                [/@elementWithLink]
                 [@infobox "client-info" "INFOBOX.ADDCLIENT"/]
-                [@modalLink "modal-addClient" "MODAL.ADDCLIENT"/]
             [/@tabPaneContainer]
         </div>
         <div class="tab-pane fade" id="category-project" role="tabpanel">
             [@tabPaneContainer ]
-                [@selectBox "addProject-form-category" "idCategorieProiect" "CATEGORY" "SELECT.PLACEHOLDER" "SEARCH.NO_RESULTS" "6" /]
+                [@elementWithLink "modal-addCategory" "MODAL.ADDCATEGORY" "6"]
+                    [@selectBox "addProject-form-category" "idCategorieProiect" "CATEGORY" "SELECT.PLACEHOLDER" "SEARCH.NO_RESULTS" "12"]
+                    [/@selectBox]
+                [/@elementWithLink]
                 [@infobox "client-info" "INFOBOX.ADDCATEGORY"/]
-                [@modalLink "modal-addCategory" "MODAL.ADDCATEGORY"/]
             [/@tabPaneContainer]
         </div>
         <div class="tab-pane fade" id="dates-project" role="tabpanel">

@@ -1,11 +1,6 @@
 package common;
 
-import com.google.zxing.BarcodeFormat;
-import com.google.zxing.BinaryBitmap;
-import com.google.zxing.LuminanceSource;
-import com.google.zxing.MultiFormatReader;
-import com.google.zxing.MultiFormatWriter;
-import com.google.zxing.Result;
+import com.google.zxing.*;
 import com.google.zxing.client.j2se.BufferedImageLuminanceSource;
 import com.google.zxing.client.j2se.MatrixToImageWriter;
 import com.google.zxing.common.BitMatrix;
@@ -37,12 +32,15 @@ public class Barcode {
     public static void encode(File file, String contents, BarcodeFormat barcodeFormat) throws Exception {
         int width;
         int height;
-        if (barcodeFormat == null)
+        if (barcodeFormat == null) {
             barcodeFormat = DEFAULT_BARCODE_FORMAT;
-        if (file == null || file.getName().trim().isEmpty())
+        }
+        if (file == null || file.getName().trim().isEmpty()) {
             throw new IllegalArgumentException("File not found, or invalid file name.");
-        if (contents == null || contents.trim().isEmpty())
+        }
+        if (contents == null || contents.trim().isEmpty()) {
             throw new IllegalArgumentException("Can't encode null or empty contents.");
+        }
         switch (barcodeFormat) {
             case CODE_128:
                 width = 200;
@@ -82,16 +80,18 @@ public class Barcode {
      */
     public static String decode(File file) throws Exception {
         // check the required parameters
-        if (file == null || file.getName().trim().isEmpty())
+        if (file == null || file.getName().trim().isEmpty()) {
             throw new IllegalArgumentException("File not found, or invalid file name.");
+        }
         BufferedImage image;
         try {
             image = ImageIO.read(file);
         } catch (IOException ioe) {
             throw new Exception(ioe.getMessage());
         }
-        if (image == null)
+        if (image == null) {
             throw new IllegalArgumentException("Could not decode image.");
+        }
         LuminanceSource source = new BufferedImageLuminanceSource(image);
         BinaryBitmap bitmap = new BinaryBitmap(new HybridBinarizer(source));
         MultiFormatReader barcodeReader = new MultiFormatReader();

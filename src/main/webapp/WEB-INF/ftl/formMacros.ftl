@@ -17,6 +17,13 @@
 </div>
 [/#macro]
 
+[#macro elementWithLink target label size="6"]
+<div class="col-md-${size}">
+    [#nested]
+    <a data-toggle="modal" data-target="#${target}" class="small form-link">[@spring.message label /]</a>
+</div>
+[/#macro]
+
 [#macro selectBox id name label placeholder="SELECT.PLACEHOLDER" noResultsText="SEARCH.NO_RESULTS" size="3"]
 <div class="form-group col-md-${size}">
     <label for="${id}">[@spring.message label /]</label>
@@ -52,10 +59,19 @@
 </div>
 [/#macro]
 
+[#macro emailInput id name label placeholder value="" size="3"]
+<div class="form-group col-md-${size}">
+    <label for="${id}">[@spring.message label/]</label>
+    <input type="email" class="form-control input-sm" id="${id}" name="${name}" title="[@spring.message label /]" placeholder="[@spring.message placeholder /]" value="${value}" required="true">
+
+    <div id="${name}-error" class="help-block"></div>
+</div>
+[/#macro]
+
 [#macro datepicker id name label placeholder size="3"]
 <div class="form-group col-md-${size}">
     <label for="${id}">[@spring.message label/]</label>
-    <input type="text" class="datepicker form-control input-sm" id="${id}" name="${name}" placeholder="[@spring.message placeholder /]" title="[@spring.message label /]" data-date-format="mm-dd-yyyy" required="true">
+    <input type="text" class="datepicker form-control input-sm" id="${id}" name="${name}" placeholder="[@spring.message placeholder /]" title="[@spring.message label /]" data-date-format="yyyy-mm-dd" required="true" data->
 
     <div id="${name}-error" class="help-block"></div>
 </div>
@@ -145,9 +161,8 @@
 </div>
 [/#macro]
 
-[#macro modalLink target label size="6"]
-<div class="col-md-12"></div>
-<div class="col-md-${size}">
+[#macro modalLink target label]
+<div>
     <a data-toggle="modal" data-target="#${target}" class="small">[@spring.message label /]</a>
 </div>
 [/#macro]
