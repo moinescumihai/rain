@@ -1240,6 +1240,15 @@ button.toast-close-button {
     margin-top: 26px;
 }
 
+.progress-bar-default{
+    background-image: -webkit-linear-gradient(top, #909090 0%, #6c6c6c 100%);
+    background-image:      -o-linear-gradient(top, #909090 0%, #6c6c6c 100%);
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#909090), to(#6c6c6c));
+    background-image:         linear-gradient(to bottom, #909090 0%, #6c6c6c 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff5bc0de', endColorstr='#ff31b0d5', GradientType=0);
+    background-repeat: repeat-x;
+}
+
 .panel-body {
     padding: 10px;
 }

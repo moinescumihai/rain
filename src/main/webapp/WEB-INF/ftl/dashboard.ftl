@@ -138,6 +138,8 @@
     </div>
     [/@dashboard]
 [/@layout.basic]
+
+<script type="text/javascript" src="/js/static/dashboard.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
         $('#dashboard').addClass('active');
