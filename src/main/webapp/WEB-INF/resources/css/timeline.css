@@ -7,11 +7,12 @@
     position: relative;
     table-layout: fixed;
     width: 100%;
+    margin: 20px;
 }
 
 .timeline:before {
     background-color: #C7CBD6;
-    bottom: 0px;
+    bottom: 0;
     content: "";
     left: 50%;
     position: absolute;
@@ -21,7 +22,6 @@
 }
 
 h3.timeline-title {
-    margin: 0;
     color: #C8CCD7;
     font-size: 20px;
     font-weight: 400;
@@ -60,7 +60,9 @@ h3.timeline-title {
     margin-left: 25px;
     position: relative;
     text-align: left;
-    background: #F4F4F4;
+    background: #ffffff;
+    width: 90%;
+    -webkit-filter: drop-shadow(0 0 2px #707070);
 }
 
 .timeline-item .timeline-desk .arrow {

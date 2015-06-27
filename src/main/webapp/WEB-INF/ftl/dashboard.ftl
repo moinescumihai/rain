@@ -4,120 +4,136 @@
 [#include "formMacros.ftl" /]
 [@layout.basic]
     [@dashboard]
-    <div class="container wrapper">
-        <div class="col-lg-6 col-md-6 col-sm-6">
-            <!--timeline start-->
-            <section class="panel">
-                <div class="panel-body">
-                    <div class="text-center mbot30">
-                        <h3 class="timeline-title">Timeline</h3>
+    <div class="rain-container">
+        <div class="dashboard-jumbotron">
+            <div class="col-md-4">
+                <div class="dashboard-panel">
+                    <!--user info table start-->
+                    <div class="dashboard-panel-body">
+                        <a href="#" class="dashboard-thumb">
+                            <img src="/img/photos/user1.png" alt="">
+                        </a>
 
-                        <p class="t-info">This is a project timeline</p>
+                        <div class="dashboard-thumb-details">
+                            <h1><a href="#">Anjelina Joli</a></h1>
+
+                            <p>Senior Architect</p>
+                        </div>
                     </div>
-
-                    <div class="timeline">
-                        <article class="timeline-item">
-                            <div class="timeline-desk">
-                                <div class="panel">
-                                    <div class="panel-body">
-                                        <span class="arrow"></span>
-                                        <span class="timeline-icon red"></span>
-                                        <span class="timeline-date">08:25 am</span>
-
-                                        <h1 class="red">12 July | Sunday</h1>
-
-                                        <p>Lorem ipsum dolor sit amet consiquest dio</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </article>
-                        <article class="timeline-item alt">
-                            <div class="timeline-desk">
-                                <div class="panel">
-                                    <div class="panel-body">
-                                        <span class="arrow-alt"></span>
-                                        <span class="timeline-icon green"></span>
-                                        <span class="timeline-date">10:00 am</span>
-
-                                        <h1 class="green">10 July | Wednesday</h1>
-
-                                        <p><a href="#">Jonathan Smith</a> added new milestone <span><a href="#" class="green">ERP</a></span></p>
-                                    </div>
-                                </div>
-                            </div>
-                        </article>
-                        <article class="timeline-item">
-                            <div class="timeline-desk">
-                                <div class="panel">
-                                    <div class="panel-body">
-                                        <span class="arrow"></span>
-                                        <span class="timeline-icon blue"></span>
-                                        <span class="timeline-date">11:35 am</span>
-
-                                        <h1 class="blue">05 July | Monday</h1>
-
-                                        <p><a href="#">Anjelina Joli</a> added new album <span><a href="#" class="blue">PARTY TIME</a></span></p>
-
-                                        <div class="album">
-                                            <a href="#">
-                                                <img alt="" src="img/sm-img-1.jpg">
-                                            </a>
-                                            <a href="#">
-                                                <img alt="" src="img/sm-img-2.jpg">
-                                            </a>
-                                            <a href="#">
-                                                <img alt="" src="img/sm-img-3.jpg">
-                                            </a>
-                                            <a href="#">
-                                                <img alt="" src="img/sm-img-1.jpg">
-                                            </a>
-                                            <a href="#">
-                                                <img alt="" src="img/sm-img-2.jpg">
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </article>
-                        <article class="timeline-item alt">
-                            <div class="timeline-desk">
-                                <div class="panel">
-                                    <div class="panel-body">
-                                        <span class="arrow-alt"></span>
-                                        <span class="timeline-icon purple"></span>
-                                        <span class="timeline-date">3:20 pm</span>
-
-                                        <h1 class="purple">29 June | Saturday</h1>
-
-                                        <p>Lorem ipsum dolor sit amet consiquest dio</p>
-
-                                        <div class="notification">
-                                            <i class=" fa fa-exclamation-sign"></i> New task added for <a href="#">Denial Collins</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </article>
-                        <article class="timeline-item">
-                            <div class="timeline-desk">
-                                <div class="panel">
-                                    <div class="panel-body">
-                                        <span class="arrow"></span>
-                                        <span class="timeline-icon light-green"></span>
-                                        <span class="timeline-date">07:49 pm</span>
-
-                                        <h1 class="light-green">10 June | Friday</h1>
-
-                                        <p><a href="#">Jonatha Smith</a> added new milestone <span><a href="#" class="light-green">prank</a></span> Lorem ipsum dolor sit amet consiquest dio</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </article>
-                    </div>
-
-                    <div class="clearfix">&nbsp;</div>
+                    <table class="table table-hover dashboard-task">
+                        <tbody>
+                        <tr>
+                            <td>
+                                <i class=" fa fa-tasks"></i>
+                            </td>
+                            <td>New Task Issued</td>
+                            <td class="table-badge"><span class="badge">02</span></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <i class="fa fa-exclamation-triangle"></i>
+                            </td>
+                            <td>Task Pending</td>
+                            <td class="table-badge"><span class="badge">14</span></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <i class="fa fa-envelope"></i>
+                            </td>
+                            <td>Inbox</td>
+                            <td class="table-badge"><span class="badge">45</span></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <i class=" fa fa-bell-o"></i>
+                            </td>
+                            <td>New Notification</td>
+                            <td class="table-badge"><span class="badge">09</span></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <!--user info table end-->
                 </div>
-            </section>
+            </div>
+            <div class="col-md-8">
+                <div class="dashboard-panel">
+                    <div class="dashboard-panel-body progress-panel">
+                        <div class="dashboard-thumb-details">
+                            <h1>[@spring.message "WORK.PROGRESS"/]</h1>
+                        </div>
+                    </div>
+                    <table class="table table-hover dashboard-task">
+                        <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>
+                                Target Sell
+                            </td>
+                            <td>
+                                <div class="progress">
+                                    <div class="progress-bar" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 75%;">
+                                        75%
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>
+                                Product Delivery
+                            </td>
+                            <td>
+                                <div class="progress">
+                                    <div class="progress-bar" role="progressbar" aria-valuenow="43" aria-valuemin="0" aria-valuemax="100" style="width: 43%;">
+                                        43%
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>
+                                Payment Collection
+                            </td>
+                            <td>
+                                <div class="progress">
+                                    <div class="progress-bar" role="progressbar" aria-valuenow="67" aria-valuemin="0" aria-valuemax="100" style="width: 67%;">
+                                        67%
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>
+                                Work Progress
+                            </td>
+                            <td>
+                                <div class="progress">
+                                    <div class="progress-bar" role="progressbar" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100" style="width: 30%;">
+                                        30%
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>5</td>
+                            <td>
+                                Delivery Pending
+                            </td>
+                            <td>
+                                <div class="progress">
+                                    <div class="progress-bar" role="progressbar" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100" style="width: 15%;">
+                                        15%
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <!--work progress end-->
         </div>
     </div>
     [/@dashboard]

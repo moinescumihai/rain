@@ -6,7 +6,7 @@
     <div class="content">
         <!--main content start-->
         <section id="main-content">
-            <section class="wrapper site-min-height">
+            <section class="inbox-wrapper site-min-height">
                 <!-- page start-->
                 <div class="chat-room">
                     <aside class="left-side">

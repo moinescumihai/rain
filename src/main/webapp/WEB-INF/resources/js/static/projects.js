@@ -98,13 +98,15 @@ function getProjects() {
             $.each(response, function (i, proj) {
                 var idProiect = proj.idProiect;
                 var numeProiect = proj.numeProiect;
-                var dataEnd = proj.dataEndEstimativa;
-                projectString = '<div id="proiect-item' + idProiect + '" class="project-item">'
-                    + '<a id="project-options' + idProiect + '" tabindex="0" class="btn-xs dropdown-carret popup-marker" data-load="idProiect=' + idProiect
-                    + '" data-placement="bottom"><span class="caret"></span></a>'
-                    + '&nbsp;<span id="proiect-nume-' + idProiect + '" class="proiect-nume">' + numeProiect + '</span>'
-                    + '<span id="proiect-date-' + idProiect + '" class="proiect-date"> - due date: ' + dataEnd + '</span>'
-                    + '</div>';
+                var dataEnd = toJSDate(proj.dataEndEstimativa);
+                var dataStart = toJSDate(proj.dataStart);
+                projectString = '<div id="proiect-item' + idProiect + '" class="project-item panel"><div class="panel-body">'
+                    + '<div class="col-sm-3"><a id="project-options' + idProiect + '" tabindex="0" class="popup-marker" data-load="idProiect=' + idProiect
+                    + '" data-placement="bottom"><span class="fa fa-th-list">&nbsp;&nbsp;</span></a>'
+                    + '<span id="proiect-nume-' + idProiect + '" class="proiect-nume">' + numeProiect + '</span></div>'
+                    + '<div class="col-sm-9"><p id="proiect-data-start-' + idProiect + '" class="proiect-date"> Started: ' + dataStart + '</p>'
+                    + '<p id="proiect-data-end-' + idProiect + '" class="proiect-date"> Deadline: ' + dataEnd + '</p>'
+                    + '</div></div></div>';
                 items.push(projectString);
             });
             projectContainer.html(items.join(''));

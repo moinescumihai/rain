@@ -50,7 +50,7 @@
 
     <div class="custom-footer">
         <p><span class="copyright">Copyright &copy; &middot; <span class="green">Raindrop Solutions <span
-                id="an-copyright"></span></span>&bull;&nbsp;<a>[@spring.message "APPTITLE"/]</a></p>
+                id="an-copyright"></span></span>&nbsp;&bull;&nbsp;<a>[@spring.message "APPTITLE"/]</a></p>
     </div>
 
 </div>

@@ -125,7 +125,7 @@ function showNotif(message, title, type) {
     )
 }
 
-function toJSDate(dateParam, timeParam, locale) {
+function toJSDate(dateParam, locale) {
     var options = {
         weekday: "long",
         year: "numeric",
@@ -135,20 +135,45 @@ function toJSDate(dateParam, timeParam, locale) {
         "minute": "2-digit",
         "hour": "2-digit"
     };
+    var time;
+    var date;
 
     if (!locale) {
         locale = 'en'
     }
     var dateTime = dateParam.split(" ");//dateTime[0] = date, dateTime[1] = time
+    date = dateTime[0].split("-");
+    return new Date(date[0], date[1], date[2]).toLocaleString(locale, options);
+}
+
+function toJSDateTime() {
+    var returnDate;
+    var options = {
+        weekday: "long",
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+        "second": "2-digit",
+        "minute": "2-digit",
+        "hour": "2-digit"
+    };
     var time;
-    var date = dateTime[0].split("-");
-    date[1] = parseInt(date[1]) - 1;
-    if (timeParam && timeParam == true) {
+    var date;
+
+    if (!locale) {
+        locale = 'en'
+    }
+    var dateTime = dateParam.split(" ");//dateTime[0] = date, dateTime[1] = time
+    date = dateTime[0].split("-");
+    if (dateTime[1]) {
+        date[1] = parseInt(date[1]) - 1;
         time = dateTime[1].split(":");
         //(year, month, day, hours, minutes, seconds, milliseconds)
-        return new Date(date[0], date[1], date[2], time[0], time[1], time[2], 0).toLocaleString(locale, options);
+        returnDate = new Date(date[0], date[1], date[2], time[0], time[1], time[2], 0).toLocaleString(locale, options);
+    } else {
+        returnDate = new Date(date[0], date[1], date[2]).toLocaleString(locale, options);
     }
-    return new Date(date[0], date[1], date[2]).toLocaleString(locale, options);
+    return returnDate;
 }
 
 function showModal(id, title, content, buttons) {
@@ -183,22 +208,22 @@ function confirmModal(id, title) {
     var modalHtml = '';
     var modalId = '#' + id;
     var buttons = '<button type="button" id="' + id + '-yes" class="btn btn-success" onclick="javascript:return true;"><span class="fa fa-check"></span>&nbsp;&nbsp;Yes</button>';
-        buttons += '<button type="button" class="btn btn-danger" data-dismiss="modal"><span class="fa fa-times"></span>&nbsp;&nbsp;No</button>';
+    buttons += '<button type="button" class="btn btn-danger" data-dismiss="modal"><span class="fa fa-times"></span>&nbsp;&nbsp;No</button>';
 
-        modalHtml += '<div class="modal fade" id="' + id + '">'
-                .concat('<div class="modal-dialog">')
-                .concat('<div class="modal-content">')
-                .concat('<div class="modal-header">')
-                .concat('<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>')
-                .concat('<h4 class="modal-title"><span class="fa fa-question-circle">&nbsp;</span>').concat("Are you sure?").concat('</h4></div>')
-                .concat('<div class="modal-body">')
-                .concat('<h4>' + title + '</h4>')
-                .concat('</div><div class="modal-footer">')
-                .concat(buttons)
-                .concat('</div></div></div></div>');
+    modalHtml += '<div class="modal fade" id="' + id + '">'
+            .concat('<div class="modal-dialog">')
+            .concat('<div class="modal-content">')
+            .concat('<div class="modal-header">')
+            .concat('<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>')
+            .concat('<h4 class="modal-title"><span class="fa fa-question-circle">&nbsp;</span>').concat("Are you sure?").concat('</h4></div>')
+            .concat('<div class="modal-body">')
+            .concat('<h4>' + title + '</h4>')
+            .concat('</div><div class="modal-footer">')
+            .concat(buttons)
+            .concat('</div></div></div></div>');
 
-        $('body').append(modalHtml);
-        $(modalId).modal('show');
+    $('body').append(modalHtml);
+    $(modalId).modal('show');
 
 }
 
@@ -222,7 +247,7 @@ jQuery.validator.setDefaults({
         if ($(element).parent().hasClass("chosen-search")) {
             $(element).parent().closest("div.form-group").addClass('has-error');
         }
-        var tab_content = $(element).parent().parent().parent();
+        var tab_content = $(element).closest('.tab-pane');
         if ($(tab_content).find('div.has-error').length > ZERO) {
             var id = $(tab_content).attr("id");
             $('a[href="#' + id + '"]').css('color', '#a94442');
@@ -237,7 +262,7 @@ jQuery.validator.setDefaults({
             $(element).closest("div.form-group").removeClass('has-error');
         }
         $(element).closest('.form-group').removeClass('has-error');
-        var tab_content = $(element).parent().parent().parent();
+        var tab_content = $(element).closest('.tab-pane');
         if ($(tab_content).find('div.has-error').length == ZERO) {
             var id = $(tab_content).attr("id");
             $('a[href="#' + id + '"]').css('color', '#333');
@@ -369,13 +394,29 @@ $(document).ready(function () {
         orientation: 'bottom'
     });
 
-    $('[rel=tooltip]').tooltip();
+
+    var rightSlidebar = new $.slidebars({
+        siteClose: true, // true or false
+        disableOver: 480, // integer or false
+        hideControlClasses: true, // true or false
+        scrollLock: false // true or false
+    });
+
+    $('body').on('mousemove', function (event) {
+        debugger;
+        var screenEdge = screen.width - 100;
+        if (event.pageX > screenEdge) {
+            rightSlidebar.slidebars.open('right');
+        }
+    });
 
     $('a').on('click', function (e) {
         var linkLocation = $($(this).attr('href')).offset();
         if (linkLocation)
             $('html,body').animate({scrollTop: linkLocation.top}, "10000", 'linear');
     });
+
+    setSizeOfContent();
 
     var profileModalForm = $('#modal-userProfile-form');
 
@@ -439,8 +480,13 @@ $(document).ready(function () {
         }
     });
 
-    $('#modal-userProfile').on('show.bs.modal', function(){
-           getProfile();
+    $('#modal-userProfile').on('show.bs.modal', function () {
+        getProfile();
     });
 
 });
+
+function setSizeOfContent() {
+    var navSize = $('.navbar').height() + 20;
+    $('.content').css('margin-top', navSize + 'px');
+}

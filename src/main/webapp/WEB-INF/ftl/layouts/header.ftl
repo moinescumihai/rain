@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="description" content="Raindrop">
     <meta name="author" content="Raindrop Solutions">
 
@@ -22,6 +22,7 @@
     <link href="/css/inbox.css" rel="stylesheet">
     <link href="/css/timeline.css" rel="stylesheet">
     <link href="/css/tree.css" rel="stylesheet">
+    <link href="/css/slidebars.css" rel="stylesheet">
     <link href="/css/raindrop.css" rel="stylesheet">
 </head>
 <body class="unselectable" oncontextmenu="return false;">
