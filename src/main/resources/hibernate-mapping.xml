@@ -116,20 +116,6 @@
             </basic>
         </attributes>
     </entity>
-    <entity class="model.domain.CategorieStoc">
-        <table name="categorie_stoc" schema="" catalog="raindrop"/>
-        <attributes>
-            <basic name="nume">
-                <column name="nume" nullable="false" length="150"/>
-            </basic>
-            <basic name="idCategorieParinte">
-                <column name="id_categorie_parinte" precision="10"/>
-            </basic>
-            <basic name="esteSubcategorie">
-                <column name="este_subcategorie" precision="3"/>
-            </basic>
-        </attributes>
-    </entity>
     <entity class="model.domain.ChatMessage">
         <table name="chat_message" schema="" catalog="raindrop"/>
         <attributes>
@@ -350,17 +336,6 @@
             </id>
             <basic name="nume">
                 <column name="nume" nullable="false" length="150"/>
-            </basic>
-        </attributes>
-    </entity>
-    <entity class="model.domain.MapFavProjectUser">
-        <table name="map_fav_project_user" schema="" catalog="raindrop"/>
-        <attributes>
-            <basic name="idUser">
-                <column name="id_user" nullable="false" precision="10"/>
-            </basic>
-            <basic name="idProiect">
-                <column name="id_proiect" nullable="false" precision="19"/>
             </basic>
         </attributes>
     </entity>
@@ -608,71 +583,6 @@
             </basic>
         </attributes>
     </entity>
-    <entity class="model.domain.Stoc">
-        <table name="stoc" schema="" catalog="raindrop"/>
-        <attributes>
-            <id name="idStoc">
-                <column name="id_stoc" nullable="false" precision="19"/>
-            </id>
-            <basic name="numeStoc">
-                <column name="nume_stoc" nullable="false" length="150"/>
-            </basic>
-            <basic name="codStoc">
-                <column name="cod_stoc"/>
-            </basic>
-            <basic name="idUMStoc">
-                <column name="id_u_m_stoc" nullable="false" precision="10"/>
-            </basic>
-            <basic name="idCategorieStoc">
-                <column name="id_categorie_stoc" nullable="false" precision="10"/>
-            </basic>
-            <basic name="cantitateCurenta">
-                <column name="cantitate_curenta" nullable="false" length="45"/>
-            </basic>
-            <basic name="cantitateComandata">
-                <column name="cantitate_comandata" length="45"/>
-            </basic>
-            <basic name="cantitatePtAlerta">
-                <column name="cantitate_pt_alerta" length="45"/>
-            </basic>
-            <basic name="cantitateUltimaIntrare">
-                <column name="cantitate_ultima_intrare" length="45"/>
-            </basic>
-            <basic name="cantitateUltimaIesire">
-                <column name="cantitate_ultima_iesire" length="45"/>
-            </basic>
-            <basic name="dataUltimaIntrare">
-                <column name="data_ultima_intrare" precision="10"/>
-            </basic>
-            <basic name="dataUltimaIesire">
-                <column name="data_ultima_iesire" precision="10"/>
-            </basic>
-            <basic name="valoareBucata">
-                <column name="valoare_bucata" length="45"/>
-            </basic>
-            <basic name="valoareTotala">
-                <column name="valoare_totala" length="45"/>
-            </basic>
-            <basic name="stareProdus">
-                <column name="stare_produs" length="45"/>
-            </basic>
-            <basic name="dataExpirare">
-                <column name="data_expirare" precision="19"/>
-            </basic>
-            <basic name="creatDe">
-                <column name="creat_de" nullable="false" length="150"/>
-            </basic>
-            <basic name="creatLa">
-                <column name="creat_la" precision="19"/>
-            </basic>
-            <basic name="modificatDe">
-                <column name="modificat_de" length="150"/>
-            </basic>
-            <basic name="modificatLa">
-                <column name="modificat_la" precision="19"/>
-            </basic>
-        </attributes>
-    </entity>
     <entity class="model.domain.TipContract">
         <table name="tip_contract" schema="" catalog="raindrop"/>
         <attributes>
@@ -704,41 +614,6 @@
             </basic>
         </attributes>
     </entity>
-    <entity class="model.domain.TranzactieStoc">
-        <table name="tranzactie_stoc" schema="" catalog="raindrop"/>
-        <attributes>
-            <id name="idTranzactieStoc">
-                <column name="id_tranzactie_stoc" nullable="false" precision="19"/>
-            </id>
-            <basic name="idStoc">
-                <column name="id_stoc" nullable="false" precision="19"/>
-            </basic>
-            <basic name="nume">
-                <column name="nume" nullable="false" length="150"/>
-            </basic>
-            <basic name="cantitate">
-                <column name="cantitate" nullable="false" length="45"/>
-            </basic>
-            <basic name="idUMStoc">
-                <column name="id_u_m_stoc" nullable="false" precision="10"/>
-            </basic>
-            <basic name="tipTranzactie">
-                <column name="tip_tranzactie" nullable="false" length="2"/>
-            </basic>
-            <basic name="idUserResponsabil">
-                <column name="id_user_responsabil" nullable="false" precision="19"/>
-            </basic>
-            <basic name="dataTranzactie">
-                <column name="data_tranzactie" nullable="false" precision="10"/>
-            </basic>
-            <basic name="creatDe">
-                <column name="creat_de" nullable="false" length="150"/>
-            </basic>
-            <basic name="creatLa">
-                <column name="creat_la" precision="19"/>
-            </basic>
-        </attributes>
-    </entity>
     <entity class="model.domain.UMBuget">
         <table name="u_m_buget" schema="" catalog="raindrop"/>
         <attributes>
@@ -755,17 +630,6 @@
             </basic>
             <basic name="valoare">
                 <column name="valoare" nullable="false" length="45"/>
-            </basic>
-        </attributes>
-    </entity>
-    <entity class="model.domain.UMStoc">
-        <table name="u_m_stoc" schema="" catalog="raindrop"/>
-        <attributes>
-            <basic name="nume">
-                <column name="nume" nullable="false" length="45"/>
-            </basic>
-            <basic name="sistem">
-                <column name="sistem" nullable="false" length="8"/>
             </basic>
         </attributes>
     </entity>

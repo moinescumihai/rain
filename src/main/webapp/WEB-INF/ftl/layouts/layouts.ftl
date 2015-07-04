@@ -3,9 +3,9 @@
 [#include "../formMacros.ftl"]
 [#macro basic]
     [#include "header.ftl"/]
-
+    <div id="sb-site">
     [#nested]
-
+    </div>
     [#include "footer.ftl"/]
     [#include "rightSidebar.ftl"/]
     [@modalForm "modal-userProfile" "MODAL.USERPROFILE" "/app/secure/profile/" "SAVE.CHANGES" "user"]
@@ -29,7 +29,7 @@
 <script src="/js/jquery.validate.min.js"></script>
 <script src="/js/additional-methods.min.js"></script>
 <script src="/js/popover.js"></script>
-<script src="/js/bootstrap-datepicker.min.js"></script>
+<script src="/js/bootstrap-datepicker.js"></script>
 <script src="/js/slidebars.js"></script>
 <script src="/js/chart.min.js"></script>
 <script src="/js/raindrop.js"></script>

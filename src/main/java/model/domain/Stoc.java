@@ -1,39 +1,35 @@
 package model.domain;
 
-import org.springframework.data.annotation.CreatedBy;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedBy;
-import org.springframework.data.annotation.LastModifiedDate;
-
-import javax.persistence.*;
-import java.sql.Date;
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import java.sql.Timestamp;
 
+/**
+ * @author Ciprian on 7/4/2015.
+ *         <p>
+ *         rain
+ */
 @Entity
 public class Stoc {
     private long idStoc;
+    private long idCategorieStoc;
+    private long idGrupStoc;
     private String numeStoc;
     private String codStoc;
-    private int idUMStoc;
-    private int idCategorieStoc;
-    private String cantitateCurenta;
-    private String cantitateComandata;
-    private String cantitatePtAlerta;
-    private String cantitateUltimaIntrare;
-    private String cantitateUltimaIesire;
-    private Date dataUltimaIntrare;
-    private Date dataUltimaIesire;
-    private String valoareBucata;
-    private String valoareTotala;
-    private String stareProdus;
-    private Timestamp dataExpirare;
+    private int idStare;
+    private long idLoc;
+    private long idResurseUmane;
+    private String detalii;
+    private long factura;
+    private long imagine;
     private String creatDe;
     private Timestamp creatLa;
-    private String modificatDe;
     private Timestamp modificatLa;
+    private String modificatDe;
 
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
     @Column(name = "id_stoc", nullable = false, insertable = true, updatable = true)
     public long getIdStoc() {
         return idStoc;
@@ -44,7 +40,27 @@ public class Stoc {
     }
 
     @Basic
-    @Column(name = "nume_stoc", nullable = false, insertable = true, updatable = true, length = 150)
+    @Column(name = "id_categorie_stoc", nullable = false, insertable = true, updatable = true)
+    public long getIdCategorieStoc() {
+        return idCategorieStoc;
+    }
+
+    public void setIdCategorieStoc(long idCategorieStoc) {
+        this.idCategorieStoc = idCategorieStoc;
+    }
+
+    @Basic
+    @Column(name = "id_grup_stoc", nullable = false, insertable = true, updatable = true)
+    public long getIdGrupStoc() {
+        return idGrupStoc;
+    }
+
+    public void setIdGrupStoc(long idGrupStoc) {
+        this.idGrupStoc = idGrupStoc;
+    }
+
+    @Basic
+    @Column(name = "nume_stoc", nullable = false, insertable = true, updatable = true, length = 255)
     public String getNumeStoc() {
         return numeStoc;
     }
@@ -54,7 +70,7 @@ public class Stoc {
     }
 
     @Basic
-    @Column(name = "cod_stoc", nullable = true, insertable = true, updatable = true, length = 255)
+    @Column(name = "cod_stoc", nullable = false, insertable = true, updatable = true, length = 255)
     public String getCodStoc() {
         return codStoc;
     }
@@ -64,137 +80,66 @@ public class Stoc {
     }
 
     @Basic
-    @Column(name = "id_u_m_stoc", nullable = false, insertable = true, updatable = true)
-    public int getIdUMStoc() {
-        return idUMStoc;
+    @Column(name = "id_stare", nullable = false, insertable = true, updatable = true)
+    public int getIdStare() {
+        return idStare;
     }
 
-    public void setIdUMStoc(int idUMStoc) {
-        this.idUMStoc = idUMStoc;
-    }
-
-    @Basic
-    @Column(name = "id_categorie_stoc", nullable = false, insertable = true, updatable = true)
-    public int getIdCategorieStoc() {
-        return idCategorieStoc;
-    }
-
-    public void setIdCategorieStoc(int idCategorieStoc) {
-        this.idCategorieStoc = idCategorieStoc;
+    public void setIdStare(int idStare) {
+        this.idStare = idStare;
     }
 
     @Basic
-    @Column(name = "cantitate_curenta", nullable = false, insertable = true, updatable = true, length = 45)
-    public String getCantitateCurenta() {
-        return cantitateCurenta;
+    @Column(name = "id_loc", nullable = false, insertable = true, updatable = true)
+    public long getIdLoc() {
+        return idLoc;
     }
 
-    public void setCantitateCurenta(String cantitateCurenta) {
-        this.cantitateCurenta = cantitateCurenta;
-    }
-
-    @Basic
-    @Column(name = "cantitate_comandata", nullable = true, insertable = true, updatable = true, length = 45)
-    public String getCantitateComandata() {
-        return cantitateComandata;
-    }
-
-    public void setCantitateComandata(String cantitateComandata) {
-        this.cantitateComandata = cantitateComandata;
+    public void setIdLoc(long idLoc) {
+        this.idLoc = idLoc;
     }
 
     @Basic
-    @Column(name = "cantitate_pt_alerta", nullable = true, insertable = true, updatable = true, length = 45)
-    public String getCantitatePtAlerta() {
-        return cantitatePtAlerta;
+    @Column(name = "id_resurse_umane", nullable = false, insertable = true, updatable = true)
+    public long getIdResurseUmane() {
+        return idResurseUmane;
     }
 
-    public void setCantitatePtAlerta(String cantitatePtAlerta) {
-        this.cantitatePtAlerta = cantitatePtAlerta;
-    }
-
-    @Basic
-    @Column(name = "cantitate_ultima_intrare", nullable = true, insertable = true, updatable = true, length = 45)
-    public String getCantitateUltimaIntrare() {
-        return cantitateUltimaIntrare;
-    }
-
-    public void setCantitateUltimaIntrare(String cantitateUltimaIntrare) {
-        this.cantitateUltimaIntrare = cantitateUltimaIntrare;
+    public void setIdResurseUmane(long idResurseUmane) {
+        this.idResurseUmane = idResurseUmane;
     }
 
     @Basic
-    @Column(name = "cantitate_ultima_iesire", nullable = true, insertable = true, updatable = true, length = 45)
-    public String getCantitateUltimaIesire() {
-        return cantitateUltimaIesire;
+    @Column(name = "detalii", nullable = true, insertable = true, updatable = true, length = 65535)
+    public String getDetalii() {
+        return detalii;
     }
 
-    public void setCantitateUltimaIesire(String cantitateUltimaIesire) {
-        this.cantitateUltimaIesire = cantitateUltimaIesire;
-    }
-
-    @Basic
-    @Column(name = "data_ultima_intrare", nullable = true, insertable = true, updatable = true)
-    public Date getDataUltimaIntrare() {
-        return dataUltimaIntrare;
-    }
-
-    public void setDataUltimaIntrare(Date dataUltimaIntrare) {
-        this.dataUltimaIntrare = dataUltimaIntrare;
+    public void setDetalii(String detalii) {
+        this.detalii = detalii;
     }
 
     @Basic
-    @Column(name = "data_ultima_iesire", nullable = true, insertable = true, updatable = true)
-    public Date getDataUltimaIesire() {
-        return dataUltimaIesire;
+    @Column(name = "factura", nullable = false, insertable = true, updatable = true)
+    public long getFactura() {
+        return factura;
     }
 
-    public void setDataUltimaIesire(Date dataUltimaIesire) {
-        this.dataUltimaIesire = dataUltimaIesire;
-    }
-
-    @Basic
-    @Column(name = "valoare_bucata", nullable = true, insertable = true, updatable = true, length = 45)
-    public String getValoareBucata() {
-        return valoareBucata;
-    }
-
-    public void setValoareBucata(String valoareBucata) {
-        this.valoareBucata = valoareBucata;
+    public void setFactura(long factura) {
+        this.factura = factura;
     }
 
     @Basic
-    @Column(name = "valoare_totala", nullable = true, insertable = true, updatable = true, length = 45)
-    public String getValoareTotala() {
-        return valoareTotala;
+    @Column(name = "imagine", nullable = false, insertable = true, updatable = true)
+    public long getImagine() {
+        return imagine;
     }
 
-    public void setValoareTotala(String valoareTotala) {
-        this.valoareTotala = valoareTotala;
-    }
-
-    @Basic
-    @Column(name = "stare_produs", nullable = true, insertable = true, updatable = true, length = 45)
-    public String getStareProdus() {
-        return stareProdus;
-    }
-
-    public void setStareProdus(String stareProdus) {
-        this.stareProdus = stareProdus;
+    public void setImagine(long imagine) {
+        this.imagine = imagine;
     }
 
     @Basic
-    @Column(name = "data_expirare", nullable = true, insertable = true, updatable = true)
-    public Timestamp getDataExpirare() {
-        return dataExpirare;
-    }
-
-    public void setDataExpirare(Timestamp dataExpirare) {
-        this.dataExpirare = dataExpirare;
-    }
-
-    @Basic
-    @CreatedBy
     @Column(name = "creat_de", nullable = false, insertable = true, updatable = true, length = 150)
     public String getCreatDe() {
         return creatDe;
@@ -205,7 +150,6 @@ public class Stoc {
     }
 
     @Basic
-    @CreatedDate
     @Column(name = "creat_la", nullable = true, insertable = true, updatable = true)
     public Timestamp getCreatLa() {
         return creatLa;
@@ -216,18 +160,6 @@ public class Stoc {
     }
 
     @Basic
-    @LastModifiedBy
-    @Column(name = "modificat_de", nullable = true, insertable = true, updatable = true, length = 150)
-    public String getModificatDe() {
-        return modificatDe;
-    }
-
-    public void setModificatDe(String modificatDe) {
-        this.modificatDe = modificatDe;
-    }
-
-    @Basic
-    @LastModifiedDate
     @Column(name = "modificat_la", nullable = true, insertable = true, updatable = true)
     public Timestamp getModificatLa() {
         return modificatLa;
@@ -235,6 +167,16 @@ public class Stoc {
 
     public void setModificatLa(Timestamp modificatLa) {
         this.modificatLa = modificatLa;
+    }
+
+    @Basic
+    @Column(name = "modificat_de", nullable = true, insertable = true, updatable = true, length = 150)
+    public String getModificatDe() {
+        return modificatDe;
+    }
+
+    public void setModificatDe(String modificatDe) {
+        this.modificatDe = modificatDe;
     }
 
     @Override
@@ -245,25 +187,20 @@ public class Stoc {
         Stoc stoc = (Stoc) o;
 
         if (idStoc != stoc.idStoc) return false;
-        if (idUMStoc != stoc.idUMStoc) return false;
         if (idCategorieStoc != stoc.idCategorieStoc) return false;
+        if (idGrupStoc != stoc.idGrupStoc) return false;
+        if (idStare != stoc.idStare) return false;
+        if (idLoc != stoc.idLoc) return false;
+        if (idResurseUmane != stoc.idResurseUmane) return false;
+        if (factura != stoc.factura) return false;
+        if (imagine != stoc.imagine) return false;
         if (numeStoc != null ? !numeStoc.equals(stoc.numeStoc) : stoc.numeStoc != null) return false;
         if (codStoc != null ? !codStoc.equals(stoc.codStoc) : stoc.codStoc != null) return false;
-        if (cantitateCurenta != null ? !cantitateCurenta.equals(stoc.cantitateCurenta) : stoc.cantitateCurenta != null) return false;
-        if (cantitateComandata != null ? !cantitateComandata.equals(stoc.cantitateComandata) : stoc.cantitateComandata != null) return false;
-        if (cantitatePtAlerta != null ? !cantitatePtAlerta.equals(stoc.cantitatePtAlerta) : stoc.cantitatePtAlerta != null) return false;
-        if (cantitateUltimaIntrare != null ? !cantitateUltimaIntrare.equals(stoc.cantitateUltimaIntrare) : stoc.cantitateUltimaIntrare != null) return false;
-        if (cantitateUltimaIesire != null ? !cantitateUltimaIesire.equals(stoc.cantitateUltimaIesire) : stoc.cantitateUltimaIesire != null) return false;
-        if (dataUltimaIntrare != null ? !dataUltimaIntrare.equals(stoc.dataUltimaIntrare) : stoc.dataUltimaIntrare != null) return false;
-        if (dataUltimaIesire != null ? !dataUltimaIesire.equals(stoc.dataUltimaIesire) : stoc.dataUltimaIesire != null) return false;
-        if (valoareBucata != null ? !valoareBucata.equals(stoc.valoareBucata) : stoc.valoareBucata != null) return false;
-        if (valoareTotala != null ? !valoareTotala.equals(stoc.valoareTotala) : stoc.valoareTotala != null) return false;
-        if (stareProdus != null ? !stareProdus.equals(stoc.stareProdus) : stoc.stareProdus != null) return false;
-        if (dataExpirare != null ? !dataExpirare.equals(stoc.dataExpirare) : stoc.dataExpirare != null) return false;
+        if (detalii != null ? !detalii.equals(stoc.detalii) : stoc.detalii != null) return false;
         if (creatDe != null ? !creatDe.equals(stoc.creatDe) : stoc.creatDe != null) return false;
         if (creatLa != null ? !creatLa.equals(stoc.creatLa) : stoc.creatLa != null) return false;
-        if (modificatDe != null ? !modificatDe.equals(stoc.modificatDe) : stoc.modificatDe != null) return false;
         if (modificatLa != null ? !modificatLa.equals(stoc.modificatLa) : stoc.modificatLa != null) return false;
+        if (modificatDe != null ? !modificatDe.equals(stoc.modificatDe) : stoc.modificatDe != null) return false;
 
         return true;
     }
@@ -271,25 +208,20 @@ public class Stoc {
     @Override
     public int hashCode() {
         int result = (int) (idStoc ^ (idStoc >>> 32));
+        result = 31 * result + (int) (idCategorieStoc ^ (idCategorieStoc >>> 32));
+        result = 31 * result + (int) (idGrupStoc ^ (idGrupStoc >>> 32));
         result = 31 * result + (numeStoc != null ? numeStoc.hashCode() : 0);
         result = 31 * result + (codStoc != null ? codStoc.hashCode() : 0);
-        result = 31 * result + idUMStoc;
-        result = 31 * result + idCategorieStoc;
-        result = 31 * result + (cantitateCurenta != null ? cantitateCurenta.hashCode() : 0);
-        result = 31 * result + (cantitateComandata != null ? cantitateComandata.hashCode() : 0);
-        result = 31 * result + (cantitatePtAlerta != null ? cantitatePtAlerta.hashCode() : 0);
-        result = 31 * result + (cantitateUltimaIntrare != null ? cantitateUltimaIntrare.hashCode() : 0);
-        result = 31 * result + (cantitateUltimaIesire != null ? cantitateUltimaIesire.hashCode() : 0);
-        result = 31 * result + (dataUltimaIntrare != null ? dataUltimaIntrare.hashCode() : 0);
-        result = 31 * result + (dataUltimaIesire != null ? dataUltimaIesire.hashCode() : 0);
-        result = 31 * result + (valoareBucata != null ? valoareBucata.hashCode() : 0);
-        result = 31 * result + (valoareTotala != null ? valoareTotala.hashCode() : 0);
-        result = 31 * result + (stareProdus != null ? stareProdus.hashCode() : 0);
-        result = 31 * result + (dataExpirare != null ? dataExpirare.hashCode() : 0);
+        result = 31 * result + idStare;
+        result = 31 * result + (int) (idLoc ^ (idLoc >>> 32));
+        result = 31 * result + (int) (idResurseUmane ^ (idResurseUmane >>> 32));
+        result = 31 * result + (detalii != null ? detalii.hashCode() : 0);
+        result = 31 * result + (int) (factura ^ (factura >>> 32));
+        result = 31 * result + (int) (imagine ^ (imagine >>> 32));
         result = 31 * result + (creatDe != null ? creatDe.hashCode() : 0);
         result = 31 * result + (creatLa != null ? creatLa.hashCode() : 0);
-        result = 31 * result + (modificatDe != null ? modificatDe.hashCode() : 0);
         result = 31 * result + (modificatLa != null ? modificatLa.hashCode() : 0);
+        result = 31 * result + (modificatDe != null ? modificatDe.hashCode() : 0);
         return result;
     }
 }

@@ -71,7 +71,13 @@
 [#macro datepicker id name label placeholder size="3"]
 <div class="form-group col-md-${size}">
     <label for="${id}">[@spring.message label/]</label>
-    <input type="text" class="datepicker form-control input-sm" id="${id}" name="${name}" placeholder="[@spring.message placeholder /]" title="[@spring.message label /]" data-date-format="yyyy-mm-dd" required="true" data->
+
+    <div class="input-group date date-picker">
+        <input type="text" class="form-control input-sm" id="${id}" name="${name}" placeholder="[@spring.message placeholder /]" title="[@spring.message label /]"
+               data-date-format="yyyy-mm-dd" required>
+        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+    </div>
+
 
     <div id="${name}-error" class="help-block"></div>
 </div>
