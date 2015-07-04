@@ -21,6 +21,7 @@
 <script src="/js/chosen.jquery.js"></script>
 <script src="/js/dataTables.min.js"></script>
 <script src="/js/dataTables-bootstrap.js"></script>
+<script src="/js/dataTables-tools.js"></script>
 <script src="/js/toastr.js"></script>
 <script src="/js/dropzone.js"></script>
 <script src="/js/tasks.js"></script>

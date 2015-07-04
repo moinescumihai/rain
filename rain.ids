@@ -7,6 +7,15 @@
     </database-info>
     <case-sensitivity plain-identifiers="lower" quoted-identifiers="lower"/>
     <schema name="" catalog="raindrop"/>
+    <table name="attachment" schema="" catalog="raindrop" type="TABLE">
+      <column name="id_attachment" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" autoIncrement="true"/>
+      <column name="id_proiect" sqlType="BIGINT" precision="19" scale="0" nullable="true" jdbcType="-5"/>
+      <column name="id_user" sqlType="BIGINT" precision="19" scale="0" nullable="true" jdbcType="-5"/>
+      <column name="path" sqlType="TEXT" precision="65535" scale="0" nullable="false" jdbcType="-1"/>
+      <column name="creat_de" sqlType="VARCHAR" precision="50" scale="0" nullable="false" jdbcType="12"/>
+      <column name="creat_la" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93"/>
+      <primary-key name="PRIMARY" columns="id_attachment"/>
+    </table>
     <table name="auditable_user" schema="" catalog="raindrop" type="TABLE">
       <column name="id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" autoIncrement="true"/>
       <column name="created_date" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93"/>
@@ -66,7 +75,7 @@
       <primary-key name="PRIMARY" columns="id_categorie_proiect"/>
     </table>
     <table name="categorie_stoc" schema="" catalog="raindrop" type="TABLE">
-      <column name="id_categorie_stoc" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="id_categorie_stoc" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" autoIncrement="true"/>
       <column name="nume_categorie" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
       <primary-key name="PRIMARY" columns="id_categorie_stoc"/>
     </table>
@@ -126,6 +135,21 @@
       <column name="id_industrie" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
       <column name="nume" sqlType="VARCHAR" precision="150" scale="0" nullable="false" jdbcType="12"/>
       <primary-key name="PRIMARY" columns="id_industrie"/>
+    </table>
+    <table name="inventoryitem" schema="" catalog="raindrop" type="VIEW">
+      <column name="id_stoc" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" def="MA=="/>
+      <column name="nume_categorie" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="nume_grup" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="nume_stoc" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="cod_stoc" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="nume_loc" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="nume" sqlType="VARCHAR" precision="301" scale="0" nullable="true" jdbcType="12"/>
+      <column name="detalii" sqlType="TEXT" precision="65535" scale="0" nullable="true" jdbcType="-1"/>
+      <column name="id_stare" sqlType="INT UNSIGNED" precision="10" scale="0" nullable="false" jdbcType="4" def="MDAwMDAwMDAwMDA="/>
+      <column name="imagine" sqlType="TEXT" precision="65535" scale="0" nullable="false" jdbcType="-1"/>
+      <column name="factura" sqlType="TEXT" precision="65535" scale="0" nullable="false" jdbcType="-1"/>
+      <column name="creat_de" sqlType="VARCHAR" precision="150" scale="0" nullable="false" jdbcType="12"/>
+      <column name="creat_la" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93"/>
     </table>
     <table name="lista_tari" schema="" catalog="raindrop" type="TABLE">
       <column name="id_tara" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
@@ -240,7 +264,7 @@
       <primary-key name="PRIMARY" columns="id_status_proiect"/>
     </table>
     <table name="stoc" schema="" catalog="raindrop" type="TABLE">
-      <column name="id_stoc" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="id_stoc" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" autoIncrement="true"/>
       <column name="id_categorie_stoc" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" def="MA=="/>
       <column name="id_grup_stoc" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" def="MA=="/>
       <column name="nume_stoc" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>

@@ -176,3 +176,13 @@
 [#macro rowBreak]
 <div class="col-md-12"></div>
 [/#macro]
+
+[#macro ajaxDataTable id]
+<table id="${id}" class="table dataTable table-responsive table-hover">
+    <thead>
+    <tr>
+        <th></th>
+    </tr>
+    </thead>
+</table>
+[/#macro]

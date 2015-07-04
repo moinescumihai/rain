@@ -22,6 +22,7 @@
     <link href="/css/inbox.css" rel="stylesheet">
     <link href="/css/timeline.css" rel="stylesheet">
     <link href="/css/tree.css" rel="stylesheet">
+    <link href="/css/dataTables-bootstrap.css" rel="stylesheet">
     <link href="/css/slidebars.css" rel="stylesheet">
     <link href="/css/raindrop.css" rel="stylesheet">
 </head>

@@ -39,6 +39,8 @@
         <mapping class="model.domain.StareStoc"/>
         <mapping class="model.domain.Stoc"/>
         <mapping class="model.domain.TranzactieStoc"/>
+        <mapping class="model.domain.InventoryItem"/>
+        <mapping class="model.domain.Attachment"/>
         <!-- DB schema will be updated if needed -->
         <!-- <property name="hbm2ddl.auto">update</property> -->
     </session-factory>

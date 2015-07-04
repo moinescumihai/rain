@@ -393,7 +393,7 @@ $(document).ready(function () {
 
     rightSlidebar = new $.slidebars();
     document.documentElement.addEventListener("mousemove", function (event) {
-        var screenEdge = screen.width - 50;
+        var screenEdge = screen.width - 20;
         if (event.pageX > screenEdge) {
             rightSlidebar.slidebars.open('right');
         }

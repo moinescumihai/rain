@@ -135,7 +135,7 @@
     </bytecodeTargetLevel>
   </component>
   <component name="CopyrightManager" default="" />
-  <component name="DataSourceManagerImpl" format="xml" hash="2895157286">
+  <component name="DataSourceManagerImpl" format="xml" hash="3897223822">
     <data-source source="LOCAL" name="MySQL - raindrop@localhost" uuid="f438a555-b6d9-40f7-9d51-6f5e20757093">
       <driver-ref>mysql</driver-ref>
       <synchronize>true</synchronize>
@@ -152,6 +152,7 @@
     </data-source>
   </component>
   <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/src/main/java/controllers/rest/InventoryRestController.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java/controllers/rest/ProfileRestController.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java/controllers/rest/ProjectsRestController.java" charset="UTF-8" />
   </component>
