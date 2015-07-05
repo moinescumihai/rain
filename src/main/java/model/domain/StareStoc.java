@@ -14,6 +14,7 @@ public class StareStoc {
     private String numeStare;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id_stare", nullable = false, insertable = true, updatable = true)
     public long getIdStare() {
         return idStare;

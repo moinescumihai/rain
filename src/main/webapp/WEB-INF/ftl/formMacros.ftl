@@ -178,10 +178,11 @@
 [/#macro]
 
 [#macro ajaxDataTable id]
-<table id="${id}" class="table dataTable table-responsive table-hover">
+<table id="${id}" class="table dataTable table-responsive table-hover" width="100%">
     <thead>
     <tr>
         <th></th>
+        [#nested]
     </tr>
     </thead>
 </table>

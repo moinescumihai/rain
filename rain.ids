@@ -136,7 +136,7 @@
       <column name="nume" sqlType="VARCHAR" precision="150" scale="0" nullable="false" jdbcType="12"/>
       <primary-key name="PRIMARY" columns="id_industrie"/>
     </table>
-    <table name="inventoryitem" schema="" catalog="raindrop" type="VIEW">
+    <table name="inventory_item" schema="" catalog="raindrop" type="VIEW">
       <column name="id_stoc" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" def="MA=="/>
       <column name="nume_categorie" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
       <column name="nume_grup" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
@@ -282,7 +282,7 @@
       <primary-key name="PRIMARY" columns="id_stoc"/>
     </table>
     <table name="tranzactie_stoc" schema="" catalog="raindrop" type="TABLE">
-      <column name="id_tranzactie_stoc" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="id_tranzactie_stoc" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" autoIncrement="true"/>
       <column name="id_colet" sqlType="VARCHAR" precision="50" scale="0" nullable="false" jdbcType="12"/>
       <column name="id_stoc" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
       <column name="id_loc" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>

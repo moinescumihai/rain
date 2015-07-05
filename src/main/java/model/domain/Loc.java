@@ -1,9 +1,6 @@
 package model.domain;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 /**
  * @author Ciprian on 7/4/2015.
@@ -18,6 +15,7 @@ public class Loc {
     private String longitude;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id_loc", nullable = false, insertable = true, updatable = true)
     public long getIdLoc() {
         return idLoc;

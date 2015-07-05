@@ -812,7 +812,7 @@ var TableTools;
         };
         TableTools.buttons = TableTools.BUTTONS;
         TableTools.classes = {
-            container: "DTTT_container",
+            container: "DTTT_container btn-group",
             buttons: {normal: "DTTT_button", disabled: "DTTT_disabled"},
             collection: {container: "DTTT_collection", background: "DTTT_collection_background", buttons: {normal: "DTTT_button", disabled: "DTTT_disabled"}},
             select: {table: "DTTT_selectable", row: "DTTT_selected selected"},

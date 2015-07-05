@@ -14,6 +14,7 @@ public class GrupStoc {
     private String numeGrup;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id_grup_stoc", nullable = false, insertable = true, updatable = true)
     public long getIdGrupStoc() {
         return idGrupStoc;

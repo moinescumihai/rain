@@ -783,6 +783,7 @@ textarea {
 }
 
 .jumbotron {
+    padding: 40px;
     background-color: rgba(232, 235, 236, 0.51);
     border-top: 1px solid gray;
     border-left: 1px solid rgb(199, 193, 193);
@@ -1833,8 +1834,8 @@ a.dropdown-carret:focus {
     padding: 20px;
 }
 
-.table-hover > tr:hover {
-    background-color: dodgerblue;
+.table-hover > tbody > tr:hover {
+    background-color: rgba(212, 225, 237, 0.28);
 }
 
 td.details-control {
@@ -1845,4 +1846,15 @@ td.details-control {
 tr.shown td.details-control {
     background: url('../img/details_close.png') no-repeat center center;
     cursor: pointer;
+}
+
+.DTTT_container {
+    float: right;
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.table > tbody > tr > td, .table > tbody > tr > th, .table > tfoot > tr > td, .table > tfoot > tr > th, .table > thead > tr > td, .table > thead > tr > th {
+    vertical-align: middle;
 }

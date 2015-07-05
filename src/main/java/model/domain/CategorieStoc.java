@@ -9,6 +9,7 @@ public class CategorieStoc {
     private String numeCategorie;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id_categorie_stoc", nullable = false, insertable = true, updatable = true)
     public long getIdCategorieStoc() {
         return idCategorieStoc;

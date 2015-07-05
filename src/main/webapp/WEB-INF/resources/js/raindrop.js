@@ -136,18 +136,18 @@ function toJSDate(dateParam, locale) {
         "minute": "2-digit",
         "hour": "2-digit"
     };
-    var time;
     var date;
 
     if (!locale) {
         locale = 'en'
     }
-    var dateTime = dateParam.split(" ");//dateTime[0] = date, dateTime[1] = time
-    date = dateTime[0].split("-");
+    //dateTime[0] = date, dateTime[1] = time
+    date = dateParam[0].split("-");
     return new Date(date[0], date[1], date[2]).toLocaleString(locale, options);
 }
 
-function toJSDateTime() {
+function toJSDateTime(dateParam) {
+    var locale;
     var returnDate;
     var options = {
         weekday: "long",
@@ -158,22 +158,8 @@ function toJSDateTime() {
         "minute": "2-digit",
         "hour": "2-digit"
     };
-    var time;
-    var date;
 
-    if (!locale) {
-        locale = 'en'
-    }
-    var dateTime = dateParam.split(" ");//dateTime[0] = date, dateTime[1] = time
-    date = dateTime[0].split("-");
-    if (dateTime[1]) {
-        date[1] = parseInt(date[1]) - 1;
-        time = dateTime[1].split(":");
-        //(year, month, day, hours, minutes, seconds, milliseconds)
-        returnDate = new Date(date[0], date[1], date[2], time[0], time[1], time[2], 0).toLocaleString(locale, options);
-    } else {
-        returnDate = new Date(date[0], date[1], date[2]).toLocaleString(locale, options);
-    }
+        returnDate = new Date(dateParam).toLocaleString(locale, options);
     return returnDate;
 }
 

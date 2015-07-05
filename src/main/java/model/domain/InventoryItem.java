@@ -1,16 +1,9 @@
 package model.domain;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.sql.Timestamp;
 
-/**
- * @author Ciprian on 7/4/2015.
- *         <p>
- *         rain
- */
+
 @Entity
 @Table(name = "inventory_item", schema = "", catalog = "raindrop")
 public class InventoryItem {
@@ -28,7 +21,8 @@ public class InventoryItem {
     private String creatDe;
     private Timestamp creatLa;
 
-    @Basic
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id_stoc", nullable = false, insertable = true, updatable = true)
     public long getIdStoc() {
         return idStoc;
