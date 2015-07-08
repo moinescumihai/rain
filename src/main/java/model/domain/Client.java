@@ -1,15 +1,7 @@
 package model.domain;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
-/**
- * @author Ciprian on 5/10/2015.
- *         <p>
- *         rain
- */
 @Entity
 public class Client {
     private int idClient;
@@ -26,6 +18,7 @@ public class Client {
     private Integer idIndustrie;
 
     @Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
     @Column(name = "id_client", nullable = false, insertable = true, updatable = true)
     public int getIdClient() {
         return idClient;

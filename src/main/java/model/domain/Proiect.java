@@ -1,17 +1,20 @@
 package model.domain;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import common.validator.EndDate;
+import common.validator.StartDate;
+import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedBy;
+import org.springframework.data.annotation.LastModifiedDate;
+
+import javax.persistence.*;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.sql.Date;
 import java.sql.Timestamp;
 
-/**
- * @author Ciprian on 5/10/2015.
- *         <p>
- *         rain
- */
 @Entity
 public class Proiect {
     private long idProiect;
@@ -19,15 +22,19 @@ public class Proiect {
     private String descriere;
     private long idClient;
     private Integer idCategorieProiect;
+    @StartDate(id = 1)
     private Date dataStart;
+    @EndDate(minimumDaysRange = 1, id = 1)
     private Date dataEndEstimativa;
     private byte idStatusProiect;
     private String creatDe;
     private Timestamp creatLa;
     private String modificatDe;
     private Timestamp modificatLa;
+    private byte deleted;
 
     @Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
     @Column(name = "id_proiect", nullable = false, insertable = true, updatable = true)
     public long getIdProiect() {
         return idProiect;
@@ -37,6 +44,8 @@ public class Proiect {
         this.idProiect = idProiect;
     }
 
+    @Size(min = 5)
+    @NotEmpty
     @Basic
     @Column(name = "nume_proiect", nullable = false, insertable = true, updatable = true, length = 150)
     public String getNumeProiect() {
@@ -57,6 +66,8 @@ public class Proiect {
         this.descriere = descriere;
     }
 
+    @NotNull
+    @Min(value = 0)
     @Basic
     @Column(name = "id_client", nullable = false, insertable = true, updatable = true)
     public long getIdClient() {
@@ -67,6 +78,7 @@ public class Proiect {
         this.idClient = idClient;
     }
 
+    @NotNull
     @Basic
     @Column(name = "id_categorie_proiect", nullable = true, insertable = true, updatable = true)
     public Integer getIdCategorieProiect() {
@@ -77,6 +89,7 @@ public class Proiect {
         this.idCategorieProiect = idCategorieProiect;
     }
 
+    @NotNull
     @Basic
     @Column(name = "data_start", nullable = true, insertable = true, updatable = true)
     public Date getDataStart() {
@@ -87,6 +100,7 @@ public class Proiect {
         this.dataStart = dataStart;
     }
 
+    @NotNull
     @Basic
     @Column(name = "data_end_estimativa", nullable = true, insertable = true, updatable = true)
     public Date getDataEndEstimativa() {
@@ -97,7 +111,9 @@ public class Proiect {
         this.dataEndEstimativa = dataEndEstimativa;
     }
 
+    @NotNull
     @Basic
+    @Min(value = 1)
     @Column(name = "id_status_proiect", nullable = false, insertable = true, updatable = true)
     public byte getIdStatusProiect() {
         return idStatusProiect;
@@ -108,7 +124,8 @@ public class Proiect {
     }
 
     @Basic
-    @Column(name = "creat_de", nullable = false, insertable = true, updatable = true, length = 150)
+    @CreatedBy
+    @Column(name = "creat_de", nullable = true, insertable = true, updatable = true, length = 150)
     public String getCreatDe() {
         return creatDe;
     }
@@ -118,7 +135,8 @@ public class Proiect {
     }
 
     @Basic
-    @Column(name = "creat_la", nullable = false, insertable = true, updatable = true)
+    @CreatedDate
+    @Column(name = "creat_la", nullable = true, insertable = true, updatable = true)
     public Timestamp getCreatLa() {
         return creatLa;
     }
@@ -128,6 +146,7 @@ public class Proiect {
     }
 
     @Basic
+    @LastModifiedBy
     @Column(name = "modificat_de", nullable = true, insertable = true, updatable = true, length = 150)
     public String getModificatDe() {
         return modificatDe;
@@ -138,6 +157,7 @@ public class Proiect {
     }
 
     @Basic
+    @LastModifiedDate
     @Column(name = "modificat_la", nullable = true, insertable = true, updatable = true)
     public Timestamp getModificatLa() {
         return modificatLa;
@@ -185,5 +205,15 @@ public class Proiect {
         result = 31 * result + (modificatDe != null ? modificatDe.hashCode() : 0);
         result = 31 * result + (modificatLa != null ? modificatLa.hashCode() : 0);
         return result;
+    }
+
+    @Basic
+    @Column(name = "deleted", nullable = false, insertable = true, updatable = true)
+    public byte getDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(byte deleted) {
+        this.deleted = deleted;
     }
 }

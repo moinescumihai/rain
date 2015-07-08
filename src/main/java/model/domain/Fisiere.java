@@ -1,16 +1,11 @@
 package model.domain;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import java.sql.Timestamp;
+import org.joda.time.DateTime;
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.CreatedDate;
 
-/**
- * @author Ciprian on 5/10/2015.
- *         <p>
- *         rain
- */
+import javax.persistence.*;
+
 @Entity
 public class Fisiere {
     private long idFile;
@@ -21,9 +16,10 @@ public class Fisiere {
     private int versiune;
     private Long idVersiunePrecedenta;
     private String creatDe;
-    private Timestamp creatLa;
+    private DateTime creatLa;
 
     @Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
     @Column(name = "id_file", nullable = false, insertable = true, updatable = true)
     public long getIdFile() {
         return idFile;
@@ -94,6 +90,7 @@ public class Fisiere {
     }
 
     @Basic
+    @CreatedBy
     @Column(name = "creat_de", nullable = false, insertable = true, updatable = true, length = 150)
     public String getCreatDe() {
         return creatDe;
@@ -104,12 +101,13 @@ public class Fisiere {
     }
 
     @Basic
+    @CreatedDate
     @Column(name = "creat_la", nullable = true, insertable = true, updatable = true)
-    public Timestamp getCreatLa() {
+    public DateTime getCreatLa() {
         return creatLa;
     }
 
-    public void setCreatLa(Timestamp creatLa) {
+    public void setCreatLa(DateTime creatLa) {
         this.creatLa = creatLa;
     }
 

@@ -9,7 +9,7 @@ import org.springframework.web.servlet.ModelAndView;
 public class FilesController {
 
     @RequestMapping(value = "/files", method = RequestMethod.GET)
-    public ModelAndView files(){
+    public ModelAndView files() {
         ModelAndView model = new ModelAndView();
 
 

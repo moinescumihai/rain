@@ -2,11 +2,15 @@ package configuration;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
+import configuration.security.SpringSecurityAuditorAware;
+import model.common.AuditableUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
+import org.springframework.data.domain.AuditorAware;
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
@@ -20,14 +24,11 @@ import java.util.Properties;
 @Configuration
 @EnableJpaRepositories(basePackages = {"model"})
 @PropertySource("classpath:application.properties")
+@EnableJpaAuditing
 @EnableTransactionManagement
 public class DatasourceConfig {
 
-    @Autowired
-    private Environment env;
-
     private static final String[] ENTITY_PACKAGES = {"model"};
-
     private static final String PROPERTY_NAME_DB_DRIVER_CLASS = "db.driver";
     private static final String PROPERTY_NAME_DB_PASSWORD = "db.password";
     private static final String PROPERTY_NAME_DB_URL = "db.url";
@@ -37,6 +38,8 @@ public class DatasourceConfig {
     private static final String PROPERTY_NAME_HIBERNATE_HBM2DDL_AUTO = "hibernate.hbm2ddl.auto";
     private static final String PROPERTY_NAME_HIBERNATE_NAMING_STRATEGY = "hibernate.ejb.naming_strategy";
     private static final String PROPERTY_NAME_HIBERNATE_SHOW_SQL = "hibernate.show_sql";
+    @Autowired
+    private Environment env;
 
     @Bean(destroyMethod = "close")
     public DataSource dataSource() {
@@ -50,6 +53,11 @@ public class DatasourceConfig {
     }
 
     @Bean
+    public AuditorAware<AuditableUser> auditorProvider() {
+        return new SpringSecurityAuditorAware();
+    }
+
+    @Bean
     LocalContainerEntityManagerFactoryBean entityManagerFactory(DataSource dataSource, Environment env) {
         LocalContainerEntityManagerFactoryBean entityManagerFactoryBean = new LocalContainerEntityManagerFactoryBean();
         entityManagerFactoryBean.setDataSource(dataSource);
@@ -60,23 +68,23 @@ public class DatasourceConfig {
 
         //Configures the used database dialect. This allows Hibernate to create SQL
         //that is optimized for the used database.
-        jpaProperties.put(PROPERTY_NAME_HIBERNATE_DIALECT, env.getRequiredProperty(PROPERTY_NAME_HIBERNATE_DIALECT));
+        jpaProperties.put(PROPERTY_NAME_HIBERNATE_DIALECT, env.getProperty(PROPERTY_NAME_HIBERNATE_DIALECT));
 
         //Specifies the action that is invoked to the database when the Hibernate
         //SessionFactory is created or closed.
-        jpaProperties.put(PROPERTY_NAME_HIBERNATE_HBM2DDL_AUTO, env.getRequiredProperty(PROPERTY_NAME_HIBERNATE_HBM2DDL_AUTO));
+        jpaProperties.put(PROPERTY_NAME_HIBERNATE_HBM2DDL_AUTO, env.getProperty(PROPERTY_NAME_HIBERNATE_HBM2DDL_AUTO));
 
         //Configures the naming strategy that is used when Hibernate creates
         //new database objects and schema elements
-        jpaProperties.put(PROPERTY_NAME_HIBERNATE_NAMING_STRATEGY, env.getRequiredProperty(PROPERTY_NAME_HIBERNATE_NAMING_STRATEGY));
+        jpaProperties.put(PROPERTY_NAME_HIBERNATE_NAMING_STRATEGY, env.getProperty(PROPERTY_NAME_HIBERNATE_NAMING_STRATEGY));
 
         //If the value of this property is true, Hibernate writes all SQL
         //statements to the console.
-        jpaProperties.put(PROPERTY_NAME_HIBERNATE_SHOW_SQL, env.getRequiredProperty(PROPERTY_NAME_HIBERNATE_SHOW_SQL));
+        jpaProperties.put(PROPERTY_NAME_HIBERNATE_SHOW_SQL, env.getProperty(PROPERTY_NAME_HIBERNATE_SHOW_SQL));
 
         //If the value of this property is true, Hibernate will use prettyprint
         //when it writes SQL to the console.
-        jpaProperties.put(PROPERTY_NAME_HIBERNATE_FORMAT_SQL, env.getRequiredProperty(PROPERTY_NAME_HIBERNATE_FORMAT_SQL));
+        jpaProperties.put(PROPERTY_NAME_HIBERNATE_FORMAT_SQL, env.getProperty(PROPERTY_NAME_HIBERNATE_FORMAT_SQL));
 
         entityManagerFactoryBean.setJpaProperties(jpaProperties);
 
@@ -86,7 +94,8 @@ public class DatasourceConfig {
     /**
      * Creates the transaction manager bean that integrates the used JPA provider with the
      * Spring transaction mechanism.
-     * @param entityManagerFactory  The used JPA entity manager factory.
+     *
+     * @param entityManagerFactory The used JPA entity manager factory.
      * @return
      */
     @Bean

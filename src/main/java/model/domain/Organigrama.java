@@ -1,18 +1,23 @@
 package model.domain;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
+import javax.persistence.*;
 
-/**
- * @author Ciprian on 5/10/2015.
- *         <p>
- *         rain
- */
 @Entity
 public class Organigrama {
+    private long idOrganigrama;
     private long idParinte;
     private long idFiu;
+
+    @Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
+    @Column(name = "id_organigrama")
+    public long getIdOrganigrama() {
+        return idOrganigrama;
+    }
+
+    public void setIdOrganigrama(long id_organigrama) {
+        this.idOrganigrama = id_organigrama;
+    }
 
     @Basic
     @Column(name = "id_parinte", nullable = false, insertable = true, updatable = true)

@@ -4,5 +4,5 @@ package model.repository;
 import model.domain.CategorieProiect;
 import org.springframework.data.repository.CrudRepository;
 
-public interface CategorieProiectRepository extends CrudRepository<CategorieProiect, Long>{
+public interface CategorieProiectRepository extends CrudRepository<CategorieProiect, Long> {
 }

@@ -2,11 +2,6 @@ package model.domain;
 
 import javax.persistence.*;
 
-/**
- * @author Ciprian on 5/10/2015.
- *         <p>
- *         rain
- */
 @Entity
 @Table(name = "gant_task", schema = "", catalog = "raindrop")
 public class GantTask {
@@ -26,6 +21,7 @@ public class GantTask {
     private int progress;
 
     @Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
     @Column(name = "id_activitate", nullable = false, insertable = true, updatable = true)
     public long getIdActivitate() {
         return idActivitate;

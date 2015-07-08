@@ -2,11 +2,6 @@ package model.domain;
 
 import javax.persistence.*;
 
-/**
- * @author Ciprian on 5/10/2015.
- *         <p>
- *         rain
- */
 @Entity
 @Table(name = "status_proiect", schema = "", catalog = "raindrop")
 public class StatusProiect {
@@ -14,6 +9,7 @@ public class StatusProiect {
     private String numeStatus;
 
     @Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
     @Column(name = "id_status_proiect", nullable = false, insertable = true, updatable = true)
     public byte getIdStatusProiect() {
         return idStatusProiect;

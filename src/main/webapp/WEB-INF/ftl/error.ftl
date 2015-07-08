@@ -4,7 +4,7 @@
 [@layout.basic]
     [@sidebar]
     <div>
-
+error
     </div>
     [/@sidebar]
     [@content]

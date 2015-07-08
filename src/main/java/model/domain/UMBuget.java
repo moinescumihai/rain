@@ -1,19 +1,23 @@
 package model.domain;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 
-/**
- * @author Ciprian on 5/10/2015.
- *         <p>
- *         rain
- */
 @Entity
 @Table(name = "u_m_buget", schema = "", catalog = "raindrop")
 public class UMBuget {
+    private long idUMBuget;
     private String nume;
+
+    @Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
+    @Column(name = "id_u_m_buget")
+    public long getIdUMBuget() {
+        return idUMBuget;
+    }
+
+    public void setIdUMBuget(long idUMBuget) {
+        this.idUMBuget = idUMBuget;
+    }
 
     @Basic
     @Column(name = "nume", nullable = true, insertable = true, updatable = true, length = 150)

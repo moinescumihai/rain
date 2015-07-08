@@ -4,5 +4,9 @@ package model.repository;
 import model.domain.Proiect;
 import org.springframework.data.repository.CrudRepository;
 
-public interface ProiectRepository extends CrudRepository<Proiect, Long>{
+import java.util.List;
+
+public interface ProiectRepository extends CrudRepository<Proiect, Long> {
+    List<Proiect> findByDeletedEquals(byte deleted);
+    List<Proiect> findAllByDeletedEquals(byte deleted);
 }

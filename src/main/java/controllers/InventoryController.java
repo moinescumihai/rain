@@ -9,7 +9,7 @@ import org.springframework.web.servlet.ModelAndView;
 public class InventoryController {
 
     @RequestMapping(value = "/inventory", method = RequestMethod.GET)
-    public ModelAndView inventory(){
+    public ModelAndView inventory() {
         ModelAndView model = new ModelAndView();
 
         model.setViewName("inventory");

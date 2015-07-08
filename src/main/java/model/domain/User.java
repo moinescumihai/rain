@@ -1,24 +1,30 @@
 package model.domain;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
+import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Arrays;
 
-/**
- * @author Ciprian on 5/10/2015.
- *         <p>
- *         rain
- */
 @Entity
 public class User {
+    private long idUser;
     private String username;
     private String password;
     private Timestamp lastLogin;
     private Timestamp lastPassChange;
     private byte[] userphoto;
     private int enabled;
+    private Long activeProject;
+
+    @Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
+    @Column(name = "id_user", nullable = false, updatable = true)
+    public long getIdUser() {
+        return idUser;
+    }
+
+    public void setIdUser(long idUser) {
+        this.idUser = idUser;
+    }
 
     @Basic
     @Column(name = "username", nullable = false, insertable = true, updatable = true, length = 45)
@@ -80,27 +86,40 @@ public class User {
         this.enabled = enabled;
     }
 
+    @Basic
+    @Column(name = "active_project", nullable = true, insertable = true, updatable = true)
+    public Long getActiveProject() {
+        return activeProject;
+    }
+
+    public void setActiveProject(Long activeProject) {
+        this.activeProject = activeProject;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof User)) return false;
 
         User user = (User) o;
 
+        if (idUser != user.idUser) return false;
+        if (activeProject != user.activeProject) return false;
         if (enabled != user.enabled) return false;
-        if (username != null ? !username.equals(user.username) : user.username != null) return false;
-        if (password != null ? !password.equals(user.password) : user.password != null) return false;
+        if (!username.equals(user.username)) return false;
+        if (!password.equals(user.password)) return false;
         if (lastLogin != null ? !lastLogin.equals(user.lastLogin) : user.lastLogin != null) return false;
         if (lastPassChange != null ? !lastPassChange.equals(user.lastPassChange) : user.lastPassChange != null) return false;
-        if (!Arrays.equals(userphoto, user.userphoto)) return false;
+        return Arrays.equals(userphoto, user.userphoto);
 
-        return true;
     }
 
     @Override
     public int hashCode() {
-        int result = username != null ? username.hashCode() : 0;
-        result = 31 * result + (password != null ? password.hashCode() : 0);
+        int result = (int) (idUser ^ (idUser >>> 32));
+        result = 31 * result + (int) (activeProject ^ (activeProject >>> 32));
+        result = 31 * result + username.hashCode();
+        result = 31 * result + password.hashCode();
         result = 31 * result + (lastLogin != null ? lastLogin.hashCode() : 0);
         result = 31 * result + (lastPassChange != null ? lastPassChange.hashCode() : 0);
         result = 31 * result + (userphoto != null ? Arrays.hashCode(userphoto) : 0);

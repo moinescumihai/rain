@@ -9,7 +9,7 @@ import org.springframework.web.servlet.ModelAndView;
 public class HRController {
 
     @RequestMapping(value = "/personnel", method = RequestMethod.GET)
-    public ModelAndView hr(){
+    public ModelAndView hr() {
         ModelAndView model = new ModelAndView();
 
 

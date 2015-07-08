@@ -3,11 +3,6 @@ package model.domain;
 import javax.persistence.*;
 import java.sql.Timestamp;
 
-/**
- * @author Ciprian on 5/10/2015.
- *         <p>
- *         rain
- */
 @Entity
 @Table(name = "chat_message", schema = "", catalog = "raindrop")
 public class ChatMessage {
@@ -21,6 +16,7 @@ public class ChatMessage {
     private long idProiect;
 
     @Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
     @Column(name = "id_chat_message", nullable = false, insertable = true, updatable = true)
     public long getIdChatMessage() {
         return idChatMessage;

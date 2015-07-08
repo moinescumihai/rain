@@ -1,21 +1,25 @@
 package model.domain;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 
-/**
- * @author Ciprian on 5/10/2015.
- *         <p>
- *         rain
- */
 @Entity
 @Table(name = "tip_contract", schema = "", catalog = "raindrop")
 public class TipContract {
+    private long idTipContract;
     private String numeTipContract;
     private String durataContract;
     private String descriereTipContract;
+
+    @Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
+    @Column(name = "id_tip_contract")
+    public long getIdTipContract() {
+        return idTipContract;
+    }
+
+    public void setIdTipContract(long idTipContract) {
+        this.idTipContract = idTipContract;
+    }
 
     @Basic
     @Column(name = "nume_tip_contract", nullable = false, insertable = true, updatable = true, length = 255)

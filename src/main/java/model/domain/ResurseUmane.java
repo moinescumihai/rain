@@ -1,22 +1,51 @@
 package model.domain;
 
-import javax.persistence.Basic;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedBy;
+import org.springframework.data.annotation.LastModifiedDate;
+
+import javax.persistence.*;
 import java.sql.Date;
 import java.sql.Timestamp;
 
-/**
- * @author Ciprian on 5/10/2015.
- *         <p>
- *         rain
- */
 @Entity
 @javax.persistence.Table(name = "resurse_umane", schema = "", catalog = "raindrop")
 public class ResurseUmane {
     private long idResurseUmane;
+    private String nume;
+    private String prenume;
+    private String prenume2;
+    private String email;
+    private int idClient;
+    private String pozitie;
+    private String pozitieAnterioara;
+    private String cnp;
+    private String serieCi;
+    private String nrCi;
+    private String workTel;
+    private String mobilTel;
+    private String homeTel;
+    private String fax;
+    private String adresa;
+    private String oras;
+    private String judet;
+    private String codPostal;
+    private String idTara;
+    private Date dataAngajare;
+    private String tipContract;
+    private Long idUser;
+    private Date dataNastere;
+    private Byte esteDepartament;
+    private Byte esteContact;
+    private String zileConcediu;
+    private String creatDe;
+    private Timestamp creatLa;
+    private String modificatDe;
+    private Timestamp modificatLa;
 
     @Id
+    @GeneratedValue(strategy= GenerationType.AUTO)
     @javax.persistence.Column(name = "id_resurse_umane", nullable = false, insertable = true, updatable = true)
     public long getIdResurseUmane() {
         return idResurseUmane;
@@ -25,8 +54,6 @@ public class ResurseUmane {
     public void setIdResurseUmane(long idResurseUmane) {
         this.idResurseUmane = idResurseUmane;
     }
-
-    private String nume;
 
     @Basic
     @javax.persistence.Column(name = "nume", nullable = false, insertable = true, updatable = true, length = 150)
@@ -38,8 +65,6 @@ public class ResurseUmane {
         this.nume = nume;
     }
 
-    private String prenume;
-
     @Basic
     @javax.persistence.Column(name = "prenume", nullable = false, insertable = true, updatable = true, length = 150)
     public String getPrenume() {
@@ -49,8 +74,6 @@ public class ResurseUmane {
     public void setPrenume(String prenume) {
         this.prenume = prenume;
     }
-
-    private String prenume2;
 
     @Basic
     @javax.persistence.Column(name = "prenume2", nullable = false, insertable = true, updatable = true, length = 150)
@@ -62,8 +85,6 @@ public class ResurseUmane {
         this.prenume2 = prenume2;
     }
 
-    private String email;
-
     @Basic
     @javax.persistence.Column(name = "email", nullable = true, insertable = true, updatable = true, length = 150)
     public String getEmail() {
@@ -73,8 +94,6 @@ public class ResurseUmane {
     public void setEmail(String email) {
         this.email = email;
     }
-
-    private int idClient;
 
     @Basic
     @javax.persistence.Column(name = "id_client", nullable = false, insertable = true, updatable = true)
@@ -86,8 +105,6 @@ public class ResurseUmane {
         this.idClient = idClient;
     }
 
-    private String pozitie;
-
     @Basic
     @javax.persistence.Column(name = "pozitie", nullable = false, insertable = true, updatable = true, length = 150)
     public String getPozitie() {
@@ -97,8 +114,6 @@ public class ResurseUmane {
     public void setPozitie(String pozitie) {
         this.pozitie = pozitie;
     }
-
-    private String pozitieAnterioara;
 
     @Basic
     @javax.persistence.Column(name = "pozitie_anterioara", nullable = true, insertable = true, updatable = true, length = 150)
@@ -110,8 +125,6 @@ public class ResurseUmane {
         this.pozitieAnterioara = pozitieAnterioara;
     }
 
-    private String cnp;
-
     @Basic
     @javax.persistence.Column(name = "cnp", nullable = false, insertable = true, updatable = true, length = 20)
     public String getCnp() {
@@ -121,8 +134,6 @@ public class ResurseUmane {
     public void setCnp(String cnp) {
         this.cnp = cnp;
     }
-
-    private String serieCi;
 
     @Basic
     @javax.persistence.Column(name = "serie_ci", nullable = true, insertable = true, updatable = true, length = 45)
@@ -134,8 +145,6 @@ public class ResurseUmane {
         this.serieCi = serieCi;
     }
 
-    private String nrCi;
-
     @Basic
     @javax.persistence.Column(name = "nr_ci", nullable = true, insertable = true, updatable = true, length = 45)
     public String getNrCi() {
@@ -145,8 +154,6 @@ public class ResurseUmane {
     public void setNrCi(String nrCi) {
         this.nrCi = nrCi;
     }
-
-    private String workTel;
 
     @Basic
     @javax.persistence.Column(name = "work_tel", nullable = true, insertable = true, updatable = true, length = 45)
@@ -158,8 +165,6 @@ public class ResurseUmane {
         this.workTel = workTel;
     }
 
-    private String mobilTel;
-
     @Basic
     @javax.persistence.Column(name = "mobil_tel", nullable = true, insertable = true, updatable = true, length = 45)
     public String getMobilTel() {
@@ -169,8 +174,6 @@ public class ResurseUmane {
     public void setMobilTel(String mobilTel) {
         this.mobilTel = mobilTel;
     }
-
-    private String homeTel;
 
     @Basic
     @javax.persistence.Column(name = "home_tel", nullable = true, insertable = true, updatable = true, length = 45)
@@ -182,8 +185,6 @@ public class ResurseUmane {
         this.homeTel = homeTel;
     }
 
-    private String fax;
-
     @Basic
     @javax.persistence.Column(name = "fax", nullable = true, insertable = true, updatable = true, length = 45)
     public String getFax() {
@@ -193,8 +194,6 @@ public class ResurseUmane {
     public void setFax(String fax) {
         this.fax = fax;
     }
-
-    private String adresa;
 
     @Basic
     @javax.persistence.Column(name = "adresa", nullable = true, insertable = true, updatable = true, length = 250)
@@ -206,8 +205,6 @@ public class ResurseUmane {
         this.adresa = adresa;
     }
 
-    private String oras;
-
     @Basic
     @javax.persistence.Column(name = "oras", nullable = true, insertable = true, updatable = true, length = 45)
     public String getOras() {
@@ -217,8 +214,6 @@ public class ResurseUmane {
     public void setOras(String oras) {
         this.oras = oras;
     }
-
-    private String judet;
 
     @Basic
     @javax.persistence.Column(name = "judet", nullable = true, insertable = true, updatable = true, length = 45)
@@ -230,8 +225,6 @@ public class ResurseUmane {
         this.judet = judet;
     }
 
-    private String codPostal;
-
     @Basic
     @javax.persistence.Column(name = "cod_postal", nullable = true, insertable = true, updatable = true, length = 45)
     public String getCodPostal() {
@@ -241,8 +234,6 @@ public class ResurseUmane {
     public void setCodPostal(String codPostal) {
         this.codPostal = codPostal;
     }
-
-    private String idTara;
 
     @Basic
     @javax.persistence.Column(name = "id_tara", nullable = true, insertable = true, updatable = true, length = 45)
@@ -254,8 +245,6 @@ public class ResurseUmane {
         this.idTara = idTara;
     }
 
-    private Date dataAngajare;
-
     @Basic
     @javax.persistence.Column(name = "data_angajare", nullable = false, insertable = true, updatable = true)
     public Date getDataAngajare() {
@@ -265,8 +254,6 @@ public class ResurseUmane {
     public void setDataAngajare(Date dataAngajare) {
         this.dataAngajare = dataAngajare;
     }
-
-    private String tipContract;
 
     @Basic
     @javax.persistence.Column(name = "tip_contract", nullable = true, insertable = true, updatable = true, length = 150)
@@ -278,8 +265,6 @@ public class ResurseUmane {
         this.tipContract = tipContract;
     }
 
-    private Long idUser;
-
     @Basic
     @javax.persistence.Column(name = "id_user", nullable = true, insertable = true, updatable = true)
     public Long getIdUser() {
@@ -289,8 +274,6 @@ public class ResurseUmane {
     public void setIdUser(Long idUser) {
         this.idUser = idUser;
     }
-
-    private Date dataNastere;
 
     @Basic
     @javax.persistence.Column(name = "data_nastere", nullable = false, insertable = true, updatable = true)
@@ -302,8 +285,6 @@ public class ResurseUmane {
         this.dataNastere = dataNastere;
     }
 
-    private Byte esteDepartament;
-
     @Basic
     @javax.persistence.Column(name = "este_departament", nullable = true, insertable = true, updatable = true)
     public Byte getEsteDepartament() {
@@ -313,8 +294,6 @@ public class ResurseUmane {
     public void setEsteDepartament(Byte esteDepartament) {
         this.esteDepartament = esteDepartament;
     }
-
-    private Byte esteContact;
 
     @Basic
     @javax.persistence.Column(name = "este_contact", nullable = true, insertable = true, updatable = true)
@@ -326,8 +305,6 @@ public class ResurseUmane {
         this.esteContact = esteContact;
     }
 
-    private String zileConcediu;
-
     @Basic
     @javax.persistence.Column(name = "zile_concediu", nullable = true, insertable = true, updatable = true, length = 45)
     public String getZileConcediu() {
@@ -338,9 +315,8 @@ public class ResurseUmane {
         this.zileConcediu = zileConcediu;
     }
 
-    private String creatDe;
-
     @Basic
+    @CreatedBy
     @javax.persistence.Column(name = "creat_de", nullable = false, insertable = true, updatable = true, length = 150)
     public String getCreatDe() {
         return creatDe;
@@ -350,9 +326,8 @@ public class ResurseUmane {
         this.creatDe = creatDe;
     }
 
-    private Timestamp creatLa;
-
     @Basic
+    @CreatedDate
     @javax.persistence.Column(name = "creat_la", nullable = true, insertable = true, updatable = true)
     public Timestamp getCreatLa() {
         return creatLa;
@@ -362,9 +337,8 @@ public class ResurseUmane {
         this.creatLa = creatLa;
     }
 
-    private String modificatDe;
-
     @Basic
+    @LastModifiedBy
     @javax.persistence.Column(name = "modificat_de", nullable = true, insertable = true, updatable = true, length = 150)
     public String getModificatDe() {
         return modificatDe;
@@ -374,9 +348,8 @@ public class ResurseUmane {
         this.modificatDe = modificatDe;
     }
 
-    private Timestamp modificatLa;
-
     @Basic
+    @LastModifiedDate
     @javax.persistence.Column(name = "modificat_la", nullable = true, insertable = true, updatable = true)
     public Timestamp getModificatLa() {
         return modificatLa;

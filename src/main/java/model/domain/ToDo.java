@@ -2,11 +2,6 @@ package model.domain;
 
 import javax.persistence.*;
 
-/**
- * @author Ciprian on 5/10/2015.
- *         <p>
- *         rain
- */
 @Entity
 @Table(name = "to_do", schema = "", catalog = "raindrop")
 public class ToDo {
@@ -16,6 +11,7 @@ public class ToDo {
     private long idUser;
 
     @Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
     @Column(name = "id_to_do", nullable = false, insertable = true, updatable = true)
     public long getIdToDo() {
         return idToDo;
