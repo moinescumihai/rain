@@ -76,8 +76,8 @@ body {
     max-height: none;
     overflow: auto;
     padding: 20px;
-    background-color: #f5f5f5;
-    border-right: 1px solid #eee;
+    background-color: #F7F7F7;
+    border-right: 1px solid #D1D1D1;
 }
 
 .sidebar-left {
@@ -1857,4 +1857,21 @@ tr.shown td.details-control {
 
 .table > tbody > tr > td, .table > tbody > tr > th, .table > tfoot > tr > td, .table > tfoot > tr > th, .table > thead > tr > td, .table > thead > tr > th {
     vertical-align: middle;
+}
+
+.project-progress {
+    background-image: -webkit-linear-gradient(top, #ebebeb 0%, #f5f5f5 100%);
+    background-image: -o-linear-gradient(top, #ebebeb 0%, #f5f5f5 100%);
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#ebebeb), to(#f5f5f5));
+    background-image: linear-gradient(to bottom, #ebebeb 0%, #f5f5f5 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffebebeb', endColorstr='#fff5f5f5', GradientType=0);
+    background-repeat: repeat-x;
+    height: 15px;
+    margin-top: 10px;
+    border: 1px solid rgb(226, 226, 226);
+    border-radius: 2.5px;
+}
+
+.project-progress-bar {
+    line-height: 15px;
 }

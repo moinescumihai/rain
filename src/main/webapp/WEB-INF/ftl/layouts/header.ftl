@@ -48,7 +48,6 @@
                 <li id="tasks"><a href="/tasks">[@spring.message "TASKS"/]</a></li>
                 <li id="personnel"><a href="/personnel">[@spring.message "PERSONNEL"/]</a></li>
                 <li id="time"><a href="/time">[@spring.message "TIME"/]</a></li>
-                <li id="financial"><a href="/financial">[@spring.message "FINANCIAL"/]</a></li>
                 <li id="inventory"><a href="/inventory">[@spring.message "INVENTORY"/]</a></li>
                 <li id="files"><a href="/files">[@spring.message "FILES"/]</a></li>
                 <li id="reports"><a href="/reports">[@spring.message "REPORTS"/]</a></li>

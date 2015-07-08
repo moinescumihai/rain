@@ -98,12 +98,16 @@ function getProjects() {
             $.each(response, function (i, proj) {
                 var idProiect = proj.idProiect;
                 var numeProiect = proj.numeProiect;
-                var dataEnd = toJSDate(proj.dataEndEstimativa);
-                var dataStart = toJSDate(proj.dataStart);
+                var dataEnd = toJSDateTime(proj.dataEndEstimativa);
+                var dataStart = toJSDateTime(proj.dataStart);
                 projectString = '<div id="proiect-item' + idProiect + '" class="project-item panel"><div class="panel-body">'
                     + '<div class="col-sm-3"><a id="project-options' + idProiect + '" tabindex="0" class="popup-marker" data-load="idProiect=' + idProiect
                     + '" data-placement="bottom"><span class="fa fa-th-list">&nbsp;&nbsp;</span></a>'
-                    + '<span id="proiect-nume-' + idProiect + '" class="proiect-nume">' + numeProiect + '</span></div>'
+                    + '<span id="proiect-nume-' + idProiect + '" class="proiect-nume">' + numeProiect + '</span>'
+                    + '<div class="project-progress"><div class="progress-bar project-progress-bar" role = "progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width:75%;" >'
+                    + '75%'
+                    + '</div>'
+                    + '</div></div>'
                     + '<div class="col-sm-9"><p id="proiect-data-start-' + idProiect + '" class="proiect-date"> Started: ' + dataStart + '</p>'
                     + '<p id="proiect-data-end-' + idProiect + '" class="proiect-date"> Deadline: ' + dataEnd + '</p>'
                     + '</div></div></div>';
@@ -154,20 +158,17 @@ $(document).ready(function () {
                 var data = $($(this)[0]).data('load').split('=');
                 var idProject = data[1];
                 retValue = '<div class="popover-left-column"><ul class="poject-options">'
-                    + '<li><a><span class="fa fa-cog fa-fw">&nbsp;</span>&nbsp; Settings</a></li>'
-                    + '<li><a><span class="fa fa-pencil fa-fw">&nbsp;</span>&nbsp; Edit</a></li>'
-                    + '<li><a><span class="fa fa-child fa-fw">&nbsp;</span>&nbsp; People</a></li>'
-                    + '<li><a><span class="fa fa-paperclip fa-fw">&nbsp;</span>&nbsp; Files</a></li>'
-                    + '<li><a id="pop-proj-del-' + idProject + '"><span class="fa fa-trash-o fa-fw">&nbsp;</span>&nbsp; Delete</a></li>'
-                    + '<li><a><span class="fa fa-archive fa-fw">&nbsp;</span>&nbsp; Archive</a></li>'
-                    + '<li><a><span class="fa fa-line-chart fa-fw">&nbsp;</span>&nbsp; Report</a></li>'
-                    + '</ul></div>'
-                    + '<div class="popover-right-column"><ul class="poject-options">'
-                    + '<li><a><span class="fa fa-history fa-fw">&nbsp;</span>&nbsp; Timeline</a></li>'
+                    + '<li><a><span class="fa fa-group fa-fw">&nbsp;</span>&nbsp; People</a></li>'
                     + '<li><a><span class="fa fa-tasks fa-fw">&nbsp;</span>&nbsp; Tasks</a></li>'
                     + '<li><a><span class="fa fa-bookmark-o fa-fw">&nbsp;</span>&nbsp; Milestones</a></li>'
-                    + '<li><a><span class="fa fa-envelope-o fa-fw">&nbsp;</span>&nbsp; Messages</a></li>'
                     + '<li><a><span class="fa fa-bomb fa-fw">&nbsp;</span>&nbsp; Risks</a></li>'
+                    + '<li><a><span class="fa fa-archive fa-fw">&nbsp;</span>&nbsp; Archive</a></li>'
+                    + '</ul></div>'
+                    + '<div class="popover-right-column"><ul class="poject-options">'
+                    + '<li><a><span class="fa fa-cog fa-fw">&nbsp;</span>&nbsp; Settings</a></li>'
+                    + '<li><a><span class="fa fa-paperclip fa-fw">&nbsp;</span>&nbsp; Files</a></li>'
+                    + '<li><a><span class="fa fa-line-chart fa-fw">&nbsp;</span>&nbsp; Report</a></li>'
+                    + '<li><a id="pop-proj-del-' + idProject + '"><span class="fa fa-trash-o fa-fw">&nbsp;</span>&nbsp; Delete</a></li>'
                     + '</ul></div>';
 
                 return retValue;
