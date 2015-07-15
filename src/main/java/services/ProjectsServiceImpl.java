@@ -24,10 +24,9 @@ public class ProjectsServiceImpl implements ProjectsService {
     private ProiectRepository proiectRepository;
 
     @Override
-    @Transactional
     public List<Proiect> findAll() {
         try {
-            return (List<Proiect>) proiectRepository.findAllByDeletedEquals(NOT_DELETED);
+            return proiectRepository.findAllByDeletedEquals(NOT_DELETED);
         } catch (DataAccessException e) {
             LOGGER.error("PROJECTS.NO_PROJECTS", e);
             return Collections.emptyList();
@@ -35,7 +34,6 @@ public class ProjectsServiceImpl implements ProjectsService {
     }
 
     @Override
-    @Transactional
     public Proiect findOne(long id) {
         Proiect proiect;
         try {

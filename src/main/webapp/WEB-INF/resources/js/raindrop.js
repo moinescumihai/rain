@@ -53,79 +53,6 @@ function showNotification(message, title, type) {
     toastr[type](message, title)
 }
 
-function showNotif(message, title, type) {
-
-    var delay = 3500;
-    var icon;
-    if (typeof(type) === "undefined") {
-        type = SUCCESS;
-    }
-    switch (type) {
-        case SUCCESS:
-            icon = 'fa fa-check-circle-o';
-            break;
-        case INFO:
-            icon = 'fa fa-info-circle';
-            break;
-        case WARNING:
-        case DANGER:
-            icon = 'fa fa-exclamation-triangle';
-            break;
-        case PRIMARY:
-            icon = 'fa fa-thumb-tack';
-            break;
-        default:
-            icon = 'fa fa-info-circle';
-            break;
-    }
-    var id = title.replace(/ /g, '');
-    var alert = '<div id="' + id + '" class="notifications-index"></div>';
-    $.notify(
-        {
-            // options
-            icon: icon,
-            title: title,
-            message: message
-        }, {
-            // settings
-            element: 'body',
-            position: null,
-            type: type,
-            allow_dismiss: true,
-            newest_on_top: true,
-            showProgressbar: false,
-            placement: {
-                from: "top",
-                align: "center"
-            },
-            offset: 60,
-            spacing: 10,
-            z_index: 5031,
-            delay: 0,
-            mouse_over: null,
-            animate: {
-                enter: 'animated fadeInUp',
-                exit: 'animated fadeOutDown'
-            },
-            onShow: null,
-            onShown: null,
-            onClose: null,
-            onClosed: null,
-            icon_type: 'class',
-            template: '<div data-notify="container" style="word-break: break-all;" class="col-xs-11 col-sm-4 alert alert-{0}" role="alert">' +
-            '<button type="button" aria-hidden="true" class="close" data-notify="dismiss">&times;</button>' +
-            '<span data-notify="icon"></span> ' +
-            '<span data-notify="title">{1}</span><br><hr> ' +
-            '<span data-notify="message">{2}</span>' +
-            '<div class="progress" data-notify="progressbar">' +
-            '<div class="progress-bar progress-bar-{0}" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;"></div>' +
-            '</div>' +
-            '<a href="{3}" target="{4}" data-notify="url"></a>' +
-            '</div>'
-        }
-    )
-}
-
 function toJSDate(dateParam, locale) {
     var options = {
         weekday: "long",
@@ -159,7 +86,7 @@ function toJSDateTime(dateParam) {
         "hour": "2-digit"
     };
 
-        returnDate = new Date(dateParam).toLocaleString(locale, options);
+    returnDate = new Date(dateParam).toLocaleString(locale, options);
     return returnDate;
 }
 
@@ -211,7 +138,22 @@ function confirmModal(id, title) {
 
     $('body').append(modalHtml);
     $(modalId).modal('show');
+}
 
+function ajaxSpinnerOn(){
+    var modalHtml = '<div class="modal fade" id="modal-spinner">'
+            .concat('<div class="modal-dialog spinner-dialog">')
+            .concat('<div class="modal-content">')
+            .concat('<div class="modal-body text-center">')
+            .concat('<i class="fa fa-spin fa-cog fa-5x"></i>')
+            .concat('</div></div></div></div>');
+
+    $('body').append(modalHtml);
+    $('#modal-spinner').modal('show');
+}
+
+function ajaxSpinnerOff(){
+    $('#modal-spinner').modal('hide');
 }
 
 $(window).scroll(function () {
@@ -391,6 +333,11 @@ $(document).ready(function () {
             $('html,body').animate({scrollTop: linkLocation.top}, "10000", 'linear');
     });
 
+    $.extend($.fn.dataTable.defaults, {
+        "aLengthMenu": [[5, 10, 25, 50, 100, -1], [5, 10, 25, 50, 100, "All"]],
+        stateSave: true
+    });
+
     var profileModalForm = $('#modal-userProfile-form');
 
     profileModalForm.validate({
@@ -457,4 +404,12 @@ $(document).ready(function () {
         getProfile();
     });
 
+
+});
+$(document).ajaxStart(function () {
+    //ajaxSpinnerOn();
+});
+
+$(document).ajaxStop(function () {
+    //ajaxSpinnerOff();
 });

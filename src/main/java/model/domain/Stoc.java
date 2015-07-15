@@ -3,12 +3,9 @@ package model.domain;
 import javax.persistence.*;
 import java.sql.Timestamp;
 
-/**
- * @author Ciprian on 7/4/2015.
- *         <p>
- *         rain
- */
+
 @Entity
+@Table(name = "stoc", schema = "", catalog = "raindrop")
 public class Stoc {
     private long idStoc;
     private long idCategorieStoc;

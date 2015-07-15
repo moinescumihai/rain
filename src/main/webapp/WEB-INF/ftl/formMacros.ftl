@@ -125,9 +125,9 @@
 [/#macro]
 
 [#macro buttonOpenModal name label modal type="success" icon="plus-square-o"]
-<button type="button" id="${name}-open" name="${name}" title="[@spring.message label /]" class="btn btn-${type}" data-toggle="modal" data-target="#${modal}"><i
+<div class="sidebar-button"><button type="button" id="${name}-open" name="${name}" title="[@spring.message label /]" class="btn btn-${type}" data-toggle="modal" data-target="#${modal}"><i
         class="fa fa-${icon}"></i>&nbsp;&nbsp;[@spring.message label /]
-</button>
+</button></div>
 [/#macro]
 
 [#macro form name action method="post" enctype="application/x-www-form-urlencoded" size="3"]
@@ -186,4 +186,14 @@
     </tr>
     </thead>
 </table>
+[/#macro]
+
+[#macro searchbox id dataTableId]
+<div class="search-box">
+    <div class="input-group">
+        <span class="input-group-addon" id="search-${id}-addon"><i class="fa fa-search"></i></span>
+        <input id="${id}" type="text" class="form-control" placeholder="[@spring.message "SEARCH"/]" aria-describedby="search-${id}-addon">
+    </div>
+</div>
+
 [/#macro]

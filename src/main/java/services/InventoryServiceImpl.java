@@ -11,7 +11,6 @@ import model.repository.TranzactieStocRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.dao.DataAccessException;
 import org.springframework.data.jpa.repository.Lock;
 import org.springframework.stereotype.Service;
@@ -31,7 +30,6 @@ public class InventoryServiceImpl implements InventoryService {
     private StareStocRepository stareStocRepository;
     @Autowired
     private InventoryItemRepository inventoryItemRepository;
-    @Qualifier("tranzactieStocRepository")
     @Autowired
     private TranzactieStocRepository tranzactieStocRepository;
 

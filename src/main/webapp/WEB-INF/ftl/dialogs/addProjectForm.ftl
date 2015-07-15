@@ -15,7 +15,7 @@
         <div class="tab-pane fade in active" id="general-project" role="tabpanel">
             [@tabPaneContainer]
                 [@input "addProject-form-nume" "numeProiect" "MODAL.PROJECTNAME" "MODAL.NAME" "" "6"/]
-                [@selectBox "addProject-form-status" "idStatusProiect" "MODAL.PROJECTSTATUS" "SELECT.PLACEHOLDER" "SEARCH.NO_RESULTS" "6" ]
+                [@selectBox "addProject-form-status" "statusProiect" "MODAL.PROJECTSTATUS" "SELECT.PLACEHOLDER" "SEARCH.NO_RESULTS" "6" ]
                     [#list listaStatus?keys as key]
                         <option id="${key}" value="${key}">${listaStatus[key]}</option>
                     [/#list]
@@ -35,7 +35,7 @@
         <div class="tab-pane fade" id="category-project" role="tabpanel">
             [@tabPaneContainer ]
                 [@elementWithLink "modal-addCategory" "MODAL.ADDCATEGORY" "6"]
-                    [@selectBox "addProject-form-category" "idCategorieProiect" "CATEGORY" "SELECT.PLACEHOLDER" "SEARCH.NO_RESULTS" "12"]
+                    [@selectBox "addProject-form-category" "categorieProiect" "CATEGORY" "SELECT.PLACEHOLDER" "SEARCH.NO_RESULTS" "12"]
                     [/@selectBox]
                 [/@elementWithLink]
                 [@infobox "client-info" "INFOBOX.ADDCATEGORY"/]

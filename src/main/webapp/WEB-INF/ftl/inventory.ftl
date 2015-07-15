@@ -5,11 +5,11 @@
 [@layout.basic]
     [@sidebar]
     <div>
-
+    [@searchbox "inventory-search" "inventory-table"/]
     </div>
     [/@sidebar]
     [@content]
-        <div class="jumbotron">[@ajaxDataTable "inventory-table"]
+       [@ajaxDataTable "inventory-table"]
             <th>#</th>
             <th> [@spring.message "INVENTAR.CATEGORIE"/] </th>
             <th> [@spring.message "INVENTAR.TIP"/] </th>
@@ -18,7 +18,7 @@
             <th> [@spring.message "INVENTAR.DETALII"/] </th>
             <th> [@spring.message "INVENTAR.ALOCAT"/] </th>
             <th> [@spring.message "INVENTAR.ALOCAT"/] </th>
-        [/@ajaxDataTable]</div>
+        [/@ajaxDataTable]
     [/@content]
 [/@layout.basic]
 <script src="/js/static/inventory.js"></script>

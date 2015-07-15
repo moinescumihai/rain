@@ -12,6 +12,7 @@ public class Attachment {
     private String creatDe;
     private Timestamp creatLa;
 
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id_attachment", nullable = false, insertable = true, updatable = true)
@@ -76,7 +77,7 @@ public class Attachment {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof Attachment)) return false;
 
         Attachment that = (Attachment) o;
 
@@ -85,9 +86,8 @@ public class Attachment {
         if (idUser != null ? !idUser.equals(that.idUser) : that.idUser != null) return false;
         if (path != null ? !path.equals(that.path) : that.path != null) return false;
         if (creatDe != null ? !creatDe.equals(that.creatDe) : that.creatDe != null) return false;
-        if (creatLa != null ? !creatLa.equals(that.creatLa) : that.creatLa != null) return false;
+        return !(creatLa != null ? !creatLa.equals(that.creatLa) : that.creatLa != null);
 
-        return true;
     }
 
     @Override

@@ -12,6 +12,7 @@
         <org.springframework-version>4.1.6.RELEASE</org.springframework-version>
         <org.springframework.security-version>3.2.5.RELEASE</org.springframework.security-version>
         <org.slf4j-version>1.7.5</org.slf4j-version>
+        <mail.version>1.5.0</mail.version>
     </properties>
 
     <dependencies>
@@ -147,11 +148,23 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- Java Mail API -->
+        <!-- Mail API -->
         <dependency>
-            <groupId>javax.mail</groupId>
-            <artifactId>mail</artifactId>
-            <version>1.4.3</version>
+            <groupId>com.sun.mail</groupId>
+            <artifactId>javax.mail</artifactId>
+            <version>${mail.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.sun.mail</groupId>
+            <artifactId>pop3</artifactId>
+            <version>${mail.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.sun.mail</groupId>
+            <artifactId>smtp</artifactId>
+            <version>${mail.version}</version>
         </dependency>
 
         <!-- Logging -->

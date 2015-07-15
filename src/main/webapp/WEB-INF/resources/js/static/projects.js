@@ -1,12 +1,12 @@
 var addProjectForm = $('#modal-addProiect-form');
 var addClientForm = $('#modal-addClient-form');
 var addCategoryForm = $('#modal-addCategory-form');
+var projectsTable;
 
 function getClients() {
     var clientsSelect = $('#addProject-form-client');
     clientsSelect.html(EMPTY);
     clientsSelect.append("<option></option>");
-    clientsSelect.append($("<option>").val("0").text('Internal project'));
     $.ajax({
         type: 'get',
         url: '/app/secure/projects/getclients',
@@ -33,8 +33,6 @@ function getCategories() {
     parentCategoriesSelect.html(EMPTY);
     categoriesSelect.append("<option></option>");
     parentCategoriesSelect.append("<option></option>");
-    categoriesSelect.append($("<option>").val("0").text('UNCATEGORISED'));
-    parentCategoriesSelect.append($("<option>").val("0").text('UNCATEGORISED'));
     $.ajax({
         type: 'get',
         url: '/app/secure/projects/getcategories',
@@ -81,7 +79,13 @@ function getProjects() {
     projectContainer.empty();
     var token = $("meta[name='_csrf']").attr("content");
     var header = $("meta[name='_csrf_header']").attr("content");
-
+    var tableHeader = '<table id="project-table" class="table table-hover table-responsive">'
+        + '<thead><tr>'
+        + '<td>Name</td>'
+        + '<td>Category</td>'
+        + '<td>Start Date</td>'
+        + '<td>End Date</td>'
+        + '</tr></thead><tbody>';
     $.ajax({
         method: 'get',
         dataType: "json",
@@ -90,30 +94,69 @@ function getProjects() {
             xhr.setRequestHeader(header, token);
         },
         success: function (response) {
-            var items = [];
+            var rows = [];
             var projectString;
             if (response.length <= 0) {
-                items.push('<h2><a class="text-muted"> No projects are defined </a></h2>');
+                projectContainer.html('<div class="panel text-center"><div class="panel-body"><h2><span class="text-muted"> No projects are defined, use the ' + $('#addProiect-open').parent().html() + '  button to define new projects</span></h2></div></div>');
+                return;
             }
             $.each(response, function (i, proj) {
                 var idProiect = proj.idProiect;
                 var numeProiect = proj.numeProiect;
+                var categorie = proj.idCategorieProiect;
+                var dataNow = new Date();
                 var dataEnd = toJSDateTime(proj.dataEndEstimativa);
                 var dataStart = toJSDateTime(proj.dataStart);
-                projectString = '<div id="proiect-item' + idProiect + '" class="project-item panel"><div class="panel-body">'
-                    + '<div class="col-sm-3"><a id="project-options' + idProiect + '" tabindex="0" class="popup-marker" data-load="idProiect=' + idProiect
-                    + '" data-placement="bottom"><span class="fa fa-th-list">&nbsp;&nbsp;</span></a>'
-                    + '<span id="proiect-nume-' + idProiect + '" class="proiect-nume">' + numeProiect + '</span>'
-                    + '<div class="project-progress"><div class="progress-bar project-progress-bar" role = "progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width:75%;" >'
-                    + '75%'
-                    + '</div>'
-                    + '</div></div>'
-                    + '<div class="col-sm-9"><p id="proiect-data-start-' + idProiect + '" class="proiect-date"> Started: ' + dataStart + '</p>'
-                    + '<p id="proiect-data-end-' + idProiect + '" class="proiect-date"> Deadline: ' + dataEnd + '</p>'
-                    + '</div></div></div>';
-                items.push(projectString);
+                var isOverdue = dataNow > new Date(proj.dataEndEstimativa);
+                var overdue = '';
+                if (isOverdue && proj.idStatusProiect == '3') {
+                    overdue = '<span class="fa fa-exclamation-circle text-danger" data-toggle="tooltip" data-placement="bottom" title="Project is overdue">&nbsp;</span>';
+                }
+                projectString = '<tr id="proiect-item' + idProiect + '" class="project-item"><td>'
+                    + '<a id="project-options' + idProiect + '" tabindex="0" role="button" class="btn-xs popup-marker" data-load="idProiect=' + idProiect
+                    + '" data-placement="bottom"><span class="fa fa-sliders"></span></a>'
+                    + '&nbsp;&nbsp;<span id="proiect-nume-' + idProiect + '" class="proiect-nume">' + overdue + numeProiect + '</span></td>'
+                    + '<td>' + categorie + '</td>'
+                    + '<td><p id="proiect-data-start-' + idProiect + '" class="proiect-date"> ' + dataStart + '</p></td>'
+                    + '<td><p id="proiect-data-end-' + idProiect + '" class="proiect-date"> ' + dataEnd + '</p>'
+                    + '</td></tr>';
+                rows.push(projectString);
             });
-            projectContainer.html(items.join(''));
+            var tableFooter = '</tbody></table>';
+            projectContainer.html(tableHeader + rows.join('') + tableFooter);
+            projectsTable = $('#project-table').DataTable({
+                "sDom": 'ltipr',
+                "columns": [
+                    {
+                        "bSortable": true,
+                        "orderable": true,
+                        "searchable": true
+                    },{
+                        "bSortable": true,
+                        "orderable": true,
+                        "searchable": true
+                    },
+                    {
+                        "bSortable": false,
+                        "orderable": false,
+                        "searchable": true
+                    },
+                    {
+                        "bSortable": false,
+                        "orderable": false,
+                        "searchable": true
+                    }
+                ]
+
+            });
+            $("#project-search").on('keyup', function () {
+                projectsTable.search(this.value).draw();
+            });
+
+            $('[data-toggle="tooltip"]').tooltip();
+        },
+        error: function(){
+
         }
     });
 

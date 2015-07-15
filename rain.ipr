@@ -135,7 +135,7 @@
     </bytecodeTargetLevel>
   </component>
   <component name="CopyrightManager" default="" />
-  <component name="DataSourceManagerImpl" format="xml" hash="2743248903">
+  <component name="DataSourceManagerImpl" format="xml" hash="828202140">
     <data-source source="LOCAL" name="MySQL - raindrop@localhost" uuid="f438a555-b6d9-40f7-9d51-6f5e20757093">
       <driver-ref>mysql</driver-ref>
       <synchronize>true</synchronize>
@@ -790,6 +790,16 @@
         <default-constraints vsize-policy="6" hsize-policy="0" anchor="0" fill="2" />
       </item>
     </group>
+  </component>
+  <component name="ProjectCodeStyleSettingsManager">
+    <option name="PER_PROJECT_SETTINGS">
+      <value>
+        <XML>
+          <option name="XML_LEGACY_SETTINGS_IMPORTED" value="true" />
+        </XML>
+      </value>
+    </option>
+    <option name="PREFERRED_PROJECT_CODE_STYLE" value="Default (2)" />
   </component>
   <component name="ProjectDictionaryState">
     <dictionary name="Ciprian" />

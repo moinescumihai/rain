@@ -290,19 +290,17 @@ function format(d) {
 }
 
 $(document).ready(function () {
-    var table;
+    var inventoryTable;
 
     $('#inventory').addClass('active');
     getStari();
 
     try {
-        table = $('#inventory-table').DataTable({
+        inventoryTable = $('#inventory-inventoryTable').DataTable({
             "ajax": {
                 "url": '/app/secure/inventory/getinventory',
                 "dataSrc": ""
             },
-            "aLengthMenu": [[5, 10, 25, 50, 100, -1], [5, 10, 25, 50, 100, "All"]],
-            stateSave: true,
             "columns": [
                 {
                     "sWidth": "35px",
@@ -414,9 +412,9 @@ $(document).ready(function () {
             }
         });
 
-        $('#inventory-table tbody').on('click', 'td.details-control, div.stare-icon', function () {
+        $('#inventory-inventoryTable tbody').on('click', 'td.details-control, div.stare-icon', function () {
             var tr = $(this).closest('tr');
-            var row = table.row(tr);
+            var row = inventoryTable.row(tr);
 
             if (row.child.isShown()) {
                 // This row is already open - close it
@@ -432,4 +430,8 @@ $(document).ready(function () {
     } catch (err) {
         console.log(err);
     }
+
+    $("#inventory-search").on('keyup', function () {
+        inventoryTable.search(this.value).draw();
+    });
 });
