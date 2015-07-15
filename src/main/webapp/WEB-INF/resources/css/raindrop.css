@@ -1761,7 +1761,9 @@ a.dropdown-carret:focus {
 }
 
 .form-link {
-    padding-left: 15px;
+    position: relative;
+    top: -20px;
+    left: 18px;
 }
 
 /*right side bar*/
@@ -1967,5 +1969,11 @@ tr.shown td.details-control {
 
 .sidebar-button {
     float: right;
-    margin: 15px 5px 5px;
+    margin: 15px 12px 5px;
+}
+
+.text-table-head {
+    color: #31708f;
+    font-weight: bold;
+    font-size: 12pt;
 }

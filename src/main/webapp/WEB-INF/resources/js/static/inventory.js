@@ -1,14 +1,20 @@
 var stari = [];
 
-function getStari(){
+function getStari() {
+    var token = $("meta[name='_csrf']").attr("content");
+    var header = $("meta[name='_csrf_header']").attr("content");
+
     $.ajax({
         type: 'get',
         url: '/app/secure/inventory/getstari',
         contentType: "application/json",
         async: false,
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader(header, token);
+        },
         success: function (response) {
             if (response) {
-                $.each(response, function(index){
+                $.each(response, function (index) {
                     stari[index] = response[index].numeStare;
                 });
             }
@@ -19,13 +25,44 @@ function getStari(){
     });
 }
 
+function drawBarcode(id) {
+    var canvas = document.getElementById('barcode' + id);
+    if (canvas.getContext) {
+        var ctx = canvas.getContext('2d');
+    }
+}
+
+function generateBarcode(barcode) {
+    var token = $("meta[name='_csrf']").attr("content");
+    var header = $("meta[name='_csrf_header']").attr("content");
+
+    $.ajax({
+        type: 'get',
+        url: '/app/secure/inventory/generatebarcode/' + barcode,
+        cache: false,
+        async: false,
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader(header, token);
+        },
+        error: function () {
+            showNotification('Error. Please refresh page!', 'Error', WARNING);
+        }
+    });
+}
+
 function getTranzactie(idArticol) {
     var tranzactie = ZERO;
+    var token = $("meta[name='_csrf']").attr("content");
+    var header = $("meta[name='_csrf_header']").attr("content");
+
     $.ajax({
         type: 'get',
         async: false,
         url: '/app/secure/inventory/tranzactie/' + idArticol,
         contentType: "application/json",
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader(header, token);
+        },
         success: function (response) {
             if (response) {
                 tranzactie = response;
@@ -129,13 +166,12 @@ function format(d) {
     var useUserRecuperat = false;
     var userRecuperat;
     var primitPrinTranzit;
-    var barcode = d.barcode;
+    var barcode = d.codStoc;
     var loc = d.numeLoc;
-    //generateBarcode(barcode);
+    generateBarcode(barcode);
     // `d` is the original data object for the row
     switch (d.idStare) {
         case 1:
-            debugger;
             stare = stari[0];
             stareIcon = 'fa-cubes';
             dataPreluare = toJSDateTime(d.creatLa);
@@ -282,7 +318,7 @@ function format(d) {
     }
     retString += '<tr>' +
         '<td><a id="history-' + barcode + '" class="btn btn-warning"><span class="fa fa-history"> &nbsp;</span> Show history</a></td>' +
-        '<td><a href="/download/barcode/' + barcode + '.png" class="btn btn-primary  pull-right"><span class="fa fa-floppy-o"> &nbsp;</span> Save barcode</a></td>' +
+        '<td><a href="/app/secure/inventory/downloadbarcode/' + barcode + '.png" class="btn btn-primary  pull-right"><span class="fa fa-floppy-o"> &nbsp;</span> Save barcode</a></td>' +
         '</tr>';
     retString += '</table></div>';
 
@@ -296,7 +332,7 @@ $(document).ready(function () {
     getStari();
 
     try {
-        inventoryTable = $('#inventory-inventoryTable').DataTable({
+        inventoryTable = $('#inventory-table').DataTable({
             "ajax": {
                 "url": '/app/secure/inventory/getinventory',
                 "dataSrc": ""
@@ -376,7 +412,7 @@ $(document).ready(function () {
                     }
                 }
             ],
-            dom: 'T<"clear"><"break-row">lfrtip<"break-row-lg">',
+            dom: 'T<"clear"><"break-row">ltipr<"break-row-lg">',
             tableTools: {
                 "sSwfPath": "/swf/copy_csv_xls_pdf.swf",
                 "aButtons": [
@@ -412,7 +448,7 @@ $(document).ready(function () {
             }
         });
 
-        $('#inventory-inventoryTable tbody').on('click', 'td.details-control, div.stare-icon', function () {
+        $('#inventory-table tbody').on('click', 'td.details-control, div.stare-icon', function () {
             var tr = $(this).closest('tr');
             var row = inventoryTable.row(tr);
 

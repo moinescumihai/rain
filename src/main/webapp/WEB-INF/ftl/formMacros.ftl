@@ -180,7 +180,7 @@
 [#macro ajaxDataTable id]
 <table id="${id}" class="table dataTable table-responsive table-hover" width="100%">
     <thead>
-    <tr>
+    <tr class="text-table-head">
         <th></th>
         [#nested]
     </tr>

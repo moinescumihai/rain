@@ -80,7 +80,7 @@ function getProjects() {
     var token = $("meta[name='_csrf']").attr("content");
     var header = $("meta[name='_csrf_header']").attr("content");
     var tableHeader = '<table id="project-table" class="table table-hover table-responsive">'
-        + '<thead><tr>'
+        + '<thead><tr class="text-table-head">'
         + '<td>Name</td>'
         + '<td>Category</td>'
         + '<td>Start Date</td>'

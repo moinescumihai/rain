@@ -10,11 +10,6 @@ var ZERO = 0;
 var chosenUpdated = 'chosen:updated';
 var rightSlidebar;
 
-function chosenUnselect(element) {
-    $(element).val(UNSELECT);
-    $(element).trigger(chosenUpdated);
-}
-
 function hideModal() {
     $('.modal.in').modal('hide');
     $('body').removeClass('modal-open');
@@ -140,19 +135,19 @@ function confirmModal(id, title) {
     $(modalId).modal('show');
 }
 
-function ajaxSpinnerOn(){
+function ajaxSpinnerOn() {
     var modalHtml = '<div class="modal fade" id="modal-spinner">'
-            .concat('<div class="modal-dialog spinner-dialog">')
-            .concat('<div class="modal-content">')
-            .concat('<div class="modal-body text-center">')
-            .concat('<i class="fa fa-spin fa-cog fa-5x"></i>')
-            .concat('</div></div></div></div>');
+        .concat('<div class="modal-dialog spinner-dialog">')
+        .concat('<div class="modal-content">')
+        .concat('<div class="modal-body text-center">')
+        .concat('<i class="fa fa-spin fa-cog fa-5x"></i>')
+        .concat('</div></div></div></div>');
 
     $('body').append(modalHtml);
     $('#modal-spinner').modal('show');
 }
 
-function ajaxSpinnerOff(){
+function ajaxSpinnerOff() {
     $('#modal-spinner').modal('hide');
 }
 
@@ -198,11 +193,7 @@ jQuery.validator.setDefaults({
         }
     },
     errorPlacement: function (error, element) {
-        if (element.hasClass("chosen-select")) {
-            element.closest("div.form-group").find(".help-block").html(error);
-        } else {
-            error.insertAfter(element);
-        }
+        element.closest("div.form-group").find(".help-block").html(error);
     }
 
 });
@@ -402,6 +393,10 @@ $(document).ready(function () {
 
     $('#modal-userProfile').on('show.bs.modal', function () {
         getProfile();
+    });
+
+    $('#modal-spinner').on('hidden.bs.modal', function () {
+        $(this).remove();
     });
 
 

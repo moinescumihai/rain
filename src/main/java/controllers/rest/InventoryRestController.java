@@ -10,7 +10,10 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import services.InventoryService;
 
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletResponse;
 import java.beans.PropertyEditorSupport;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -65,5 +68,19 @@ public class InventoryRestController {
     @ResponseBody
     public TranzactieStoc getTranzactie(@PathVariable Long idArticol) {
         return inventoryService.findLastTranzactieForArticol(idArticol);
+    }
+
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_INVENTORY')")
+    @RequestMapping(value = "/generatebarcode/{barcode}", method = RequestMethod.GET)
+    @ResponseBody
+    public String generateBarcode(@PathVariable String barcode) {
+        return inventoryService.generateBarcode(barcode);
+    }
+
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_DOWNLOAD','ROLE_SUPERUSER')")
+    @RequestMapping(value = "/downloadbarcode/{barcode}", method = RequestMethod.GET)
+    @ResponseBody
+    public String barcodeDownload(@PathVariable String barcode, HttpServletResponse response) throws IOException, ServletException {
+       return inventoryService.downloadBarcode(barcode, response);
     }
 }
