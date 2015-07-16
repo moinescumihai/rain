@@ -48,14 +48,16 @@
                 <li id="tasks"><a href="/tasks">[@spring.message "TASKS"/]</a></li>
                 <li id="personnel"><a href="/personnel">[@spring.message "PERSONNEL"/]</a></li>
                 <li id="time"><a href="/time">[@spring.message "TIME"/]</a></li>
+            [@security.authorize access="hasAnyRole('ROLE_ADMIN','ROLE_INVENTAR')"]
                 <li id="inventory"><a href="/inventory">[@spring.message "INVENTORY"/]</a></li>
+            [/@security.authorize]
                 <li id="files"><a href="/files">[@spring.message "FILES"/]</a></li>
                 <li id="reports"><a href="/reports">[@spring.message "REPORTS"/]</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                [@security.authorize ifAnyGranted="ROLE_ADMIN"]
+            [@security.authorize ifAnyGranted="ROLE_ADMIN"]
                 <li id="admin"><a href="/administration">[@spring.message "ADMIN"/]</a></li>
-                [/@security.authorize]
+            [/@security.authorize]
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria=expanded="false" title="Notifications">
                     <span class="fa fa-bell fa-lg icon-animated-bell">

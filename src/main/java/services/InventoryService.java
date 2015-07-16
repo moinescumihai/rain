@@ -1,9 +1,6 @@
 package services;
 
-import model.domain.InventoryItem;
-import model.domain.StareStoc;
-import model.domain.Stoc;
-import model.domain.TranzactieStoc;
+import model.domain.*;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
@@ -20,9 +17,10 @@ public interface InventoryService {
 
     TranzactieStoc findLastTranzactieForArticol(Long idArticol);
 
-    List<TranzactieStoc> findAllTranzactiiForArticol(Long idArticol);
+    List<History> findAllTranzactiiForArticol(Long idArticol);
 
     String generateBarcode(String id);
 
     String downloadBarcode(String barcode, HttpServletResponse response);
+
 }

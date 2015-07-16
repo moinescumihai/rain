@@ -1,5 +1,6 @@
 package controllers.rest;
 
+import model.domain.History;
 import model.domain.InventoryItem;
 import model.domain.StareStoc;
 import model.domain.TranzactieStoc;
@@ -59,7 +60,7 @@ public class InventoryRestController {
     @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_INVENTORY')")
     @RequestMapping(value = "/tranzactie/history/{idArticol}", method = RequestMethod.GET, produces = "application/json")
     @ResponseBody
-    public List<TranzactieStoc> getHistory(@PathVariable Long idArticol) {
+    public List<History> getHistory(@PathVariable Long idArticol) {
         return inventoryService.findAllTranzactiiForArticol(idArticol);
     }
 

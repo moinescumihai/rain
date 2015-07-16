@@ -1977,3 +1977,13 @@ tr.shown td.details-control {
     font-weight: bold;
     font-size: 12pt;
 }
+
+@media (min-width: 992px) {
+    .modal-xlg {
+        width: 1200px;
+    }
+}
+
+.text-bold {
+    font-weight: bold;
+}

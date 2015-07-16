@@ -2,14 +2,8 @@ package services;
 
 import com.google.zxing.BarcodeFormat;
 import model.common.FileBean;
-import model.domain.InventoryItem;
-import model.domain.StareStoc;
-import model.domain.Stoc;
-import model.domain.TranzactieStoc;
-import model.repository.InventoryItemRepository;
-import model.repository.StareStocRepository;
-import model.repository.StocRepository;
-import model.repository.TranzactieStocRepository;
+import model.domain.*;
+import model.repository.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,6 +40,8 @@ public class InventoryServiceImpl implements InventoryService {
     private ServletContext servletContext;
     @Autowired
     private BarcodeService barcodeService;
+    @Autowired
+    private InventoryHistoryRepository inventoryHistoryRepository;
 
 
     @Override
@@ -101,9 +97,11 @@ public class InventoryServiceImpl implements InventoryService {
     }
 
     @Override
-    public List<TranzactieStoc> findAllTranzactiiForArticol(Long idArticol) {
+    @Transactional
+    @Lock(LockModeType.READ)
+    public List<History> findAllTranzactiiForArticol(Long idArticol) {
         try {
-            return tranzactieStocRepository.findByIdStocOrderByIdTranzactieStocDesc(idArticol);
+            return inventoryHistoryRepository.findByIdStocOrderByIdTranzactieStocDesc(idArticol);
         } catch (DataAccessException e) {
             LOGGER.error("INVENTAR.NO_SUCH_ID_ARTICOL_IN_TRANZACTIE", e);
             return Collections.emptyList();
@@ -111,6 +109,8 @@ public class InventoryServiceImpl implements InventoryService {
     }
 
     @Override
+    @Transactional
+    @Lock(LockModeType.READ)
     public String generateBarcode(String id) {
         File f;
         try {
@@ -136,6 +136,8 @@ public class InventoryServiceImpl implements InventoryService {
     }
 
     @Override
+    @Transactional
+    @Lock(LockModeType.READ)
     public String downloadBarcode(String barcode, HttpServletResponse response) {
         String dirPath = "/WEB-INF" + File.separatorChar + "resources" + File.separatorChar + "barcode";
         String contextDirName = this.servletContext.getRealPath(dirPath);

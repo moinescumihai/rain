@@ -2,11 +2,6 @@ package model.domain;
 
 import javax.persistence.*;
 
-/**
- * @author Ciprian on 7/4/2015.
- *         <p>
- *         rain
- */
 @Entity
 @Table(name = "stare_stoc", schema = "", catalog = "raindrop")
 public class StareStoc {

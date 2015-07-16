@@ -2,11 +2,6 @@ package model.domain;
 
 import javax.persistence.*;
 
-/**
- * @author Ciprian on 7/4/2015.
- *         <p>
- *         rain
- */
 @Entity
 public class Loc {
     private long idLoc;

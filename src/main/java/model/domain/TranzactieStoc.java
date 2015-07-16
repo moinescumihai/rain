@@ -3,11 +3,6 @@ package model.domain;
 import javax.persistence.*;
 import java.sql.Timestamp;
 
-/**
- * @author Ciprian on 7/4/2015.
- *         <p>
- *         rain
- */
 @Entity
 @Table(name = "tranzactie_stoc", schema = "", catalog = "raindrop")
 public class TranzactieStoc {
@@ -16,6 +11,9 @@ public class TranzactieStoc {
     private long idStoc;
     private long idLoc;
     private long idResurseUmane;
+    private long idStare;
+    private long idStareAnterioara;
+    private String detalii;
     private Timestamp dataTranzactie;
     private String creatDe;
     private Timestamp creatLa;
@@ -123,10 +121,40 @@ public class TranzactieStoc {
         this.modificatLa = modificatLa;
     }
 
+    @Basic
+    @Column(name = "id_stare", nullable = false, insertable = true, updatable = true)
+    public long getIdStare() {
+        return idStare;
+    }
+
+    public void setIdStare(long idStare) {
+        this.idStare = idStare;
+    }
+
+    @Basic
+    @Column(name = "detalii", nullable = false, insertable = true, updatable = true)
+    public String getDetalii() {
+        return detalii;
+    }
+
+    public void setDetalii(String detalii) {
+        this.detalii = detalii;
+    }
+
+    @Basic
+    @Column(name = "id_stare_anterioara", nullable = true, insertable = true, updatable = true)
+    public long getIdStareAnterioara() {
+        return idStareAnterioara;
+    }
+
+    public void setIdStareAnterioara(long idStareAnterioara) {
+        this.idStareAnterioara = idStareAnterioara;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof TranzactieStoc)) return false;
 
         TranzactieStoc that = (TranzactieStoc) o;
 
@@ -134,14 +162,16 @@ public class TranzactieStoc {
         if (idStoc != that.idStoc) return false;
         if (idLoc != that.idLoc) return false;
         if (idResurseUmane != that.idResurseUmane) return false;
+        if (idStare != that.idStare) return false;
+        if (idStareAnterioara != that.idStareAnterioara) return false;
         if (idColet != null ? !idColet.equals(that.idColet) : that.idColet != null) return false;
+        if (detalii != null ? !detalii.equals(that.detalii) : that.detalii != null) return false;
         if (dataTranzactie != null ? !dataTranzactie.equals(that.dataTranzactie) : that.dataTranzactie != null) return false;
         if (creatDe != null ? !creatDe.equals(that.creatDe) : that.creatDe != null) return false;
         if (creatLa != null ? !creatLa.equals(that.creatLa) : that.creatLa != null) return false;
         if (modificatDe != null ? !modificatDe.equals(that.modificatDe) : that.modificatDe != null) return false;
-        if (modificatLa != null ? !modificatLa.equals(that.modificatLa) : that.modificatLa != null) return false;
+        return !(modificatLa != null ? !modificatLa.equals(that.modificatLa) : that.modificatLa != null);
 
-        return true;
     }
 
     @Override
@@ -151,6 +181,9 @@ public class TranzactieStoc {
         result = 31 * result + (int) (idStoc ^ (idStoc >>> 32));
         result = 31 * result + (int) (idLoc ^ (idLoc >>> 32));
         result = 31 * result + (int) (idResurseUmane ^ (idResurseUmane >>> 32));
+        result = 31 * result + (int) (idStare ^ (idStare >>> 32));
+        result = 31 * result + (int) (idStareAnterioara ^ (idStareAnterioara >>> 32));
+        result = 31 * result + (detalii != null ? detalii.hashCode() : 0);
         result = 31 * result + (dataTranzactie != null ? dataTranzactie.hashCode() : 0);
         result = 31 * result + (creatDe != null ? creatDe.hashCode() : 0);
         result = 31 * result + (creatLa != null ? creatLa.hashCode() : 0);

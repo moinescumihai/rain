@@ -25,13 +25,6 @@ function getStari() {
     });
 }
 
-function drawBarcode(id) {
-    var canvas = document.getElementById('barcode' + id);
-    if (canvas.getContext) {
-        var ctx = canvas.getContext('2d');
-    }
-}
-
 function generateBarcode(barcode) {
     var token = $("meta[name='_csrf']").attr("content");
     var header = $("meta[name='_csrf_header']").attr("content");
@@ -76,46 +69,56 @@ function getTranzactie(idArticol) {
     return tranzactie;
 }
 
-function generateHistoryTable(articol) {
-    var counter;
-    var dataIesire;
-    var persoana;
-    var loc;
-    var locRecuperare;
-    var dataIntrare;
-    var detalii;
-    var detaliiRecuperare;
-    var historyTable = '<div class="wrapper">' +
-        '<table class="table table-responsive table-hover"><thead><tr>' +
-        '<td>#</td><td>Data iesire</td><td>Person</td><td>Place</td><td>Details</td>' +
-        '</tr></thead><tbody>';
-    if (articol && articol.length > 0) {
-        for (var i = 0; i < articol.length; i++) {
-            counter = i + 1;
-            dataIesire = toJSDateTime(articol[i].creatLa);
-            persoana = articol[i].nume;
-            loc = articol[i].denumireLoc;
-            locRecuperare = articol[i].denumireLocRecuperare;
-            if (!locRecuperare) {
-                locRecuperare = EMPTY;
-            }
-            dataIntrare = articol[i].dataRecuperarii;
-            if (dataIntrare) {
-                dataIntrare = toJSDate(dataIntrare, 1);
-            } else {
-                dataIntrare = '<span style="color:red;">Articolul este înc? alocat</span>'
-            }
-            detalii = articol[i].detalii;
-            detaliiRecuperare = articol[i].detaliiRecuperare;
-            if (!detaliiRecuperare) {
-                detaliiRecuperare = EMPTY;
-            }
-            historyTable += '<tr><td>' + counter + '</td><td>' + dataIesire + '</td><td>' + persoana + '</td>' +
-                '<td>' + loc + '</td><td>' + detalii + '</td><td>' + locRecuperare + '</td><td>' + dataIntrare + '</td><td>' + detaliiRecuperare + '</td></tr>';
 
-        }
+function generateHistoryTable(idArticol) {
+    var counter;
+    var data;
+    var creatDe;
+    var persoana;
+    var stare;
+    var stareAnterioara;
+    var loc;
+    var colet;
+    var idStare;
+    var idStareAnterioara;
+    var detalii;
+    var history = getHistory(idArticol);
+    var stareIcon;
+    var stareAnterioaraIcon;
+
+    var historyTable = '<div class="wrapper">' +
+        '<table class="table table-responsive table-hover"><thead><tr class="text-table-head">' +
+        '<td></td><td>Package</td><td>Assigned to</td><td>Assigned at</td><td>From state</td><td>To state</td><td>Assigned by</td><td>Date</td>' +
+        '</tr></thead><tbody>';
+    if (history) {
+        $.each(history, function (i) {
+            counter = i + 1;
+            data = toJSDateTime(history[i].dataTranzactie);
+            creatDe = history[i].creatDe;
+            persoana = history[i].nume;
+            loc = history[i].numeLoc;
+            stare = history[i].stare;
+            idStare = history[i].idStare;
+            stareAnterioara = history[i].stareAnterioara;
+            idStareAnterioara = history[i].idStareAnterioara;
+            detalii = history[i].detalii;
+            colet = history[i].colet;
+            stareIcon = getStareIcon(idStare);
+            stareAnterioaraIcon = getStareIcon(idStareAnterioara);
+
+            historyTable += '<tr>' +
+                '<td>' + counter + '</td>' +
+                '<td><nobr>' + colet + '</nobr></td>' +
+                '<td><nobr>' + persoana + '</nobr></td>' +
+                '<td><nobr>' + loc + '</nobr></td>' +
+                '<td><nobr><span class="fa ' + stareAnterioaraIcon + ' fa-fw fa-bold">&nbsp;&nbsp;</span>' + stareAnterioara + '</nobr></td>' +
+                '<td><nobr><span class="fa ' + stareIcon + ' fa-fw fa-bold">&nbsp;&nbsp;</span>' + stare + '</nobr></td>' +
+                '<td><nobr>' + creatDe + '</nobr></td>' +
+                '<td><nobr>' + data + '</nobr></td></tr>';
+        });
     } else {
-        historyTable += '<tr><td colspan="8" style="color:red; text-align: center; font-weight: bold; font-size: 14pt;">Nu sunt intr?ri în eviden?? pentru acest articol</td></tr>';
+        showNotification("Error. Please refresh page", "Error", WARNING);
+        return;
     }
 
     historyTable += '</tbody></table></div>';
@@ -125,7 +128,7 @@ function generateHistoryTable(articol) {
 }
 
 function getHistory(idArticol) {
-    var retVal;
+    var retVal = null;
     var token = $("meta[name='_csrf']").attr("content");
     var header = $("meta[name='_csrf_header']").attr("content");
 
@@ -150,6 +153,37 @@ function getHistory(idArticol) {
     return retVal;
 }
 
+function getStareIcon(idStare) {
+    var stareIcon;
+    switch (idStare) {
+        case 1:
+            stareIcon = 'fa-cubes';
+            break;
+        case 2:
+            stareIcon = 'fa-recycle';
+            break;
+        case 3:
+            stareIcon = 'fa-thumb-tack';
+            break;
+        case 4:
+            stareIcon = 'fa-truck';
+            break;
+        case 5:
+            stareIcon = 'fa-bug';
+            break;
+        case 6:
+            stareIcon = 'fa-wrench';
+            break;
+        case 7:
+            stareIcon = 'fa-exclamtion-circle';
+            break;
+        case 8:
+            stareIcon = 'fa-trash';
+            break;
+    }
+    return stareIcon;
+}
+
 function format(d) {
     var evidentaInventar;
     var dataPreluare;
@@ -168,18 +202,19 @@ function format(d) {
     var primitPrinTranzit;
     var barcode = d.codStoc;
     var loc = d.numeLoc;
+    var idStoc = d.idStoc;
+    var idStare = d.idStare;
+    stareIcon = getStareIcon(idStare);
     generateBarcode(barcode);
     // `d` is the original data object for the row
-    switch (d.idStare) {
+    switch (idStare) {
         case 1:
             stare = stari[0];
-            stareIcon = 'fa-cubes';
             dataPreluare = toJSDateTime(d.creatLa);
             dataTitle = 'Added on:';
             break;
         case 2:
             stare = stari[1];
-            stareIcon = 'fa-recycle';
             dataPreluare = toJSDateTime(d.dataRecuperare);
             dataTitle = 'Recuperat la:';
             //detalii = d.detaliiRecuperare;
@@ -197,7 +232,6 @@ function format(d) {
             stare = '<%=StareArticol.IN_FOLOSINTA.getLabel()%>';
             //dataPreluare = toJSDate(evidentaInventar.dataPreluarii, 1);
             dataTitle = 'Atribuit la:';
-            stareIcon = 'fa-thumb-tack';
             persoana = d.nume;
             if (persoana.length > 0) {
                 usePersoana = true;
@@ -227,7 +261,6 @@ function format(d) {
         case 4:
             evidentaInventar = getTranzactie(d.idStoc);
             stare = stari[4];
-            stareIcon = 'fa-truck';
             detalii = d.detalii;
             //dataPreluare = toJSDate(evidentaInventar.dataPreluarii, 1);
             dataTitle = 'Plecat la:';
@@ -257,22 +290,18 @@ function format(d) {
         case 5:
             dataTitle = 'Atribuit la:';
             stare = '<%=StareArticol.DETERIORAT.getLabel()%>';
-            stareIcon = 'fa-bug';
             break;
         case 6:
             dataTitle = 'Atribuit la:';
             stare = '<%=StareArticol.SERVICE.getLabel()%>';
-            stareIcon = 'fa-wrench';
             break;
         case 7:
             dataTitle = 'Atribuit la:';
             stare = '<%=StareArticol.DISPARUT.getLabel()%>';
-            stareIcon = 'fa-exclamation-triangle';
             break;
         case 8:
             dataTitle = 'Atribuit la:';
             stare = '<%=StareArticol.CASAT.getLabel()%>';
-            stareIcon = 'fa-trash';
             break;
         default:
             return;
@@ -317,7 +346,7 @@ function format(d) {
             '</tr>';
     }
     retString += '<tr>' +
-        '<td><a id="history-' + barcode + '" class="btn btn-warning"><span class="fa fa-history"> &nbsp;</span> Show history</a></td>' +
+        '<td><a id="history-' + idStoc + '" class="btn btn-warning" data-barcode="' + barcode + '"><span class="fa fa-history"> &nbsp;</span> Show history</a></td>' +
         '<td><a href="/app/secure/inventory/downloadbarcode/' + barcode + '.png" class="btn btn-primary  pull-right"><span class="fa fa-floppy-o"> &nbsp;</span> Save barcode</a></td>' +
         '</tr>';
     retString += '</table></div>';
@@ -348,12 +377,11 @@ $(document).ready(function () {
                     "searchable": false
                 },
                 {
-                    "sWidth": "35px",
-                    "data": "idStoc"
+                    "data": "numeStoc",
+                    "className": 'text-bold'
                 },
                 {"data": "numeCategorie"},
                 {"data": "numeGrup"},
-                {"data": "numeStoc"},
                 {"data": "codStoc"},
                 {"data": "detalii"},
                 {
@@ -379,7 +407,7 @@ $(document).ready(function () {
                     "searchable": false
                 },
                 {
-                    "targets": [7],
+                    "targets": [6],
                     "bUseRendered": true,
                     "visible": true,
                     "fnCreatedCell": function (nTd, sData, oData, i) {
@@ -420,7 +448,7 @@ $(document).ready(function () {
                         "sExtends": "csv",
                         "sButtonClass": "btn btn-default",
                         "sButtonText": '<span class="fa fa-file-o">&nbsp;&nbsp;</span><span>CSV</span>',
-                        "mColumns": [1, 2, 3, 4, 5, 6, 7],
+                        "mColumns": [1, 2, 3, 4, 5, 6],
                         "oSelectorOpts": {
                             page: 'current'
                         }
@@ -430,7 +458,7 @@ $(document).ready(function () {
                         "sButtonClass": "btn btn-default",
                         "sCharSet": "utf16le",
                         "sButtonText": '<span class="fa fa-file-excel-o">&nbsp;&nbsp;</span><span>XLS</span>',
-                        "mColumns": [1, 2, 3, 4, 5, 6, 7],
+                        "mColumns": [1, 2, 3, 4, 5, 6],
                         "oSelectorOpts": {
                             page: 'current'
                         }
@@ -439,7 +467,7 @@ $(document).ready(function () {
                         "sExtends": "pdf",
                         "sButtonClass": "btn btn-default",
                         "sButtonText": '<span class="fa fa-file-pdf-o">&nbsp;&nbsp;</span><span>PDF</span>',
-                        "mColumns": [1, 2, 3, 4, 5, 6, 7],
+                        "mColumns": [1, 2, 3, 4, 5, 6],
                         "oSelectorOpts": {
                             page: 'current'
                         }
@@ -469,5 +497,17 @@ $(document).ready(function () {
 
     $("#inventory-search").on('keyup', function () {
         inventoryTable.search(this.value).draw();
+    });
+
+    $('body').on('click', 'a[id^="history-"]', function () {
+        var id = $(this).attr('id');
+        var idArticol = id.replace('history-', '');
+        var barcode = $(this).data('barcode');
+
+        id = id + '-modal';
+        var titlu = '<i class="fa fa-history">&nbsp;&nbsp;</i>History for&nbsp;&nbsp;<i class="fa fa-barcode">&nbsp;</i>' + barcode;
+        var tabel = generateHistoryTable(idArticol);
+
+        showModal(id, titlu, tabel);
     });
 });

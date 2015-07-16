@@ -93,17 +93,16 @@ function showModal(id, title, content, buttons) {
     }
     if (id && title && content) {
         modalHtml += '<div class="modal fade" id="' + id + '">'
-                .concat('<div class="modal-dialog modal-lg">')
+                .concat('<div class="modal-dialog modal-xlg">')
                 .concat('<div class="modal-content">')
                 .concat('<div class="modal-header">')
                 .concat('<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>')
                 .concat('<h4 class="modal-title">').concat(title).concat('</h4></div>')
-                .concat('<form id="' + id + '-form">')
                 .concat('<div class="modal-body">')
                 .concat(content)
                 .concat('</div><div class="modal-footer">')
                 .concat(buttons)
-                .concat('</div></form></div></div></div>');
+                .concat('</div></div></div></div>');
 
         $('body').append(modalHtml);
 
