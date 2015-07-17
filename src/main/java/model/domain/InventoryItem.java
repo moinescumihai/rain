@@ -19,7 +19,9 @@ public class InventoryItem {
     private String imagine;
     private String factura;
     private String creatDe;
+    private String modificatDe;
     private Timestamp creatLa;
+    private Timestamp modificatLa;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -152,10 +154,31 @@ public class InventoryItem {
         this.creatLa = creatLa;
     }
 
+    @Basic
+    @Column(name = "modificat_de", nullable = true, insertable = true, updatable = true)
+    public String getModificatDe() {
+        return modificatDe;
+    }
+
+    public void setModificatDe(String modificatDe) {
+        this.modificatDe = modificatDe;
+    }
+
+
+    @Basic
+    @Column(name = "modificat_la", nullable = true, insertable = true, updatable = true)
+    public Timestamp getModificatLa() {
+        return modificatLa;
+    }
+
+    public void setModificatLa(Timestamp modificatLa) {
+        this.modificatLa = modificatLa;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof InventoryItem)) return false;
 
         InventoryItem that = (InventoryItem) o;
 
@@ -171,9 +194,10 @@ public class InventoryItem {
         if (imagine != null ? !imagine.equals(that.imagine) : that.imagine != null) return false;
         if (factura != null ? !factura.equals(that.factura) : that.factura != null) return false;
         if (creatDe != null ? !creatDe.equals(that.creatDe) : that.creatDe != null) return false;
+        if (modificatDe != null ? !modificatDe.equals(that.modificatDe) : that.modificatDe != null) return false;
         if (creatLa != null ? !creatLa.equals(that.creatLa) : that.creatLa != null) return false;
+        return !(modificatLa != null ? !modificatLa.equals(that.modificatLa) : that.modificatLa != null);
 
-        return true;
     }
 
     @Override
@@ -190,7 +214,9 @@ public class InventoryItem {
         result = 31 * result + (imagine != null ? imagine.hashCode() : 0);
         result = 31 * result + (factura != null ? factura.hashCode() : 0);
         result = 31 * result + (creatDe != null ? creatDe.hashCode() : 0);
+        result = 31 * result + (modificatDe != null ? modificatDe.hashCode() : 0);
         result = 31 * result + (creatLa != null ? creatLa.hashCode() : 0);
+        result = 31 * result + (modificatLa != null ? modificatLa.hashCode() : 0);
         return result;
     }
 }

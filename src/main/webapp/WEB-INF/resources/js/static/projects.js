@@ -200,14 +200,14 @@ $(document).ready(function () {
                 var retValue;
                 var data = $($(this)[0]).data('load').split('=');
                 var idProject = data[1];
-                retValue = '<div class="popover-left-column"><ul class="poject-options">'
+                retValue = '<div class="popover-left-column"><ul class="project-options">'
                     + '<li><a><span class="fa fa-group fa-fw">&nbsp;</span>&nbsp; People</a></li>'
                     + '<li><a><span class="fa fa-tasks fa-fw">&nbsp;</span>&nbsp; Tasks</a></li>'
                     + '<li><a><span class="fa fa-bookmark-o fa-fw">&nbsp;</span>&nbsp; Milestones</a></li>'
                     + '<li><a><span class="fa fa-bomb fa-fw">&nbsp;</span>&nbsp; Risks</a></li>'
                     + '<li><a><span class="fa fa-archive fa-fw">&nbsp;</span>&nbsp; Archive</a></li>'
                     + '</ul></div>'
-                    + '<div class="popover-right-column"><ul class="poject-options">'
+                    + '<div class="popover-right-column"><ul class="project-options">'
                     + '<li><a><span class="fa fa-cog fa-fw">&nbsp;</span>&nbsp; Settings</a></li>'
                     + '<li><a><span class="fa fa-paperclip fa-fw">&nbsp;</span>&nbsp; Files</a></li>'
                     + '<li><a><span class="fa fa-line-chart fa-fw">&nbsp;</span>&nbsp; Report</a></li>'

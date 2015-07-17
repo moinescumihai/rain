@@ -184,164 +184,117 @@ function getStareIcon(idStare) {
     return stareIcon;
 }
 
-function format(d) {
-    var evidentaInventar;
-    var dataPreluare;
-    var stare;
-    var dataTitle;
+function format(row) {
     var usePersoana = false;
-    var stareIcon;
-    var persoana;
-    var useDetalii = false;
-    var detalii;
-    var detaliiTitle;
-    var usePrimire = false;
-    var dataPrimire;
-    var useUserRecuperat = false;
-    var userRecuperat;
+    var useUserRecuperare = false;
     var primitPrinTranzit;
-    var barcode = d.codStoc;
-    var loc = d.numeLoc;
-    var idStoc = d.idStoc;
-    var idStare = d.idStare;
-    stareIcon = getStareIcon(idStare);
+    var barcode = row.codStoc;
+    var loc = row.numeLoc;
+    var idStoc = row.idStoc;
+    var persoana = row.nume;
+    var idStare = row.idStare;
+    var stareIndex = idStare - 1;
+    var stare = stari[stareIndex];
+    var stareIcon = getStareIcon(idStare);
+    var dateAdaugare = toJSDateTime(row.creatLa);
+    var dateModificare = toJSDateTime(row.modificatLa);
+    var dateModificareTitlu = 'Recovered at:';
+    var lastHistory = getTranzactie(row.idStoc);
+    var detalii = lastHistory.detalii;
+    var useHistoryDate = false;
+    var historyDate = toJSDateTime(lastHistory.dataTranzactie);
+    var historyDateTitlu;
+    var detaliiTitle;
+    var useDetalii = false;
+    var userRecuperare = row.modificatDe;
+
+
     generateBarcode(barcode);
-    // `d` is the original data object for the row
+
     switch (idStare) {
         case 1:
-            stare = stari[0];
-            dataPreluare = toJSDateTime(d.creatLa);
-            dataTitle = 'Added on:';
             break;
         case 2:
-            stare = stari[1];
-            dataPreluare = toJSDateTime(d.dataRecuperare);
-            dataTitle = 'Recuperat la:';
-            //detalii = d.detaliiRecuperare;
-            if (detalii.length > 0) {
-                detaliiTitle = 'Detalii recuperare';
-                useDetalii = true;
-            }
-            //userRecuperat = d.modificatDe;
-            if (userRecuperat && userRecuperat.length > 0) {
-                useUserRecuperat = true;
-            }
+            detaliiTitle = 'Recovery details';
+            useDetalii = true;
+            historyDateTitlu = 'Recovered on';
+            useHistoryDate = true;
+            useUserRecuperare = true;
+
             break;
         case 3:
-            evidentaInventar = getTranzactie(d.idStoc);
-            stare = '<%=StareArticol.IN_FOLOSINTA.getLabel()%>';
-            //dataPreluare = toJSDate(evidentaInventar.dataPreluarii, 1);
-            dataTitle = 'Atribuit la:';
-            persoana = d.nume;
-            if (persoana.length > 0) {
-                usePersoana = true;
-            }
-            detalii = d.detalii;
-            if (detalii.length > 0) {
-                detaliiTitle = 'Detalii preluare';
-                useDetalii = true;
-            }
-            //dataPrimire = d.dataPrimire;
-            if (dataPrimire) {
-                dataPrimire = toJSDate(dataPrimire);
-                if (dataPrimire < dataPreluare) {
-                    dataPrimire = null;
-
-                }
-            }
-            if (dataPrimire) {
-                usePrimire = true;
-                primitPrinTranzit = 'Primit prin tranzit'
-
-            } else {
-                dataPrimire = '&#206;nc&#259; nu a ajuns la destina&#355;ie';
-            }
+            historyDateTitlu = 'Assigned on';
+            useHistoryDate = true;
+            usePersoana = true;
+            detaliiTitle = 'Assignment details';
+            useDetalii = true;
 
             break;
         case 4:
-            evidentaInventar = getTranzactie(d.idStoc);
-            stare = stari[4];
-            detalii = d.detalii;
-            //dataPreluare = toJSDate(evidentaInventar.dataPreluarii, 1);
-            dataTitle = 'Plecat la:';
-            persoana = d.nume;
-            if (persoana.length > 0) {
                 usePersoana = true;
-            }
-            if (detalii.length > 0) {
-                detaliiTitle = 'Detalii tranzit';
+                detaliiTitle = 'Tranzit details';
                 useDetalii = true;
-            }
-            //dataPrimire = d.dataPrimire;
-            if (dataPrimire) {
-                dataPrimire = toJSDate(dataPrimire, 1);
-                if (dataPrimire < dataPreluare) {
-                    dataPrimire = null;
-                    usePrimire = false;
-                }
-            }
-            if (dataPrimire) {
-                usePrimire = true;
-                dataPrimire = toJSDate(dataPrimire, 1)
-            } else {
-                dataPrimire = '&#206;nc&#259; nu a ajuns la destina&#355;ie';
-            }
+            ////dataPrimire = d.dataPrimire;
+            //if (dataPrimire) {
+            //    dataPrimire = toJSDate(dataPrimire, 1);
+            //    if (dataPrimire < dateAdaugare) {
+            //        dataPrimire = null;
+            //        usePrimire = false;
+            //    }
+            //}
+            //if (dataPrimire) {
+            //    usePrimire = true;
+            //    dataPrimire = toJSDate(dataPrimire, 1)
+            //} else {
+            //    dataPrimire = '&#206;nc&#259; nu a ajuns la destina&#355;ie';
+            //}
             break;
-        case 5:
-            dataTitle = 'Atribuit la:';
-            stare = '<%=StareArticol.DETERIORAT.getLabel()%>';
+        case 5 :
             break;
-        case 6:
-            dataTitle = 'Atribuit la:';
-            stare = '<%=StareArticol.SERVICE.getLabel()%>';
+        case 6 :
             break;
-        case 7:
-            dataTitle = 'Atribuit la:';
-            stare = '<%=StareArticol.DISPARUT.getLabel()%>';
+        case 7 :
             break;
-        case 8:
-            dataTitle = 'Atribuit la:';
-            stare = '<%=StareArticol.CASAT.getLabel()%>';
+        case 8 :
             break;
         default:
             return;
     }
     var retString = '<div class="well"><table class="table" cellpadding="5" cellspacing="0" border="0">' +
         '<tr>' +
-        '<td width="200px;"><span class="fa fa-map-marker fa-fw">&nbsp;</span><b>Location:</b></td>' +
+        '<td width="200px;"><span class="fa fa-map-marker fa-fw">&nbsp;</span><b>Location</b></td>' +
         '<td width="550px;">' + loc + '</td>' +
         '<td rowspan="10" style="vertical-align: middle; text-align: center"><div>' +
-        '<img  width="200" height="100"  src="/barcode/' + barcode + '.png" alt="Not yet generated">' +
-        '<br><span class="text-center">' + barcode + '</span></div>' +
+        '<img  width="200" height="100"  src="/barcode/' + barcode + '.png" alt="Not yet generated"><br><span class="text-center">' + barcode + '</span></div>' +
         '</td>' +
         '</tr>' +
         '<tr>' +
-        '<td><span class="fa ' + stareIcon + ' fa-fw">&nbsp;</span><b>State:</b></td>' +
+        '<td><span class="fa ' + stareIcon + ' fa-fw">&nbsp;</span><b>State</b></td>' +
         '<td>' + stare + '</td>' +
+        '</tr>' +
+        '<tr>' +
+        '<td><span class="fa fa-calendar fa-fw">&nbsp;</span><b>Added on</b></td>' +
+        '<td>' + dateAdaugare + '</td>' +
         '</tr>';
 
 
-    retString += '<tr>' +
-        '<td><span class="fa fa-calendar fa-fw">&nbsp;</span><b>' + dataTitle + '</b></td>' +
-        '<td>' + dataPreluare + '</td>' +
-        '</tr>';
-    if (usePrimire) {
-        retString += '<tr><td><span class="fa fa-calendar fa-fw">&nbsp;</span><b>Primit la:</b></td>' +
-            '<td>' + dataPrimire + '</td>' +
+    if (useHistoryDate) {
+        retString += '<tr><td><span class="fa fa-calendar fa-fw">&nbsp;</span><b>' + historyDateTitlu + '</b></td>' +
+            '<td>' + historyDate + '</td>' +
             '</tr>';
     }
     if (usePersoana) {
-        retString += '<tr><td><span class="fa fa-user fa-fw">&nbsp;</span><b>Persoan&#259;:</b></td>' +
+        retString += '<tr><td><span class="fa fa-user fa-fw">&nbsp;</span><b>Person</b></td>' +
             '<td>' + persoana + '</td>' +
             '</tr>';
     }
-    if (useUserRecuperat) {
-        retString += '<tr><td><span class="fa fa-user fa-fw">&nbsp;</span><b>Recuperat de:</b></td>' +
-            '<td>' + userRecuperat + '</td>' +
+    if (useUserRecuperare) {
+        retString += '<tr><td><span class="fa fa-user fa-fw">&nbsp;</span><b>Recovered by</b></td>' +
+            '<td>' + userRecuperare + '</td>' +
             '</tr>';
     }
     if (useDetalii) {
-        retString += '<tr><td><span class="fa fa-comment fa-fw">&nbsp;</span><b>' + detaliiTitle + ':</b></td>' +
+        retString += '<tr><td><span class="fa fa-comment fa-fw">&nbsp;</span><b>' + detaliiTitle + '</b></td>' +
             '<td>' + detalii + '</td>' +
             '</tr>';
     }
@@ -411,30 +364,31 @@ $(document).ready(function () {
                     "bUseRendered": true,
                     "visible": true,
                     "fnCreatedCell": function (nTd, sData, oData, i) {
+                        var stare = stari[sData - 1];
                         switch (sData) {
                             case 1:
-                                $(nTd).html('<div class="btn btn-success stare-icon"><span class="fa fa-cubes fa-fw"></span></div>');
+                                $(nTd).html('<div class="btn btn-success stare-icon" data-toggle="tooltip" data-placement="bottom" title="' + stare + '"><span class="fa fa-cubes fa-fw"></span></div>');
                                 break;
                             case 2:
-                                $(nTd).html('<div class="btn btn-success stare-icon"><span class="fa fa-recycle fa-fw"></span></div>');
+                                $(nTd).html('<div class="btn btn-success stare-icon" data-toggle="tooltip" data-placement="bottom" title="' + stare + '"><span class="fa fa-recycle fa-fw"></span></div>');
                                 break;
                             case 3:
-                                $(nTd).html('<div class="btn btn-primary stare-icon"><span class="fa fa-thumb-tack fa-fw"></span></div>');
+                                $(nTd).html('<div class="btn btn-primary stare-icon" data-toggle="tooltip" data-placement="bottom" title="' + stare + '"><span class="fa fa-thumb-tack fa-fw"></span></div>');
                                 break;
                             case 4:
-                                $(nTd).html('<div class="btn btn-warning stare-icon"><span class="fa fa-truck fa-fw"></span></div>');
+                                $(nTd).html('<div class="btn btn-warning stare-icon" data-toggle="tooltip" data-placement="bottom" title="' + stare + '"><span class="fa fa-truck fa-fw"></span></div>');
                                 break;
                             case 5:
-                                $(nTd).html('<div class="btn btn-danger stare-icon"><span class="fa fa-bug fa-fw"></span></div>');
+                                $(nTd).html('<div class="btn btn-danger stare-icon" data-toggle="tooltip" data-placement="bottom" title="' + stare + '"><span class="fa fa-bug fa-fw"></span></div>');
                                 break;
                             case 6:
-                                $(nTd).html('<div class="btn btn-danger stare-icon"><span class="fa fa-wrench fa-fw"></span></div>');
+                                $(nTd).html('<div class="btn btn-danger stare-icon" data-toggle="tooltip" data-placement="bottom" title="' + stare + '"><span class="fa fa-wrench fa-fw"></span></div>');
                                 break;
                             case 7:
-                                $(nTd).html('<div class="btn btn-danger stare-icon"><span class="fa fa-exclamation-triangle fa-fw"></span></div>');
+                                $(nTd).html('<div class="btn btn-danger stare-icon" data-toggle="tooltip" data-placement="bottom" title="' + stare + '"><span class="fa fa-exclamation-triangle fa-fw"></span></div>');
                                 break;
                             case 8:
-                                $(nTd).html('<div class="btn btn-danger stare-icon"><span class="fa fa-trash fa-fw"></span></div>');
+                                $(nTd).html('<div class="btn btn-danger stare-icon" data-toggle="tooltip" data-placement="bottom" title="' + stare + '"><span class="fa fa-trash fa-fw"></span></div>');
                                 break;
                         }
                     }
@@ -475,6 +429,8 @@ $(document).ready(function () {
                 ]
             }
         });
+
+        $('[data-toggle="tooltip"]').tooltip();
 
         $('#inventory-table tbody').on('click', 'td.details-control, div.stare-icon', function () {
             var tr = $(this).closest('tr');

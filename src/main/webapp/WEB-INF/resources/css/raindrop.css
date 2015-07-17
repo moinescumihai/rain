@@ -1420,6 +1420,7 @@ button.toast-close-button {
 .popover-right-column {
     float: right;
     margin: 2px;
+    min-width: 100px;
 }
 
 .popover-left-column {
@@ -1431,24 +1432,29 @@ button.toast-close-button {
     max-width: 500px;
 }
 
-.poject-options {
+.project-options {
     list-style: none;
     padding: 2px;
     cursor: pointer;
 }
 
-.poject-options li:hover {
+.project-options li:hover {
     background-color: #f5f5f5;
 }
 
-.poject-options li {
+.project-options li {
     padding: 5px;
 }
 
-.poject-options a {
+.project-options a {
     color: #080808;
     text-decoration: none;
 }
+
+ul.project-options > li > a:hover {
+    font-weight: bolder;
+}
+
 
 a.dropdown-carret:focus {
     outline: none;

@@ -124,8 +124,8 @@ public class InventoryServiceImpl implements InventoryService {
             f = new File(filename);
             if (!f.exists()) {
                 f.createNewFile();
+                barcodeService.encode(f, id, BarcodeFormat.CODE_128);
             }
-            barcodeService.encode(f, id, BarcodeFormat.CODE_128);
 
         } catch (Exception e) {
             LOGGER.error(e.getMessage(), e);
@@ -148,8 +148,8 @@ public class InventoryServiceImpl implements InventoryService {
 
         byte[] bytes = null;
         try (BufferedInputStream stream = new BufferedInputStream(new FileInputStream(serverFile))) {
-        bytes = new byte[(int) serverFile.length()];
-        stream.read(bytes);
+            bytes = new byte[(int) serverFile.length()];
+            stream.read(bytes);
         } catch (IOException e) {
             LOGGER.error(e.getMessage(), e);
         }

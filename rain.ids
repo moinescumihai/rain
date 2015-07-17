@@ -123,7 +123,7 @@
     </table>
     <table name="history" schema="" catalog="raindrop" type="VIEW">
       <column name="id_tranzactie_stoc" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" def="MA=="/>
-      <column name="colet" sqlType="VARCHAR" precision="302" scale="0" nullable="true" jdbcType="12"/>
+      <column name="colet" sqlType="VARCHAR" precision="250" scale="0" nullable="false" jdbcType="12"/>
       <column name="id_stoc" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
       <column name="stare_anterioara" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
       <column name="id_stare_anterioara" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" def="MA=="/>
