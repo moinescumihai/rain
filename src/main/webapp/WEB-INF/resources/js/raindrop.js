@@ -9,6 +9,30 @@ var UNSELECT = [];
 var ZERO = 0;
 var chosenUpdated = 'chosen:updated';
 var rightSlidebar;
+var popoverDefaultSettings = {
+    placement: 'bottom',//values: auto,top,right,bottom,left,top-right,top-left,bottom-right,bottom-left,auto-top,auto-right,auto-bottom,auto-left
+    width: 'auto',//can be set with  number
+    height: 'auto',//can be set with  number
+    trigger: 'hover',//values:  click,hover,manual
+    style: '',//values:'',inverse
+    constrains: null, // constrains the direction when placement is  auto,  values: horizontal,vertical
+    animation: 'pop', //pop with animation,values: pop,fade (only take effect in the browser which support css3 transition)
+    delay: {//show and hide delay time of the popover, works only when trigger is 'hover',the value can be number or object
+        show: null,
+        hide: 500
+    },
+    async: {
+        before: function (that, xhr) {
+        },//executed before ajax request
+        success: function (that, data) {
+        }//executed after successful ajax request
+    },
+    cache: false,//if cache is set to false,popover will destroy and recreate
+    multi: false,//allow other popovers in page at same time
+    arrow: true,//show arrow or not
+    closeable: false,//display close button or not
+    padding: true//content padding
+};
 
 function hideModal() {
     $('.modal.in').modal('hide');

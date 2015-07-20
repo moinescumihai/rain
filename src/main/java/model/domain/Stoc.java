@@ -1,8 +1,15 @@
 package model.domain;
 
-import javax.persistence.*;
-import java.sql.Timestamp;
+import org.hibernate.annotations.GenericGenerator;
 
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import java.sql.Timestamp;
 
 @Entity
 @Table(name = "stoc", schema = "", catalog = "raindrop")
@@ -65,7 +72,9 @@ public class Stoc {
     }
 
     @Basic
-    @Column(name = "cod_stoc", nullable = false, insertable = true, updatable = true, length = 255)
+    @GeneratedValue(generator = "system-uuid")
+    @GenericGenerator(name = "system-uuid", strategy = "uuid")
+    @Column(name = "cod_stoc", nullable = true, insertable = true, updatable = false, length = 255)
     public String getCodStoc() {
         return codStoc;
     }

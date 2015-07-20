@@ -1,12 +1,11 @@
 package services;
 
+import common.validator.utils.UserUtils;
 import model.domain.ResurseUmane;
 import model.domain.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import services.user.UserService;
 
@@ -21,7 +20,7 @@ public class ProfileServiceImpl implements ProfileService {
 
     @Override
     public ResurseUmane getRaindropUser(String username) {
-        String name = getLoggedInUsername();
+        String name = UserUtils.getLoggedInUsername();
         if (!name.equals(username)){
             LOGGER.error("USERNAME_DOES_NOT_MATCH");
             throw new IllegalArgumentException("USERNAME_DOES_NOT_MATCH");
@@ -33,11 +32,7 @@ public class ProfileServiceImpl implements ProfileService {
 
     @Override
     public ResurseUmane getLoggedInRaindropUser() {
-        return getRaindropUser(getLoggedInUsername());
+        return getRaindropUser(UserUtils.getLoggedInUsername());
     }
 
-    private String getLoggedInUsername() {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        return auth.getName();
-    }
 }

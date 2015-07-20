@@ -16,23 +16,23 @@
     <!-- Tab content -->
     <div class="tab-content">
         <div class="tab-pane fade in active" id="useressentials" role="tabpanel">
-        [@tabPaneContainer]
+        [@modalContainer]
             [@input "userProfile-form-prenume" "prenume" "USER.NAME" "USER.NAME.PLACEHOLDER" "" "6"/]
             [@input "userProfile-form-nume" "nume" "USER.LASTNAME" "USER.LASTNAME.PLACEHOLDER" "" "6"/]
             [@emailInput "userProfile-form-email" "email" "USER.EMAIL" "USER.EMAIL.PLACEHOLDER" "" "6"/]
             [@input "userProfile-form-pozitie" "pozitie" "USER.JOBTITLE" "USER.JOBTITLE.PLACEHOLDER" "" "6"/]
-        [/@tabPaneContainer]
+        [/@modalContainer]
     </div>
     <div class="tab-pane fade" id="userdetails" role="tabpanel">
-        [@tabPaneContainer]
+        [@modalContainer]
             [@input "userProfile-form-workTel" "workTel" "USER.WORKPHONE" "USER.WORKPHONE.PLACEHOLDER" "" "6"/]
             [@input "userProfile-form-mobilTel" "mobilTel" "USER.MOBILEPHONE" "USER.MOBILEPHONE.PLACEHOLDER" "" "6"/]
             [@input "userProfile-form-homeTel" "homeTel" "USER.HOMEPHONE" "USER.HOMEPHONE.PLACEHOLDER" "" "6"/]
             [@input "userProfile-form-fax" "fax" "USER.FAX" "USER.FAX.PLACEHOLDER" "" "6"/]
-        [/@tabPaneContainer]
+        [/@modalContainer]
     </div>
     <div class="tab-pane fade" id="useraddress" role="tabpanel">
-    [@tabPaneContainer]
+    [@modalContainer]
         [@input "userProfile-form-adresa" "adresa" "USER.STRADA" "USER.STRADA.PLACEHOLDER" "" "6"/]
         [@input "userProfile-form-oras" "oras" "USER.ORAS" "USER.ORAS.PLACEHOLDER" "" "6"/]
         [@input "userProfile-form-judet" "judet" "USER.JUDET" "USER.JUDET.PLACEHOLDER" "" "6"/]
@@ -42,24 +42,24 @@
                 [#--<option id="${key}" value="${key}">${listaTari[key]}</option>--]
             [#--[/#list]--]
         [/@selectBox]
-    [/@tabPaneContainer]
+    [/@modalContainer]
     </div>
     <div class="tab-pane fade" id="useraccount">
-    [@tabPaneContainer]
+    [@modalContainer]
         [@elementWithLink "modal-changePassword" "USER.PASSWORD.CHANGE"]
         [@input "userProfile-form-username" "idUser" "USER.USERNAME" "USER.USERNAME.PLACEHOLDER" "" "12"/]
         [/@elementWithLink]
-    [/@tabPaneContainer]
+    [/@modalContainer]
     </div>
     <div class="tab-pane fade" id="userlegal">
-    [@tabPaneContainer]
+    [@modalContainer]
         [@input "userProfile-form-cnp" "cnp" "USER.CNP" "USER.CNP.PLACEHOLDER" "" "6"/]
         [@elementWithLink "modal-addTipContract" "USER.TIPCONTRACT" "6"]
-            [@selectBox "serProfile-form-tipContract" "tipContract" "USER.TIPCONTRACT" "USER.TIPCONTRACTSELECT" "SEARCH.NO_RESULTS" "12"]
+            [@embedableSelectBox "serProfile-form-tipContract" "tipContract" "USER.TIPCONTRACT" "USER.TIPCONTRACTSELECT" "SEARCH.NO_RESULTS"]
             [#--[#list listaTari?keys as key]--]
             [#--<option id="${key}" value="${key}">${listaTari[key]}</option>--]
             [#--[/#list]--]
-            [/@selectBox]
+            [/@embedableSelectBox]
         [/@elementWithLink]
         [@input "userProfile-form-serieCi" "serieCi" "USER.CI.SERIE" "USER.CI.SERIE.PLACEHOLDER" "" "3"/]
         [@input "userProfile-form-nrCi" "nrCi" "USER.CI.NUMAR" "USER.CI.NUMAR.PLACEHOLDER" "" "3"/]
@@ -69,7 +69,7 @@
         [@rowBreak/]
         [@input "userProfile-form-zileConcediu" "zileConcediu" "USER.ZILECONCEDIU" "USER.ZILECONCEDIU.PLACEHOLDER" "" "4"/]
         [@infobox "user-legal-info" "INFOBOX.ADDCLIENT"/]
-    [/@tabPaneContainer]
+    [/@modalContainer]
     </div>
 </div>
 </div>

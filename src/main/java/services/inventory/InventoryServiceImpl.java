@@ -1,6 +1,7 @@
-package services;
+package services.inventory;
 
 import com.google.zxing.BarcodeFormat;
+import common.validator.utils.UserUtils;
 import model.common.FileBean;
 import model.domain.*;
 import model.repository.*;
@@ -12,7 +13,6 @@ import org.springframework.data.jpa.repository.Lock;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.FileCopyUtils;
-import services.inventory.BarcodeService;
 
 import javax.persistence.LockModeType;
 import javax.servlet.ServletContext;
@@ -21,12 +21,15 @@ import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.sql.Timestamp;
 import java.util.Collections;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class InventoryServiceImpl implements InventoryService {
     private static final Logger LOGGER = LoggerFactory.getLogger(InventoryServiceImpl.class);
+    private static final int STOC_INITIAL_VALUE = 1;
 
     @Autowired
     private StocRepository stocRepository;
@@ -42,6 +45,8 @@ public class InventoryServiceImpl implements InventoryService {
     private BarcodeService barcodeService;
     @Autowired
     private InventoryHistoryRepository inventoryHistoryRepository;
+    @Autowired
+    private ColetRepository coletRepository;
 
 
     @Override
@@ -71,6 +76,43 @@ public class InventoryServiceImpl implements InventoryService {
     @Transactional
     @Lock(LockModeType.READ)
     public Stoc save(Stoc entity) {
+        entity = seveDefaultStoc(entity);
+        Colet colet = new Colet();
+        colet.setNumeColet(String.valueOf(UUID.randomUUID()));
+        String idColetNou = String.valueOf(coletRepository.save(colet).getIdColet());
+        buildAndSaveTranzactieStoc(entity, idColetNou);
+
+        return entity;
+    }
+
+    private TranzactieStoc buildAndSaveTranzactieStoc(Stoc entity, String idColet) {
+        long idStoc = entity.getIdStoc();
+        TranzactieStoc previousTranzantion = tranzactieStocRepository.findFirstByIdStocOrderByIdTranzactieStocDesc(idStoc);
+        long idStareAnterioara = previousTranzantion == null ? STOC_INITIAL_VALUE : previousTranzantion.getIdStare();
+        TranzactieStoc newStockAdded = new TranzactieStoc();
+        newStockAdded.setIdStoc(idStoc);
+        newStockAdded.setIdLoc(entity.getIdLoc());
+        newStockAdded.setIdResurseUmane(entity.getIdResurseUmane());
+        newStockAdded.setIdStareAnterioara(idStareAnterioara);
+        newStockAdded.setIdStare(entity.getIdStare());
+        newStockAdded.setIdColet(idColet);
+        newStockAdded.setDetalii(entity.getDetalii());
+        newStockAdded.setDataTranzactie(entity.getCreatLa());
+        newStockAdded.setCreatDe(UserUtils.getLoggedInUsername());
+        newStockAdded.setCreatLa(new Timestamp(System.currentTimeMillis()));
+
+        return tranzactieStocRepository.save(newStockAdded);
+    }
+
+    private Stoc seveDefaultStoc(Stoc entity) {
+        String codStoc = String.valueOf(UUID.randomUUID());
+        String creatDe = UserUtils.getLoggedInUsername();
+        entity.setCodStoc(codStoc);
+        entity.setCreatDe(creatDe);
+        entity.setIdResurseUmane(STOC_INITIAL_VALUE);
+        entity.setIdStare(STOC_INITIAL_VALUE);
+        entity.setCreatLa(new Timestamp(System.currentTimeMillis()));
+
         return stocRepository.save(entity);
     }
 

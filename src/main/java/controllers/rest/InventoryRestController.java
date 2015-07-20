@@ -1,15 +1,15 @@
 package controllers.rest;
 
-import model.domain.History;
-import model.domain.InventoryItem;
-import model.domain.StareStoc;
-import model.domain.TranzactieStoc;
+import model.common.JSONResponse;
+import model.domain.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.dao.DataAccessException;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
-import services.InventoryService;
+import services.inventory.InventoryService;
+import services.inventory.LocService;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletResponse;
@@ -25,6 +25,8 @@ public class InventoryRestController {
 
     @Autowired
     private InventoryService inventoryService;
+    @Autowired
+    private LocService locService;
 
     @InitBinder
     public void initBinder(WebDataBinder binder) {
@@ -82,6 +84,28 @@ public class InventoryRestController {
     @RequestMapping(value = "/downloadbarcode/{barcode}", method = RequestMethod.GET)
     @ResponseBody
     public String barcodeDownload(@PathVariable String barcode, HttpServletResponse response) throws IOException, ServletException {
-       return inventoryService.downloadBarcode(barcode, response);
+        return inventoryService.downloadBarcode(barcode, response);
     }
+
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_SUPERUSER')")
+    @RequestMapping(value = "/addstockitem", method = RequestMethod.POST, produces = "application/json")
+    @ResponseBody
+    public JSONResponse addStoc(@RequestBody Stoc stoc) {
+        JSONResponse response = new JSONResponse();
+        try {
+            inventoryService.save(stoc);
+            response.setMessage("Added new inventory item: " + stoc.getNumeStoc());
+        } catch (DataAccessException e) {
+            response.setMessage("Item not added");
+        }
+        return response;
+    }
+
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_INVENTORY')")
+    @RequestMapping(value = "/loc/{idLoc}", method = RequestMethod.GET, produces = "application/json")
+    @ResponseBody
+    public Loc getLoc(@PathVariable Long idLoc) {
+        return locService.findById(idLoc);
+    }
+
 }

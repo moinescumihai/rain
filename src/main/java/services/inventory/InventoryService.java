@@ -1,4 +1,4 @@
-package services;
+package services.inventory;
 
 import model.domain.*;
 

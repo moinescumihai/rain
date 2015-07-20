@@ -11,14 +11,14 @@
 </div>
 [/#macro]
 
-[#macro tabPaneContainer]
+[#macro modalContainer]
 <div class="container container-modal">
     [#nested]
 </div>
 [/#macro]
 
 [#macro elementWithLink target label size="6"]
-<div class="col-md-${size}">
+<div class="form-group col-md-${size}">
     [#nested]
     <a data-toggle="modal" data-target="#${target}" class="small form-link">[@spring.message label /]</a>
 </div>
@@ -35,6 +35,17 @@
 
     <div id="${name}-error" class="help-block"></div>
 </div>
+[/#macro]
+
+[#macro embedableSelectBox id name label placeholder="SELECT.PLACEHOLDER" noResultsText="SEARCH.NO_RESULTS"]
+    <label for="${id}">[@spring.message label /]</label>
+    <select data-placeholder="[@spring.message placeholder /]" data-no_results_text="[@spring.message noResultsText/]"
+            class="chosen-select" id="${id}" name="${name}" title="[@spring.message label /]" required="true">
+        <option></option>
+        [#nested]
+    </select>
+
+    <div id="${name}-error" class="help-block"></div>
 [/#macro]
 
 [#macro selectBoxMulti id name label placeholder="SELECT.MULTI.PLACEHOLDER" noResultsText="SEARCH.NO_RESULTS" size="3"]
@@ -125,9 +136,17 @@
 [/#macro]
 
 [#macro buttonOpenModal name label modal type="success" icon="plus-square-o"]
-<div class="sidebar-button"><button type="button" id="${name}-open" name="${name}" title="[@spring.message label /]" class="btn btn-${type}" data-toggle="modal" data-target="#${modal}"><i
-        class="fa fa-${icon}"></i>&nbsp;&nbsp;[@spring.message label /]
-</button></div>
+<div class="sidebar-button col-md-7">
+    <button type="button" id="${name}-open" name="${name}" title="[@spring.message label /]" class="btn btn-${type} full-width" data-toggle="modal" data-target="#${modal}">
+        <i class="fa fa-${icon}"></i>&nbsp;&nbsp;[@spring.message label /]
+    </button>
+</div>
+[/#macro]
+
+[#macro listItemOpenModal name label modal icon]
+<a id="${name}-open" name="${name}" title="[@spring.message label /]" data-toggle="modal" data-target="#${modal}" class="list-group-item">
+    <i class="fa fa-fw fa-${icon}"></i>&nbsp;&nbsp;[@spring.message label /]
+</a>
 [/#macro]
 
 [#macro form name action method="post" enctype="application/x-www-form-urlencoded" size="3"]

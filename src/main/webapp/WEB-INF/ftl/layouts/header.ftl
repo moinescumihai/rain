@@ -46,7 +46,9 @@
                     <ul id="project-dropdown" class="dropdown-menu" role="menu"></ul>
                 </li>
                 <li id="tasks"><a href="/tasks">[@spring.message "TASKS"/]</a></li>
+            [@security.authorize access="hasAnyRole('ROLE_ADMIN','ROLE_PERSONNEL')"]
                 <li id="personnel"><a href="/personnel">[@spring.message "PERSONNEL"/]</a></li>
+            [/@security.authorize]
                 <li id="time"><a href="/time">[@spring.message "TIME"/]</a></li>
             [@security.authorize access="hasAnyRole('ROLE_ADMIN','ROLE_INVENTAR')"]
                 <li id="inventory"><a href="/inventory">[@spring.message "INVENTORY"/]</a></li>

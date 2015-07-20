@@ -131,7 +131,7 @@ function getProjects() {
                         "bSortable": true,
                         "orderable": true,
                         "searchable": true
-                    },{
+                    }, {
                         "bSortable": true,
                         "orderable": true,
                         "searchable": true
@@ -155,7 +155,7 @@ function getProjects() {
 
             $('[data-toggle="tooltip"]').tooltip();
         },
-        error: function(){
+        error: function () {
 
         }
     });
@@ -170,53 +170,33 @@ $(document).ready(function () {
     getCategories();
 
     $('body').on('mouseover', '.project-item', function () {
-        $(this).find('a.popup-marker').webuiPopover({
-            placement: 'bottom',//values: auto,top,right,bottom,left,top-right,top-left,bottom-right,bottom-left,auto-top,auto-right,auto-bottom,auto-left
-            width: 'auto',//can be set with  number
-            height: 'auto',//can be set with  number
-            trigger: 'hover',//values:  click,hover,manual
-            style: '',//values:'',inverse
-            constrains: null, // constrains the direction when placement is  auto,  values: horizontal,vertical
-            animation: 'pop', //pop with animation,values: pop,fade (only take effect in the browser which support css3 transition)
-            delay: {//show and hide delay time of the popover, works only when trigger is 'hover',the value can be number or object
-                show: null,
-                hide: 500
-            },
-            async: {
-                before: function (that, xhr) {
-                },//executed before ajax request
-                success: function (that, data) {
-                }//executed after successful ajax request
-            },
-            cache: false,//if cache is set to false,popover will destroy and recreate
-            multi: false,//allow other popovers in page at same time
-            arrow: true,//show arrow or not
-            title: '',//the popover title ,if title is set to empty string,title bar will auto hide
-            closeable: false,//display close button or not
-            padding: true,//content padding
-            type: 'html',//content type, values:'html','iframe','async'
-            url: '',//if not empty ,plugin will load content by url
-            content: function (e) {
-                var retValue;
-                var data = $($(this)[0]).data('load').split('=');
-                var idProject = data[1];
-                retValue = '<div class="popover-left-column"><ul class="project-options">'
-                    + '<li><a><span class="fa fa-group fa-fw">&nbsp;</span>&nbsp; People</a></li>'
-                    + '<li><a><span class="fa fa-tasks fa-fw">&nbsp;</span>&nbsp; Tasks</a></li>'
-                    + '<li><a><span class="fa fa-bookmark-o fa-fw">&nbsp;</span>&nbsp; Milestones</a></li>'
-                    + '<li><a><span class="fa fa-bomb fa-fw">&nbsp;</span>&nbsp; Risks</a></li>'
-                    + '<li><a><span class="fa fa-archive fa-fw">&nbsp;</span>&nbsp; Archive</a></li>'
-                    + '</ul></div>'
-                    + '<div class="popover-right-column"><ul class="project-options">'
-                    + '<li><a><span class="fa fa-cog fa-fw">&nbsp;</span>&nbsp; Settings</a></li>'
-                    + '<li><a><span class="fa fa-paperclip fa-fw">&nbsp;</span>&nbsp; Files</a></li>'
-                    + '<li><a><span class="fa fa-line-chart fa-fw">&nbsp;</span>&nbsp; Report</a></li>'
-                    + '<li><a id="pop-proj-del-' + idProject + '"><span class="fa fa-trash-o fa-fw">&nbsp;</span>&nbsp; Delete</a></li>'
-                    + '</ul></div>';
+        $(this).find('a.popup-marker').webuiPopover($.extend({}, popoverDefaultSettings, {
+                    type: 'html',//content type, values:'html','iframe','async'
+                    url: '',//if not empty ,plugin will load content by url
+                    title: '',//the popover title ,if title is set to empty string,title bar will auto hide
+                    content: function (e) {
+                        var retValue;
+                        var data = $($(this)[0]).data('load').split('=');
+                        var idProject = data[1];
+                        retValue = '<div class="popover-left-column"><ul class="popover-options">'
+                            + '<li><a><span class="fa fa-group fa-fw">&nbsp;</span>&nbsp; People</a></li>'
+                            + '<li><a><span class="fa fa-tasks fa-fw">&nbsp;</span>&nbsp; Tasks</a></li>'
+                            + '<li><a><span class="fa fa-bookmark-o fa-fw">&nbsp;</span>&nbsp; Milestones</a></li>'
+                            + '<li><a><span class="fa fa-bomb fa-fw">&nbsp;</span>&nbsp; Risks</a></li>'
+                            + '<li><a><span class="fa fa-archive fa-fw">&nbsp;</span>&nbsp; Archive</a></li>'
+                            + '</ul></div>'
+                            + '<div class="popover-right-column"><ul class="popover-options">'
+                            + '<li><a><span class="fa fa-cog fa-fw">&nbsp;</span>&nbsp; Settings</a></li>'
+                            + '<li><a><span class="fa fa-paperclip fa-fw">&nbsp;</span>&nbsp; Files</a></li>'
+                            + '<li><a><span class="fa fa-line-chart fa-fw">&nbsp;</span>&nbsp; Report</a></li>'
+                            + '<li><a id="pop-proj-del-' + idProject + '"><span class="fa fa-trash-o fa-fw">&nbsp;</span>&nbsp; Delete</a></li>'
+                            + '</ul></div>';
 
-                return retValue;
-            }
-        });
+                        return retValue;
+                    }
+                }
+            )
+        )
     });
 
     $('body').on('click', 'a[id^="pop-proj-del-"]', function (e) {

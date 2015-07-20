@@ -1,4 +1,9 @@
+var addStocForm = $('#modal-addStoc-form');
 var stari = [];
+var idContainer = 'map-canvas';
+var latitude = '';
+var longitude = '';
+var numeLoc = '';
 
 function getStari() {
     var token = $("meta[name='_csrf']").attr("content");
@@ -78,6 +83,7 @@ function generateHistoryTable(idArticol) {
     var stare;
     var stareAnterioara;
     var loc;
+    var idLoc;
     var colet;
     var idStare;
     var idStareAnterioara;
@@ -88,7 +94,7 @@ function generateHistoryTable(idArticol) {
 
     var historyTable = '<div class="wrapper">' +
         '<table class="table table-responsive table-hover"><thead><tr class="text-table-head">' +
-        '<td></td><td>Package</td><td>Assigned to</td><td>Assigned at</td><td>From state</td><td>To state</td><td>Assigned by</td><td>Date</td>' +
+        '<td></td><td>Package</td><td>Assigned to</td><td>Assigned at</td><td>State</td><td>Assigned by</td><td>Assigned on</td>' +
         '</tr></thead><tbody>';
     if (history) {
         $.each(history, function (i) {
@@ -97,21 +103,19 @@ function generateHistoryTable(idArticol) {
             creatDe = history[i].creatDe;
             persoana = history[i].nume;
             loc = history[i].numeLoc;
+            idLoc = history[i].idLoc;
             stare = history[i].stare;
             idStare = history[i].idStare;
-            stareAnterioara = history[i].stareAnterioara;
-            idStareAnterioara = history[i].idStareAnterioara;
             detalii = history[i].detalii;
             colet = history[i].colet;
             stareIcon = getStareIcon(idStare);
             stareAnterioaraIcon = getStareIcon(idStareAnterioara);
 
-            historyTable += '<tr>' +
-                '<td>' + counter + '</td>' +
+            historyTable += '<tr class="map-popup-marker-activator">' +
+                '<td>' + counter + '.</td>' +
                 '<td><nobr>' + colet + '</nobr></td>' +
                 '<td><nobr>' + persoana + '</nobr></td>' +
-                '<td><nobr>' + loc + '</nobr></td>' +
-                '<td><nobr><span class="fa ' + stareAnterioaraIcon + ' fa-fw fa-bold">&nbsp;&nbsp;</span>' + stareAnterioara + '</nobr></td>' +
+                '<td><nobr><a class="map-popup-marker" data-load="idLoc=' + idLoc + '">' + loc + '</a></nobr></td>' +
                 '<td><nobr><span class="fa ' + stareIcon + ' fa-fw fa-bold">&nbsp;&nbsp;</span>' + stare + '</nobr></td>' +
                 '<td><nobr>' + creatDe + '</nobr></td>' +
                 '<td><nobr>' + data + '</nobr></td></tr>';
@@ -190,6 +194,7 @@ function format(row) {
     var primitPrinTranzit;
     var barcode = row.codStoc;
     var loc = row.numeLoc;
+    var idLoc = row.idLoc;
     var idStoc = row.idStoc;
     var persoana = row.nume;
     var idStare = row.idStare;
@@ -207,7 +212,6 @@ function format(row) {
     var detaliiTitle;
     var useDetalii = false;
     var userRecuperare = row.modificatDe;
-
 
     generateBarcode(barcode);
 
@@ -261,9 +265,9 @@ function format(row) {
             return;
     }
     var retString = '<div class="well"><table class="table" cellpadding="5" cellspacing="0" border="0">' +
-        '<tr>' +
+        '<tr class="map-popup-marker-activator">' +
         '<td width="200px;"><span class="fa fa-map-marker fa-fw">&nbsp;</span><b>Location</b></td>' +
-        '<td width="550px;">' + loc + '</td>' +
+        '<td width="550px;"><a class="map-popup-marker" data-load="idLoc=' + idLoc + '">' + loc + '</a></td>' +
         '<td rowspan="10" style="vertical-align: middle; text-align: center"><div>' +
         '<img  width="200" height="100"  src="/barcode/' + barcode + '.png" alt="Not yet generated"><br><span class="text-center">' + barcode + '</span></div>' +
         '</td>' +
@@ -305,6 +309,20 @@ function format(row) {
     retString += '</table></div>';
 
     return retString;
+}
+
+function initializeMap( latitude, longitude) {
+    var markerLocation = new google.maps.LatLng(latitude, longitude);
+    var mapOptions = {
+        center: markerLocation,
+        zoom: 19
+    };
+    var marker = new google.maps.Marker({
+        position: markerLocation,
+        title: "Item Location"
+    });
+    var map = new google.maps.Map(document.getElementById("map-canvas-container"), mapOptions);
+    marker.setMap(map);
 }
 
 $(document).ready(function () {
@@ -465,5 +483,121 @@ $(document).ready(function () {
         var tabel = generateHistoryTable(idArticol);
 
         showModal(id, titlu, tabel);
+    });
+
+    addStocForm.validate({
+        rules: {
+            required: true,
+            numeStoc: {
+                minlength: 5
+            }
+        }
+    });
+
+    addStocForm.on('submit', function(e) {
+        e.preventDefault();
+        if (!$(this).valid()) {
+            //return;
+        }
+        var token = $("meta[name='_csrf']").attr("content");
+        var header = $("meta[name='_csrf_header']").attr("content");
+
+        var numeStoc = $('#addStoc-form-numeStoc').val();
+        var idLoc = $('#addStoc-form-idLoc').val();
+        var idCategorieStoc = $('#addStoc-form-idCategorieStoc').val();
+        var idGrupStoc = $('#addStoc-form-idGrupStoc').val();
+        var detalii = $('#addStoc-form-detalii').val();
+        var data = {
+            "numeStoc": numeStoc, "idLoc": idLoc,
+            "detalii": detalii, "idGrupStoc": idGrupStoc,
+            "idCategorieStoc": idCategorieStoc
+        };
+
+        $.ajax({
+            type: 'post',
+            url: $(this).attr('action'),
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader(header, token);
+            },
+            dataType: 'json',
+            contentType: 'application/json',
+            mimeType: 'application/json',
+            data: JSON.stringify(data),
+            success: function (response) {
+                if (response.errorsMap != null) {
+                    $('.form-error').html(EMPTY);
+                    for (var key in response.errorsMap) {
+                        var err = "<span class=\"text-danger small form-error\" id=\"" + key + "Id\">" + response.errorsMap[key] + "</span>";
+                        $("[id^='" + key + "-error']").html(err);
+                    }
+                } else {
+                    addStocForm.trigger('reset');
+                    $('#modal-addStoc').modal('hide');
+                    showNotification(response.message, 'Success', SUCCESS);
+                    inventoryTable.ajax.reload(null, false);
+                }
+            },
+            error: function () {
+                showNotification("Error. Please try again later.", "Error", DANGER);
+            }
+        });
+    });
+
+    $('body').on('mouseover', '.map-popup-marker-activator', function () {
+
+        $(this).find('a.map-popup-marker').webuiPopover($.extend({}, popoverDefaultSettings, {
+                    type: 'html',//content type, values:'html','iframe','async'
+                    url: '',//if not empty ,plugin will load content by url
+                    title: '',//the popover title ,if title is set to empty string,title bar will auto hide
+                    trigger: 'hover',
+                    width: '650',//can be set with  number
+                    height: '400',//can be set with  number
+                    delay: {//show and hide delay time of the popover, works only when trigger is 'hover',the value can be number or object
+                        show: null,
+                        hide: 50
+                    },
+                    closeable: true,
+                    content: function (e) {
+                        var retValue = '';
+                        var data = $($(this)[0]).data('load').split('=');
+                        var idLoc = data[1];
+
+                        var token = $("meta[name='_csrf']").attr("content");
+                        var header = $("meta[name='_csrf_header']").attr("content");
+
+                        $.ajax({
+                            type: 'get',
+                            url: '/app/secure/inventory/loc/' + idLoc,
+                            beforeSend: function (xhr) {
+                                xhr.setRequestHeader(header, token);
+                            },
+                            dataType: 'json',
+                            contentType: 'application/json',
+                            mimeType: 'application/json',
+                            async: false,
+                            success: function (response) {
+                                latitude = response.latitude;
+                                longitude = response.longitude;
+                                numeLoc = response.numeLoc;
+                                retValue = '<div class="loc-popover"><div>' + numeLoc + '</div><div id="map-canvas-container"></div></div>';
+                            },
+                            error: function () {
+                                showNotification("Error. Please refresh page.", "Error", WARNING);
+                            }
+                        });
+
+                        return retValue;
+                    }
+                }
+            )
+        );
+    });
+
+    $('body').on('shown.webui.popover', function() {
+        window.initializeMap(latitude, longitude)
+    });
+
+    $('body').on('hidden.webui.popover', function() {
+        $('#map-canvas-container').remove();
     });
 });

@@ -100,7 +100,7 @@ public class DatasourceConfig {
      * Spring transaction mechanism.
      *
      * @param entityManagerFactory The used JPA entity manager factory.
-     * @return
+     *
      */
     @Bean
     JpaTransactionManager transactionManager(EntityManagerFactory entityManagerFactory) {

@@ -13,6 +13,7 @@ public class InventoryItem {
     private String numeStoc;
     private String codStoc;
     private String numeLoc;
+    private long idLoc;
     private String nume;
     private String detalii;
     private int idStare;
@@ -175,48 +176,13 @@ public class InventoryItem {
         this.modificatLa = modificatLa;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof InventoryItem)) return false;
-
-        InventoryItem that = (InventoryItem) o;
-
-        if (idStoc != that.idStoc) return false;
-        if (idStare != that.idStare) return false;
-        if (numeCategorie != null ? !numeCategorie.equals(that.numeCategorie) : that.numeCategorie != null) return false;
-        if (numeGrup != null ? !numeGrup.equals(that.numeGrup) : that.numeGrup != null) return false;
-        if (numeStoc != null ? !numeStoc.equals(that.numeStoc) : that.numeStoc != null) return false;
-        if (codStoc != null ? !codStoc.equals(that.codStoc) : that.codStoc != null) return false;
-        if (numeLoc != null ? !numeLoc.equals(that.numeLoc) : that.numeLoc != null) return false;
-        if (nume != null ? !nume.equals(that.nume) : that.nume != null) return false;
-        if (detalii != null ? !detalii.equals(that.detalii) : that.detalii != null) return false;
-        if (imagine != null ? !imagine.equals(that.imagine) : that.imagine != null) return false;
-        if (factura != null ? !factura.equals(that.factura) : that.factura != null) return false;
-        if (creatDe != null ? !creatDe.equals(that.creatDe) : that.creatDe != null) return false;
-        if (modificatDe != null ? !modificatDe.equals(that.modificatDe) : that.modificatDe != null) return false;
-        if (creatLa != null ? !creatLa.equals(that.creatLa) : that.creatLa != null) return false;
-        return !(modificatLa != null ? !modificatLa.equals(that.modificatLa) : that.modificatLa != null);
-
+    @Basic
+    @Column(name = "id_loc", nullable = false, insertable = true, updatable = true, length = 20)
+    public long getIdLoc() {
+        return idLoc;
     }
 
-    @Override
-    public int hashCode() {
-        int result = (int) (idStoc ^ (idStoc >>> 32));
-        result = 31 * result + (numeCategorie != null ? numeCategorie.hashCode() : 0);
-        result = 31 * result + (numeGrup != null ? numeGrup.hashCode() : 0);
-        result = 31 * result + (numeStoc != null ? numeStoc.hashCode() : 0);
-        result = 31 * result + (codStoc != null ? codStoc.hashCode() : 0);
-        result = 31 * result + (numeLoc != null ? numeLoc.hashCode() : 0);
-        result = 31 * result + (nume != null ? nume.hashCode() : 0);
-        result = 31 * result + (detalii != null ? detalii.hashCode() : 0);
-        result = 31 * result + idStare;
-        result = 31 * result + (imagine != null ? imagine.hashCode() : 0);
-        result = 31 * result + (factura != null ? factura.hashCode() : 0);
-        result = 31 * result + (creatDe != null ? creatDe.hashCode() : 0);
-        result = 31 * result + (modificatDe != null ? modificatDe.hashCode() : 0);
-        result = 31 * result + (creatLa != null ? creatLa.hashCode() : 0);
-        result = 31 * result + (modificatLa != null ? modificatLa.hashCode() : 0);
-        return result;
+    public void setIdLoc(long idLoc) {
+        this.idLoc = idLoc;
     }
 }

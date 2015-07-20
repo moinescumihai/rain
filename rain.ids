@@ -131,6 +131,7 @@
       <column name="id_stare" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" def="MA=="/>
       <column name="data_tranzactie" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93"/>
       <column name="nume_loc" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="id_loc" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" def="MA=="/>
       <column name="nume" sqlType="VARCHAR" precision="301" scale="0" nullable="true" jdbcType="12"/>
       <column name="detalii" sqlType="TEXT" precision="65535" scale="0" nullable="false" jdbcType="-1"/>
       <column name="creat_de" sqlType="VARCHAR" precision="150" scale="0" nullable="false" jdbcType="12"/>
@@ -147,7 +148,7 @@
       <column name="nume_grup" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
       <column name="nume_stoc" sqlType="VARCHAR" precision="250" scale="0" nullable="false" jdbcType="12"/>
       <column name="cod_stoc" sqlType="VARCHAR" precision="250" scale="0" nullable="false" jdbcType="12"/>
-      <column name="id_stare" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="id_stare" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MQ=="/>
       <column name="nume_loc" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
       <column name="nume" sqlType="VARCHAR" precision="301" scale="0" nullable="true" jdbcType="12"/>
       <column name="detalii" sqlType="TEXT" precision="65535" scale="0" nullable="true" jdbcType="-1"/>
@@ -155,6 +156,8 @@
       <column name="imagine" sqlType="TEXT" precision="65535" scale="0" nullable="true" jdbcType="-1"/>
       <column name="creat_de" sqlType="VARCHAR" precision="250" scale="0" nullable="false" jdbcType="12"/>
       <column name="creat_la" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93"/>
+      <column name="modificat_de" sqlType="VARCHAR" precision="250" scale="0" nullable="true" jdbcType="12"/>
+      <column name="modificat_la" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93"/>
     </table>
     <table name="lista_tari" schema="" catalog="raindrop" type="TABLE">
       <column name="id_tara" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
@@ -280,9 +283,9 @@
       <column name="id_grup_stoc" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
       <column name="nume_stoc" sqlType="VARCHAR" precision="250" scale="0" nullable="false" jdbcType="12"/>
       <column name="cod_stoc" sqlType="VARCHAR" precision="250" scale="0" nullable="false" jdbcType="12"/>
-      <column name="id_stare" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="id_stare" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MQ=="/>
       <column name="id_loc" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
-      <column name="id_resurse_umane" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="id_resurse_umane" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" def="MQ=="/>
       <column name="detalii" sqlType="TEXT" precision="65535" scale="0" nullable="true" jdbcType="-1"/>
       <column name="factura" sqlType="BIGINT" precision="19" scale="0" nullable="true" jdbcType="-5"/>
       <column name="imagine" sqlType="BIGINT" precision="19" scale="0" nullable="true" jdbcType="-5"/>
