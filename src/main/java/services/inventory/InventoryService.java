@@ -13,6 +13,8 @@ public interface InventoryService {
 
     Stoc save(Stoc entity);
 
+    Stoc update(Stoc entity);
+
     List<StareStoc> findAllStari();
 
     TranzactieStoc findLastTranzactieForArticol(Long idArticol);

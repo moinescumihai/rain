@@ -341,7 +341,7 @@ $(document).ready(function () {
         }
     });
 
-    $('a').on('click', function (e) {
+    $('a').on('click', function () {
         var linkLocation = $($(this).attr('href')).offset();
         if (linkLocation)
             $('html,body').animate({scrollTop: linkLocation.top}, "10000", 'linear');

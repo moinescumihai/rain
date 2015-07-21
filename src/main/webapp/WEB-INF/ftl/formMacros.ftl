@@ -186,6 +186,28 @@
 </div>
 [/#macro]
 
+[#macro largeModalForm name title action submitLabel icon]
+<div id="${name}" class="modal fade">
+    <div class="modal-dialog modal-mlg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">[@spring.message "MODAL.CLOSEDIALOG"/]</span></button>
+                <h4 class="modal-title"><span class="fa fa-${icon}">&nbsp;</span>[@spring.message title /]</h4>
+            </div>
+            <form id="${name}-form" action="${action}">
+                <div class="modal-body">
+                    [#nested]
+                </div>
+                <div class="modal-footer">
+                    [@buttonSubmit name submitLabel "primary" "plus-square-o" /]
+                    [@buttonCloseModal name "MODAL.CLOSEDIALOG"/]
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+[/#macro]
+
 [#macro modalLink target label]
 <div>
     <a data-toggle="modal" data-target="#${target}" class="small">[@spring.message label /]</a>

@@ -497,7 +497,7 @@ $(document).ready(function () {
     addStocForm.on('submit', function(e) {
         e.preventDefault();
         if (!$(this).valid()) {
-            //return;
+            return;
         }
         var token = $("meta[name='_csrf']").attr("content");
         var header = $("meta[name='_csrf_header']").attr("content");
@@ -556,7 +556,7 @@ $(document).ready(function () {
                         show: null,
                         hide: 50
                     },
-                    closeable: true,
+                    closeable: false,
                     content: function (e) {
                         var retValue = '';
                         var data = $($(this)[0]).data('load').split('=');
@@ -579,7 +579,7 @@ $(document).ready(function () {
                                 latitude = response.latitude;
                                 longitude = response.longitude;
                                 numeLoc = response.numeLoc;
-                                retValue = '<div class="loc-popover"><div>' + numeLoc + '</div><div id="map-canvas-container"></div></div>';
+                                retValue = '<div class="loc-popover"><div><b>' + numeLoc + '<b></div><div id="map-canvas-container"></div></div>';
                             },
                             error: function () {
                                 showNotification("Error. Please refresh page.", "Error", WARNING);
@@ -600,4 +600,32 @@ $(document).ready(function () {
     $('body').on('hidden.webui.popover', function() {
         $('#map-canvas-container').remove();
     });
+
+    $(function () {
+        $("#image-file").change(function () {
+            $("#message").empty(); // To remove the previous error message
+            var file = this.files[0];
+            var imagefile = file.type;
+            var match = ["image/jpeg", "image/png", "image/jpg", "image/gif"];
+            if (!((imagefile == match[0]) || (imagefile == match[1]) || (imagefile == match[2])|| (imagefile == match[3]))) {
+                $('#previewing').attr('src', '../img/noimageplaceholder.png');
+                $("#message").html("<p id='error' class='text-danger'>Please select a valid image file</p>"
+                    + "<div class='well-sm bg-infobox text-left'><h4><i class='fa fa-exclamation-circle'></i>&nbsp;Note</h4>"
+                    + "<span id='error_message'>Only .jpeg, .jpg, .png and .gif image types allowed</span></div>");
+                return false;
+            }
+            else {
+                var reader = new FileReader();
+                reader.onload = imageIsLoaded;
+                reader.readAsDataURL(this.files[0]);
+            }
+        });
+    });
+    function imageIsLoaded(e) {
+        $("#image-file").css("color", "green");
+        $('#image_preview').css("display", "block");
+        $('#previewing').attr('src', e.target.result);
+        $('#previewing').css('max-width', '250px');
+        $('#previewing').css('max-height', '230px');
+    };
 });

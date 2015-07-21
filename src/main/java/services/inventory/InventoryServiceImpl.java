@@ -76,13 +76,18 @@ public class InventoryServiceImpl implements InventoryService {
     @Transactional
     @Lock(LockModeType.READ)
     public Stoc save(Stoc entity) {
-        entity = seveDefaultStoc(entity);
+        entity = saveDefaultStoc(entity);
         Colet colet = new Colet();
         colet.setNumeColet(String.valueOf(UUID.randomUUID()));
         String idColetNou = String.valueOf(coletRepository.save(colet).getIdColet());
         buildAndSaveTranzactieStoc(entity, idColetNou);
 
         return entity;
+    }
+
+    @Override
+    public Stoc update(Stoc entity) {
+        return null;
     }
 
     private TranzactieStoc buildAndSaveTranzactieStoc(Stoc entity, String idColet) {
@@ -104,7 +109,7 @@ public class InventoryServiceImpl implements InventoryService {
         return tranzactieStocRepository.save(newStockAdded);
     }
 
-    private Stoc seveDefaultStoc(Stoc entity) {
+    private Stoc saveDefaultStoc(Stoc entity) {
         String codStoc = String.valueOf(UUID.randomUUID());
         String creatDe = UserUtils.getLoggedInUsername();
         entity.setCodStoc(codStoc);

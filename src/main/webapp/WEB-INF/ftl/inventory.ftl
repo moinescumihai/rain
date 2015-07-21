@@ -13,6 +13,7 @@
             [@listItemOpenModal "addPlace" "INVENTAR.ADDPLACE" "modal-addPlace" "map-marker"/]
             [@listItemOpenModal "addCategory" "INVENTAR.ADDCATEGORY" "modal-addCategory" "tags"/]
             [@listItemOpenModal "addType" "INVENTAR.ADDTYPE" "modal-addType" "ticket"/]
+            [@listItemOpenModal "downloadAllBarcodes" "INVENTAR.DOWNLOAD_ALL" "modal-confirm" "floppy-o"/]
         </div>
     </div>
     [/@sidebar]
@@ -27,9 +28,9 @@
         <th> [@spring.message "INVENTAR.ALOCAT"/] </th>
         [/@ajaxDataTable]
 
-        [@modalForm "modal-addStoc" "MODAL.ADDSTOC" "/app/secure/inventory/addstockitem" "INVENTORY.ADDINVENTORY_ITEM" "cubes"]
+        [@largeModalForm "modal-addStoc" "MODAL.ADDSTOC" "/app/secure/inventory/addstockitem" "INVENTORY.ADDINVENTORY_ITEM" "cubes"]
             [#include "dialogs/addStocForm.ftl"]
-        [/@modalForm]
+        [/@largeModalForm]
     [/@content]
 [/@layout.basic]
 <script src="/js/static/inventory.js"></script>
