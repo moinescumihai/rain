@@ -1,6 +1,6 @@
 package controllers.rest;
 
-import model.common.JSONResponse;
+import model.common.JSONResponseWithId;
 import model.domain.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
@@ -90,10 +90,11 @@ public class InventoryRestController {
     @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_SUPERUSER')")
     @RequestMapping(value = "/addstockitem", method = RequestMethod.POST, produces = "application/json")
     @ResponseBody
-    public JSONResponse addStoc(@RequestBody Stoc stoc) {
-        JSONResponse response = new JSONResponse();
+    public JSONResponseWithId addStoc(@RequestBody Stoc stoc) {
+        JSONResponseWithId response = new JSONResponseWithId();
         try {
-            inventoryService.save(stoc);
+            Stoc addedStoc = inventoryService.save(stoc);
+            response.setId(addedStoc.getIdStoc());
             response.setMessage("Added new inventory item: " + stoc.getNumeStoc());
         } catch (DataAccessException e) {
             response.setMessage("Item not added");

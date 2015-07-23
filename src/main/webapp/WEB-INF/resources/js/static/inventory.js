@@ -30,6 +30,14 @@ function getStari() {
     });
 }
 
+function imageIsLoaded(e) {
+    $("#image-file").css("color", "green");
+    $('#image_preview').css("display", "block");
+    $('#previewing').attr('src', e.target.result);
+    $('#previewing').css('max-width', '250px');
+    $('#previewing').css('max-height', '230px');
+}
+
 function generateBarcode(barcode) {
     var token = $("meta[name='_csrf']").attr("content");
     var header = $("meta[name='_csrf_header']").attr("content");
@@ -188,6 +196,28 @@ function getStareIcon(idStare) {
     return stareIcon;
 }
 
+function getImageForStoc(idStoc) {
+    var token = $("meta[name='_csrf']").attr("content");
+    var header = $("meta[name='_csrf_header']").attr("content");
+    var image;
+    $.ajax({
+        type: 'get',
+        url: '/app/secure/files/get-inventory-image/' + idStoc,
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader(header, token);
+        },
+        dataType: 'json',
+        contentType: 'application/json',
+        mimeType: 'application/json',
+        async: false,
+        success: function (response) {
+            image = response;
+        }
+    });
+
+    return image;
+}
+
 function format(row) {
     var usePersoana = false;
     var useUserRecuperare = false;
@@ -212,6 +242,7 @@ function format(row) {
     var detaliiTitle;
     var useDetalii = false;
     var userRecuperare = row.modificatDe;
+    var image = getImageForStoc(idStoc);
 
     generateBarcode(barcode);
 
@@ -235,9 +266,9 @@ function format(row) {
 
             break;
         case 4:
-                usePersoana = true;
-                detaliiTitle = 'Tranzit details';
-                useDetalii = true;
+            usePersoana = true;
+            detaliiTitle = 'Tranzit details';
+            useDetalii = true;
             ////dataPrimire = d.dataPrimire;
             //if (dataPrimire) {
             //    dataPrimire = toJSDate(dataPrimire, 1);
@@ -267,9 +298,12 @@ function format(row) {
     var retString = '<div class="well"><table class="table" cellpadding="5" cellspacing="0" border="0">' +
         '<tr class="map-popup-marker-activator">' +
         '<td width="200px;"><span class="fa fa-map-marker fa-fw">&nbsp;</span><b>Location</b></td>' +
-        '<td width="550px;"><a class="map-popup-marker" data-load="idLoc=' + idLoc + '">' + loc + '</a></td>' +
+        '<td width="300px;"><a class="map-popup-marker" data-load="idLoc=' + idLoc + '">' + loc + '</a></td>' +
         '<td rowspan="10" style="vertical-align: middle; text-align: center"><div>' +
-        '<img  width="200" height="100"  src="/barcode/' + barcode + '.png" alt="Not yet generated"><br><span class="text-center">' + barcode + '</span></div>' +
+        '<img  width="250" height="auto"  src="/barcode/' + barcode + '.png" alt="Not yet generated"><br><span class="text-center">' + barcode + '</span></div>' +
+        '</td>' +
+        '<td width="400px" rowspan="10" style="vertical-align: middle; text-align: center"><div>' +
+        '<img  width="150" height="auto"  src="/files/' + image.fileName + '" alt="Not yet generated"></div>' +
         '</td>' +
         '</tr>' +
         '<tr>' +
@@ -303,15 +337,19 @@ function format(row) {
             '</tr>';
     }
     retString += '<tr>' +
-        '<td><a id="history-' + idStoc + '" class="btn btn-warning" data-barcode="' + barcode + '"><span class="fa fa-history"> &nbsp;</span> Show history</a></td>' +
-        '<td><a href="/app/secure/inventory/downloadbarcode/' + barcode + '.png" class="btn btn-primary  pull-right"><span class="fa fa-floppy-o"> &nbsp;</span> Save barcode</a></td>' +
+        '<td>' +
+        '<a class="btn btn-primary " data-target="#edit-stoc-item" data-toggle="modal"><span class="fa fa-pencil-square-o"> &nbsp;</span> Edit item</a>' +
+        '</td><td>' +
+        '<a href="/app/secure/inventory/downloadbarcode/' + barcode + '.png" class="btn btn-primary"><span class="fa fa-floppy-o"> &nbsp;</span> Save barcode</a>' +
+        '<a id="history-' + idStoc + '" class="btn btn-warning pull-right" data-barcode="' + barcode + '"><span class="fa fa-history"> &nbsp;</span> Show history</a>' +
+        '</td>' +
         '</tr>';
     retString += '</table></div>';
 
     return retString;
 }
 
-function initializeMap( latitude, longitude) {
+function initializeMap(latitude, longitude) {
     var markerLocation = new google.maps.LatLng(latitude, longitude);
     var mapOptions = {
         center: markerLocation,
@@ -494,7 +532,7 @@ $(document).ready(function () {
         }
     });
 
-    addStocForm.on('submit', function(e) {
+    addStocForm.on('submit', function (e) {
         e.preventDefault();
         if (!$(this).valid()) {
             return;
@@ -513,12 +551,16 @@ $(document).ready(function () {
             "idCategorieStoc": idCategorieStoc
         };
 
+        var idStocAdded;
+        var formData;
+
         $.ajax({
             type: 'post',
             url: $(this).attr('action'),
             beforeSend: function (xhr) {
                 xhr.setRequestHeader(header, token);
             },
+            async: false,
             dataType: 'json',
             contentType: 'application/json',
             mimeType: 'application/json',
@@ -531,6 +573,24 @@ $(document).ready(function () {
                         $("[id^='" + key + "-error']").html(err);
                     }
                 } else {
+                    idStocAdded = response.id;
+                    formData = new FormData();
+                    var image = $('#image-file')[0].files[0];
+                    formData.append("imageFile", image);
+                    $.ajax({
+                        type: 'post',
+                        url: '/app/secure/files/upload-inventory-image/' + idStocAdded,
+                        beforeSend: function (xhr) {
+                            xhr.setRequestHeader(header, token);
+                        },
+                        data: formData,
+                        contentType: false,
+                        cache: false,
+                        processData: false,
+                        error: function () {
+                            showNotification("Error uploading item image. Please try again later.", "Error", DANGER);
+                        }
+                    });
                     addStocForm.trigger('reset');
                     $('#modal-addStoc').modal('hide');
                     showNotification(response.message, 'Success', SUCCESS);
@@ -593,11 +653,11 @@ $(document).ready(function () {
         );
     });
 
-    $('body').on('shown.webui.popover', function() {
+    $('body').on('shown.webui.popover', function () {
         window.initializeMap(latitude, longitude)
     });
 
-    $('body').on('hidden.webui.popover', function() {
+    $('body').on('hidden.webui.popover', function () {
         $('#map-canvas-container').remove();
     });
 
@@ -607,7 +667,7 @@ $(document).ready(function () {
             var file = this.files[0];
             var imagefile = file.type;
             var match = ["image/jpeg", "image/png", "image/jpg", "image/gif"];
-            if (!((imagefile == match[0]) || (imagefile == match[1]) || (imagefile == match[2])|| (imagefile == match[3]))) {
+            if (!((imagefile == match[0]) || (imagefile == match[1]) || (imagefile == match[2]) || (imagefile == match[3]))) {
                 $('#previewing').attr('src', '../img/noimageplaceholder.png');
                 $("#message").html("<p id='error' class='text-danger'>Please select a valid image file</p>"
                     + "<div class='well-sm bg-infobox text-left'><h4><i class='fa fa-exclamation-circle'></i>&nbsp;Note</h4>"
@@ -621,11 +681,4 @@ $(document).ready(function () {
             }
         });
     });
-    function imageIsLoaded(e) {
-        $("#image-file").css("color", "green");
-        $('#image_preview').css("display", "block");
-        $('#previewing').attr('src', e.target.result);
-        $('#previewing').css('max-width', '250px');
-        $('#previewing').css('max-height', '230px');
-    };
 });

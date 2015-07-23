@@ -27,7 +27,7 @@ public class ProfileServiceImpl implements ProfileService {
         }
 
         User user = userService.findByUsername(name);
-        return resurseUmaneService.findOne(user.getIdUser());
+        return resurseUmaneService.findByIdUser(user.getIdUser());
     }
 
     @Override

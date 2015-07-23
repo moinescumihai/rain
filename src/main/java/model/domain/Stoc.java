@@ -23,8 +23,8 @@ public class Stoc {
     private long idLoc;
     private long idResurseUmane;
     private String detalii;
-    private long factura;
-    private long imagine;
+    private Long factura;
+    private Long imagine;
     private String creatDe;
     private Timestamp creatLa;
     private Timestamp modificatLa;
@@ -124,22 +124,22 @@ public class Stoc {
     }
 
     @Basic
-    @Column(name = "factura", nullable = false, insertable = true, updatable = true)
-    public long getFactura() {
+    @Column(name = "factura", nullable = true, insertable = true, updatable = true)
+    public Long getFactura() {
         return factura;
     }
 
-    public void setFactura(long factura) {
+    public void setFactura(Long factura) {
         this.factura = factura;
     }
 
     @Basic
-    @Column(name = "imagine", nullable = false, insertable = true, updatable = true)
-    public long getImagine() {
+    @Column(name = "imagine", nullable = true, insertable = true, updatable = true)
+    public Long getImagine() {
         return imagine;
     }
 
-    public void setImagine(long imagine) {
+    public void setImagine(Long imagine) {
         this.imagine = imagine;
     }
 

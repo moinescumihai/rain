@@ -6,7 +6,9 @@
     [@sidebar]
     <div class="pull-right">
         [@searchbox "project-search" "projects-table"/]
-        [@buttonOpenModal "addProiect" "PROJECTS.ADDPROJECT" "modal-addProiect"/]
+        <div class="list-group">
+            [@listItemOpenModal "addProiect" "PROJECTS.ADDPROJECT" "modal-addProiect" "plus"/]
+        </div>
     </div>
     [/@sidebar]
     [@content]

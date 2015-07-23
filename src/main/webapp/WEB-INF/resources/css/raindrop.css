@@ -1465,7 +1465,7 @@ a.dropdown-carret:focus {
     position: absolute;
     top: 0;
     left: 0;
-    z-index: 10000;
+    z-index: 1000;
     display: none;
     width: 276px;
     min-height: 32px;
@@ -2048,4 +2048,8 @@ tr.shown td.details-control {
 
 #message span {
     font-size: 12px;
+}
+
+.dataTables_wrapper  {
+    margin-bottom: 100px;
 }

@@ -19,9 +19,9 @@ public class ResurseUmaneServiceImpl implements ResurseUmaneService {
 
     @Override
     @Transactional
-    public ResurseUmane findOne(long id) {
+    public ResurseUmane findByIdUser(long id) {
         try {
-            return resurseUmaneRepository.findOne(id);
+            return resurseUmaneRepository.findByIdUser(id);
         } catch (DataAccessException e) {
             LOGGER.error("RESURSE_UMANE.NOT_FOUND", e);
             throw new NotFoundException("RESURSE_UMANE.NOT_FOUND", e);
