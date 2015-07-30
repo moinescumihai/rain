@@ -61,14 +61,13 @@
             [#--[/#list]--]
             [/@embedableSelectBox]
         [/@elementWithLink]
+        [@datepicker "userProfile-form-dataNastere" "dataNastere" "USER.DATANASTERE" "USER.DATANASTERE.PLACEHOLDER" "4"/]
         [@input "userProfile-form-serieCi" "serieCi" "USER.CI.SERIE" "USER.CI.SERIE.PLACEHOLDER" "" "3"/]
         [@input "userProfile-form-nrCi" "nrCi" "USER.CI.NUMAR" "USER.CI.NUMAR.PLACEHOLDER" "" "3"/]
         [@rowBreak/]
-        [@datepicker "userProfile-form-dataNastere" "dataNastere" "USER.DATANASTERE" "USER.DATANASTERE.PLACEHOLDER" "4"/]
         [@datepicker "userProfile-form-dataAngajare" "dataAngajare" "USER.DATAANGAJARE" "USER.DATAANGAJARE.PLACEHOLDER" "4"/]
-        [@rowBreak/]
-        [@input "userProfile-form-zileConcediu" "zileConcediu" "USER.ZILECONCEDIU" "USER.ZILECONCEDIU.PLACEHOLDER" "" "4"/]
-        [@infobox "user-legal-info" "INFOBOX.ADDCLIENT"/]
+        [@input "userProfile-form-zileConcediu" "zileConcediu" "USER.ZILECONCEDIU" "USER.ZILECONCEDIU.PLACEHOLDER" "" "3"/]
+        [@infobox "user-legal-info" "INFOBOX.ADDCLIENT" "infobox-profile"/]
     [/@modalContainer]
     </div>
 </div>

@@ -83,8 +83,8 @@
 <div class="form-group col-md-${size}">
     <label for="${id}">[@spring.message label/]</label>
 
-    <div class="input-group date date-picker">
-        <input type="text" class="form-control input-sm" id="${id}" name="${name}" placeholder="[@spring.message placeholder /]" title="[@spring.message label /]"
+    <div class="input-group date">
+        <input type="text" class="form-control input-sm date-picker" id="${id}" name="${name}" placeholder="[@spring.message placeholder /]" title="[@spring.message label /]"
                data-date-format="yyyy-mm-dd" required>
         <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
     </div>
@@ -157,8 +157,8 @@
 </div>
 [/#macro]
 
-[#macro infobox name text]
-<div class="well-sm infobox">
+[#macro infobox name text additionalClass=""]
+<div class="well-sm infobox ${additionalClass}">
     <span class="fa fa-info-circle"></span>
     <span class="small text-justify">[@spring.message text /]</span>
 </div>
@@ -237,4 +237,17 @@
     </div>
 </div>
 
+[/#macro]
+
+[#macro pictureUpload fileName label size="4"]
+<div class="col-md-${size} small-dropzone text-center">
+    <label class="image-label">[@spring.message label /]</label>
+
+    <div class="image_preview"><img class="previewing" src="/img/noimageplaceholder.png"/></div>
+    <div id="selectImage">
+        <input type="file" data-filename-placement="inside" id="${fileName}" name="${fileName}">
+
+        <div class="image-message"></div>
+    </div>
+</div>
 [/#macro]

@@ -290,6 +290,9 @@ function getProfile() {
 
 $(document).ready(function () {
     $('#an-copyright').text(new Date().getFullYear());
+    $('input[type=file]').bootstrapFileInput();
+    $('.file-inputs').bootstrapFileInput();
+
     (function () {
         var projectDropdown = $('#project-dropdown');
         projectDropdown.empty();
@@ -326,11 +329,8 @@ $(document).ready(function () {
     });
 
     $('.date-picker').datepicker({
-        todayBtn: true,
-        todayHighlight: true,
-        weekStart: 1,
-        autoclose: true,
-        orientation: 'left top'
+        format: 'yyyy-mm-dd',
+        weekStart: 1
     });
 
     rightSlidebar = new $.slidebars();

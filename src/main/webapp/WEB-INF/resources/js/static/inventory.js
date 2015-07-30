@@ -31,11 +31,10 @@ function getStari() {
 }
 
 function imageIsLoaded(e) {
-    $("#image-file").css("color", "green");
-    $('#image_preview').css("display", "block");
-    $('#previewing').attr('src', e.target.result);
-    $('#previewing').css('max-width', '250px');
-    $('#previewing').css('max-height', '230px');
+    $('.image_preview').css("display", "block");
+    $('.previewing').attr('src', e.target.result);
+    $('.previewing').css('max-width', '250px');
+    $('.previewing').css('max-height', '230px');
 }
 
 function generateBarcode(barcode) {
@@ -300,7 +299,7 @@ function format(row) {
         '<td width="200px;"><span class="fa fa-map-marker fa-fw">&nbsp;</span><b>Location</b></td>' +
         '<td width="300px;"><a class="map-popup-marker" data-load="idLoc=' + idLoc + '">' + loc + '</a></td>' +
         '<td rowspan="10" style="vertical-align: middle; text-align: center"><div>' +
-        '<img  width="250" height="auto"  src="/barcode/' + barcode + '.png" alt="Not yet generated"><br><span class="text-center">' + barcode + '</span></div>' +
+        '<img  width="auto" height="auto"  src="/barcode/' + barcode + '.png" alt="Not yet generated"><br><span class="text-center">' + barcode + '</span></div>' +
         '</td>' +
         '<td width="400px" rowspan="10" style="vertical-align: middle; text-align: center"><div>' +
         '<img  width="150" height="auto"  src="/files/' + image.fileName + '" alt="Not yet generated"></div>' +
@@ -661,17 +660,16 @@ $(document).ready(function () {
         $('#map-canvas-container').remove();
     });
 
-    $(function () {
-        $("#image-file").change(function () {
-            $("#message").empty(); // To remove the previous error message
+
+        $("#image-file").on('change', function () {
+            $(".image-message").empty(); // To remove the previous error message
             var file = this.files[0];
             var imagefile = file.type;
             var match = ["image/jpeg", "image/png", "image/jpg", "image/gif"];
             if (!((imagefile == match[0]) || (imagefile == match[1]) || (imagefile == match[2]) || (imagefile == match[3]))) {
-                $('#previewing').attr('src', '../img/noimageplaceholder.png');
-                $("#message").html("<p id='error' class='text-danger'>Please select a valid image file</p>"
-                    + "<div class='well-sm bg-infobox text-left'><h4><i class='fa fa-exclamation-circle'></i>&nbsp;Note</h4>"
-                    + "<span id='error_message'>Only .jpeg, .jpg, .png and .gif image types allowed</span></div>");
+                $('.previewing').attr('src', '../img/noimageplaceholder.png');
+                $('.image-message').html("<div class='well-sm bg-infobox text-left'><h4 class='text-danger'><i class='fa fa-exclamation-circle'></i>&nbsp;Please select a valid image file</h4>"
+                    + "<span class='error_message'>Only .jpeg, .jpg, .png and .gif image types allowed</span></div>");
                 return false;
             }
             else {
@@ -680,5 +678,4 @@ $(document).ready(function () {
                 reader.readAsDataURL(this.files[0]);
             }
         });
-    });
 });

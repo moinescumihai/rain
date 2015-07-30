@@ -18,7 +18,7 @@
     <link href="/css/bootstrap-modal.css" rel="stylesheet">
     <link href="/fonts/font-awesome/css/font-awesome.min.css" rel="stylesheet">
     <link href="/css/chosen.css" rel="stylesheet">
-    <link href="/css/bootstrap-datepicker.css" rel="stylesheet">
+    <link href="/css/datepicker.css" rel="stylesheet">
     <link href="/css/inbox.css" rel="stylesheet">
     <link href="/css/timeline.css" rel="stylesheet">
     <link href="/css/tree.css" rel="stylesheet">

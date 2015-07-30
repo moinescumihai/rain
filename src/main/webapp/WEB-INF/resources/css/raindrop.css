@@ -1913,6 +1913,7 @@ a.dropdown-carret:focus {
 
 .datepicker {
     padding: 20px;
+    z-index: 2000;
 }
 
 .table-hover > tbody > tr:hover {
@@ -2029,12 +2030,7 @@ tr.shown td.details-control {
     right: 0;
 }
 
-#image-file {
-    left: 20px;
-    position: relative;
-}
-
-#message {
+.image-message {
     display: block;
 }
 
@@ -2042,14 +2038,29 @@ tr.shown td.details-control {
     background-color: #cadef9;
 }
 
-#message h4 {
+.image-message h4 {
     font-size: 15px;
 }
 
-#message span {
+.error_message {
     font-size: 12px;
 }
 
 .dataTables_wrapper  {
     margin-bottom: 100px;
+}
+
+.infobox-profile {
+    position: absolute;
+    right: 6%;
+    bottom: 8%;
+}
+
+input[type=file] {
+    display: inline;
+}
+
+.file-input-wrapper {
+    max-width: 80%;
+    margin: 10px;
 }
