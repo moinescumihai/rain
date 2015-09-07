@@ -6,11 +6,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
-import org.springframework.data.jpa.repository.Lock;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.LockModeType;
 import java.util.Collections;
 import java.util.List;
 
@@ -23,7 +20,6 @@ public class ClientsServiceImpl implements ClientsService {
 
 
     @Override
-    @Transactional
     public List<Client> findAll() {
         try {
             return (List<Client>) clientRepository.findAll();
@@ -34,8 +30,6 @@ public class ClientsServiceImpl implements ClientsService {
     }
 
     @Override
-    @Transactional
-    @Lock(LockModeType.READ)
     public Client save(Client entity) {
         return clientRepository.save(entity);
     }

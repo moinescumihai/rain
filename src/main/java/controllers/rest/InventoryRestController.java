@@ -45,35 +45,35 @@ public class InventoryRestController {
         });
     }
 
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_INVENTORY')")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_INVENTAR')")
     @RequestMapping(value = "/getinventory", method = RequestMethod.GET, produces = "application/json")
     @ResponseBody
-    public List<InventoryItem> getAllStockItems() {
+    public List<Stoc> getAllStockItems() {
         return inventoryService.findAllItems();
     }
 
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_INVENTORY')")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_INVENTAR')")
     @RequestMapping(value = "/getstari", method = RequestMethod.GET, produces = "application/json")
     @ResponseBody
     public List<StareStoc> getAllStari() {
         return inventoryService.findAllStari();
     }
 
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_INVENTORY')")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_INVENTAR')")
     @RequestMapping(value = "/tranzactie/history/{idArticol}", method = RequestMethod.GET, produces = "application/json")
     @ResponseBody
-    public List<History> getHistory(@PathVariable Long idArticol) {
+    public List<TranzactieStoc> getHistory(@PathVariable Long idArticol) {
         return inventoryService.findAllTranzactiiForArticol(idArticol);
     }
 
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_INVENTORY')")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_INVENTAR')")
     @RequestMapping(value = "/tranzactie/{idArticol}", method = RequestMethod.GET, produces = "application/json")
     @ResponseBody
     public TranzactieStoc getTranzactie(@PathVariable Long idArticol) {
         return inventoryService.findLastTranzactieForArticol(idArticol);
     }
 
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_INVENTORY')")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_INVENTAR')")
     @RequestMapping(value = "/generatebarcode/{barcode}", method = RequestMethod.GET)
     @ResponseBody
     public String generateBarcode(@PathVariable String barcode) {
@@ -102,7 +102,7 @@ public class InventoryRestController {
         return response;
     }
 
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_INVENTORY')")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_INVENTAR')")
     @RequestMapping(value = "/loc/{idLoc}", method = RequestMethod.GET, produces = "application/json")
     @ResponseBody
     public Loc getLoc(@PathVariable Long idLoc) {

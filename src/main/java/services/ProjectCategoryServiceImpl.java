@@ -6,11 +6,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
-import org.springframework.data.jpa.repository.Lock;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.LockModeType;
 import java.util.Collections;
 import java.util.List;
 
@@ -25,7 +22,6 @@ public class ProjectCategoryServiceImpl implements ProjectCategoryService {
 
 
     @Override
-    @Transactional
     public List<CategorieProiect> findAll() {
         try {
             return (List<CategorieProiect>) categorieProiectRepository.findAll();
@@ -36,8 +32,6 @@ public class ProjectCategoryServiceImpl implements ProjectCategoryService {
     }
 
     @Override
-    @Transactional
-    @Lock(LockModeType.READ)
     public CategorieProiect save(CategorieProiect entity) {
         entity.setEsteSubcategorie(OFF);
         if(entity.getIdCategorieProiect() > 0){

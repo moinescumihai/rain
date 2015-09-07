@@ -7,9 +7,7 @@ import java.util.List;
 
 public interface InventoryService {
 
-    List<Stoc> findAll();
-
-    List<InventoryItem> findAllItems();
+    List<Stoc> findAllItems();
 
     Stoc save(Stoc entity);
 
@@ -19,7 +17,7 @@ public interface InventoryService {
 
     TranzactieStoc findLastTranzactieForArticol(Long idArticol);
 
-    List<History> findAllTranzactiiForArticol(Long idArticol);
+    List<TranzactieStoc> findAllTranzactiiForArticol(Long idArticol);
 
     String generateBarcode(String id);
 

@@ -108,13 +108,13 @@ function generateHistoryTable(idArticol) {
             counter = i + 1;
             data = toJSDateTime(history[i].dataTranzactie);
             creatDe = history[i].creatDe;
-            persoana = history[i].nume;
-            loc = history[i].numeLoc;
-            idLoc = history[i].idLoc;
-            stare = history[i].stare;
-            idStare = history[i].idStare;
+            persoana = history[i].idResurseUmane.nume;
+            loc = history[i].idLoc.numeLoc;
+            idLoc = history[i].idLoc.idLoc;
+            stare = history[i].idStare.numeStare;
+            idStare = history[i].idStare.idStare;
             detalii = history[i].detalii;
-            colet = history[i].colet;
+            colet = history[i].idColet.numeColet;
             stareIcon = getStareIcon(idStare);
             stareAnterioaraIcon = getStareIcon(idStareAnterioara);
 
@@ -222,13 +222,13 @@ function format(row) {
     var useUserRecuperare = false;
     var primitPrinTranzit;
     var barcode = row.codStoc;
-    var loc = row.numeLoc;
-    var idLoc = row.idLoc;
+    var loc = row.idLoc.numeLoc;
+    var idLoc = row.idLoc.idLoc;
     var idStoc = row.idStoc;
-    var persoana = row.nume;
-    var idStare = row.idStare;
+    var persoana = row.idResurseUmane.nume;
+    var idStare = row.idStare.idStare;
     var stareIndex = idStare - 1;
-    var stare = stari[stareIndex];
+    var stare = row.idStare.numeStare
     var stareIcon = getStareIcon(idStare);
     var dateAdaugare = toJSDateTime(row.creatLa);
     var dateModificare = toJSDateTime(row.modificatLa);
@@ -388,17 +388,17 @@ $(document).ready(function () {
                     "data": "numeStoc",
                     "className": 'text-bold'
                 },
-                {"data": "numeCategorie"},
-                {"data": "numeGrup"},
+                {"data": "idCategorieStoc.numeCategorie"},
+                {"data": "idGrupStoc.numeGrup"},
                 {"data": "codStoc"},
                 {"data": "detalii"},
                 {
                     "sWidth": "45px",
                     "className": 'text-center',
-                    "data": "idStare"
+                    "data": "idStare.idStare"
                 },
                 {
-                    "data": "numeLoc",
+                    "data": "idLoc.numeLoc",
                     "visible": false,
                     "searchable": false
                 },
@@ -419,7 +419,7 @@ $(document).ready(function () {
                     "bUseRendered": true,
                     "visible": true,
                     "fnCreatedCell": function (nTd, sData, oData, i) {
-                        var stare = stari[sData - 1];
+                        var stare = oData.idStare.idStare;
                         switch (sData) {
                             case 1:
                                 $(nTd).html('<div class="btn btn-success stare-icon" data-toggle="tooltip" data-placement="bottom" title="' + stare + '"><span class="fa fa-cubes fa-fw"></span></div>');

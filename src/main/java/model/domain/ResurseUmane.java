@@ -44,6 +44,45 @@ public class ResurseUmane {
     private String modificatDe;
     private Timestamp modificatLa;
 
+    public ResurseUmane() {
+    }
+
+    public ResurseUmane(long idResurseUmane, String creatDe, Timestamp creatLa, String modificatDe, Timestamp modificatLa, String nume, String prenume, String prenume2, String email, int idClient, String pozitie, String pozitieAnterioara, String cnp, String serieCi, String nrCi, String workTel, String mobilTel, String homeTel, String fax, String adresa, String oras, String judet, String codPostal, String idTara, Date dataAngajare, String tipContract, Long idUser, Date dataNastere, Byte esteDepartament, Byte esteContact, String zileConcediu) {
+        this.idResurseUmane = idResurseUmane;
+        this.creatDe = creatDe;
+        this.creatLa = creatLa;
+        this.modificatDe = modificatDe;
+        this.modificatLa = modificatLa;
+        this.nume = nume;
+        this.prenume = prenume;
+        this.prenume2 = prenume2;
+        this.email = email;
+        this.idClient = idClient;
+        this.pozitie = pozitie;
+        this.pozitieAnterioara = pozitieAnterioara;
+        this.cnp = cnp;
+        this.serieCi = serieCi;
+        this.nrCi = nrCi;
+        this.workTel = workTel;
+        this.mobilTel = mobilTel;
+        this.homeTel = homeTel;
+        this.fax = fax;
+        this.adresa = adresa;
+        this.oras = oras;
+        this.judet = judet;
+        this.codPostal = codPostal;
+        this.idTara = idTara;
+        this.dataAngajare = dataAngajare;
+        this.tipContract = tipContract;
+        this.idUser = idUser;
+        this.dataNastere = dataNastere;
+        this.esteDepartament = esteDepartament;
+        this.esteContact = esteContact;
+        this.zileConcediu = zileConcediu;
+    }
+
+    public static transient ResurseUmane INITIAL = new ResurseUmane();
+
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     @javax.persistence.Column(name = "id_resurse_umane", nullable = false, insertable = true, updatable = true)

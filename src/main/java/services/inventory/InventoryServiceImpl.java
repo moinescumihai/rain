@@ -9,12 +9,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
-import org.springframework.data.jpa.repository.Lock;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.FileCopyUtils;
 
-import javax.persistence.LockModeType;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletResponse;
 import java.io.BufferedInputStream;
@@ -29,14 +27,12 @@ import java.util.UUID;
 @Service
 public class InventoryServiceImpl implements InventoryService {
     private static final Logger LOGGER = LoggerFactory.getLogger(InventoryServiceImpl.class);
-    private static final int STOC_INITIAL_VALUE = 1;
+    private static final Long STOC_INITIAL_VALUE = 1L;
 
     @Autowired
     private StocRepository stocRepository;
     @Autowired
     private StareStocRepository stareStocRepository;
-    @Autowired
-    private InventoryItemRepository inventoryItemRepository;
     @Autowired
     private TranzactieStocRepository tranzactieStocRepository;
     @Autowired
@@ -44,28 +40,13 @@ public class InventoryServiceImpl implements InventoryService {
     @Autowired
     private BarcodeService barcodeService;
     @Autowired
-    private InventoryHistoryRepository inventoryHistoryRepository;
-    @Autowired
     private ColetRepository coletRepository;
 
-
     @Override
     @Transactional
-    public List<Stoc> findAll() {
+    public List<Stoc> findAllItems() {
         try {
             return (List<Stoc>) stocRepository.findAll();
-        } catch (DataAccessException e) {
-            LOGGER.error("INVENTAR.NO_INVENTAR", e);
-            return Collections.emptyList();
-        }
-    }
-
-    @Override
-    @Transactional
-    @Lock(LockModeType.READ)
-    public List<InventoryItem> findAllItems() {
-        try {
-            return (List<InventoryItem>) inventoryItemRepository.findAll();
         } catch (DataAccessException e) {
             LOGGER.error("INVENTAR.NO_INVENTORY_ITEMS", e);
             return Collections.emptyList();
@@ -73,14 +54,12 @@ public class InventoryServiceImpl implements InventoryService {
     }
 
     @Override
-    @Transactional
-    @Lock(LockModeType.READ)
     public Stoc save(Stoc entity) {
         entity = saveDefaultStoc(entity);
         Colet colet = new Colet();
         colet.setNumeColet(String.valueOf(UUID.randomUUID()));
-        String idColetNou = String.valueOf(coletRepository.save(colet).getIdColet());
-        buildAndSaveTranzactieStoc(entity, idColetNou);
+        colet = coletRepository.save(colet);
+        buildAndSaveTranzactieStoc(entity, colet);
 
         return entity;
     }
@@ -90,12 +69,11 @@ public class InventoryServiceImpl implements InventoryService {
         return null;
     }
 
-    private TranzactieStoc buildAndSaveTranzactieStoc(Stoc entity, String idColet) {
-        long idStoc = entity.getIdStoc();
-        TranzactieStoc previousTranzantion = tranzactieStocRepository.findFirstByIdStocOrderByIdTranzactieStocDesc(idStoc);
-        long idStareAnterioara = previousTranzantion == null ? STOC_INITIAL_VALUE : previousTranzantion.getIdStare();
+    private TranzactieStoc buildAndSaveTranzactieStoc(Stoc entity, Colet idColet) {
+        TranzactieStoc previousTranzantion = tranzactieStocRepository.findFirstByIdStocOrderByIdTranzactieStocDesc(entity);
+        StareStoc idStareAnterioara = previousTranzantion == null ? stareStocRepository.findOne(1L) : previousTranzantion.getIdStare();
         TranzactieStoc newStockAdded = new TranzactieStoc();
-        newStockAdded.setIdStoc(idStoc);
+        newStockAdded.setIdStoc(entity);
         newStockAdded.setIdLoc(entity.getIdLoc());
         newStockAdded.setIdResurseUmane(entity.getIdResurseUmane());
         newStockAdded.setIdStareAnterioara(idStareAnterioara);
@@ -114,8 +92,7 @@ public class InventoryServiceImpl implements InventoryService {
         String creatDe = UserUtils.getLoggedInUsername();
         entity.setCodStoc(codStoc);
         entity.setCreatDe(creatDe);
-        entity.setIdResurseUmane(STOC_INITIAL_VALUE);
-        entity.setIdStare(STOC_INITIAL_VALUE);
+        entity.setIdResurseUmane(ResurseUmane.INITIAL);
         entity.setCreatLa(new Timestamp(System.currentTimeMillis()));
 
         return stocRepository.save(entity);
@@ -132,11 +109,10 @@ public class InventoryServiceImpl implements InventoryService {
     }
 
     @Override
-    @Transactional
-    @Lock(LockModeType.READ)
     public TranzactieStoc findLastTranzactieForArticol(Long idArticol) {
         try {
-            return tranzactieStocRepository.findFirstByIdStocOrderByIdTranzactieStocDesc(idArticol);
+            Stoc stoc = stocRepository.findOne(idArticol);
+            return tranzactieStocRepository.findFirstByIdStocOrderByIdTranzactieStocDesc(stoc);
         } catch (DataAccessException e) {
             LOGGER.error("INVENTAR.NO_SUCH_ID_ARTICOL_IN_TRANZACTIE", e);
             throw new IllegalArgumentException("INVENTAR.NO_SUCH_ID_ARTICOL_IN_TRANZACTIE");
@@ -144,11 +120,10 @@ public class InventoryServiceImpl implements InventoryService {
     }
 
     @Override
-    @Transactional
-    @Lock(LockModeType.READ)
-    public List<History> findAllTranzactiiForArticol(Long idArticol) {
+    public List<TranzactieStoc> findAllTranzactiiForArticol(Long idArticol) {
         try {
-            return inventoryHistoryRepository.findByIdStocOrderByIdTranzactieStocDesc(idArticol);
+            Stoc stoc = stocRepository.findOne(idArticol);
+            return tranzactieStocRepository.findByIdStocOrderByIdTranzactieStocDesc(stoc);
         } catch (DataAccessException e) {
             LOGGER.error("INVENTAR.NO_SUCH_ID_ARTICOL_IN_TRANZACTIE", e);
             return Collections.emptyList();
@@ -156,8 +131,6 @@ public class InventoryServiceImpl implements InventoryService {
     }
 
     @Override
-    @Transactional
-    @Lock(LockModeType.READ)
     public String generateBarcode(String id) {
         File f;
         try {
@@ -183,8 +156,6 @@ public class InventoryServiceImpl implements InventoryService {
     }
 
     @Override
-    @Transactional
-    @Lock(LockModeType.READ)
     public String downloadBarcode(String barcode, HttpServletResponse response) {
         String dirPath = "/WEB-INF" + File.separatorChar + "resources" + File.separatorChar + "barcode";
         String contextDirName = this.servletContext.getRealPath(dirPath);

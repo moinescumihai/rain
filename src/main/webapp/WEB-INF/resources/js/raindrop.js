@@ -414,11 +414,11 @@ $(document).ready(function () {
         }
     });
 
-    $('#modal-userProfile').on('show.bs.modal', function () {
+    $(document).on('show.bs.modal', '#modal-userProfile', function () {
         getProfile();
     });
 
-    $('#modal-spinner').on('hidden.bs.modal', function () {
+    $(document).on('hidden.bs.modal', '#modal-spinner', function () {
         $(this).remove();
     });
 

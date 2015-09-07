@@ -18,7 +18,7 @@ public class ResurseUmaneServiceImpl implements ResurseUmaneService {
     private ResurseUmaneRepository resurseUmaneRepository;
 
     @Override
-    @Transactional
+
     public ResurseUmane findByIdUser(long id) {
         try {
             return resurseUmaneRepository.findByIdUser(id);
