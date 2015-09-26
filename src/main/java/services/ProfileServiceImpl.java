@@ -1,6 +1,6 @@
 package services;
 
-import common.validator.utils.UserUtils;
+import common.utils.UserUtils;
 import model.domain.ResurseUmane;
 import model.domain.User;
 import org.slf4j.Logger;

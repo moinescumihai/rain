@@ -1,10 +1,13 @@
 package services.inventory;
 
 import com.google.zxing.BarcodeFormat;
-import common.validator.utils.UserUtils;
+import common.utils.UserUtils;
 import model.common.FileBean;
 import model.domain.*;
-import model.repository.*;
+import model.repository.ColetRepository;
+import model.repository.StareStocRepository;
+import model.repository.StocRepository;
+import model.repository.TranzactieStocRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

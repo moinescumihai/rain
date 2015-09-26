@@ -4,7 +4,10 @@ import org.joda.time.DateTime;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 
-import javax.persistence.*;
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 
 @Entity
 public class Fisiere {
@@ -19,7 +22,7 @@ public class Fisiere {
     private DateTime creatLa;
 
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+
     @Column(name = "id_file", nullable = false, insertable = true, updatable = true)
     public long getIdFile() {
         return idFile;
@@ -126,9 +129,8 @@ public class Fisiere {
         if (idUser != null ? !idUser.equals(fisiere.idUser) : fisiere.idUser != null) return false;
         if (idVersiunePrecedenta != null ? !idVersiunePrecedenta.equals(fisiere.idVersiunePrecedenta) : fisiere.idVersiunePrecedenta != null) return false;
         if (creatDe != null ? !creatDe.equals(fisiere.creatDe) : fisiere.creatDe != null) return false;
-        if (creatLa != null ? !creatLa.equals(fisiere.creatLa) : fisiere.creatLa != null) return false;
+        return !(creatLa != null ? !creatLa.equals(fisiere.creatLa) : fisiere.creatLa != null);
 
-        return true;
     }
 
     @Override

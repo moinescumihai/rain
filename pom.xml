@@ -8,6 +8,18 @@
     <name>rain</name>
     <url>http://maven.apache.org</url>
 
+    <scm>
+        <url>https://github.com/cipster/rain.git</url>
+    </scm>
+
+    <developers>
+        <developer>
+            <id>cipster</id>
+            <email>bostanciprian@gmail.com</email>
+            <name>Ciprian</name>
+        </developer>
+    </developers>
+
     <properties>
         <org.springframework-version>4.1.7.RELEASE</org.springframework-version>
         <org.springframework.security-version>3.2.5.RELEASE</org.springframework.security-version>
@@ -74,7 +86,7 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-aspects</artifactId>
-            <version>4.1.6.RELEASE</version>
+            <version>${org.springframework-version}</version>
         </dependency>
 
         <dependency>
@@ -306,7 +318,7 @@
         <dependency>
             <groupId>javax.validation</groupId>
             <artifactId>validation-api</artifactId>
-            <version>1.0.0.GA</version>
+            <version>1.1.0.Final</version>
         </dependency>
 
         <dependency>
@@ -398,10 +410,25 @@
 
         <dependency>
             <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-core</artifactId>
+            <version>5.0.1.Final</version>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
             <artifactId>hibernate-entitymanager</artifactId>
-            <version>4.3.7.Final</version>
+            <version>5.0.1.Final</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-validator</artifactId>
+            <version>5.2.1.Final</version>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate.common</groupId>
+            <artifactId>hibernate-commons-annotations</artifactId>
+            <version>5.0.0.Final</version>
+        </dependency>
         <dependency>
             <groupId>org.springframework.data</groupId>
             <artifactId>spring-data-jpa</artifactId>

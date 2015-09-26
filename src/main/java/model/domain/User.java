@@ -1,6 +1,9 @@
 package model.domain;
 
-import javax.persistence.*;
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import java.sql.Timestamp;
 import java.util.Arrays;
 
@@ -16,7 +19,7 @@ public class User {
     private Long activeProject;
 
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+
     @Column(name = "id_user", nullable = false, updatable = true)
     public long getIdUser() {
         return idUser;

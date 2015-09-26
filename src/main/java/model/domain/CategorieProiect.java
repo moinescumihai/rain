@@ -12,7 +12,7 @@ public class CategorieProiect {
     private Byte esteSubcategorie;
 
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+
     @Column(name = "id_categorie_proiect")
     public long getIdCategorieProiect() {
         return idCategorieProiect;
@@ -61,9 +61,8 @@ public class CategorieProiect {
 
         if (nume != null ? !nume.equals(that.nume) : that.nume != null) return false;
         if (idCategorieParinte != null ? !idCategorieParinte.equals(that.idCategorieParinte) : that.idCategorieParinte != null) return false;
-        if (esteSubcategorie != null ? !esteSubcategorie.equals(that.esteSubcategorie) : that.esteSubcategorie != null) return false;
+        return !(esteSubcategorie != null ? !esteSubcategorie.equals(that.esteSubcategorie) : that.esteSubcategorie != null);
 
-        return true;
     }
 
     @Override

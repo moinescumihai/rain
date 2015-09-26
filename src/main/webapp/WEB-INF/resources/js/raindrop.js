@@ -293,33 +293,6 @@ $(document).ready(function () {
     $('input[type=file]').bootstrapFileInput();
     $('.file-inputs').bootstrapFileInput();
 
-    (function () {
-        var projectDropdown = $('#project-dropdown');
-        projectDropdown.empty();
-        var token = $("meta[name='_csrf']").attr("content");
-        var header = $("meta[name='_csrf_header']").attr("content");
-
-        $.ajax({
-            method: 'get',
-            dataType: "json",
-            url: '/app/secure/projects/getprojects',
-            beforeSend: function (xhr) {
-                xhr.setRequestHeader(header, token);
-            },
-            success: function (response) {
-                var items = [];
-                if (response.length <= 0) {
-                    items.push('<li><a class="text-muted"> No projects are defined </a></li>');
-                }
-                $.each(response, function (i, proj) {
-                    items.push('<li><a href="/app/secure/projects/' + proj.idProiect + '">' + proj.numeProiect + '</a></li>');
-                });
-                projectDropdown.html(items.join('') + '<li class="divider"></li><li><a href="/projects" class="bg-info"> See all projects  <i class="fa fa-arrow-right"></i> </a></li>');
-            }
-        });
-
-    })();
-
     $(".chosen-select").chosen({
         disable_search_threshold: 10,
         allow_single_deselect: true,
@@ -348,8 +321,13 @@ $(document).ready(function () {
     });
 
     $.extend($.fn.dataTable.defaults, {
-        "aLengthMenu": [[5, 10, 25, 50, 100, -1], [5, 10, 25, 50, 100, "All"]],
-        stateSave: true
+        "aLengthMenu": [[5, 10, 25, 50, 100, -1], [5, 10, 25, 50, 100, "Toate"]],
+        stateSave: true,
+        fixedHeader: true,
+        select: 'single',
+        "language": {
+            "url": '/fonts/ro_RO.txt'
+        }
     });
 
     var profileModalForm = $('#modal-userProfile-form');

@@ -16,7 +16,7 @@ public class ChatMessage {
     private long idProiect;
 
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+
     @Column(name = "id_chat_message", nullable = false, insertable = true, updatable = true)
     public long getIdChatMessage() {
         return idChatMessage;
@@ -27,7 +27,7 @@ public class ChatMessage {
     }
 
     @Basic
-    @Column(name = "message", nullable = false, insertable = true, updatable = true, length = 65535)
+    @Column(name = "message", nullable = false, insertable = true, updatable = true)
     public String getMessage() {
         return message;
     }
@@ -110,9 +110,8 @@ public class ChatMessage {
         if (sender != null ? !sender.equals(that.sender) : that.sender != null) return false;
         if (received != null ? !received.equals(that.received) : that.received != null) return false;
         if (unitate != null ? !unitate.equals(that.unitate) : that.unitate != null) return false;
-        if (receiver != null ? !receiver.equals(that.receiver) : that.receiver != null) return false;
+        return !(receiver != null ? !receiver.equals(that.receiver) : that.receiver != null);
 
-        return true;
     }
 
     @Override

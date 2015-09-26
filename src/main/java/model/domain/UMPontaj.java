@@ -10,7 +10,7 @@ public class UMPontaj {
     private String valoare;
 
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+
     @Column(name = "id_u_m_pontaj")
     public long getIdUMPontaj() {
         return idUMPontaj;
@@ -48,9 +48,8 @@ public class UMPontaj {
         UMPontaj umPontaj = (UMPontaj) o;
 
         if (nume != null ? !nume.equals(umPontaj.nume) : umPontaj.nume != null) return false;
-        if (valoare != null ? !valoare.equals(umPontaj.valoare) : umPontaj.valoare != null) return false;
+        return !(valoare != null ? !valoare.equals(umPontaj.valoare) : umPontaj.valoare != null);
 
-        return true;
     }
 
     @Override

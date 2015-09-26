@@ -7,7 +7,7 @@
     <div class="pull-right">
         [@searchbox "project-search" "projects-table"/]
         <div class="list-group">
-            [@listItemOpenModal "addProiect" "PROJECTS.ADDPROJECT" "modal-addProiect" "plus"/]
+            [@listItemOpenModal "addProiect" "PROJECTS.ADDPROJECT" "modal-addProiect" "plus fa-1-5x"/]
         </div>
     </div>
     [/@sidebar]

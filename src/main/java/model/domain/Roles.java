@@ -1,6 +1,9 @@
 package model.domain;
 
-import javax.persistence.*;
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 
 @Entity
 public class Roles {
@@ -8,7 +11,7 @@ public class Roles {
     private String role;
 
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+
     @Column(name = "id_role")
     public long getIdRole() {
         return idRole;
@@ -35,9 +38,8 @@ public class Roles {
 
         Roles roles = (Roles) o;
 
-        if (role != null ? !role.equals(roles.role) : roles.role != null) return false;
+        return !(role != null ? !role.equals(roles.role) : roles.role != null);
 
-        return true;
     }
 
     @Override

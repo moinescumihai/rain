@@ -273,7 +273,7 @@ $.extend( $.validator, {
 		},
 		onkeyup: function( element, event ) {
 			if ( event.which === 9 && this.elementValue( element ) === "" ) {
-				return;
+
 			} else if ( element.name in this.submitted || element === this.lastElement ) {
 				this.element( element );
 			}
@@ -310,22 +310,22 @@ $.extend( $.validator, {
 	},
 
 	messages: {
-		required: "This field is required.",
+		required: "Acest c&#226;mp este obligatoriu.",
 		remote: "Please fix this field.",
-		email: "Please enter a valid email address.",
-		url: "Please enter a valid URL.",
-		date: "Please enter a valid date.",
-		dateISO: "Please enter a valid date ( ISO ).",
-		number: "Please enter a valid number.",
-		digits: "Please enter only digits.",
+		email: "Introduce&#539;i o adres&#259; de email valid&#259;.",
+		url: "Introduce&#539;i un URL valid.",
+		date: "Introduce&#539;i o dat&#259; valid&#259;.",
+		dateISO: "Introduce&#539;i o dat&#259; valid&#259;( ISO ).",
+		number: "Introduce&#539;i un num&#259;r valid.",
+		digits: "Introduce&#539;i doar cifre.",
 		creditcard: "Please enter a valid credit card number.",
-		equalTo: "Please enter the same value again.",
-		maxlength: $.validator.format( "Please enter no more than {0} characters." ),
-		minlength: $.validator.format( "Please enter at least {0} characters." ),
-		rangelength: $.validator.format( "Please enter a value between {0} and {1} characters long." ),
-		range: $.validator.format( "Please enter a value between {0} and {1}." ),
-		max: $.validator.format( "Please enter a value less than or equal to {0}." ),
-		min: $.validator.format( "Please enter a value greater than or equal to {0}." )
+		equalTo: "Mai introduce&#539;i o dat&#259; aceea&#x219;i valoare.",
+		maxlength: $.validator.format("Nu introduce&#539;i mai mult de {0} caractere."),
+		minlength: $.validator.format("Introduce&#539;i m&#259;car {0} caractere."),
+		rangelength: $.validator.format("Introduce&#539;i o valoare &#238;ntre {0} &#x219;i {1} caractere lungime."),
+		range: $.validator.format("Introduce&#539;i o valoare &#238;ntre {0} &#x219;i {1}."),
+		max: $.validator.format("Introduce&#539;i o valoare mai mic&#259; sau egal&#259; cu {0}. "),
+		min: $.validator.format("Introduce&#539;i o valoare mai mare sau egal&#259; cu {0}. ")
 	},
 
 	autoCreateRanges: false,

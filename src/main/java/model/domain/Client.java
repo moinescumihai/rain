@@ -3,8 +3,6 @@ package model.domain;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
@@ -23,7 +21,7 @@ public class Client {
     private Integer idIndustrie;
 
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+
     @Column(name = "id_client", nullable = false, insertable = true, updatable = true)
     public long getIdClient() {
         return idClient;

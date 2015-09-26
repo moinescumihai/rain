@@ -10,7 +10,7 @@ public class UserRole {
     private String role;
 
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+
     @Column(name = "id_role")
     public long getIdRole() {
         return idRole;
@@ -48,9 +48,8 @@ public class UserRole {
         UserRole userRole = (UserRole) o;
 
         if (username != null ? !username.equals(userRole.username) : userRole.username != null) return false;
-        if (role != null ? !role.equals(userRole.role) : userRole.role != null) return false;
+        return !(role != null ? !role.equals(userRole.role) : userRole.role != null);
 
-        return true;
     }
 
     @Override

@@ -2064,3 +2064,7 @@ input[type=file] {
     max-width: 80%;
     margin: 10px;
 }
+
+.fa-1-5x {
+    font-size: 1.5em;
+}

@@ -12,7 +12,6 @@
         [#include "../dialogs/profileForm.ftl"]
     [/@modalForm]
 </body>
-</html>
 
 <script src="/js/jquery-2.1.4.min.js"></script>
 <script src="/js/bootstrap.min.js"></script>
@@ -30,10 +29,12 @@
 <script src="/js/tasks.js"></script>
 <script src="/js/tree.js"></script>
 <script src="/js/tree.min.js"></script>
-<script src="/js/jquery.validate.min.js"></script>
+<script src="/js/jquery.validate.js"></script>
 <script src="/js/additional-methods.min.js"></script>
 <script src="/js/popover.js"></script>
 <script src="/js/slidebars.js"></script>
 <script src="/js/chart.min.js"></script>
 <script src="/js/raindrop.js"></script>
+
+</html>
 [/#macro]

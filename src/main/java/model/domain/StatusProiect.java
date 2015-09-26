@@ -1,12 +1,6 @@
 package model.domain;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.List;
 
 @Entity
@@ -14,9 +8,10 @@ import java.util.List;
 public class StatusProiect {
     private long idStatusProiect;
     private String numeStatus;
+    private List<StatusProiect> statusProiectList;
 
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+
     @Column(name = "id_status_proiect", nullable = false, insertable = true, updatable = true)
     public long getIdStatusProiect() {
         return idStatusProiect;
@@ -36,8 +31,6 @@ public class StatusProiect {
         this.numeStatus = numeStatus;
     }
 
-    private List<StatusProiect> statusProiectList;
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -46,9 +39,8 @@ public class StatusProiect {
         StatusProiect that = (StatusProiect) o;
 
         if (idStatusProiect != that.idStatusProiect) return false;
-        if (numeStatus != null ? !numeStatus.equals(that.numeStatus) : that.numeStatus != null) return false;
+        return !(numeStatus != null ? !numeStatus.equals(that.numeStatus) : that.numeStatus != null);
 
-        return true;
     }
 
     @Override
