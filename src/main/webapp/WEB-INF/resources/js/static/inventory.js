@@ -101,7 +101,7 @@ function generateHistoryTable(idArticol) {
 
     var historyTable = '<div class="wrapper">' +
         '<table class="table table-responsive table-hover"><thead><tr class="text-table-head">' +
-        '<td></td><td>Package</td><td>Assigned to</td><td>Assigned at</td><td>State</td><td>Assigned by</td><td>Assigned on</td>' +
+        '<td></td><td>Pachet</td><td>Atribuit lui</td><td>Atribuit &#238;n</td><td>Stare</td><td>Atribuit de</td><td>Atribuit la</td>' +
         '</tr></thead><tbody>';
     if (history) {
         $.each(history, function (i) {
@@ -228,7 +228,7 @@ function format(row) {
     var persoana = row.idResurseUmane.nume;
     var idStare = row.idStare.idStare;
     var stareIndex = idStare - 1;
-    var stare = row.idStare.numeStare
+    var stare = row.idStare.numeStare;
     var stareIcon = getStareIcon(idStare);
     var dateAdaugare = toJSDateTime(row.creatLa);
     var dateModificare = toJSDateTime(row.modificatLa);
@@ -576,20 +576,20 @@ $(document).ready(function () {
                     formData = new FormData();
                     var image = $('#image-file')[0].files[0];
                     formData.append("imageFile", image);
-                    $.ajax({
-                        type: 'post',
-                        url: '/app/secure/files/upload-inventory-image/' + idStocAdded,
-                        beforeSend: function (xhr) {
-                            xhr.setRequestHeader(header, token);
-                        },
-                        data: formData,
-                        contentType: false,
-                        cache: false,
-                        processData: false,
-                        error: function () {
-                            showNotification("Error uploading item image. Please try again later.", "Error", DANGER);
-                        }
-                    });
+                    //$.ajax({
+                    //    type: 'post',
+                    //    url: '/app/secure/files/upload-inventory-image/' + idStocAdded,
+                    //    beforeSend: function (xhr) {
+                    //        xhr.setRequestHeader(header, token);
+                    //    },
+                    //    data: formData,
+                    //    contentType: false,
+                    //    cache: false,
+                    //    processData: false,
+                    //    error: function () {
+                    //        showNotification("Error uploading item image. Please try again later.", "Error", DANGER);
+                    //    }
+                    //});
                     addStocForm.trigger('reset');
                     $('#modal-addStoc').modal('hide');
                     showNotification(response.message, 'Success', SUCCESS);

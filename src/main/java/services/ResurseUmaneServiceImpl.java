@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.security.acls.model.NotFoundException;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class ResurseUmaneServiceImpl implements ResurseUmaneService {
@@ -26,5 +25,10 @@ public class ResurseUmaneServiceImpl implements ResurseUmaneService {
             LOGGER.error("RESURSE_UMANE.NOT_FOUND", e);
             throw new NotFoundException("RESURSE_UMANE.NOT_FOUND", e);
         }
+    }
+
+    @Override
+    public ResurseUmane findOne(long id) {
+        return resurseUmaneRepository.findOne(id);
     }
 }

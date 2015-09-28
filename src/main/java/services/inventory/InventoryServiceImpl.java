@@ -4,10 +4,7 @@ import com.google.zxing.BarcodeFormat;
 import common.utils.UserUtils;
 import model.common.FileBean;
 import model.domain.*;
-import model.repository.ColetRepository;
-import model.repository.StareStocRepository;
-import model.repository.StocRepository;
-import model.repository.TranzactieStocRepository;
+import model.repository.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +12,8 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.FileCopyUtils;
+import services.ResurseUmaneService;
+import services.files.FilesService;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletResponse;
@@ -30,7 +29,6 @@ import java.util.UUID;
 @Service
 public class InventoryServiceImpl implements InventoryService {
     private static final Logger LOGGER = LoggerFactory.getLogger(InventoryServiceImpl.class);
-    private static final Long STOC_INITIAL_VALUE = 1L;
 
     @Autowired
     private StocRepository stocRepository;
@@ -44,6 +42,17 @@ public class InventoryServiceImpl implements InventoryService {
     private BarcodeService barcodeService;
     @Autowired
     private ColetRepository coletRepository;
+    @Autowired
+    private CategorieStocRepository categorieStocRepository;
+    @Autowired
+    private GrupStocRepository grupStocRepository;
+    @Autowired
+    private LocRepository locRepository;
+    @Autowired
+    private ResurseUmaneService resurseUmaneService;
+    @Autowired
+    private FilesService filesService;
+
 
     @Override
     @Transactional
@@ -57,14 +66,23 @@ public class InventoryServiceImpl implements InventoryService {
     }
 
     @Override
-    public Stoc save(Stoc entity) {
-        entity = saveDefaultStoc(entity);
+    @Transactional
+    public Stoc save(StocFormModel entity) {
+        Stoc stoc = new Stoc();
+        stoc.setIdCategorieStoc(categorieStocRepository.findOne(entity.getIdCategorieStoc()));
+        stoc.setIdGrupStoc(grupStocRepository.findOne(entity.getIdGrupStoc()));
+        stoc.setNumeStoc(entity.getNumeStoc());
+        stoc.setIdStare(stareStocRepository.findOne(1L));
+        stoc.setIdLoc(locRepository.findOne(entity.getIdLoc()));
+        stoc.setDetalii(entity.getDetalii());
+
+        stoc = saveDefaultStoc(stoc);
         Colet colet = new Colet();
         colet.setNumeColet(String.valueOf(UUID.randomUUID()));
         colet = coletRepository.save(colet);
-        buildAndSaveTranzactieStoc(entity, colet);
+        buildAndSaveTranzactieStoc(stoc, colet);
 
-        return entity;
+        return stoc;
     }
 
     @Override
@@ -95,7 +113,9 @@ public class InventoryServiceImpl implements InventoryService {
         String creatDe = UserUtils.getLoggedInUsername();
         entity.setCodStoc(codStoc);
         entity.setCreatDe(creatDe);
-        entity.setIdResurseUmane(ResurseUmane.INITIAL);
+        entity.setFactura(filesService.getStocImage(1L));
+        entity.setImagine(filesService.getStocImage(1L));
+        entity.setIdResurseUmane(resurseUmaneService.findOne(1L));
         entity.setCreatLa(new Timestamp(System.currentTimeMillis()));
 
         return stocRepository.save(entity);

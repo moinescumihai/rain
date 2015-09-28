@@ -90,7 +90,7 @@ public class InventoryRestController {
     @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_SUPERUSER')")
     @RequestMapping(value = "/addstockitem", method = RequestMethod.POST, produces = "application/json")
     @ResponseBody
-    public JSONResponseWithId addStoc(@RequestBody Stoc stoc) {
+    public JSONResponseWithId addStoc(@RequestBody StocFormModel stoc) {
         JSONResponseWithId response = new JSONResponseWithId();
         try {
             Stoc addedStoc = inventoryService.save(stoc);

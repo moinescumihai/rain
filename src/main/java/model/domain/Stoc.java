@@ -25,7 +25,7 @@ public class Stoc {
     private String modificatDe;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_stoc", nullable = false, insertable = true, updatable = true)
     public long getIdStoc() {
         return idStoc;

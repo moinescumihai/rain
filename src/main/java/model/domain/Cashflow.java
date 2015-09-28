@@ -8,8 +8,6 @@ import org.springframework.data.annotation.LastModifiedDate;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.sql.Timestamp;
 
@@ -26,7 +24,7 @@ public class Cashflow {
     private Timestamp modificatLa;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+
     @Column(name = "id_cashflow", nullable = false, insertable = true, updatable = true)
     public long getIdCashflow() {
         return idCashflow;
@@ -135,9 +133,8 @@ public class Cashflow {
         if (creatDe != null ? !creatDe.equals(cashflow.creatDe) : cashflow.creatDe != null) return false;
         if (creatLa != null ? !creatLa.equals(cashflow.creatLa) : cashflow.creatLa != null) return false;
         if (modificatDe != null ? !modificatDe.equals(cashflow.modificatDe) : cashflow.modificatDe != null) return false;
-        if (modificatLa != null ? !modificatLa.equals(cashflow.modificatLa) : cashflow.modificatLa != null) return false;
+        return !(modificatLa != null ? !modificatLa.equals(cashflow.modificatLa) : cashflow.modificatLa != null);
 
-        return true;
     }
 
     @Override

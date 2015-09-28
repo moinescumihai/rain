@@ -21,7 +21,6 @@ public class TranzactieStoc {
     private Timestamp modificatLa;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id_tranzactie_stoc", nullable = false, insertable = true, updatable = true)
     public long getIdTranzactieStoc() {
         return idTranzactieStoc;
@@ -31,7 +30,7 @@ public class TranzactieStoc {
         this.idTranzactieStoc = idTranzactieStoc;
     }
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "id_colet")
     public Colet getIdColet() {
         return idColet;
@@ -41,7 +40,7 @@ public class TranzactieStoc {
         this.idColet = idColet;
     }
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "id_stoc")
     public Stoc getIdStoc() {
         return idStoc;

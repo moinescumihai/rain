@@ -9,7 +9,7 @@ public class GrupStoc {
     private String numeGrup;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+
     @Column(name = "id_grup_stoc", nullable = false, insertable = true, updatable = true)
     public long getIdGrupStoc() {
         return idGrupStoc;
@@ -37,9 +37,8 @@ public class GrupStoc {
         GrupStoc grupStoc = (GrupStoc) o;
 
         if (idGrupStoc != grupStoc.idGrupStoc) return false;
-        if (numeGrup != null ? !numeGrup.equals(grupStoc.numeGrup) : grupStoc.numeGrup != null) return false;
+        return !(numeGrup != null ? !numeGrup.equals(grupStoc.numeGrup) : grupStoc.numeGrup != null);
 
-        return true;
     }
 
     @Override

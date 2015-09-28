@@ -8,7 +8,7 @@ public class Colet {
     private String numeColet;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_colet", nullable = false, insertable = true, updatable = true)
     public long getIdColet() {
         return idColet;
@@ -36,9 +36,8 @@ public class Colet {
         Colet colet = (Colet) o;
 
         if (idColet != colet.idColet) return false;
-        if (numeColet != null ? !numeColet.equals(colet.numeColet) : colet.numeColet != null) return false;
+        return !(numeColet != null ? !numeColet.equals(colet.numeColet) : colet.numeColet != null);
 
-        return true;
     }
 
     @Override

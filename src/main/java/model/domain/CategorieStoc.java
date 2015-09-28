@@ -9,7 +9,7 @@ public class CategorieStoc {
     private String numeCategorie;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+
     @Column(name = "id_categorie_stoc", nullable = false, insertable = true, updatable = true)
     public long getIdCategorieStoc() {
         return idCategorieStoc;
@@ -37,9 +37,8 @@ public class CategorieStoc {
         CategorieStoc that = (CategorieStoc) o;
 
         if (idCategorieStoc != that.idCategorieStoc) return false;
-        if (numeCategorie != null ? !numeCategorie.equals(that.numeCategorie) : that.numeCategorie != null) return false;
+        return !(numeCategorie != null ? !numeCategorie.equals(that.numeCategorie) : that.numeCategorie != null);
 
-        return true;
     }
 
     @Override
