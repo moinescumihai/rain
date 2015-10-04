@@ -37,7 +37,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/"><img style="height:55px;width: auto; display: inline;" src="/img/raindrop-logo.png" class="logo"/></a>
+            <a class="navbar-brand" href="/"><img src="/img/raindrop-logo.png" class="logo"/></a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">

@@ -29,7 +29,7 @@ public interface InventoryService {
 
     List<CategorieStoc> findAllCategorii();
 
-    List<GrupStoc> findAllGrupuri();
+    List<GrupStoc> findAllTipuri();
 
     CategorieStoc saveCategorie(CategorieStoc entity);
 

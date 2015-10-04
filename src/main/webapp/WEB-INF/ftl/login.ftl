@@ -49,8 +49,8 @@
     </div>
 
     <div class="custom-footer">
-        <p><span class="copyright">Copyright &copy; &middot; <span class="green">Raindrop Solutions <span
-                id="an-copyright"></span></span>&nbsp;&bull;&nbsp;<a>[@spring.message "APPTITLE"/]</a></p>
+        <p><span class="copyright">Copyright &copy; &middot; <img src="/img/raindrop-logo.png" class="logo login-logo"/> <span class="green">Raindrop Solutions <span id="an-copyright"></span></span>
+        </p>
     </div>
 
 </div>

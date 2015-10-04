@@ -227,8 +227,8 @@ $(document).ready(function () {
         }
     });
 
+
     addCategoryForm.on('submit', function (e) {
-        e.preventDefault();
         if (!$(this).valid()) {
             return;
         }
@@ -270,6 +270,7 @@ $(document).ready(function () {
                 showNotification("Error. Please try again later.", "Error", ERROR);
             }
         });
+        e.preventDefault();
     });
 
     $(document).on('hidden.bs.modal', '#modal-addCategory', function (e) {

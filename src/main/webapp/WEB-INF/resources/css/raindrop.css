@@ -49,6 +49,7 @@ body {
     z-index: 9999;
     font-weight: bold;
     font-size: 13pt;
+    cursor: default;
 }
 
 *.unselectable {
@@ -1756,6 +1757,9 @@ a.dropdown-carret:focus {
 }
 
 .logo {
+    height: 55px;
+    width: auto;
+    display: inline;
     -webkit-filter: drop-shadow(0 0 2px #000000);
 }
 
@@ -2081,8 +2085,12 @@ form {
 
 .pac-container {
     background-color: #FFF;
-    z-index: 6000;
+    z-index: 6000 !important;
     position: fixed;
     display: inline-block;
     float: left;
+}
+
+.login-logo {
+    height: 35px;
 }

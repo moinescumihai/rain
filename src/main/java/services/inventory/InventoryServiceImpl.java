@@ -246,7 +246,7 @@ public class InventoryServiceImpl implements InventoryService {
     }
 
     @Override
-    public List<GrupStoc> findAllGrupuri() {
+    public List<GrupStoc> findAllTipuri() {
         try {
             return (List<GrupStoc>) grupStocRepository.findAll();
         } catch (DataAccessException e) {

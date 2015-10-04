@@ -53,6 +53,27 @@ public class InventoryRestController {
     }
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_INVENTAR')")
+    @RequestMapping(value = "/getcategories", method = RequestMethod.GET, produces = "application/json")
+    @ResponseBody
+    public List<CategorieStoc> getAllCategorii() {
+        return inventoryService.findAllCategorii();
+    }
+
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_INVENTAR')")
+    @RequestMapping(value = "/gettypes", method = RequestMethod.GET, produces = "application/json")
+    @ResponseBody
+    public List<GrupStoc> getAllTipuri() {
+        return inventoryService.findAllTipuri();
+    }
+
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_INVENTAR')")
+    @RequestMapping(value = "/getplaces", method = RequestMethod.GET, produces = "application/json")
+    @ResponseBody
+    public List<Loc> getAllPlaces() {
+        return inventoryService.findAllLocuri();
+    }
+
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_INVENTAR')")
     @RequestMapping(value = "/getstari", method = RequestMethod.GET, produces = "application/json")
     @ResponseBody
     public List<StareStoc> getAllStari() {
@@ -96,6 +117,36 @@ public class InventoryRestController {
             Stoc addedStoc = inventoryService.save(stoc);
             response.setId(addedStoc.getIdStoc());
             response.setMessage("Added new inventory item: " + stoc.getNumeStoc());
+        } catch (DataAccessException e) {
+            response.setMessage("Item not added");
+        }
+        return response;
+    }
+
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_SUPERUSER')")
+    @RequestMapping(value = "/addcategory", method = RequestMethod.POST, produces = "application/json")
+    @ResponseBody
+    public JSONResponseWithId addCategory(@RequestBody CategorieStoc categorieStoc) {
+        JSONResponseWithId response = new JSONResponseWithId();
+        try {
+            CategorieStoc categorie = inventoryService.saveCategorie(categorieStoc);
+            response.setId(categorie.getIdCategorieStoc());
+            response.setMessage("Added new inventory item: " + categorieStoc.getNumeCategorie());
+        } catch (DataAccessException e) {
+            response.setMessage("Item not added");
+        }
+        return response;
+    }
+
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_SUPERUSER')")
+    @RequestMapping(value = "/addtype", method = RequestMethod.POST, produces = "application/json")
+    @ResponseBody
+    public JSONResponseWithId addType(@RequestBody GrupStocFormModel grupStoc) {
+        JSONResponseWithId response = new JSONResponseWithId();
+        try {
+            GrupStoc tip = inventoryService.saveGrup(grupStoc);
+            response.setId(tip.getIdGrupStoc());
+            response.setMessage("Added new inventory item: " + grupStoc.getNumeGrup());
         } catch (DataAccessException e) {
             response.setMessage("Item not added");
         }
