@@ -2,7 +2,12 @@
 
 !function (a) {
     function b(a, b) {
-        var c = new google.maps.Map(a, b), d = new google.maps.Marker({position: new google.maps.LatLng(54.19335, -3.92695), map: c, title: "Drag Me", draggable: b.draggable});
+        var c = new google.maps.Map(a, b), d = new google.maps.Marker({
+            position: new google.maps.LatLng(54.19335, -3.92695),
+            map: c,
+            title: "Pozitioneaza markerul pentru a alege locul",
+            draggable: b.draggable
+        });
         return {
             map: c,
             marker: d,

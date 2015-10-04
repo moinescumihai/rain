@@ -97,7 +97,7 @@ public class Stoc {
         this.detalii = detalii;
     }
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "factura")
     public Attachment getFactura() {
         return factura;
@@ -107,7 +107,7 @@ public class Stoc {
         this.factura = factura;
     }
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "imagine")
     public Attachment getImagine() {
         return imagine;

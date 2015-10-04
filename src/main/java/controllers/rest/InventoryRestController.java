@@ -116,9 +116,10 @@ public class InventoryRestController {
         try {
             Stoc addedStoc = inventoryService.save(stoc);
             response.setId(addedStoc.getIdStoc());
-            response.setMessage("Added new inventory item: " + stoc.getNumeStoc());
+            response.setMessage("S-a ad&abrev;ugat articolul: " + stoc.getNumeStoc());
         } catch (DataAccessException e) {
-            response.setMessage("Item not added");
+            response.setId(-1);
+            response.setMessage("Articolul nu s-a ad&abrev;ugat");
         }
         return response;
     }
@@ -131,9 +132,10 @@ public class InventoryRestController {
         try {
             CategorieStoc categorie = inventoryService.saveCategorie(categorieStoc);
             response.setId(categorie.getIdCategorieStoc());
-            response.setMessage("Added new inventory item: " + categorieStoc.getNumeCategorie());
+            response.setMessage("S-a ad&abrev;ugat categoria: " + categorieStoc.getNumeCategorie());
         } catch (DataAccessException e) {
-            response.setMessage("Item not added");
+            response.setId(-1);
+            response.setMessage("Categoria nu s-a ad&abreve;ugat");
         }
         return response;
     }
@@ -146,9 +148,26 @@ public class InventoryRestController {
         try {
             GrupStoc tip = inventoryService.saveGrup(grupStoc);
             response.setId(tip.getIdGrupStoc());
-            response.setMessage("Added new inventory item: " + grupStoc.getNumeGrup());
+            response.setMessage("S-a ad&abreve;ugat tipul: " + grupStoc.getNumeGrup());
         } catch (DataAccessException e) {
-            response.setMessage("Item not added");
+            response.setId(-1);
+            response.setMessage("Tipul nu s-a ad&abreve;ugat");
+        }
+        return response;
+    }
+
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_SUPERUSER')")
+    @RequestMapping(value = "/addplace", method = RequestMethod.POST, produces = "application/json")
+    @ResponseBody
+    public JSONResponseWithId addPlace(@RequestBody Loc loc) {
+        JSONResponseWithId response = new JSONResponseWithId();
+        try {
+            Loc saveLoc = inventoryService.saveLoc(loc);
+            response.setId(saveLoc.getIdLoc());
+            response.setMessage("S-a ad&abreve;ugat locul: " + loc.getNumeLoc());
+        } catch (DataAccessException e) {
+            response.setId(-1);
+            response.setMessage("Locul nu s-a ad&abreve;ugat");
         }
         return response;
     }

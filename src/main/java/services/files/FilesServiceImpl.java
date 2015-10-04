@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.ServletContext;
+import javax.transaction.Transactional;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -56,7 +57,7 @@ public class FilesServiceImpl implements FilesService {
     }
 
     @Override
-
+    @Transactional
     public Attachment saveStocImage(long idStoc, MultipartFile imageFile) {
         String pathOnServer = writeFileToDisk(imageFile);
         String originalFilename = imageFile.getOriginalFilename();
