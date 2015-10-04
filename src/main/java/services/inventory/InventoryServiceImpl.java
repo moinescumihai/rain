@@ -29,6 +29,8 @@ import java.util.UUID;
 @Service
 public class InventoryServiceImpl implements InventoryService {
     private static final Logger LOGGER = LoggerFactory.getLogger(InventoryServiceImpl.class);
+    private static final byte ON = 1;
+    private static final byte OFF = 0;
 
     @Autowired
     private StocRepository stocRepository;
@@ -207,5 +209,57 @@ public class InventoryServiceImpl implements InventoryService {
         }
 
         return "success";
+    }
+
+    @Override
+    public List<Loc> findAllLocuri() {
+        try {
+            return (List<Loc>) locRepository.findAll();
+        } catch (DataAccessException e) {
+            LOGGER.error("INVENTAR.NO_LOCURI", e);
+            return Collections.emptyList();
+        }
+    }
+
+    @Override
+    public Loc saveLoc(Loc entity) {
+        return locRepository.save(entity);
+    }
+
+    @Override
+    public List<CategorieStoc> findAllCategorii() {
+        try {
+            return (List<CategorieStoc>) categorieStocRepository.findAll();
+        } catch (DataAccessException e) {
+            LOGGER.error("INVENTAR.NO_CATEGORII", e);
+            return Collections.emptyList();
+        }
+    }
+
+    @Override
+    public CategorieStoc saveCategorie(CategorieStoc entity) {
+        entity.setEsteSubcategorie(OFF);
+        if (entity.getIdCategorieParinte() > 0) {
+            entity.setEsteSubcategorie(ON);
+        }
+        return categorieStocRepository.save(entity);
+    }
+
+    @Override
+    public List<GrupStoc> findAllGrupuri() {
+        try {
+            return (List<GrupStoc>) grupStocRepository.findAll();
+        } catch (DataAccessException e) {
+            LOGGER.error("INVENTAR.NO_GRUP", e);
+            return Collections.emptyList();
+        }
+    }
+
+    @Override
+    public GrupStoc saveGrup(GrupStocFormModel entity) {
+        GrupStoc grupStoc = new GrupStoc();
+        grupStoc.setIdCategorieStoc(categorieStocRepository.findOne(entity.getIdCategorieStoc()));
+        grupStoc.setNumeGrup(entity.getNumeGrup());
+        return grupStocRepository.save(grupStoc);
     }
 }

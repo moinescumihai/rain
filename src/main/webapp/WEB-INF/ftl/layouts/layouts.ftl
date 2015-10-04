@@ -32,7 +32,6 @@
 <script src="/js/jquery.validate.js"></script>
 <script src="/js/additional-methods.min.js"></script>
 <script src="/js/popover.js"></script>
-<script src="/js/slidebars.js"></script>
 <script src="/js/chart.min.js"></script>
 <script src="/js/raindrop.js"></script>
 

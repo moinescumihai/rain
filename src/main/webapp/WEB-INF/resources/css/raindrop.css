@@ -2068,3 +2068,21 @@ input[type=file] {
 .fa-1-5x {
     font-size: 1.5em;
 }
+
+form {
+    margin-bottom: 0;
+}
+
+.location-picker {
+    width: 400px;
+    height: 300px;
+    left: 17px;
+}
+
+.pac-container {
+    background-color: #FFF;
+    z-index: 6000;
+    position: fixed;
+    display: inline-block;
+    float: left;
+}

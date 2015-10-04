@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ArtifactManager">
     <artifact type="exploded-war" build-on-make="true" name="rain:war exploded">
-      <output-path>$PROJECT_DIR$/target/artifacts/rain_war_exploded</output-path>
+      <output-path>$PROJECT_DIR$/target/rain</output-path>
       <root id="root">
         <element id="directory" name="WEB-INF">
           <element id="directory" name="classes">
@@ -11,6 +11,7 @@
           <element id="directory" name="lib">
             <element id="library" level="project" name="Maven: org.springframework:spring-context:4.1.7.RELEASE" />
             <element id="library" level="project" name="Maven: org.springframework:spring-core:4.1.7.RELEASE" />
+            <element id="library" level="project" name="Maven: commons-logging:commons-logging:1.2" />
             <element id="library" level="project" name="Maven: org.springframework:spring-expression:4.1.7.RELEASE" />
             <element id="library" level="project" name="Maven: org.springframework:spring-beans:4.1.7.RELEASE" />
             <element id="library" level="project" name="Maven: org.springframework:spring-aop:4.1.7.RELEASE" />
@@ -41,14 +42,6 @@
             <element id="library" level="project" name="Maven: log4j:log4j:1.2.15" />
             <element id="library" level="project" name="Maven: junit:junit:4.11" />
             <element id="library" level="project" name="Maven: org.hamcrest:hamcrest-core:1.3" />
-            <element id="library" level="project" name="Maven: org.hibernate:hibernate-core:5.0.1.Final" />
-            <element id="library" level="project" name="Maven: org.jboss.logging:jboss-logging:3.3.0.Final" />
-            <element id="library" level="project" name="Maven: org.apache.geronimo.specs:geronimo-jta_1.1_spec:1.1.1" />
-            <element id="library" level="project" name="Maven: org.hibernate.javax.persistence:hibernate-jpa-2.1-api:1.0.0.Final" />
-            <element id="library" level="project" name="Maven: antlr:antlr:2.7.7" />
-            <element id="library" level="project" name="Maven: org.jboss:jandex:1.2.2.Final" />
-            <element id="library" level="project" name="Maven: dom4j:dom4j:1.6.1" />
-            <element id="library" level="project" name="Maven: xml-apis:xml-apis:1.0.b2" />
             <element id="library" level="project" name="Maven: org.javassist:javassist:3.19.0-GA" />
             <element id="library" level="project" name="Maven: javax.servlet:jstl:1.2" />
             <element id="library" level="project" name="Maven: taglibs:standard:1.1.2" />
@@ -57,18 +50,16 @@
             <element id="library" level="project" name="Maven: mysql:mysql-connector-java:5.1.30" />
             <element id="library" level="project" name="Maven: commons-fileupload:commons-fileupload:1.3.1" />
             <element id="library" level="project" name="Maven: commons-io:commons-io:2.4" />
-            <element id="library" level="project" name="Maven: org.hibernate.common:hibernate-commons-annotations:5.0.0.Final" />
             <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-databind:2.2.3" />
             <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-core:2.2.3" />
             <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-annotations:2.2.3" />
             <element id="library" level="project" name="Maven: org.codehaus.jackson:jackson-mapper-asl:1.8.3" />
             <element id="library" level="project" name="Maven: org.codehaus.jackson:jackson-core-asl:1.8.3" />
             <element id="library" level="project" name="Maven: javax.validation:validation-api:1.1.0.Final" />
-            <element id="library" level="project" name="Maven: org.hibernate:hibernate-validator:5.2.1.Final" />
-            <element id="library" level="project" name="Maven: com.fasterxml:classmate:1.1.0" />
             <element id="library" level="project" name="Maven: com.google.zxing:core:3.1.0" />
             <element id="library" level="project" name="Maven: com.google.zxing:javase:3.1.0" />
             <element id="library" level="project" name="Maven: joda-time:joda-time:2.3" />
+            <element id="library" level="project" name="Maven: javax:javaee-api:7.0" />
             <element id="library" level="project" name="Maven: org.glassfish:javax.json:1.0.2" />
             <element id="library" level="project" name="Maven: org.mockito:mockito-all:1.10.19" />
             <element id="library" level="project" name="Maven: org.apache.poi:poi:3.9" />
@@ -77,13 +68,33 @@
             <element id="library" level="project" name="Maven: org.apache.commons:commons-lang3:3.1" />
             <element id="library" level="project" name="Maven: commons-collections:commons-collections:3.2.1" />
             <element id="library" level="project" name="Maven: com.zaxxer:HikariCP:2.3.7" />
+            <element id="library" level="project" name="Maven: org.hibernate:hibernate-core:5.0.1.Final" />
+            <element id="library" level="project" name="Maven: org.jboss.logging:jboss-logging:3.3.0.Final" />
+            <element id="library" level="project" name="Maven: org.apache.geronimo.specs:geronimo-jta_1.1_spec:1.1.1" />
+            <element id="library" level="project" name="Maven: org.hibernate.javax.persistence:hibernate-jpa-2.1-api:1.0.0.Final" />
+            <element id="library" level="project" name="Maven: antlr:antlr:2.7.7" />
+            <element id="library" level="project" name="Maven: org.jboss:jandex:1.2.2.Final" />
+            <element id="library" level="project" name="Maven: dom4j:dom4j:1.6.1" />
+            <element id="library" level="project" name="Maven: xml-apis:xml-apis:1.0.b2" />
             <element id="library" level="project" name="Maven: org.hibernate:hibernate-entitymanager:5.0.1.Final" />
+            <element id="library" level="project" name="Maven: org.hibernate:hibernate-validator:5.2.1.Final" />
+            <element id="library" level="project" name="Maven: com.fasterxml:classmate:1.1.0" />
+            <element id="library" level="project" name="Maven: org.hibernate.common:hibernate-commons-annotations:5.0.0.Final" />
             <element id="library" level="project" name="Maven: org.springframework.data:spring-data-jpa:1.8.0.RELEASE" />
             <element id="library" level="project" name="Maven: org.springframework.data:spring-data-commons:1.10.0.RELEASE" />
             <element id="library" level="project" name="Maven: org.aspectj:aspectjrt:1.8.5" />
           </element>
         </element>
+        <element id="directory" name="META-INF">
+          <element id="file-copy" path="$PROJECT_DIR$/target/rain/META-INF/MANIFEST.MF" />
+        </element>
         <element id="javaee-facet-resources" facet="rain/web/Web" />
+      </root>
+    </artifact>
+    <artifact type="war" name="rain:war">
+      <output-path>$PROJECT_DIR$/target</output-path>
+      <root id="archive" name="rain.war">
+        <element id="artifact" artifact-name="rain:war exploded" />
       </root>
     </artifact>
   </component>
@@ -125,7 +136,7 @@
     </bytecodeTargetLevel>
   </component>
   <component name="CopyrightManager" default="" />
-  <component name="DataSourceManagerImpl" format="xml" hash="1975384743">
+  <component name="DataSourceManagerImpl" format="xml" hash="1109356864">
     <data-source source="LOCAL" name="MySQL - raindrop@localhost" uuid="f438a555-b6d9-40f7-9d51-6f5e20757093">
       <driver-ref>mysql</driver-ref>
       <synchronize>true</synchronize>
@@ -146,6 +157,7 @@
     <file url="file://$PROJECT_DIR$/src/main/java/controllers/rest/InventoryRestController.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java/controllers/rest/ProfileRestController.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java/controllers/rest/ProjectsRestController.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/ftl/inventory.ftl" charset="UTF-8" />
   </component>
   <component name="EntryPointsManager">
     <entry_points version="2.0" />
@@ -654,6 +666,10 @@
     <option name="USE_PROJECT_PROFILE" value="true" />
     <version value="1.0" />
   </component>
+  <component name="JRebel Project data">
+    <option name="privateKey" value="3082025c02010002818100980845c0645653058691c1e1d8a7d1992198625b6cfbcd65106f59bba5ca3e0f9486325b7b793aeeefd2ca3e8baaafa3fd0cd8863c2ce346a2790e76498917b7cf8fd01754223b60fcfcb5ff7285a54d5da745a3584074800947688c06923c633847afac4aeb84d741df3746a237ae9591115a97b1c5049b3d8ae20c94e67625020301000102818068623da9f3fa45346509cca9c93ca82f509eb4e17af98433a0ce23393082a48bc3f943b80615dd7dd251d324907697f3ab39d7ac8ac27325bb460cc4f0865d2e78d658188f4dd9befc924407167e703b65a69559e275c65696bf409560ac4446ae7b85fead096b4d80ec54c2fb29e2159154e12ccbb3ee7c297e73567e7515a1024100e1682fc594f8335039a22b6bc22d38afbc4a296431805415949c0cd41a24d9740d4506a74b938a721da597af548573dbb5bbb880ddf81541d1803ed1ed62032d024100acaaaae3f9c8b8d387176d63925d9bd7e22738b978c1ee67b5141712e7a5071d8dd20806028bd28db750fdb37d124eeff9f685d51994b952cfac99c4a787f9d90241008895b95ce088058ff75c6d333ed6682314d55b7f7aff67f42bb8e38d22ca717a01107297ad141a304c06ab837293eb40973ec8ee4d92a64edbc3fa4cfaab098102406169d00bda6a61cc05153483ce99bd48a8b094121f8cd9e1ec892f135d58ff90aee865da6e29505adfa773da859f84a56312b022afd1f654401212969e25dad1024017ee244f91f95a28718f6e6b11e97bd4c627ca6e17585cf11a45d9c705a923a367c5ae9004164aad97223d07d4be80c75021c39e6513c87f6269091ea20e3612" />
+    <option name="publicKey" value="30818902818100980845c0645653058691c1e1d8a7d1992198625b6cfbcd65106f59bba5ca3e0f9486325b7b793aeeefd2ca3e8baaafa3fd0cd8863c2ce346a2790e76498917b7cf8fd01754223b60fcfcb5ff7285a54d5da745a3584074800947688c06923c633847afac4aeb84d741df3746a237ae9591115a97b1c5049b3d8ae20c94e676250203010001" />
+  </component>
   <component name="MavenProjectsManager">
     <option name="originalFiles">
       <list>
@@ -1035,6 +1051,17 @@
       </JAVADOC>
       <SOURCES>
         <root url="jar://$MAVEN_REPOSITORY$/commons-lang/commons-lang/2.6/commons-lang-2.6-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Maven: commons-logging:commons-logging:1.2">
+      <CLASSES>
+        <root url="jar://$MAVEN_REPOSITORY$/commons-logging/commons-logging/1.2/commons-logging-1.2.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar://$MAVEN_REPOSITORY$/commons-logging/commons-logging/1.2/commons-logging-1.2-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar://$MAVEN_REPOSITORY$/commons-logging/commons-logging/1.2/commons-logging-1.2-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: commons-pool:commons-pool:1.5.4">

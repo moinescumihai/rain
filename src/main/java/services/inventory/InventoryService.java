@@ -1,9 +1,6 @@
 package services.inventory;
 
-import model.domain.StareStoc;
-import model.domain.Stoc;
-import model.domain.StocFormModel;
-import model.domain.TranzactieStoc;
+import model.domain.*;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
@@ -26,4 +23,15 @@ public interface InventoryService {
 
     String downloadBarcode(String barcode, HttpServletResponse response);
 
+    List<Loc> findAllLocuri();
+
+    Loc saveLoc(Loc entity);
+
+    List<CategorieStoc> findAllCategorii();
+
+    List<GrupStoc> findAllGrupuri();
+
+    CategorieStoc saveCategorie(CategorieStoc entity);
+
+    GrupStoc saveGrup(GrupStocFormModel entity);
 }

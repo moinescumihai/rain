@@ -70,6 +70,15 @@
 </div>
 [/#macro]
 
+[#macro inputReadOnly id name label size="3"]
+<div class="form-group col-md-${size}">
+    <label for="${id}">[@spring.message label/]</label>
+    <input type="text" class="form-control input-sm" id="${id}" name="${name}" title="[@spring.message label /]" required="true" readonly>
+
+    <div id="${name}-error" class="help-block"></div>
+</div>
+[/#macro]
+
 [#macro emailInput id name label placeholder value="" size="3"]
 <div class="form-group col-md-${size}">
     <label for="${id}">[@spring.message label/]</label>

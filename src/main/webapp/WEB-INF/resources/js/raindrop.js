@@ -306,13 +306,13 @@ $(document).ready(function () {
         weekStart: 1
     });
 
-    rightSlidebar = new $.slidebars();
-    document.documentElement.addEventListener("mousemove", function (event) {
-        var screenEdge = screen.width - 20;
-        if (event.pageX > screenEdge) {
-            rightSlidebar.slidebars.open('right');
-        }
-    });
+    //rightSlidebar = new $.slidebars();
+    //document.documentElement.addEventListener("mousemove", function (event) {
+    //    var screenEdge = screen.width - 20;
+    //    if (event.pageX > screenEdge) {
+    //        rightSlidebar.slidebars.open('right');
+    //    }
+    //});
 
     $('a').on('click', function () {
         var linkLocation = $($(this).attr('href')).offset();
