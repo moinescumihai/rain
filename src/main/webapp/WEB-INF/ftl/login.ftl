@@ -28,7 +28,7 @@
 <div>
     <div id="content">
         <form class="login-form" name='loginForm' action="/login?${_csrf.parameterName}=${_csrf.token}" method="POST">
-            <h1>[@spring.message "WELCOME"/]</h1>
+            <h1><img src="/img/raindrop-logo.png" class="logo login-logo"/>  [@spring.message "APPTITLE"/]</h1>
         [#if error?? && error == true]
             <div class="error">[@spring.message "LOGINERROR" /]</div>
         [/#if]
@@ -49,7 +49,7 @@
     </div>
 
     <div class="custom-footer">
-        <p><span class="copyright">Copyright &copy; &middot; <img src="/img/raindrop-logo.png" class="logo login-logo"/> <span class="green">Raindrop Solutions <span id="an-copyright"></span></span>
+        <p><span class="copyright">Copyright &copy; &middot; <span class="green">Raindrop Solutions <span id="an-copyright"></span></span>
         </p>
     </div>
 

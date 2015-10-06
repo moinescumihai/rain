@@ -10,10 +10,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.ServletContext;
-import javax.transaction.Transactional;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -36,7 +36,7 @@ public class FilesServiceImpl implements FilesService {
     public String writeFileToDisk(MultipartFile file) {
         byte[] bytes;
         String originalFileName = file.getOriginalFilename();
-        String fileName = String.format("%s.%s", RandomStringUtils.randomAlphanumeric(8), originalFileName.substring(originalFileName.lastIndexOf(".")));
+        String fileName = String.format("%s.%s", RandomStringUtils.randomAlphanumeric(8), originalFileName.substring(originalFileName.lastIndexOf(".") - 1));
         String contextDirName = System.getProperty("catalina.home") + File.separator + "attachments";
         File dir = new File(contextDirName);
         if (!dir.exists()) {

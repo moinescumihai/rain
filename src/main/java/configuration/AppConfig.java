@@ -26,6 +26,7 @@ import org.springframework.web.servlet.view.ContentNegotiatingViewResolver;
 import org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver;
 import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 
+import java.io.File;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
@@ -48,7 +49,7 @@ public class AppConfig extends WebMvcConfigurerAdapter {
         registry.addResourceHandler("/fonts/**").addResourceLocations("/WEB-INF/resources/fonts/");
         registry.addResourceHandler("/swf/**").addResourceLocations("/WEB-INF/resources/swf/");
         registry.addResourceHandler("/barcode/**").addResourceLocations("/WEB-INF/resources/barcode/");
-        registry.addResourceHandler("/files/**").addResourceLocations("/WEB-INF/resources/files/");
+        registry.addResourceHandler("/files/**").addResourceLocations("file:///" + System.getProperty("catalina.home") + File.separator + "attachments" + File.separator);
         registry.addResourceHandler("/static/**").addResourceLocations("/WEB-INF/resources/static/");
     }
 
