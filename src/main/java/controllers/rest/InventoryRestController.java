@@ -116,10 +116,10 @@ public class InventoryRestController {
         try {
             Stoc addedStoc = inventoryService.save(stoc);
             response.setId(addedStoc.getIdStoc());
-            response.setMessage("S-a ad&abrev;ugat articolul: " + stoc.getNumeStoc());
+            response.setMessage("S-a ad&abreve;ugat articolul: " + stoc.getNumeStoc());
         } catch (DataAccessException e) {
             response.setId(-1);
-            response.setMessage("Articolul nu s-a ad&abrev;ugat");
+            response.setMessage("Articolul nu s-a ad&abreve;ugat");
         }
         return response;
     }
@@ -132,7 +132,7 @@ public class InventoryRestController {
         try {
             CategorieStoc categorie = inventoryService.saveCategorie(categorieStoc);
             response.setId(categorie.getIdCategorieStoc());
-            response.setMessage("S-a ad&abrev;ugat categoria: " + categorieStoc.getNumeCategorie());
+            response.setMessage("S-a ad&abreve;ugat categoria: " + categorieStoc.getNumeCategorie());
         } catch (DataAccessException e) {
             response.setId(-1);
             response.setMessage("Categoria nu s-a ad&abreve;ugat");
