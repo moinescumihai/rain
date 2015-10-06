@@ -10,5 +10,5 @@ import java.util.List;
 public interface StocRepository extends CrudRepository<Stoc, Long> {
     List<Stoc> findAllByDeletedEquals(Integer deleted);
 
-    List<Stoc> findAllByIdResurseUmaneEquals(ResurseUmane resurseUmane);
+    List<Stoc> findAllByIdResurseUmaneAndDeleted(ResurseUmane resurseUmane, Integer deleted);
 }

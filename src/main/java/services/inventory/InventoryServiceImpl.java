@@ -71,7 +71,7 @@ public class InventoryServiceImpl implements InventoryService {
     public List<Stoc> findItemsForUser() {
         ResurseUmane user = resurseUmaneService.findByUsername(UserUtils.getLoggedInUsername());
         try {
-            return stocRepository.findAllByIdResurseUmaneEquals(user);
+            return stocRepository.findAllByIdResurseUmaneAndDeleted(user, 0);
         } catch (DataAccessException e) {
             LOGGER.error("INVENTAR.NO_INVENTORY_ITEMS", e);
             return Collections.emptyList();

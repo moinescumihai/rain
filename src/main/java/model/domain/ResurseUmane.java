@@ -358,6 +358,11 @@ public class ResurseUmane {
         this.modificatLa = modificatLa;
     }
 
+
+    @Transient
+    public String getFullName() {
+        return getNume() + " " + getPrenume();
+    }
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
