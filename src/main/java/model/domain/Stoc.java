@@ -19,6 +19,7 @@ public class Stoc {
     private String detalii;
     private Attachment factura;
     private Attachment imagine;
+    private Integer deleted;
     private String creatDe;
     private Timestamp creatLa;
     private Timestamp modificatLa;
@@ -175,5 +176,15 @@ public class Stoc {
 
     public void setIdLoc(Loc idLoc) {
         this.idLoc = idLoc;
+    }
+
+    @Basic
+    @Column(name = "deleted", nullable = true, insertable = true, updatable = true, columnDefinition = "INT(1) default 0")
+    public Integer getDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(Integer deleted) {
+        this.deleted = deleted;
     }
 }

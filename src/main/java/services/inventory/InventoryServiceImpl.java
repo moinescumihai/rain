@@ -60,7 +60,18 @@ public class InventoryServiceImpl implements InventoryService {
     @Transactional
     public List<Stoc> findAllItems() {
         try {
-            return (List<Stoc>) stocRepository.findAll();
+            return stocRepository.findAllByDeletedEquals(0);
+        } catch (DataAccessException e) {
+            LOGGER.error("INVENTAR.NO_INVENTORY_ITEMS", e);
+            return Collections.emptyList();
+        }
+    }
+
+    @Override
+    public List<Stoc> findItemsForUser() {
+        ResurseUmane user = resurseUmaneService.findByUsername(UserUtils.getLoggedInUsername());
+        try {
+            return stocRepository.findAllByIdResurseUmaneEquals(user);
         } catch (DataAccessException e) {
             LOGGER.error("INVENTAR.NO_INVENTORY_ITEMS", e);
             return Collections.emptyList();
@@ -261,5 +272,12 @@ public class InventoryServiceImpl implements InventoryService {
         grupStoc.setIdCategorieStoc(categorieStocRepository.findOne(entity.getIdCategorieStoc()));
         grupStoc.setNumeGrup(entity.getNumeGrup());
         return grupStocRepository.save(grupStoc);
+    }
+
+    @Override
+    public Stoc removeStoc(Long idStoc) {
+        Stoc stoc = stocRepository.findOne(idStoc);
+        stoc.setDeleted(1);
+        return stocRepository.save(stoc);
     }
 }

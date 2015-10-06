@@ -24,7 +24,7 @@
 </div>
 [/#macro]
 
-[#macro selectBox id name label placeholder="SELECT.PLACEHOLDER" noResultsText="SEARCH.NO_RESULTS" size="3"]
+[#macro selectBox id name label placeholder="SELECT.PLACEHOLDER" noResultsText="SEARCH.NO_RESULTS" size="4"]
 <div class="form-group col-md-${size}">
     <label for="${id}">[@spring.message label /]</label>
     <select data-placeholder="[@spring.message placeholder /]" data-no_results_text="[@spring.message noResultsText/]"
@@ -221,7 +221,7 @@
 </div>
 [/#macro]
 
-[#macro largeModalForm name title action submitLabel icon]
+[#macro largeModalForm name title action submitLabel icon btnIcon="plus-square-o" btnClass="primary"]
 <div id="${name}" class="modal fade">
     <div class="modal-dialog modal-mlg">
         <div class="modal-content">
@@ -234,7 +234,7 @@
                     [#nested]
                 </div>
                 <div class="modal-footer">
-                    [@buttonSubmit name submitLabel "primary" "plus-square-o" /]
+                    [@buttonSubmit name submitLabel btnClass btnIcon /]
                     [@buttonCloseModal name "MODAL.CLOSEDIALOG"/]
                 </div>
             </form>

@@ -1,13 +1,17 @@
 package services.inventory;
 
 import model.domain.*;
+import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
+@Service
 public interface InventoryService {
 
     List<Stoc> findAllItems();
+
+    List<Stoc> findItemsForUser();
 
     Stoc save(StocFormModel entity);
 
@@ -34,4 +38,7 @@ public interface InventoryService {
     CategorieStoc saveCategorie(CategorieStoc entity);
 
     GrupStoc saveGrup(GrupStocFormModel entity);
+
+    Stoc removeStoc(Long idStoc);
+
 }

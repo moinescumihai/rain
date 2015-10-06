@@ -16,6 +16,10 @@
       <configuration>
         <fileset id="fileset" name="Spring Application Context" removed="false">
           <file>file://$MODULE_DIR$/src/main/java/configuration/AppConfig.java</file>
+          <file>file://$MODULE_DIR$/src/main/java/configuration/DatasourceConfig.java</file>
+          <file>file://$MODULE_DIR$/src/main/java/configuration/FreemarkerConfig.java</file>
+          <file>file://$MODULE_DIR$/src/main/java/configuration/WebSecurityConfig.java</file>
+          <file>file://$MODULE_DIR$/src/main/java/configuration/WebSocketConfig.java</file>
         </fileset>
       </configuration>
     </facet>

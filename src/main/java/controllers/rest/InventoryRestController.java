@@ -1,5 +1,6 @@
 package controllers.rest;
 
+import common.utils.UserUtils;
 import model.common.JSONResponseWithId;
 import model.domain.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,7 +50,13 @@ public class InventoryRestController {
     @RequestMapping(value = "/getinventory", method = RequestMethod.GET, produces = "application/json")
     @ResponseBody
     public List<Stoc> getAllStockItems() {
-        return inventoryService.findAllItems();
+        List<Stoc> items;
+        if (UserUtils.isUserInRole("ROLE_ADMIN") || UserUtils.isUserInRole("ROLE_SUPERUSER")) {
+            items = inventoryService.findAllItems();
+        } else {
+            items = inventoryService.findItemsForUser();
+        }
+        return items;
     }
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_INVENTAR')")
@@ -177,6 +184,22 @@ public class InventoryRestController {
     @ResponseBody
     public Loc getLoc(@PathVariable Long idLoc) {
         return locService.findById(idLoc);
+    }
+
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_SUPERUSER')")
+    @RequestMapping(value = "/removestockitem/{idStoc}", method = RequestMethod.GET, produces = "application/json")
+    @ResponseBody
+    public JSONResponseWithId removeStoc(@PathVariable Long idStoc) {
+        JSONResponseWithId response = new JSONResponseWithId();
+        try {
+            Stoc stoc = inventoryService.removeStoc(idStoc);
+            response.setId(stoc.getIdStoc());
+            response.setMessage("S-a &#x219;ters articolul: " + stoc.getNumeStoc());
+        } catch (Exception e) {
+            response.setId(-1);
+            response.setMessage("Articolul nu s-a &#x219;ters");
+        }
+        return response;
     }
 
 }

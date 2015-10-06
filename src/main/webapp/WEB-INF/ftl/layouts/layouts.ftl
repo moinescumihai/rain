@@ -7,14 +7,13 @@
     [#nested]
     </div>
     [#include "footer.ftl"/]
-    [#include "rightSidebar.ftl"/]
     [@modalForm "modal-userProfile" "MODAL.USERPROFILE" "/app/secure/profile/" "SAVE.CHANGES" "user"]
         [#include "../dialogs/profileForm.ftl"]
     [/@modalForm]
 </body>
 
 <script src="/plugins/DataTables/datatables.js"></script>
-<script src="/js/bootstrap.min.js"></script>
+[#--<script src="/js/bootstrap.min.js"></script>--]
 <script src="/js/bootstrap.file-input.js"></script>
 <script src="/js/bootstrap-modalmanager.js"></script>
 <script src="/js/bootstrap-modal.js"></script>
