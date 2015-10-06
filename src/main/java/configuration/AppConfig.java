@@ -50,7 +50,7 @@ public class AppConfig extends WebMvcConfigurerAdapter {
         registry.addResourceHandler("/swf/**").addResourceLocations("/WEB-INF/resources/swf/");
         registry.addResourceHandler("/barcode/**").addResourceLocations("/WEB-INF/resources/barcode/");
         registry.addResourceHandler("/files/**").addResourceLocations("file:///" + System.getProperty("catalina.home") + File.separator + "attachments" + File.separator);
-        registry.addResourceHandler("/static/**").addResourceLocations("/WEB-INF/resources/static/");
+        registry.addResourceHandler("/plugins/**").addResourceLocations("/WEB-INF/resources/plugins/");
     }
 
     @Override

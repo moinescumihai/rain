@@ -70,6 +70,10 @@
 </div>
 [/#macro]
 
+[#macro hiddenInput id name]
+<input type="text" id="${id}" name="${name}" hidden="hidden">
+[/#macro]
+
 [#macro inputReadOnly id name label size="3"]
 <div class="form-group col-md-${size}">
     <label for="${id}">[@spring.message label/]</label>
@@ -173,7 +177,7 @@
 </div>
 [/#macro]
 
-[#macro smallModalForm name title action submitLabel icon]
+[#macro smallModalForm name title action submitLabel icon btnIcon]
 <div id="${name}" class="modal fade">
     <div class="modal-dialog modal-sm">
         <div class="modal-content">
@@ -186,7 +190,7 @@
                     [#nested]
                 </div>
                 <div class="modal-footer">
-                    [@buttonSubmit name submitLabel "primary" "plus-square-o" /]
+                    [@buttonSubmit name submitLabel "primary" btnIcon /]
                     [@buttonCloseModal name "MODAL.CLOSEDIALOG"/]
                 </div>
             </form>
@@ -195,7 +199,7 @@
 </div>
 [/#macro]
 
-[#macro modalForm name title action submitLabel icon]
+[#macro modalForm name title action submitLabel icon btnIcon="plus-square-o" btnClass="primary"]
 <div id="${name}" class="modal fade">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -208,7 +212,7 @@
                     [#nested]
                 </div>
                 <div class="modal-footer">
-                    [@buttonSubmit name submitLabel "primary" "plus-square-o" /]
+                    [@buttonSubmit name submitLabel btnClass btnIcon /]
                     [@buttonCloseModal name "MODAL.CLOSEDIALOG"/]
                 </div>
             </form>

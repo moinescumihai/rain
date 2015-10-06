@@ -9,6 +9,17 @@ var UNSELECT = [];
 var ZERO = 0;
 var chosenUpdated = 'chosen:updated';
 var rightSlidebar;
+
+$.extend($.fn.dataTable.defaults, {
+    "aLengthMenu": [[5, 10, 25, 50, 100, -1], [5, 10, 25, 50, 100, "Toate"]],
+    stateSave: true,
+    fixedHeader: true,
+    select: 'single',
+    "language": {
+        "url": '/fonts/ro_RO.txt'
+    }
+});
+
 var popoverDefaultSettings = {
     placement: 'bottom',//values: auto,top,right,bottom,left,top-right,top-left,bottom-right,bottom-left,auto-top,auto-right,auto-bottom,auto-left
     width: 'auto',//can be set with  number
@@ -33,6 +44,17 @@ var popoverDefaultSettings = {
     closeable: false,//display close button or not
     padding: true//content padding
 };
+
+function generateFormattedDate(date) {
+    if (date) {
+        var year = date.getFullYear();
+        var month = date.getMonth() <= 8 ? '0' + (date.getMonth() + 1) : (date.getMonth() + 1);
+        var day = date.getDate() <= 9 ? '0' + date.getDate() : date.getDate();
+        return day + '-' + month + '-' + year;
+    } else {
+        return '';
+    }
+}
 
 function hideModal() {
     $('.modal.in').modal('hide');
@@ -306,28 +328,10 @@ $(document).ready(function () {
         weekStart: 1
     });
 
-    //rightSlidebar = new $.slidebars();
-    //document.documentElement.addEventListener("mousemove", function (event) {
-    //    var screenEdge = screen.width - 20;
-    //    if (event.pageX > screenEdge) {
-    //        rightSlidebar.slidebars.open('right');
-    //    }
-    //});
-
     $('a').on('click', function () {
         var linkLocation = $($(this).attr('href')).offset();
         if (linkLocation)
             $('html,body').animate({scrollTop: linkLocation.top}, "10000", 'linear');
-    });
-
-    $.extend($.fn.dataTable.defaults, {
-        "aLengthMenu": [[5, 10, 25, 50, 100, -1], [5, 10, 25, 50, 100, "Toate"]],
-        stateSave: true,
-        fixedHeader: true,
-        select: 'single',
-        "language": {
-            "url": '/fonts/ro_RO.txt'
-        }
     });
 
     var profileModalForm = $('#modal-userProfile-form');
@@ -392,7 +396,7 @@ $(document).ready(function () {
         }
     });
 
-    $(document).on('show.bs.modal', '#modal-userProfile', function () {
+    $(document).on('shown.bs.modal', '#modal-userProfile', function () {
         getProfile();
     });
 

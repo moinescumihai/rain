@@ -2094,3 +2094,16 @@ form {
 .login-logo {
     height: 35px;
 }
+
+.selected {
+    background-color: lightskyblue;
+}
+
+.selected:hover {
+    background-color: rgba(135, 206, 250, 0.66) !important;
+}
+
+.break-word {
+    word-break: break-all;
+    word-wrap: break-word;
+}

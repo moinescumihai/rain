@@ -13,7 +13,7 @@
     [/@modalForm]
 </body>
 
-<script src="/js/jquery-2.1.4.min.js"></script>
+<script src="/plugins/DataTables/datatables.js"></script>
 <script src="/js/bootstrap.min.js"></script>
 <script src="/js/bootstrap.file-input.js"></script>
 <script src="/js/bootstrap-modalmanager.js"></script>
@@ -21,9 +21,6 @@
 <script src="/js/jquery-ui.min.js"></script>
 <script src="/js/bootstrap-datepicker.js"></script>
 <script src="/js/chosen.jquery.js"></script>
-<script src="/js/dataTables.min.js"></script>
-<script src="/js/dataTables-bootstrap.js"></script>
-<script src="/js/dataTables-tools.js"></script>
 <script src="/js/toastr.js"></script>
 <script src="/js/dropzone.js"></script>
 <script src="/js/tasks.js"></script>
