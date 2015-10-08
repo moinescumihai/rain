@@ -183,7 +183,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">[@spring.message "MODAL.CLOSEDIALOG"/]</span></button>
-                <h4 class="modal-title"><span class="fa fa-${icon}">&nbsp;</span>[@spring.message title /]</h4>
+                <h4 class="modal-title"><span class="fa fa-${icon}">&nbsp;</span>[@spring.message title /]&nbsp;<span class="custom-modal-title"></span></h4>
             </div>
             <form id="${name}-form" action="${action}">
                 <div class="modal-body">
@@ -205,7 +205,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">[@spring.message "MODAL.CLOSEDIALOG"/]</span></button>
-                <h4 class="modal-title"><span class="fa fa-${icon}">&nbsp;</span>[@spring.message title /]</h4>
+                <h4 class="modal-title"><span class="fa fa-${icon}">&nbsp;</span>[@spring.message title /]&nbsp;<span class="custom-modal-title"></span></h4>
             </div>
             <form id="${name}-form" action="${action}">
                 <div class="modal-body">
@@ -227,7 +227,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">[@spring.message "MODAL.CLOSEDIALOG"/]</span></button>
-                <h4 class="modal-title"><span class="fa fa-${icon}">&nbsp;</span>[@spring.message title /]</h4>
+                <h4 class="modal-title"><span class="fa fa-${icon}">&nbsp;</span>[@spring.message title /]&nbsp;<span class="custom-modal-title"></span></h4>
             </div>
             <form id="${name}-form" action="${action}">
                 <div class="modal-body">
@@ -278,9 +278,9 @@
 <div class="col-md-${size} small-dropzone text-center">
     <label class="image-label">[@spring.message label /]</label>
 
-    <div class="image_preview"><img class="previewing" src="/img/noimageplaceholder.png"/></div>
-    <div id="selectImage">
-        <input type="file" data-filename-placement="inside" id="${fileName}" name="${fileName}">
+    <div class="image_preview"><img id="preview-${fileName}" class="previewing" src="/img/noimageplaceholder.png"/></div>
+    <div class="selectImage">
+        <input class="img-selector" type="file" data-filename-placement="inside" id="${fileName}" name="${fileName}">
 
         <div class="image-message"></div>
     </div>

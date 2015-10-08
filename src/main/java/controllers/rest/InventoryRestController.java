@@ -81,6 +81,13 @@ public class InventoryRestController {
     }
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_INVENTAR')")
+    @RequestMapping(value = "/getpersoane", method = RequestMethod.GET, produces = "application/json")
+    @ResponseBody
+    public List<ResurseUmane> getAllPersoane() {
+        return inventoryService.findAllPersoane();
+    }
+
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_INVENTAR')")
     @RequestMapping(value = "/getstari", method = RequestMethod.GET, produces = "application/json")
     @ResponseBody
     public List<StareStoc> getAllStari() {
@@ -99,6 +106,13 @@ public class InventoryRestController {
     @ResponseBody
     public TranzactieStoc getTranzactie(@PathVariable Long idArticol) {
         return inventoryService.findLastTranzactieForArticol(idArticol);
+    }
+
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_INVENTAR')")
+    @RequestMapping(value = "/articol/{idArticol}", method = RequestMethod.GET, produces = "application/json")
+    @ResponseBody
+    public Stoc getArticol(@PathVariable Long idArticol) {
+        return inventoryService.findArticol(idArticol);
     }
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_INVENTAR')")

@@ -17,6 +17,8 @@ public interface InventoryService {
 
     Stoc update(Stoc entity);
 
+    Stoc findArticol(Long idArticol);
+
     List<StareStoc> findAllStari();
 
     TranzactieStoc findLastTranzactieForArticol(Long idArticol);
@@ -34,6 +36,8 @@ public interface InventoryService {
     List<CategorieStoc> findAllCategorii();
 
     List<GrupStoc> findAllTipuri();
+
+    List<ResurseUmane> findAllPersoane();
 
     CategorieStoc saveCategorie(CategorieStoc entity);
 

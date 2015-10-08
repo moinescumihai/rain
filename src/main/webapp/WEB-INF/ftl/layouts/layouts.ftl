@@ -2,6 +2,7 @@
 [#assign security=JspTaglibs["http://www.springframework.org/security/tags"] /]
 [#include "../formMacros.ftl"]
 [#macro basic]
+<div id="overlay"></div>
     [#include "header.ftl"/]
     <div id="sb-site">
     [#nested]
@@ -13,7 +14,6 @@
 </body>
 
 <script src="/plugins/DataTables/datatables.js"></script>
-[#--<script src="/js/bootstrap.min.js"></script>--]
 <script src="/js/bootstrap.file-input.js"></script>
 <script src="/js/bootstrap-modalmanager.js"></script>
 <script src="/js/bootstrap-modal.js"></script>
@@ -23,7 +23,6 @@
 <script src="/js/toastr.js"></script>
 <script src="/js/dropzone.js"></script>
 <script src="/js/tasks.js"></script>
-<script src="/js/tree.js"></script>
 <script src="/js/tree.min.js"></script>
 <script src="/js/jquery.validate.js"></script>
 <script src="/js/additional-methods.min.js"></script>

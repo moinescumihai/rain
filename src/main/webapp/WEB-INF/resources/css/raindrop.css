@@ -2109,3 +2109,14 @@ form {
     word-break: break-all;
     word-wrap: break-word;
 }
+
+#overlay {
+    display: none;
+    z-index: 1000000000;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, .5) url('/img/spinner.gif') center center no-repeat;
+}

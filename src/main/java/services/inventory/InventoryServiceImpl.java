@@ -146,6 +146,11 @@ public class InventoryServiceImpl implements InventoryService {
     }
 
     @Override
+    public Stoc findArticol(Long idArticol) {
+        return stocRepository.findOne(idArticol);
+    }
+
+    @Override
     public TranzactieStoc findLastTranzactieForArticol(Long idArticol) {
         try {
             Stoc stoc = stocRepository.findOne(idArticol);
@@ -265,6 +270,11 @@ public class InventoryServiceImpl implements InventoryService {
             LOGGER.error("INVENTAR.NO_GRUP", e);
             return Collections.emptyList();
         }
+    }
+
+    @Override
+    public List<ResurseUmane> findAllPersoane() {
+        return resurseUmaneService.findAllPersoane();
     }
 
     @Override

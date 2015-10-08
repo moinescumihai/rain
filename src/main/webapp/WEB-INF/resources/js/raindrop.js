@@ -45,6 +45,13 @@ var popoverDefaultSettings = {
     padding: true//content padding
 };
 
+function startSpinner() {
+    $("#overlay").show();
+}
+function stopSpinner() {
+    $("#overlay").hide();
+}
+
 function generateFormattedDate(date) {
     if (date) {
         var year = date.getFullYear();
