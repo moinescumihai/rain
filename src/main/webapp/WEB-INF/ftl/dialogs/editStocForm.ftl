@@ -8,7 +8,7 @@
         [@embedableSelectBox "editStoc-form-idLoc" "idLoc" "INVENTAR.LOC" "SELECT.PLACEHOLDER" "SEARCH.NO_RESULTS"]
         [/@embedableSelectBox]
     [/@elementWithLink]
-    [@pictureUpload "image-file" "STOC.PICTURE"/]
+    [@pictureUpload "image-file-update" "STOC.PICTURE"/]
     [@rowBreak/]
     [@elementWithLink "modal-addCategory" "MODAL.ADDCATEGORY" "4"]
         [@embedableSelectBox "editStoc-form-idCategorieStoc" "idCategorieStoc" "INVENTAR.CATEGORIE" "SELECT.PLACEHOLDER" "SEARCH.NO_RESULTS"]

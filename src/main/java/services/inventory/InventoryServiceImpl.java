@@ -125,6 +125,7 @@ public class InventoryServiceImpl implements InventoryService {
         String codStoc = String.valueOf(UUID.randomUUID());
         String creatDe = UserUtils.getLoggedInUsername();
         entity.setCodStoc(codStoc);
+        entity.setDeleted(0);
         entity.setCreatDe(creatDe);
         entity.setFactura(filesService.getStocImage(1L));
         entity.setImagine(filesService.getStocImage(1L));
