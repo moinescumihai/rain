@@ -1,10 +1,13 @@
 package model.domain;
 
-import javax.persistence.*;
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 
 @Entity
 public class Client {
-    private int idClient;
+    private long idClient;
     private String numeClient;
     private String website;
     private String email;
@@ -18,13 +21,13 @@ public class Client {
     private Integer idIndustrie;
 
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+
     @Column(name = "id_client", nullable = false, insertable = true, updatable = true)
-    public int getIdClient() {
+    public long getIdClient() {
         return idClient;
     }
 
-    public void setIdClient(int idClient) {
+    public void setIdClient(long idClient) {
         this.idClient = idClient;
     }
 
@@ -140,8 +143,9 @@ public class Client {
 
     @Override
     public boolean equals(Object o) {
+
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof Client)) return false;
 
         Client client = (Client) o;
 
@@ -156,14 +160,13 @@ public class Client {
         if (judet != null ? !judet.equals(client.judet) : client.judet != null) return false;
         if (codPostal != null ? !codPostal.equals(client.codPostal) : client.codPostal != null) return false;
         if (idTara != null ? !idTara.equals(client.idTara) : client.idTara != null) return false;
-        if (idIndustrie != null ? !idIndustrie.equals(client.idIndustrie) : client.idIndustrie != null) return false;
+        return !(idIndustrie != null ? !idIndustrie.equals(client.idIndustrie) : client.idIndustrie != null);
 
-        return true;
     }
 
     @Override
     public int hashCode() {
-        int result = idClient;
+        int result = (int) (idClient ^ (idClient >>> 32));
         result = 31 * result + (numeClient != null ? numeClient.hashCode() : 0);
         result = 31 * result + (website != null ? website.hashCode() : 0);
         result = 31 * result + (email != null ? email.hashCode() : 0);

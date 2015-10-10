@@ -1,12 +1,12 @@
 var addProjectForm = $('#modal-addProiect-form');
 var addClientForm = $('#modal-addClient-form');
 var addCategoryForm = $('#modal-addCategory-form');
+var projectsTable;
 
 function getClients() {
     var clientsSelect = $('#addProject-form-client');
     clientsSelect.html(EMPTY);
     clientsSelect.append("<option></option>");
-    clientsSelect.append($("<option>").val("0").text('Internal project'));
     $.ajax({
         type: 'get',
         url: '/app/secure/projects/getclients',
@@ -33,8 +33,6 @@ function getCategories() {
     parentCategoriesSelect.html(EMPTY);
     categoriesSelect.append("<option></option>");
     parentCategoriesSelect.append("<option></option>");
-    categoriesSelect.append($("<option>").val("0").text('UNCATEGORISED'));
-    parentCategoriesSelect.append($("<option>").val("0").text('UNCATEGORISED'));
     $.ajax({
         type: 'get',
         url: '/app/secure/projects/getcategories',
@@ -57,8 +55,8 @@ function getCategories() {
 }
 
 function deleteProject(id) {
-    var token = $("meta[name='_csrf']").attr("content");
-    var header = $("meta[name='_csrf_header']").attr("content");
+    var token = $("meta[name='_csrf']").prop("content");
+    var header = $("meta[name='_csrf_header']").prop("content");
 
     $.ajax({
         method: 'get',
@@ -79,9 +77,15 @@ function deleteProject(id) {
 function getProjects() {
     var projectContainer = $('#project-container');
     projectContainer.empty();
-    var token = $("meta[name='_csrf']").attr("content");
-    var header = $("meta[name='_csrf_header']").attr("content");
-
+    var token = $("meta[name='_csrf']").prop("content");
+    var header = $("meta[name='_csrf_header']").prop("content");
+    var tableHeader = '<table id="project-table" class="table table-hover table-responsive">'
+        + '<thead><tr class="text-table-head">'
+        + '<td>Name</td>'
+        + '<td>Category</td>'
+        + '<td>Start Date</td>'
+        + '<td>End Date</td>'
+        + '</tr></thead><tbody>';
     $.ajax({
         method: 'get',
         dataType: "json",
@@ -90,26 +94,69 @@ function getProjects() {
             xhr.setRequestHeader(header, token);
         },
         success: function (response) {
-            var items = [];
+            var rows = [];
             var projectString;
             if (response.length <= 0) {
-                items.push('<h2><a class="text-muted"> No projects are defined </a></h2>');
+                projectContainer.html('<div class="panel text-center"><div class="panel-body"><h2><span class="text-muted"> No projects are defined, use the ' + $('#addProiect-open').parent().html() + '  button to define new projects</span></h2></div></div>');
+                return;
             }
             $.each(response, function (i, proj) {
                 var idProiect = proj.idProiect;
                 var numeProiect = proj.numeProiect;
-                var dataEnd = toJSDate(proj.dataEndEstimativa);
-                var dataStart = toJSDate(proj.dataStart);
-                projectString = '<div id="proiect-item' + idProiect + '" class="project-item panel"><div class="panel-body">'
-                    + '<div class="col-sm-3"><a id="project-options' + idProiect + '" tabindex="0" class="popup-marker" data-load="idProiect=' + idProiect
-                    + '" data-placement="bottom"><span class="fa fa-th-list">&nbsp;&nbsp;</span></a>'
-                    + '<span id="proiect-nume-' + idProiect + '" class="proiect-nume">' + numeProiect + '</span></div>'
-                    + '<div class="col-sm-9"><p id="proiect-data-start-' + idProiect + '" class="proiect-date"> Started: ' + dataStart + '</p>'
-                    + '<p id="proiect-data-end-' + idProiect + '" class="proiect-date"> Deadline: ' + dataEnd + '</p>'
-                    + '</div></div></div>';
-                items.push(projectString);
+                var categorie = proj.idCategorieProiect;
+                var dataNow = new Date();
+                var dataEnd = toJSDateTime(proj.dataEndEstimativa);
+                var dataStart = toJSDateTime(proj.dataStart);
+                var isOverdue = dataNow > new Date(proj.dataEndEstimativa);
+                var overdue = '';
+                if (isOverdue && proj.idStatusProiect == '3') {
+                    overdue = '<span class="fa fa-exclamation-circle text-danger" data-toggle="tooltip" data-placement="bottom" title="Project is overdue">&nbsp;</span>';
+                }
+                projectString = '<tr id="proiect-item' + idProiect + '" class="project-item"><td>'
+                    + '<a id="project-options' + idProiect + '" tabindex="0" role="button" class="btn-xs popup-marker" data-load="idProiect=' + idProiect
+                    + '" data-placement="bottom"><span class="fa fa-sliders"></span></a>'
+                    + '&nbsp;&nbsp;<span id="proiect-nume-' + idProiect + '" class="proiect-nume">' + overdue + numeProiect + '</span></td>'
+                    + '<td>' + categorie + '</td>'
+                    + '<td><p id="proiect-data-start-' + idProiect + '" class="proiect-date"> ' + dataStart + '</p></td>'
+                    + '<td><p id="proiect-data-end-' + idProiect + '" class="proiect-date"> ' + dataEnd + '</p>'
+                    + '</td></tr>';
+                rows.push(projectString);
             });
-            projectContainer.html(items.join(''));
+            var tableFooter = '</tbody></table>';
+            projectContainer.html(tableHeader + rows.join('') + tableFooter);
+            projectsTable = $('#project-table').DataTable({
+                "sDom": 'ltipr',
+                "columns": [
+                    {
+                        "bSortable": true,
+                        "orderable": true,
+                        "searchable": true
+                    }, {
+                        "bSortable": true,
+                        "orderable": true,
+                        "searchable": true
+                    },
+                    {
+                        "bSortable": false,
+                        "orderable": false,
+                        "searchable": true
+                    },
+                    {
+                        "bSortable": false,
+                        "orderable": false,
+                        "searchable": true
+                    }
+                ]
+
+            });
+            $("#project-search").on('keyup', function () {
+                projectsTable.search(this.value).draw();
+            });
+
+            $('[data-toggle="tooltip"]').tooltip();
+        },
+        error: function () {
+
         }
     });
 
@@ -123,65 +170,42 @@ $(document).ready(function () {
     getCategories();
 
     $('body').on('mouseover', '.project-item', function () {
-        $(this).find('a.popup-marker').webuiPopover({
-            placement: 'bottom',//values: auto,top,right,bottom,left,top-right,top-left,bottom-right,bottom-left,auto-top,auto-right,auto-bottom,auto-left
-            width: 'auto',//can be set with  number
-            height: 'auto',//can be set with  number
-            trigger: 'hover',//values:  click,hover,manual
-            style: '',//values:'',inverse
-            constrains: null, // constrains the direction when placement is  auto,  values: horizontal,vertical
-            animation: 'pop', //pop with animation,values: pop,fade (only take effect in the browser which support css3 transition)
-            delay: {//show and hide delay time of the popover, works only when trigger is 'hover',the value can be number or object
-                show: null,
-                hide: 500
-            },
-            async: {
-                before: function (that, xhr) {
-                },//executed before ajax request
-                success: function (that, data) {
-                }//executed after successful ajax request
-            },
-            cache: false,//if cache is set to false,popover will destroy and recreate
-            multi: false,//allow other popovers in page at same time
-            arrow: true,//show arrow or not
-            title: '',//the popover title ,if title is set to empty string,title bar will auto hide
-            closeable: false,//display close button or not
-            padding: true,//content padding
-            type: 'html',//content type, values:'html','iframe','async'
-            url: '',//if not empty ,plugin will load content by url
-            content: function (e) {
-                var retValue;
-                var data = $($(this)[0]).data('load').split('=');
-                var idProject = data[1];
-                retValue = '<div class="popover-left-column"><ul class="poject-options">'
-                    + '<li><a><span class="fa fa-cog fa-fw">&nbsp;</span>&nbsp; Settings</a></li>'
-                    + '<li><a><span class="fa fa-pencil fa-fw">&nbsp;</span>&nbsp; Edit</a></li>'
-                    + '<li><a><span class="fa fa-child fa-fw">&nbsp;</span>&nbsp; People</a></li>'
-                    + '<li><a><span class="fa fa-paperclip fa-fw">&nbsp;</span>&nbsp; Files</a></li>'
-                    + '<li><a id="pop-proj-del-' + idProject + '"><span class="fa fa-trash-o fa-fw">&nbsp;</span>&nbsp; Delete</a></li>'
-                    + '<li><a><span class="fa fa-archive fa-fw">&nbsp;</span>&nbsp; Archive</a></li>'
-                    + '<li><a><span class="fa fa-line-chart fa-fw">&nbsp;</span>&nbsp; Report</a></li>'
-                    + '</ul></div>'
-                    + '<div class="popover-right-column"><ul class="poject-options">'
-                    + '<li><a><span class="fa fa-history fa-fw">&nbsp;</span>&nbsp; Timeline</a></li>'
-                    + '<li><a><span class="fa fa-tasks fa-fw">&nbsp;</span>&nbsp; Tasks</a></li>'
-                    + '<li><a><span class="fa fa-bookmark-o fa-fw">&nbsp;</span>&nbsp; Milestones</a></li>'
-                    + '<li><a><span class="fa fa-envelope-o fa-fw">&nbsp;</span>&nbsp; Messages</a></li>'
-                    + '<li><a><span class="fa fa-bomb fa-fw">&nbsp;</span>&nbsp; Risks</a></li>'
-                    + '</ul></div>';
+        $(this).find('a.popup-marker').webuiPopover($.extend({}, popoverDefaultSettings, {
+                    type: 'html',//content type, values:'html','iframe','async'
+                    url: '',//if not empty ,plugin will load content by url
+                    title: '',//the popover title ,if title is set to empty string,title bar will auto hide
+                    content: function (e) {
+                        var retValue;
+                        var data = $($(this)[0]).data('load').split('=');
+                        var idProject = data[1];
+                        retValue = '<div class="popover-left-column"><ul class="popover-options">'
+                            + '<li><a><span class="fa fa-group fa-fw">&nbsp;</span>&nbsp; People</a></li>'
+                            + '<li><a><span class="fa fa-tasks fa-fw">&nbsp;</span>&nbsp; Tasks</a></li>'
+                            + '<li><a><span class="fa fa-bookmark-o fa-fw">&nbsp;</span>&nbsp; Milestones</a></li>'
+                            + '<li><a><span class="fa fa-bomb fa-fw">&nbsp;</span>&nbsp; Risks</a></li>'
+                            + '<li><a><span class="fa fa-archive fa-fw">&nbsp;</span>&nbsp; Archive</a></li>'
+                            + '</ul></div>'
+                            + '<div class="popover-right-column"><ul class="popover-options">'
+                            + '<li><a><span class="fa fa-cog fa-fw">&nbsp;</span>&nbsp; Settings</a></li>'
+                            + '<li><a><span class="fa fa-paperclip fa-fw">&nbsp;</span>&nbsp; Files</a></li>'
+                            + '<li><a><span class="fa fa-line-chart fa-fw">&nbsp;</span>&nbsp; Report</a></li>'
+                            + '<li><a id="pop-proj-del-' + idProject + '"><span class="fa fa-trash-o fa-fw">&nbsp;</span>&nbsp; Delete</a></li>'
+                            + '</ul></div>';
 
-                return retValue;
-            }
-        });
+                        return retValue;
+                    }
+                }
+            )
+        )
     });
 
     $('body').on('click', 'a[id^="pop-proj-del-"]', function (e) {
-        var idProject = $(this).attr('id').replace('pop-proj-del-', '');
+        var idProject = $(this).prop('id').replace('pop-proj-del-', '');
         confirmModal('delete-project-confirm-' + idProject, 'Are you sure you want to delete this project?');
     });
 
     $('body').on('click', 'button[id^=delete-project-confirm-]', function (e) {
-        var idProject = $(this).attr('id').replace('delete-project-confirm-', '');
+        var idProject = $(this).prop('id').replace('delete-project-confirm-', '');
         var modalConfirm;
         idProject = idProject.replace('-yes', '');
         modalConfirm = $('#delete-project-confirm-' + idProject);
@@ -203,13 +227,13 @@ $(document).ready(function () {
         }
     });
 
+
     addCategoryForm.on('submit', function (e) {
-        e.preventDefault();
         if (!$(this).valid()) {
             return;
         }
-        var token = $("meta[name='_csrf']").attr("content");
-        var header = $("meta[name='_csrf_header']").attr("content");
+        var token = $("meta[name='_csrf']").prop("content");
+        var header = $("meta[name='_csrf_header']").prop("content");
 
         var nume = $('#addCategory-form-nume').val();
         var idCategorieParinte = $('#addCategory-form-categorie-parinte').val();
@@ -221,7 +245,7 @@ $(document).ready(function () {
 
         $.ajax({
             type: 'post',
-            url: $(this).attr('action'),
+            url: $(this).prop('action'),
             beforeSend: function (xhr) {
                 xhr.setRequestHeader(header, token);
             },
@@ -246,6 +270,7 @@ $(document).ready(function () {
                 showNotification("Error. Please try again later.", "Error", ERROR);
             }
         });
+        e.preventDefault();
     });
 
     $(document).on('hidden.bs.modal', '#modal-addCategory', function (e) {
@@ -282,8 +307,8 @@ $(document).ready(function () {
         if (!$(this).valid()) {
             return;
         }
-        var token = $("meta[name='_csrf']").attr("content");
-        var header = $("meta[name='_csrf_header']").attr("content");
+        var token = $("meta[name='_csrf']").prop("content");
+        var header = $("meta[name='_csrf_header']").prop("content");
 
         var numeClient = $('#addClient-form-nume').val();
         var website = $('#addClient-form-website').val();
@@ -304,7 +329,7 @@ $(document).ready(function () {
 
         $.ajax({
             type: 'post',
-            url: $(this).attr('action'),
+            url: $(this).prop('action'),
             beforeSend: function (xhr) {
                 xhr.setRequestHeader(header, token);
             },
@@ -352,8 +377,8 @@ $(document).ready(function () {
         if (!$(this).valid()) {
             return;
         }
-        var token = $("meta[name='_csrf']").attr("content");
-        var header = $("meta[name='_csrf_header']").attr("content");
+        var token = $("meta[name='_csrf']").prop("content");
+        var header = $("meta[name='_csrf_header']").prop("content");
 
         var numeProiect = $('#addProject-form-nume').val();
         var idStatusProiect = $('#addProject-form-status').val();
@@ -371,7 +396,7 @@ $(document).ready(function () {
 
         $.ajax({
             type: 'post',
-            url: $(this).attr('action'),
+            url: $(this).prop('action'),
             beforeSend: function (xhr) {
                 xhr.setRequestHeader(header, token);
             },

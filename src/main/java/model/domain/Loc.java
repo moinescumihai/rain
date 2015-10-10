@@ -1,12 +1,10 @@
 package model.domain;
 
-import javax.persistence.*;
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 
-/**
- * @author Ciprian on 7/4/2015.
- *         <p>
- *         rain
- */
 @Entity
 public class Loc {
     private long idLoc;
@@ -15,7 +13,7 @@ public class Loc {
     private String longitude;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+
     @Column(name = "id_loc", nullable = false, insertable = true, updatable = true)
     public long getIdLoc() {
         return idLoc;
@@ -65,9 +63,8 @@ public class Loc {
         if (idLoc != loc.idLoc) return false;
         if (numeLoc != null ? !numeLoc.equals(loc.numeLoc) : loc.numeLoc != null) return false;
         if (latitude != null ? !latitude.equals(loc.latitude) : loc.latitude != null) return false;
-        if (longitude != null ? !longitude.equals(loc.longitude) : loc.longitude != null) return false;
+        return !(longitude != null ? !longitude.equals(loc.longitude) : loc.longitude != null);
 
-        return true;
     }
 
     @Override

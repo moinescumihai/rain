@@ -6,11 +6,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
-import org.springframework.data.jpa.repository.Lock;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.LockModeType;
 import java.util.Collections;
 import java.util.List;
 
@@ -24,10 +21,9 @@ public class ProjectsServiceImpl implements ProjectsService {
     private ProiectRepository proiectRepository;
 
     @Override
-    @Transactional
     public List<Proiect> findAll() {
         try {
-            return (List<Proiect>) proiectRepository.findAllByDeletedEquals(NOT_DELETED);
+            return proiectRepository.findAllByDeletedEquals(NOT_DELETED);
         } catch (DataAccessException e) {
             LOGGER.error("PROJECTS.NO_PROJECTS", e);
             return Collections.emptyList();
@@ -35,7 +31,6 @@ public class ProjectsServiceImpl implements ProjectsService {
     }
 
     @Override
-    @Transactional
     public Proiect findOne(long id) {
         Proiect proiect;
         try {
@@ -49,15 +44,11 @@ public class ProjectsServiceImpl implements ProjectsService {
     }
 
     @Override
-    @Transactional
-    @Lock(LockModeType.READ)
     public Proiect save(Proiect entity) {
         return proiectRepository.save(entity);
     }
 
     @Override
-    @Transactional
-    @Lock(LockModeType.READ)
     public void delete(long id) {
         Proiect proiect;
         try {
@@ -72,8 +63,6 @@ public class ProjectsServiceImpl implements ProjectsService {
     }
 
     @Override
-    @Transactional
-    @Lock(LockModeType.READ)
     public long emptyTrash() {
         List<Proiect> toDelete;
         try {

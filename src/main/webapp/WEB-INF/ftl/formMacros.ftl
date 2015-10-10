@@ -11,20 +11,20 @@
 </div>
 [/#macro]
 
-[#macro tabPaneContainer]
+[#macro modalContainer]
 <div class="container container-modal">
     [#nested]
 </div>
 [/#macro]
 
 [#macro elementWithLink target label size="6"]
-<div class="col-md-${size}">
+<div class="form-group col-md-${size}">
     [#nested]
     <a data-toggle="modal" data-target="#${target}" class="small form-link">[@spring.message label /]</a>
 </div>
 [/#macro]
 
-[#macro selectBox id name label placeholder="SELECT.PLACEHOLDER" noResultsText="SEARCH.NO_RESULTS" size="3"]
+[#macro selectBox id name label placeholder="SELECT.PLACEHOLDER" noResultsText="SEARCH.NO_RESULTS" size="4"]
 <div class="form-group col-md-${size}">
     <label for="${id}">[@spring.message label /]</label>
     <select data-placeholder="[@spring.message placeholder /]" data-no_results_text="[@spring.message noResultsText/]"
@@ -35,6 +35,29 @@
 
     <div id="${name}-error" class="help-block"></div>
 </div>
+[/#macro]
+
+[#macro embedableSelectBox id name label placeholder="SELECT.PLACEHOLDER" noResultsText="SEARCH.NO_RESULTS"]
+    <label for="${id}">[@spring.message label /]</label>
+    <select data-placeholder="[@spring.message placeholder /]" data-no_results_text="[@spring.message noResultsText/]"
+            class="chosen-select" id="${id}" name="${name}" title="[@spring.message label /]" required="true">
+        <option></option>
+        [#nested]
+    </select>
+
+    <div id="${name}-error" class="help-block"></div>
+[/#macro]
+
+[#macro adminEmbedableSelectBox id name label placeholder="SELECT.PLACEHOLDER" noResultsText="SEARCH.NO_RESULTS"]
+<label for="${id}">[@spring.message label /]</label>
+<select data-placeholder="[@spring.message placeholder /]" data-no_results_text="[@spring.message noResultsText/]"
+        class="chosen-select" id="${id}" name="${name}" title="[@spring.message label /]" required="true"
+    [@security.authorize access="!hasAnyRole('ROLE_ADMIN')"] readonly[/@security.authorize]>
+    <option></option>
+    [#nested]
+</select>
+
+<div id="${name}-error" class="help-block"></div>
 [/#macro]
 
 [#macro selectBoxMulti id name label placeholder="SELECT.MULTI.PLACEHOLDER" noResultsText="SEARCH.NO_RESULTS" size="3"]
@@ -59,6 +82,29 @@
 </div>
 [/#macro]
 
+[#macro hiddenInput id name]
+<input type="text" id="${id}" name="${name}" hidden="hidden">
+[/#macro]
+
+[#macro adminInput id name label placeholder value="" size="3"]
+<div class="form-group col-md-${size}">
+    <label for="${id}">[@spring.message label/]</label>
+    <input type="text" class="form-control input-sm" id="${id}" name="${name}" title="[@spring.message label /]" placeholder="[@spring.message placeholder /]" value="${value}" required="true"
+        [@security.authorize access="!hasAnyRole('ROLE_ADMIN')"] readonly[/@security.authorize] >
+
+    <div id="${name}-error" class="help-block"></div>
+</div>
+[/#macro]
+
+[#macro inputReadOnly id name label size="3"]
+<div class="form-group col-md-${size}">
+    <label for="${id}">[@spring.message label/]</label>
+    <input type="text" class="form-control input-sm" id="${id}" name="${name}" title="[@spring.message label /]" required="true" readonly>
+
+    <div id="${name}-error" class="help-block"></div>
+</div>
+[/#macro]
+
 [#macro emailInput id name label placeholder value="" size="3"]
 <div class="form-group col-md-${size}">
     <label for="${id}">[@spring.message label/]</label>
@@ -72,8 +118,8 @@
 <div class="form-group col-md-${size}">
     <label for="${id}">[@spring.message label/]</label>
 
-    <div class="input-group date date-picker">
-        <input type="text" class="form-control input-sm" id="${id}" name="${name}" placeholder="[@spring.message placeholder /]" title="[@spring.message label /]"
+    <div class="input-group date">
+        <input type="text" class="form-control input-sm date-picker" id="${id}" name="${name}" placeholder="[@spring.message placeholder /]" title="[@spring.message label /]"
                data-date-format="yyyy-mm-dd" required>
         <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
     </div>
@@ -119,15 +165,23 @@
 [/#macro]
 
 [#macro buttonCloseModal name label type="default" icon="times"]
-<button type="button" id="${name}-close" name="${name}" title="[@spring.message label /]" class="btn btn-${type}" data-dismiss="modal"><i
+<button type="reset" id="${name}-close" name="${name}" title="[@spring.message label /]" class="btn btn-${type}" data-dismiss="modal"><i
         class="fa fa-${icon}"></i>&nbsp;&nbsp;[@spring.message label /]
 </button>
 [/#macro]
 
 [#macro buttonOpenModal name label modal type="success" icon="plus-square-o"]
-<button type="button" id="${name}-open" name="${name}" title="[@spring.message label /]" class="btn btn-${type}" data-toggle="modal" data-target="#${modal}"><i
-        class="fa fa-${icon}"></i>&nbsp;&nbsp;[@spring.message label /]
-</button>
+<div class="sidebar-button col-md-7">
+    <button type="button" id="${name}-open" name="${name}" title="[@spring.message label /]" class="btn btn-${type} full-width" data-toggle="modal" data-target="#${modal}">
+        <i class="fa fa-${icon}"></i>&nbsp;&nbsp;[@spring.message label /]
+    </button>
+</div>
+[/#macro]
+
+[#macro listItemOpenModal name label modal icon]
+<a id="${name}-open" name="${name}" title="[@spring.message label /]" data-toggle="modal" data-target="#${modal}" class="list-group-item">
+    <i class="fa fa-fw fa-${icon}"></i>&nbsp;&nbsp;[@spring.message label /]
+</a>
 [/#macro]
 
 [#macro form name action method="post" enctype="application/x-www-form-urlencoded" size="3"]
@@ -138,27 +192,71 @@
 </div>
 [/#macro]
 
-[#macro infobox name text]
-<div class="well-sm infobox">
+[#macro infobox name text additionalClass=""]
+<div class="well-sm infobox ${additionalClass}">
     <span class="fa fa-info-circle"></span>
     <span class="small text-justify">[@spring.message text /]</span>
 </div>
 [/#macro]
 
-[#macro modalForm name title action submitLabel icon]
+[#macro smallModalForm name title action submitLabel icon btnIcon]
 <div id="${name}" class="modal fade">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-sm">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">[@spring.message "MODAL.CLOSEDIALOG"/]</span></button>
-                <h4 class="modal-title"><span class="fa fa-${icon}">&nbsp;</span>[@spring.message title /]</h4>
+                <h4 class="modal-title"><span class="fa fa-${icon}">&nbsp;</span>[@spring.message title /]&nbsp;<span class="custom-modal-title"></span></h4>
             </div>
             <form id="${name}-form" action="${action}">
                 <div class="modal-body">
                     [#nested]
                 </div>
                 <div class="modal-footer">
-                    [@buttonSubmit name submitLabel "primary" "plus-square-o" /]
+                    [@buttonSubmit name submitLabel "primary" btnIcon /]
+                    [@buttonCloseModal name "MODAL.CLOSEDIALOG"/]
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+[/#macro]
+
+[#macro modalForm name title action submitLabel icon btnIcon="plus-square-o" btnClass="primary"]
+<div id="${name}" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">[@spring.message "MODAL.CLOSEDIALOG"/]</span></button>
+                <h4 class="modal-title"><span class="fa fa-${icon}">&nbsp;</span>[@spring.message title /]&nbsp;<span class="custom-modal-title"></span></h4>
+            </div>
+            <form id="${name}-form" action="${action}">
+                <div class="modal-body">
+                    [#nested]
+                </div>
+                <div class="modal-footer">
+                    [@buttonSubmit name submitLabel btnClass btnIcon /]
+                    [@buttonCloseModal name "MODAL.CLOSEDIALOG"/]
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+[/#macro]
+
+[#macro largeModalForm name title action submitLabel icon btnIcon="plus-square-o" btnClass="primary"]
+<div id="${name}" class="modal fade">
+    <div class="modal-dialog modal-mlg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">[@spring.message "MODAL.CLOSEDIALOG"/]</span></button>
+                <h4 class="modal-title"><span class="fa fa-${icon}">&nbsp;</span>[@spring.message title /]&nbsp;<span class="custom-modal-title"></span></h4>
+            </div>
+            <form id="${name}-form" action="${action}">
+                <div class="modal-body">
+                    [#nested]
+                </div>
+                <div class="modal-footer">
+                    [@buttonSubmit name submitLabel btnClass btnIcon /]
                     [@buttonCloseModal name "MODAL.CLOSEDIALOG"/]
                 </div>
             </form>
@@ -180,10 +278,33 @@
 [#macro ajaxDataTable id]
 <table id="${id}" class="table dataTable table-responsive table-hover" width="100%">
     <thead>
-    <tr>
+    <tr class="text-table-head">
         <th></th>
         [#nested]
     </tr>
     </thead>
 </table>
+[/#macro]
+
+[#macro searchbox id dataTableId]
+<div class="search-box">
+    <div class="input-group">
+        <span class="input-group-addon" id="search-${id}-addon"><i class="fa fa-search"></i></span>
+        <input id="${id}" type="text" class="form-control" placeholder="[@spring.message "SEARCH"/]" aria-describedby="search-${id}-addon">
+    </div>
+</div>
+
+[/#macro]
+
+[#macro pictureUpload fileName label size="4"]
+<div class="col-md-${size} small-dropzone text-center">
+    <label class="image-label">[@spring.message label /]</label>
+
+    <div class="image_preview"><img id="preview-${fileName}" class="previewing" src="/img/noimageplaceholder.png"/></div>
+    <div class="selectImage">
+        <input class="img-selector" type="file" data-filename-placement="inside" id="${fileName}" name="${fileName}">
+
+        <div class="image-message"></div>
+    </div>
+</div>
 [/#macro]

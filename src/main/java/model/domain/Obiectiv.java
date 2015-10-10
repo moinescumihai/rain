@@ -1,6 +1,9 @@
 package model.domain;
 
-import javax.persistence.*;
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 
 @Entity
 public class Obiectiv {
@@ -11,7 +14,7 @@ public class Obiectiv {
     private long idMilestone;
 
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+
     @Column(name = "id_obiectiv")
     public long getIdObiectiv() {
         return idObiectiv;
@@ -71,9 +74,8 @@ public class Obiectiv {
         if (idProiect != obiectiv.idProiect) return false;
         if (idMilestone != obiectiv.idMilestone) return false;
         if (nume != null ? !nume.equals(obiectiv.nume) : obiectiv.nume != null) return false;
-        if (descriere != null ? !descriere.equals(obiectiv.descriere) : obiectiv.descriere != null) return false;
+        return !(descriere != null ? !descriere.equals(obiectiv.descriere) : obiectiv.descriere != null);
 
-        return true;
     }
 
     @Override

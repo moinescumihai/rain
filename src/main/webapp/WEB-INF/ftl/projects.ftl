@@ -5,11 +5,14 @@
 [@layout.basic]
     [@sidebar]
     <div class="pull-right">
-        [@buttonOpenModal "addProiect" "PROJECTS.ADDPROJECT" "modal-addProiect"/]
+        [@searchbox "project-search" "projects-table"/]
+        <div class="list-group">
+            [@listItemOpenModal "addProiect" "PROJECTS.ADDPROJECT" "modal-addProiect" "plus fa-1-5x"/]
+        </div>
     </div>
     [/@sidebar]
     [@content]
-    <div id="project-container" class="col-md-7"></div>
+    <div id="project-container"></div>
         [@modalForm "modal-addProiect" "MODAL.ADDPROJECT" "/app/secure/projects/addproject" "PROJECTS.ADDPROJECT" "book"]
             [#include "dialogs/addProjectForm.ftl"]
         [/@modalForm]

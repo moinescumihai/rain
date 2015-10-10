@@ -10,9 +10,57 @@ var ZERO = 0;
 var chosenUpdated = 'chosen:updated';
 var rightSlidebar;
 
-function chosenUnselect(element) {
-    $(element).val(UNSELECT);
-    $(element).trigger(chosenUpdated);
+$.extend($.fn.dataTable.defaults, {
+    "aLengthMenu": [[5, 10, 25, 50, 100, -1], [5, 10, 25, 50, 100, "Toate"]],
+    stateSave: true,
+    fixedHeader: true,
+    select: 'single',
+    "language": {
+        "url": '/fonts/ro_RO.txt'
+    }
+});
+
+var popoverDefaultSettings = {
+    placement: 'bottom',//values: auto,top,right,bottom,left,top-right,top-left,bottom-right,bottom-left,auto-top,auto-right,auto-bottom,auto-left
+    width: 'auto',//can be set with  number
+    height: 'auto',//can be set with  number
+    trigger: 'hover',//values:  click,hover,manual
+    style: '',//values:'',inverse
+    constrains: null, // constrains the direction when placement is  auto,  values: horizontal,vertical
+    animation: 'pop', //pop with animation,values: pop,fade (only take effect in the browser which support css3 transition)
+    delay: {//show and hide delay time of the popover, works only when trigger is 'hover',the value can be number or object
+        show: null,
+        hide: 500
+    },
+    async: {
+        before: function (that, xhr) {
+        },//executed before ajax request
+        success: function (that, data) {
+        }//executed after successful ajax request
+    },
+    cache: false,//if cache is set to false,popover will destroy and recreate
+    multi: false,//allow other popovers in page at same time
+    arrow: true,//show arrow or not
+    closeable: false,//display close button or not
+    padding: true//content padding
+};
+
+function startSpinner() {
+    $("#overlay").show();
+}
+function stopSpinner() {
+    $("#overlay").hide();
+}
+
+function generateFormattedDate(date) {
+    if (date) {
+        var year = date.getFullYear();
+        var month = date.getMonth() <= 8 ? '0' + (date.getMonth() + 1) : (date.getMonth() + 1);
+        var day = date.getDate() <= 9 ? '0' + date.getDate() : date.getDate();
+        return day + '-' + month + '-' + year;
+    } else {
+        return '';
+    }
 }
 
 function hideModal() {
@@ -53,79 +101,6 @@ function showNotification(message, title, type) {
     toastr[type](message, title)
 }
 
-function showNotif(message, title, type) {
-
-    var delay = 3500;
-    var icon;
-    if (typeof(type) === "undefined") {
-        type = SUCCESS;
-    }
-    switch (type) {
-        case SUCCESS:
-            icon = 'fa fa-check-circle-o';
-            break;
-        case INFO:
-            icon = 'fa fa-info-circle';
-            break;
-        case WARNING:
-        case DANGER:
-            icon = 'fa fa-exclamation-triangle';
-            break;
-        case PRIMARY:
-            icon = 'fa fa-thumb-tack';
-            break;
-        default:
-            icon = 'fa fa-info-circle';
-            break;
-    }
-    var id = title.replace(/ /g, '');
-    var alert = '<div id="' + id + '" class="notifications-index"></div>';
-    $.notify(
-        {
-            // options
-            icon: icon,
-            title: title,
-            message: message
-        }, {
-            // settings
-            element: 'body',
-            position: null,
-            type: type,
-            allow_dismiss: true,
-            newest_on_top: true,
-            showProgressbar: false,
-            placement: {
-                from: "top",
-                align: "center"
-            },
-            offset: 60,
-            spacing: 10,
-            z_index: 5031,
-            delay: 0,
-            mouse_over: null,
-            animate: {
-                enter: 'animated fadeInUp',
-                exit: 'animated fadeOutDown'
-            },
-            onShow: null,
-            onShown: null,
-            onClose: null,
-            onClosed: null,
-            icon_type: 'class',
-            template: '<div data-notify="container" style="word-break: break-all;" class="col-xs-11 col-sm-4 alert alert-{0}" role="alert">' +
-            '<button type="button" aria-hidden="true" class="close" data-notify="dismiss">&times;</button>' +
-            '<span data-notify="icon"></span> ' +
-            '<span data-notify="title">{1}</span><br><hr> ' +
-            '<span data-notify="message">{2}</span>' +
-            '<div class="progress" data-notify="progressbar">' +
-            '<div class="progress-bar progress-bar-{0}" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;"></div>' +
-            '</div>' +
-            '<a href="{3}" target="{4}" data-notify="url"></a>' +
-            '</div>'
-        }
-    )
-}
-
 function toJSDate(dateParam, locale) {
     var options = {
         weekday: "long",
@@ -147,7 +122,7 @@ function toJSDate(dateParam, locale) {
 }
 
 function toJSDateTime(dateParam) {
-    var locale;
+    var locale = 'ro';
     var returnDate;
     var options = {
         weekday: "long",
@@ -159,7 +134,7 @@ function toJSDateTime(dateParam) {
         "hour": "2-digit"
     };
 
-        returnDate = new Date(dateParam).toLocaleString(locale, options);
+    returnDate = new Date(dateParam).toLocaleString(locale, options);
     return returnDate;
 }
 
@@ -171,19 +146,25 @@ function showModal(id, title, content, buttons) {
     }
     if (id && title && content) {
         modalHtml += '<div class="modal fade" id="' + id + '">'
-                .concat('<div class="modal-dialog modal-lg">')
+                .concat('<div class="modal-dialog modal-xlg">')
                 .concat('<div class="modal-content">')
                 .concat('<div class="modal-header">')
                 .concat('<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>')
                 .concat('<h4 class="modal-title">').concat(title).concat('</h4></div>')
-                .concat('<form id="' + id + '-form">')
                 .concat('<div class="modal-body">')
                 .concat(content)
                 .concat('</div><div class="modal-footer">')
                 .concat(buttons)
-                .concat('</div></form></div></div></div>');
+                .concat('</div></div></div></div>');
 
-        $('body').append(modalHtml);
+        if (!$(modalId).length) {
+            $('body').append(modalHtml);
+        } else {
+            var modal = $(modalId);
+            modal.find('.modal-title').html(title);
+            modal.find('.modal-body').html(content);
+            modal.find('.modal-footer').html(buttons);
+        }
 
         $(modalId).modal('show');
     } else {
@@ -211,7 +192,22 @@ function confirmModal(id, title) {
 
     $('body').append(modalHtml);
     $(modalId).modal('show');
+}
 
+function ajaxSpinnerOn() {
+    var modalHtml = '<div class="modal fade" id="modal-spinner">'
+        .concat('<div class="modal-dialog spinner-dialog">')
+        .concat('<div class="modal-content">')
+        .concat('<div class="modal-body text-center">')
+        .concat('<i class="fa fa-spin fa-cog fa-5x"></i>')
+        .concat('</div></div></div></div>');
+
+    $('body').append(modalHtml);
+    $('#modal-spinner').modal('show');
+}
+
+function ajaxSpinnerOff() {
+    $('#modal-spinner').modal('hide');
 }
 
 $(window).scroll(function () {
@@ -256,11 +252,7 @@ jQuery.validator.setDefaults({
         }
     },
     errorPlacement: function (error, element) {
-        if (element.hasClass("chosen-select")) {
-            element.closest("div.form-group").find(".help-block").html(error);
-        } else {
-            error.insertAfter(element);
-        }
+        element.closest("div.form-group").find(".help-block").html(error);
     }
 
 });
@@ -334,32 +326,8 @@ function getProfile() {
 
 $(document).ready(function () {
     $('#an-copyright').text(new Date().getFullYear());
-    (function () {
-        var projectDropdown = $('#project-dropdown');
-        projectDropdown.empty();
-        var token = $("meta[name='_csrf']").attr("content");
-        var header = $("meta[name='_csrf_header']").attr("content");
-
-        $.ajax({
-            method: 'get',
-            dataType: "json",
-            url: '/app/secure/projects/getprojects',
-            beforeSend: function (xhr) {
-                xhr.setRequestHeader(header, token);
-            },
-            success: function (response) {
-                var items = [];
-                if (response.length <= 0) {
-                    items.push('<li><a class="text-muted"> No projects are defined </a></li>');
-                }
-                $.each(response, function (i, proj) {
-                    items.push('<li><a href="/app/secure/projects/' + proj.idProiect + '">' + proj.numeProiect + '</a></li>');
-                });
-                projectDropdown.html(items.join('') + '<li class="divider"></li><li><a href="/projects" class="bg-info"> See all projects  <i class="fa fa-arrow-right"></i> </a></li>');
-            }
-        });
-
-    })();
+    $('input[type=file]').bootstrapFileInput();
+    $('.file-inputs').bootstrapFileInput();
 
     $(".chosen-select").chosen({
         disable_search_threshold: 10,
@@ -370,22 +338,11 @@ $(document).ready(function () {
     });
 
     $('.date-picker').datepicker({
-        todayBtn: true,
-        todayHighlight: true,
-        weekStart: 1,
-        autoclose: true,
-        orientation: 'left top'
+        format: 'yyyy-mm-dd',
+        weekStart: 1
     });
 
-    rightSlidebar = new $.slidebars();
-    document.documentElement.addEventListener("mousemove", function (event) {
-        var screenEdge = screen.width - 20;
-        if (event.pageX > screenEdge) {
-            rightSlidebar.slidebars.open('right');
-        }
-    });
-
-    $('a').on('click', function (e) {
+    $('a').on('click', function () {
         var linkLocation = $($(this).attr('href')).offset();
         if (linkLocation)
             $('html,body').animate({scrollTop: linkLocation.top}, "10000", 'linear');
@@ -453,8 +410,20 @@ $(document).ready(function () {
         }
     });
 
-    $('#modal-userProfile').on('show.bs.modal', function () {
+    $(document).on('shown.bs.modal', '#modal-userProfile', function () {
         getProfile();
     });
 
+    $(document).on('hidden.bs.modal', '#modal-spinner', function () {
+        $(this).remove();
+    });
+
+
+});
+$(document).ajaxStart(function () {
+    //ajaxSpinnerOn();
+});
+
+$(document).ajaxStop(function () {
+    //ajaxSpinnerOff();
 });

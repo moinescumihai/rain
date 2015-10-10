@@ -13,6 +13,7 @@ import org.springframework.data.domain.AuditorAware;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.orm.jpa.JpaTransactionManager;
+import org.springframework.orm.jpa.JpaVendorAdapter;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
@@ -28,7 +29,7 @@ import java.util.Properties;
 @EnableTransactionManagement
 public class DatasourceConfig {
 
-    private static final String[] ENTITY_PACKAGES = {"model"};
+    private static final String[] ENTITY_PACKAGES = {"model.domain"};
     private static final String PROPERTY_NAME_DB_DRIVER_CLASS = "db.driver";
     private static final String PROPERTY_NAME_DB_PASSWORD = "db.password";
     private static final String PROPERTY_NAME_DB_URL = "db.url";
@@ -38,6 +39,7 @@ public class DatasourceConfig {
     private static final String PROPERTY_NAME_HIBERNATE_HBM2DDL_AUTO = "hibernate.hbm2ddl.auto";
     private static final String PROPERTY_NAME_HIBERNATE_NAMING_STRATEGY = "hibernate.ejb.naming_strategy";
     private static final String PROPERTY_NAME_HIBERNATE_SHOW_SQL = "hibernate.show_sql";
+    private static final String PROPERTY_NAME_DB_NAME = "raindrop";
     @Autowired
     private Environment env;
 
@@ -45,6 +47,7 @@ public class DatasourceConfig {
     public DataSource dataSource() {
         HikariConfig dataSourceConfig = new HikariConfig();
         dataSourceConfig.setDriverClassName(env.getProperty(PROPERTY_NAME_DB_DRIVER_CLASS));
+        dataSourceConfig.setCatalog(env.getProperty(PROPERTY_NAME_DB_NAME));
         dataSourceConfig.setJdbcUrl(env.getProperty(PROPERTY_NAME_DB_URL));
         dataSourceConfig.setUsername(env.getProperty(PROPERTY_NAME_DB_USER));
         dataSourceConfig.setPassword(env.getProperty(PROPERTY_NAME_DB_PASSWORD));
@@ -60,8 +63,9 @@ public class DatasourceConfig {
     @Bean
     LocalContainerEntityManagerFactoryBean entityManagerFactory(DataSource dataSource, Environment env) {
         LocalContainerEntityManagerFactoryBean entityManagerFactoryBean = new LocalContainerEntityManagerFactoryBean();
+        JpaVendorAdapter jpaVendorAdapter = new HibernateJpaVendorAdapter();
         entityManagerFactoryBean.setDataSource(dataSource);
-        entityManagerFactoryBean.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
+        entityManagerFactoryBean.setJpaVendorAdapter(jpaVendorAdapter);
         entityManagerFactoryBean.setPackagesToScan(ENTITY_PACKAGES);
 
         Properties jpaProperties = new Properties();
@@ -96,7 +100,7 @@ public class DatasourceConfig {
      * Spring transaction mechanism.
      *
      * @param entityManagerFactory The used JPA entity manager factory.
-     * @return
+     *
      */
     @Bean
     JpaTransactionManager transactionManager(EntityManagerFactory entityManagerFactory) {

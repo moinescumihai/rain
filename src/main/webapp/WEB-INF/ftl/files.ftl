@@ -8,20 +8,7 @@
 
         </div>
         <div class="panel-body">
-            <div id="FlatTree4" class="tree tree-solid-line">
-                <div class = "tree-folder" style="display:none;">
-                    <div class="tree-folder-header">
-                        <i class="fa fa-folder"></i>
-                        <div class="tree-folder-name"></div>
-                    </div>
-                    <div class="tree-folder-content"></div>
-                    <div class="tree-loader" style="display:none"></div>
-                </div>
-                <div class="tree-item" style="display:none;">
-                    <i class="tree-dot"></i>
-                    <div class="tree-item-name"></div>
-                </div>
-            </div>
+            //tree
         </div>
     </div>
     [/@sidebar]
@@ -35,6 +22,5 @@
 <script type="text/javascript">
     $(document).ready(function(){
         $('#files').addClass('active');
-        TreeView.init();
     });
 </script>

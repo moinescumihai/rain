@@ -9,7 +9,7 @@ public class ListaTari {
     private String nume;
 
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+
     @Column(name = "id_tara", nullable = false, insertable = true, updatable = true)
     public int getIdTara() {
         return idTara;
@@ -37,9 +37,8 @@ public class ListaTari {
         ListaTari listaTari = (ListaTari) o;
 
         if (idTara != listaTari.idTara) return false;
-        if (nume != null ? !nume.equals(listaTari.nume) : listaTari.nume != null) return false;
+        return !(nume != null ? !nume.equals(listaTari.nume) : listaTari.nume != null);
 
-        return true;
     }
 
     @Override

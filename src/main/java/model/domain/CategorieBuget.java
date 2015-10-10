@@ -10,7 +10,7 @@ public class CategorieBuget {
     private String nume;
 
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+
     @Column(name = "id_categorie_buget")
     public long getIdCategorieBuget() {
         return idCategorieBuget;
@@ -37,9 +37,8 @@ public class CategorieBuget {
 
         CategorieBuget that = (CategorieBuget) o;
 
-        if (nume != null ? !nume.equals(that.nume) : that.nume != null) return false;
+        return !(nume != null ? !nume.equals(that.nume) : that.nume != null);
 
-        return true;
     }
 
     @Override

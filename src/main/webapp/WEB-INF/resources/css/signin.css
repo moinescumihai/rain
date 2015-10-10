@@ -172,7 +172,6 @@ form:after {
     z-index: -1;
 }
 
-
 #content:before {
     background: #d4d4d4;
     background: -moz-linear-gradient(bottom,  rgba(248,248,248,1) 0%, rgba(249,249,249,1) 90%);
@@ -188,6 +187,7 @@ form:after {
     top: 0;
     z-index: -2;
 }
+
 #content form { margin: 0 20px; position: relative }
 #content form input[type="text"],
 #content form input[type="password"] {

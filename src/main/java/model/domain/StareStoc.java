@@ -2,11 +2,6 @@ package model.domain;
 
 import javax.persistence.*;
 
-/**
- * @author Ciprian on 7/4/2015.
- *         <p>
- *         rain
- */
 @Entity
 @Table(name = "stare_stoc", schema = "", catalog = "raindrop")
 public class StareStoc {
@@ -14,7 +9,7 @@ public class StareStoc {
     private String numeStare;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+
     @Column(name = "id_stare", nullable = false, insertable = true, updatable = true)
     public long getIdStare() {
         return idStare;
@@ -42,9 +37,8 @@ public class StareStoc {
         StareStoc stareStoc = (StareStoc) o;
 
         if (idStare != stareStoc.idStare) return false;
-        if (numeStare != null ? !numeStare.equals(stareStoc.numeStare) : stareStoc.numeStare != null) return false;
+        return !(numeStare != null ? !numeStare.equals(stareStoc.numeStare) : stareStoc.numeStare != null);
 
-        return true;
     }
 
     @Override

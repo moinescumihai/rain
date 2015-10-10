@@ -5,7 +5,10 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 
-import javax.persistence.*;
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import java.sql.Date;
 import java.sql.Timestamp;
 
@@ -24,7 +27,7 @@ public class Pontaj {
     private Timestamp modificatLa;
 
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+
     @Column(name = "id_pontaj", nullable = false, insertable = true, updatable = true)
     public long getIdPontaj() {
         return idPontaj;
@@ -155,9 +158,8 @@ public class Pontaj {
         if (creatDe != null ? !creatDe.equals(pontaj.creatDe) : pontaj.creatDe != null) return false;
         if (creatLa != null ? !creatLa.equals(pontaj.creatLa) : pontaj.creatLa != null) return false;
         if (modificatDe != null ? !modificatDe.equals(pontaj.modificatDe) : pontaj.modificatDe != null) return false;
-        if (modificatLa != null ? !modificatLa.equals(pontaj.modificatLa) : pontaj.modificatLa != null) return false;
+        return !(modificatLa != null ? !modificatLa.equals(pontaj.modificatLa) : pontaj.modificatLa != null);
 
-        return true;
     }
 
     @Override

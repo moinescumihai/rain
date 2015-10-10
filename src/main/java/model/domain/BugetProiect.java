@@ -29,7 +29,7 @@ public class BugetProiect {
     private Timestamp modificatLa;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+
     @Column(name = "id_buget", nullable = false, insertable = true, updatable = true)
     public long getIdBuget() {
         return idBuget;
@@ -215,9 +215,8 @@ public class BugetProiect {
         if (creatDe != null ? !creatDe.equals(that.creatDe) : that.creatDe != null) return false;
         if (creatLa != null ? !creatLa.equals(that.creatLa) : that.creatLa != null) return false;
         if (modificatDe != null ? !modificatDe.equals(that.modificatDe) : that.modificatDe != null) return false;
-        if (modificatLa != null ? !modificatLa.equals(that.modificatLa) : that.modificatLa != null) return false;
+        return !(modificatLa != null ? !modificatLa.equals(that.modificatLa) : that.modificatLa != null);
 
-        return true;
     }
 
     @Override

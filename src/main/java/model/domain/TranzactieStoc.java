@@ -3,19 +3,17 @@ package model.domain;
 import javax.persistence.*;
 import java.sql.Timestamp;
 
-/**
- * @author Ciprian on 7/4/2015.
- *         <p>
- *         rain
- */
 @Entity
 @Table(name = "tranzactie_stoc", schema = "", catalog = "raindrop")
 public class TranzactieStoc {
     private long idTranzactieStoc;
-    private String idColet;
-    private long idStoc;
-    private long idLoc;
-    private long idResurseUmane;
+    private Colet idColet;
+    private Stoc idStoc;
+    private Loc idLoc;
+    private ResurseUmane idResurseUmane;
+    private StareStoc idStare;
+    private StareStoc idStareAnterioara;
+    private String detalii;
     private Timestamp dataTranzactie;
     private String creatDe;
     private Timestamp creatLa;
@@ -23,7 +21,6 @@ public class TranzactieStoc {
     private Timestamp modificatLa;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id_tranzactie_stoc", nullable = false, insertable = true, updatable = true)
     public long getIdTranzactieStoc() {
         return idTranzactieStoc;
@@ -33,43 +30,43 @@ public class TranzactieStoc {
         this.idTranzactieStoc = idTranzactieStoc;
     }
 
-    @Basic
-    @Column(name = "id_colet", nullable = false, insertable = true, updatable = true, length = 50)
-    public String getIdColet() {
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "id_colet")
+    public Colet getIdColet() {
         return idColet;
     }
 
-    public void setIdColet(String idColet) {
+    public void setIdColet(Colet idColet) {
         this.idColet = idColet;
     }
 
-    @Basic
-    @Column(name = "id_stoc", nullable = false, insertable = true, updatable = true)
-    public long getIdStoc() {
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "id_stoc")
+    public Stoc getIdStoc() {
         return idStoc;
     }
 
-    public void setIdStoc(long idStoc) {
+    public void setIdStoc(Stoc idStoc) {
         this.idStoc = idStoc;
     }
 
-    @Basic
-    @Column(name = "id_loc", nullable = false, insertable = true, updatable = true)
-    public long getIdLoc() {
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "id_loc")
+    public Loc getIdLoc() {
         return idLoc;
     }
 
-    public void setIdLoc(long idLoc) {
+    public void setIdLoc(Loc idLoc) {
         this.idLoc = idLoc;
     }
 
-    @Basic
-    @Column(name = "id_resurse_umane", nullable = false, insertable = true, updatable = true)
-    public long getIdResurseUmane() {
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "id_resurse_umnane")
+    public ResurseUmane getIdResurseUmane() {
         return idResurseUmane;
     }
 
-    public void setIdResurseUmane(long idResurseUmane) {
+    public void setIdResurseUmane(ResurseUmane idResurseUmane) {
         this.idResurseUmane = idResurseUmane;
     }
 
@@ -123,39 +120,34 @@ public class TranzactieStoc {
         this.modificatLa = modificatLa;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        TranzactieStoc that = (TranzactieStoc) o;
-
-        if (idTranzactieStoc != that.idTranzactieStoc) return false;
-        if (idStoc != that.idStoc) return false;
-        if (idLoc != that.idLoc) return false;
-        if (idResurseUmane != that.idResurseUmane) return false;
-        if (idColet != null ? !idColet.equals(that.idColet) : that.idColet != null) return false;
-        if (dataTranzactie != null ? !dataTranzactie.equals(that.dataTranzactie) : that.dataTranzactie != null) return false;
-        if (creatDe != null ? !creatDe.equals(that.creatDe) : that.creatDe != null) return false;
-        if (creatLa != null ? !creatLa.equals(that.creatLa) : that.creatLa != null) return false;
-        if (modificatDe != null ? !modificatDe.equals(that.modificatDe) : that.modificatDe != null) return false;
-        if (modificatLa != null ? !modificatLa.equals(that.modificatLa) : that.modificatLa != null) return false;
-
-        return true;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "id_stare")
+    public StareStoc getIdStare() {
+        return idStare;
     }
 
-    @Override
-    public int hashCode() {
-        int result = (int) (idTranzactieStoc ^ (idTranzactieStoc >>> 32));
-        result = 31 * result + (idColet != null ? idColet.hashCode() : 0);
-        result = 31 * result + (int) (idStoc ^ (idStoc >>> 32));
-        result = 31 * result + (int) (idLoc ^ (idLoc >>> 32));
-        result = 31 * result + (int) (idResurseUmane ^ (idResurseUmane >>> 32));
-        result = 31 * result + (dataTranzactie != null ? dataTranzactie.hashCode() : 0);
-        result = 31 * result + (creatDe != null ? creatDe.hashCode() : 0);
-        result = 31 * result + (creatLa != null ? creatLa.hashCode() : 0);
-        result = 31 * result + (modificatDe != null ? modificatDe.hashCode() : 0);
-        result = 31 * result + (modificatLa != null ? modificatLa.hashCode() : 0);
-        return result;
+    public void setIdStare(StareStoc idStare) {
+        this.idStare = idStare;
+    }
+
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "id_stare_anterioara")
+    public StareStoc getIdStareAnterioara() {
+        return idStareAnterioara;
+    }
+
+    public void setIdStareAnterioara(StareStoc idStareAnterioara) {
+        this.idStareAnterioara = idStareAnterioara;
+    }
+
+    @Basic
+    @Column(name = "detalii", nullable = false, insertable = true, updatable = true)
+    public String getDetalii() {
+        return detalii;
+    }
+
+    public void setDetalii(String detalii) {
+        this.detalii = detalii;
     }
 }

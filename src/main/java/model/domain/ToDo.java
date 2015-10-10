@@ -11,7 +11,7 @@ public class ToDo {
     private long idUser;
 
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+
     @Column(name = "id_to_do", nullable = false, insertable = true, updatable = true)
     public long getIdToDo() {
         return idToDo;
@@ -61,9 +61,8 @@ public class ToDo {
         if (idToDo != toDo.idToDo) return false;
         if (idUser != toDo.idUser) return false;
         if (nume != null ? !nume.equals(toDo.nume) : toDo.nume != null) return false;
-        if (valoare != null ? !valoare.equals(toDo.valoare) : toDo.valoare != null) return false;
+        return !(valoare != null ? !valoare.equals(toDo.valoare) : toDo.valoare != null);
 
-        return true;
     }
 
     @Override

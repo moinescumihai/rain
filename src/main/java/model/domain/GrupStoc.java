@@ -2,19 +2,15 @@ package model.domain;
 
 import javax.persistence.*;
 
-/**
- * @author Ciprian on 7/4/2015.
- *         <p>
- *         rain
- */
 @Entity
 @Table(name = "grup_stoc", schema = "", catalog = "raindrop")
 public class GrupStoc {
     private long idGrupStoc;
     private String numeGrup;
+    private CategorieStoc idCategorieStoc;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_grup_stoc", nullable = false, insertable = true, updatable = true)
     public long getIdGrupStoc() {
         return idGrupStoc;
@@ -34,23 +30,13 @@ public class GrupStoc {
         this.numeGrup = numeGrup;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        GrupStoc grupStoc = (GrupStoc) o;
-
-        if (idGrupStoc != grupStoc.idGrupStoc) return false;
-        if (numeGrup != null ? !numeGrup.equals(grupStoc.numeGrup) : grupStoc.numeGrup != null) return false;
-
-        return true;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "id_categorie_stoc")
+    public CategorieStoc getIdCategorieStoc() {
+        return idCategorieStoc;
     }
 
-    @Override
-    public int hashCode() {
-        int result = (int) (idGrupStoc ^ (idGrupStoc >>> 32));
-        result = 31 * result + (numeGrup != null ? numeGrup.hashCode() : 0);
-        return result;
+    public void setIdCategorieStoc(CategorieStoc idCategorieStoc) {
+        this.idCategorieStoc = idCategorieStoc;
     }
 }

@@ -10,7 +10,7 @@
     <!-- Tab content -->
     <div class="tab-content">
         <div class="tab-pane fade in active" id="general-client" role="tabpanel">
-            [@tabPaneContainer]
+            [@modalContainer]
                 [@input "addClient-form-nume" "numeClient" "MODAL.CLIENT.NUME" "MODAL.CLIENT.NUME.PLACEHOLDER" "" "7"/]
                 [@input "addClient-form-website" "website" "MODAL.CLIENT.WEBSITE" "MODAL.CLIENT.WEBSITE.PLACEHOLDER" "" "7"/]
                 [@input "addClient-form-email" "email" "MODAL.CLIENT.EMAIL" "MODAL.CLIENT.EMAIL.PLACEHOLDER" "" "7"/]
@@ -21,10 +21,10 @@
                         <option id="${key}" value="${key}">${listaIndustrie[key]}</option>
                     [/#list]
                 [/@selectBox]
-            [/@tabPaneContainer]
+            [/@modalContainer]
         </div>
         <div class="tab-pane fade" id="address-client" role="tabpanel">
-            [@tabPaneContainer ]
+            [@modalContainer ]
                 [@input "addClient-form-adresa" "adresa" "MODAL.CLIENT.ADRESA" "MODAL.CLIENT.ADRESA.PLACEHOLDER" "" "7"/]
                 [@input "addClient-form-oras" "oras" "MODAL.CLIENT.ORAS" "MODAL.CLIENT.ORAS.PLACEHOLDER" "" "7"/]
                 [@input "addClient-form-judet" "judet" "MODAL.CLIENT.JUDET" "MODAL.CLIENT.JUDET.PLACEHOLDER" "" "7"/]
@@ -34,7 +34,7 @@
                         <option id="${key}" value="${key}">${listaTari[key]}</option>
                     [/#list]
                 [/@selectBox]
-            [/@tabPaneContainer]
+            [/@modalContainer]
         </div>
     </div>
 </div>

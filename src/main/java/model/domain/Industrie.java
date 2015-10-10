@@ -1,6 +1,9 @@
 package model.domain;
 
-import javax.persistence.*;
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 
 @Entity
 public class Industrie {
@@ -8,7 +11,7 @@ public class Industrie {
     private String nume;
 
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+
     @Column(name = "id_industrie", nullable = false, insertable = true, updatable = true)
     public int getIdIndustrie() {
         return idIndustrie;
@@ -36,9 +39,8 @@ public class Industrie {
         Industrie industrie = (Industrie) o;
 
         if (idIndustrie != industrie.idIndustrie) return false;
-        if (nume != null ? !nume.equals(industrie.nume) : industrie.nume != null) return false;
+        return !(nume != null ? !nume.equals(industrie.nume) : industrie.nume != null);
 
-        return true;
     }
 
     @Override

@@ -18,11 +18,7 @@ import org.springframework.web.accept.ContentNegotiationManagerFactoryBean;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.View;
-import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
-import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.config.annotation.*;
 import org.springframework.web.servlet.handler.SimpleMappingExceptionResolver;
 import org.springframework.web.servlet.i18n.CookieLocaleResolver;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
@@ -30,6 +26,7 @@ import org.springframework.web.servlet.view.ContentNegotiatingViewResolver;
 import org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver;
 import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 
+import java.io.File;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
@@ -38,7 +35,7 @@ import java.util.Properties;
 @Configuration
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 @ComponentScan(basePackages = {"controllers", "services"})
-@Import({WebSecurityConfig.class, BeanConfig.class, DatasourceConfig.class, FreemarkerConfig.class})
+@Import({WebSecurityConfig.class, DatasourceConfig.class, FreemarkerConfig.class, WebSocketConfig.class})
 public class AppConfig extends WebMvcConfigurerAdapter {
 
     private static final String MESSAGE_SOURCE_BASE_NAME = "classpath:i18n/messages";
@@ -51,6 +48,9 @@ public class AppConfig extends WebMvcConfigurerAdapter {
         registry.addResourceHandler("/js/**").addResourceLocations("/WEB-INF/resources/js/");
         registry.addResourceHandler("/fonts/**").addResourceLocations("/WEB-INF/resources/fonts/");
         registry.addResourceHandler("/swf/**").addResourceLocations("/WEB-INF/resources/swf/");
+        registry.addResourceHandler("/barcode/**").addResourceLocations("/WEB-INF/resources/barcode/");
+        registry.addResourceHandler("/files/**").addResourceLocations("file:///" + System.getProperty("catalina.home") + File.separator + "attachments" + File.separator);
+        registry.addResourceHandler("/plugins/**").addResourceLocations("/WEB-INF/resources/plugins/");
     }
 
     @Override
@@ -64,7 +64,7 @@ public class AppConfig extends WebMvcConfigurerAdapter {
     @Bean
     public LocaleResolver localeResolver() {
         CookieLocaleResolver cookieLocaleResolver = new CookieLocaleResolver();
-        cookieLocaleResolver.setDefaultLocale(StringUtils.parseLocaleString("en"));
+        cookieLocaleResolver.setDefaultLocale(StringUtils.parseLocaleString("ro"));
         return cookieLocaleResolver;
     }
 
@@ -139,7 +139,9 @@ public class AppConfig extends WebMvcConfigurerAdapter {
 
     @Bean
     public MappingJackson2HttpMessageConverter jackson2Converter() {
-        return new MappingJackson2HttpMessageConverter();
+        MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();
+        converter.setPrettyPrint(true);
+        return converter;
     }
 
     @Bean

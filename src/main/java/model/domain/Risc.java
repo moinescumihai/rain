@@ -1,6 +1,9 @@
 package model.domain;
 
-import javax.persistence.*;
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 
 @Entity
 public class Risc {
@@ -10,7 +13,7 @@ public class Risc {
     private String descriere;
 
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+
     @Column(name = "id_risc", nullable = false, insertable = true, updatable = true)
     public long getIdRisc() {
         return idRisc;
@@ -60,9 +63,8 @@ public class Risc {
         if (idRisc != risc.idRisc) return false;
         if (idProiect != risc.idProiect) return false;
         if (nume != null ? !nume.equals(risc.nume) : risc.nume != null) return false;
-        if (descriere != null ? !descriere.equals(risc.descriere) : risc.descriere != null) return false;
+        return !(descriere != null ? !descriere.equals(risc.descriere) : risc.descriere != null);
 
-        return true;
     }
 
     @Override

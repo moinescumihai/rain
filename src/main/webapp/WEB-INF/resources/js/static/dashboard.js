@@ -3,7 +3,7 @@ function getTasksProgressValues() {
     var progressValue;
     var progressClass;
     $.each($('.progress-bar'), function () {
-        progressValue = parseInt($(this).attr('style').replace(regexp, ''));
+        progressValue = parseInt($(this).prop('style').replace(regexp, ''));
 
         if (progressValue < 30) {
             progressClass = 'progress-bar-default';

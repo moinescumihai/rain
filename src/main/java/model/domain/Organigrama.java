@@ -1,6 +1,9 @@
 package model.domain;
 
-import javax.persistence.*;
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 
 @Entity
 public class Organigrama {
@@ -9,7 +12,7 @@ public class Organigrama {
     private long idFiu;
 
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+
     @Column(name = "id_organigrama")
     public long getIdOrganigrama() {
         return idOrganigrama;
@@ -47,9 +50,8 @@ public class Organigrama {
         Organigrama that = (Organigrama) o;
 
         if (idParinte != that.idParinte) return false;
-        if (idFiu != that.idFiu) return false;
+        return idFiu == that.idFiu;
 
-        return true;
     }
 
     @Override

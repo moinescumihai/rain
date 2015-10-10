@@ -11,7 +11,7 @@ public class TipContract {
     private String descriereTipContract;
 
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+
     @Column(name = "id_tip_contract")
     public long getIdTipContract() {
         return idTipContract;
@@ -60,9 +60,8 @@ public class TipContract {
 
         if (numeTipContract != null ? !numeTipContract.equals(that.numeTipContract) : that.numeTipContract != null) return false;
         if (durataContract != null ? !durataContract.equals(that.durataContract) : that.durataContract != null) return false;
-        if (descriereTipContract != null ? !descriereTipContract.equals(that.descriereTipContract) : that.descriereTipContract != null) return false;
+        return !(descriereTipContract != null ? !descriereTipContract.equals(that.descriereTipContract) : that.descriereTipContract != null);
 
-        return true;
     }
 
     @Override

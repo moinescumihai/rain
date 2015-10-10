@@ -6,7 +6,6 @@ import org.springframework.context.ApplicationListener;
 import org.springframework.security.authentication.event.InteractiveAuthenticationSuccessEvent;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import services.user.UserService;
 
 import java.sql.Timestamp;
@@ -18,7 +17,7 @@ public class LoginService implements ApplicationListener<InteractiveAuthenticati
     @Autowired
     private UserService userService;
 
-    @Transactional
+
     @Override
     public void onApplicationEvent(InteractiveAuthenticationSuccessEvent event) {
         String userName = ((UserDetails) event.getAuthentication().

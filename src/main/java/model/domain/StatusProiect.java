@@ -1,21 +1,23 @@
 package model.domain;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "status_proiect", schema = "", catalog = "raindrop")
 public class StatusProiect {
-    private byte idStatusProiect;
+    private long idStatusProiect;
     private String numeStatus;
+    private List<StatusProiect> statusProiectList;
 
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+
     @Column(name = "id_status_proiect", nullable = false, insertable = true, updatable = true)
-    public byte getIdStatusProiect() {
+    public long getIdStatusProiect() {
         return idStatusProiect;
     }
 
-    public void setIdStatusProiect(byte idStatusProiect) {
+    public void setIdStatusProiect(long idStatusProiect) {
         this.idStatusProiect = idStatusProiect;
     }
 
@@ -37,9 +39,8 @@ public class StatusProiect {
         StatusProiect that = (StatusProiect) o;
 
         if (idStatusProiect != that.idStatusProiect) return false;
-        if (numeStatus != null ? !numeStatus.equals(that.numeStatus) : that.numeStatus != null) return false;
+        return !(numeStatus != null ? !numeStatus.equals(that.numeStatus) : that.numeStatus != null);
 
-        return true;
     }
 
     @Override
