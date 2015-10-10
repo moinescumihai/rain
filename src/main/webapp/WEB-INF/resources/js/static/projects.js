@@ -55,8 +55,8 @@ function getCategories() {
 }
 
 function deleteProject(id) {
-    var token = $("meta[name='_csrf']").attr("content");
-    var header = $("meta[name='_csrf_header']").attr("content");
+    var token = $("meta[name='_csrf']").prop("content");
+    var header = $("meta[name='_csrf_header']").prop("content");
 
     $.ajax({
         method: 'get',
@@ -77,8 +77,8 @@ function deleteProject(id) {
 function getProjects() {
     var projectContainer = $('#project-container');
     projectContainer.empty();
-    var token = $("meta[name='_csrf']").attr("content");
-    var header = $("meta[name='_csrf_header']").attr("content");
+    var token = $("meta[name='_csrf']").prop("content");
+    var header = $("meta[name='_csrf_header']").prop("content");
     var tableHeader = '<table id="project-table" class="table table-hover table-responsive">'
         + '<thead><tr class="text-table-head">'
         + '<td>Name</td>'
@@ -200,12 +200,12 @@ $(document).ready(function () {
     });
 
     $('body').on('click', 'a[id^="pop-proj-del-"]', function (e) {
-        var idProject = $(this).attr('id').replace('pop-proj-del-', '');
+        var idProject = $(this).prop('id').replace('pop-proj-del-', '');
         confirmModal('delete-project-confirm-' + idProject, 'Are you sure you want to delete this project?');
     });
 
     $('body').on('click', 'button[id^=delete-project-confirm-]', function (e) {
-        var idProject = $(this).attr('id').replace('delete-project-confirm-', '');
+        var idProject = $(this).prop('id').replace('delete-project-confirm-', '');
         var modalConfirm;
         idProject = idProject.replace('-yes', '');
         modalConfirm = $('#delete-project-confirm-' + idProject);
@@ -232,8 +232,8 @@ $(document).ready(function () {
         if (!$(this).valid()) {
             return;
         }
-        var token = $("meta[name='_csrf']").attr("content");
-        var header = $("meta[name='_csrf_header']").attr("content");
+        var token = $("meta[name='_csrf']").prop("content");
+        var header = $("meta[name='_csrf_header']").prop("content");
 
         var nume = $('#addCategory-form-nume').val();
         var idCategorieParinte = $('#addCategory-form-categorie-parinte').val();
@@ -245,7 +245,7 @@ $(document).ready(function () {
 
         $.ajax({
             type: 'post',
-            url: $(this).attr('action'),
+            url: $(this).prop('action'),
             beforeSend: function (xhr) {
                 xhr.setRequestHeader(header, token);
             },
@@ -307,8 +307,8 @@ $(document).ready(function () {
         if (!$(this).valid()) {
             return;
         }
-        var token = $("meta[name='_csrf']").attr("content");
-        var header = $("meta[name='_csrf_header']").attr("content");
+        var token = $("meta[name='_csrf']").prop("content");
+        var header = $("meta[name='_csrf_header']").prop("content");
 
         var numeClient = $('#addClient-form-nume').val();
         var website = $('#addClient-form-website').val();
@@ -329,7 +329,7 @@ $(document).ready(function () {
 
         $.ajax({
             type: 'post',
-            url: $(this).attr('action'),
+            url: $(this).prop('action'),
             beforeSend: function (xhr) {
                 xhr.setRequestHeader(header, token);
             },
@@ -377,8 +377,8 @@ $(document).ready(function () {
         if (!$(this).valid()) {
             return;
         }
-        var token = $("meta[name='_csrf']").attr("content");
-        var header = $("meta[name='_csrf_header']").attr("content");
+        var token = $("meta[name='_csrf']").prop("content");
+        var header = $("meta[name='_csrf_header']").prop("content");
 
         var numeProiect = $('#addProject-form-nume').val();
         var idStatusProiect = $('#addProject-form-status').val();
@@ -396,7 +396,7 @@ $(document).ready(function () {
 
         $.ajax({
             type: 'post',
-            url: $(this).attr('action'),
+            url: $(this).prop('action'),
             beforeSend: function (xhr) {
                 xhr.setRequestHeader(header, token);
             },

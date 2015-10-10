@@ -93,19 +93,35 @@ public class InventoryServiceImpl implements InventoryService {
         Colet colet = new Colet();
         colet.setNumeColet(String.valueOf(UUID.randomUUID()));
         colet = coletRepository.save(colet);
-        buildAndSaveTranzactieStoc(stoc, colet);
+        buildAndSaveTranzactieStoc(stoc, colet, stoc.getDetalii());
 
         return stoc;
     }
 
     @Override
-    public Stoc update(Stoc entity) {
-        return null;
+    @Transactional
+    public Stoc edit(StocFormModel entity) {
+        Stoc stoc = stocRepository.findOne(entity.getIdStoc());
+        stoc.setNumeStoc(entity.getNumeStoc());
+        stoc.setIdCategorieStoc(categorieStocRepository.findOne(entity.getIdCategorieStoc()));
+        stoc.setIdGrupStoc(grupStocRepository.findOne(entity.getIdGrupStoc()));
+        stoc.setIdStare(stareStocRepository.findOne(entity.getIdStare()));
+        stoc.setIdLoc(locRepository.findOne(entity.getIdLoc()));
+        stoc.setIdResurseUmane(resurseUmaneService.findOne(entity.getIdResurseUmane()));
+        stoc.setModificatDe(UserUtils.getLoggedInUsername());
+        stoc.setModificatLa(new Timestamp(System.currentTimeMillis()));
+        stoc = stocRepository.save(stoc);
+        buildAndSaveTranzactieStoc(stoc, null, entity.getDetalii());
+
+        return stoc;
     }
 
-    private TranzactieStoc buildAndSaveTranzactieStoc(Stoc entity, Colet idColet) {
-        TranzactieStoc previousTranzantion = tranzactieStocRepository.findFirstByIdStocOrderByIdTranzactieStocDesc(entity);
-        StareStoc idStareAnterioara = previousTranzantion == null ? stareStocRepository.findOne(1L) : previousTranzantion.getIdStare();
+    private TranzactieStoc buildAndSaveTranzactieStoc(Stoc entity, Colet idColet, String detalii) {
+        TranzactieStoc previousTranzanction = tranzactieStocRepository.findFirstByIdStocOrderByIdTranzactieStocDesc(entity);
+        if (previousTranzanction != null && idColet == null) {
+            idColet = previousTranzanction.getIdColet();
+        }
+        StareStoc idStareAnterioara = previousTranzanction == null ? stareStocRepository.findOne(1L) : previousTranzanction.getIdStare();
         TranzactieStoc newStockAdded = new TranzactieStoc();
         newStockAdded.setIdStoc(entity);
         newStockAdded.setIdLoc(entity.getIdLoc());
@@ -113,8 +129,8 @@ public class InventoryServiceImpl implements InventoryService {
         newStockAdded.setIdStareAnterioara(idStareAnterioara);
         newStockAdded.setIdStare(entity.getIdStare());
         newStockAdded.setIdColet(idColet);
-        newStockAdded.setDetalii(entity.getDetalii());
-        newStockAdded.setDataTranzactie(entity.getCreatLa());
+        newStockAdded.setDetalii(detalii);
+        newStockAdded.setDataTranzactie(new Timestamp(System.currentTimeMillis()));
         newStockAdded.setCreatDe(UserUtils.getLoggedInUsername());
         newStockAdded.setCreatLa(new Timestamp(System.currentTimeMillis()));
 
@@ -266,6 +282,16 @@ public class InventoryServiceImpl implements InventoryService {
     public List<GrupStoc> findAllTipuri() {
         try {
             return (List<GrupStoc>) grupStocRepository.findAll();
+        } catch (DataAccessException e) {
+            LOGGER.error("INVENTAR.NO_GRUP", e);
+            return Collections.emptyList();
+        }
+    }
+
+    @Override
+    public List<GrupStoc> findTipuriByCategorieStoc(Long idCategorieStoc) {
+        try {
+            return grupStocRepository.findAllByIdCategorieStocEquals(categorieStocRepository.findOne(idCategorieStoc));
         } catch (DataAccessException e) {
             LOGGER.error("INVENTAR.NO_GRUP", e);
             return Collections.emptyList();

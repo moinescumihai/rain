@@ -4,6 +4,7 @@
 [@rowBreak/]
 [@modalContainer]
     [@hiddenInput "editStoc-form-idStoc" "idStoc" /]
+    [@hiddenInput "editStoc-form-idImagine" "idImagine" /]
     [@input "editStoc-form-numeStoc" "numeStoc" "MODAL.STOC_NAME" "MODAL.NAME" "" "4"/]
     [@elementWithLink "modal-addPlace" "INVENTAR.ADDPLACE" "4"]
         [@embedableSelectBox "editStoc-form-idLoc" "idLoc" "INVENTAR.LOC" "SELECT.PLACEHOLDER" "SEARCH.NO_RESULTS"]

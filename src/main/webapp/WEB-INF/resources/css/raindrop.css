@@ -2120,3 +2120,8 @@ form {
     height: 100%;
     background: rgba(0, 0, 0, .5) url('/img/spinner.gif') center center no-repeat;
 }
+
+.modal-body {
+    max-height: 500px;
+    overflow: auto;
+}

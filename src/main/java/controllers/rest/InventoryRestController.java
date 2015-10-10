@@ -67,10 +67,10 @@ public class InventoryRestController {
     }
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_INVENTAR')")
-    @RequestMapping(value = "/gettypes", method = RequestMethod.GET, produces = "application/json")
+    @RequestMapping(value = "/gettypes/{idCategorieStoc}", method = RequestMethod.GET, produces = "application/json")
     @ResponseBody
-    public List<GrupStoc> getAllTipuri() {
-        return inventoryService.findAllTipuri();
+    public List<GrupStoc> getAllTipuriByCategorieStoc(@PathVariable Long idCategorieStoc) {
+        return inventoryService.findTipuriByCategorieStoc(idCategorieStoc);
     }
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_INVENTAR')")
@@ -141,6 +141,22 @@ public class InventoryRestController {
         } catch (DataAccessException e) {
             response.setId(-1);
             response.setMessage("Articolul nu s-a ad&abreve;ugat");
+        }
+        return response;
+    }
+
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_SUPERUSER')")
+    @RequestMapping(value = "/editstockitem", method = RequestMethod.POST, produces = "application/json")
+    @ResponseBody
+    public JSONResponseWithId editStoc(@RequestBody StocFormModel stoc) {
+        JSONResponseWithId response = new JSONResponseWithId();
+        try {
+            Stoc edited = inventoryService.edit(stoc);
+            response.setId(edited.getIdStoc());
+            response.setMessage("S-a editat articolul: " + stoc.getNumeStoc());
+        } catch (DataAccessException e) {
+            response.setId(-1);
+            response.setMessage("Articolul nu s-a editat");
         }
         return response;
     }

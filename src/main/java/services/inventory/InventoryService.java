@@ -15,7 +15,7 @@ public interface InventoryService {
 
     Stoc save(StocFormModel entity);
 
-    Stoc update(Stoc entity);
+    Stoc edit(StocFormModel entity);
 
     Stoc findArticol(Long idArticol);
 
@@ -36,6 +36,8 @@ public interface InventoryService {
     List<CategorieStoc> findAllCategorii();
 
     List<GrupStoc> findAllTipuri();
+
+    List<GrupStoc> findTipuriByCategorieStoc(Long idCategorieStoc);
 
     List<ResurseUmane> findAllPersoane();
 
