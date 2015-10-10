@@ -122,7 +122,7 @@ function toJSDate(dateParam, locale) {
 }
 
 function toJSDateTime(dateParam) {
-    var locale;
+    var locale = 'ro';
     var returnDate;
     var options = {
         weekday: "long",
@@ -157,7 +157,14 @@ function showModal(id, title, content, buttons) {
                 .concat(buttons)
                 .concat('</div></div></div></div>');
 
-        $('body').append(modalHtml);
+        if (!$(modalId).length) {
+            $('body').append(modalHtml);
+        } else {
+            var modal = $(modalId);
+            modal.find('.modal-title').html(title);
+            modal.find('.modal-body').html(content);
+            modal.find('.modal-footer').html(buttons);
+        }
 
         $(modalId).modal('show');
     } else {

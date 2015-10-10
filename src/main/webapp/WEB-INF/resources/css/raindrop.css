@@ -1993,11 +1993,11 @@ tr.shown td.details-control {
 
 @media (min-width: 992px) {
     .modal-xlg {
-        width: 1200px;
+        width: 1400px;
     }
 
     .modal-mlg {
-        width: 1000px;
+        width: 1200px;
     }
 }
 
@@ -2121,7 +2121,7 @@ form {
     background: rgba(0, 0, 0, .5) url('/img/spinner.gif') center center no-repeat;
 }
 
-.modal-body {
+div[id^="history"] .modal-body {
     max-height: 500px;
-    overflow: auto;
+    overflow-y: auto;
 }

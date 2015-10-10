@@ -48,6 +48,18 @@
     <div id="${name}-error" class="help-block"></div>
 [/#macro]
 
+[#macro adminEmbedableSelectBox id name label placeholder="SELECT.PLACEHOLDER" noResultsText="SEARCH.NO_RESULTS"]
+<label for="${id}">[@spring.message label /]</label>
+<select data-placeholder="[@spring.message placeholder /]" data-no_results_text="[@spring.message noResultsText/]"
+        class="chosen-select" id="${id}" name="${name}" title="[@spring.message label /]" required="true"
+    [@security.authorize access="!hasAnyRole('ROLE_ADMIN')"] readonly[/@security.authorize]>
+    <option></option>
+    [#nested]
+</select>
+
+<div id="${name}-error" class="help-block"></div>
+[/#macro]
+
 [#macro selectBoxMulti id name label placeholder="SELECT.MULTI.PLACEHOLDER" noResultsText="SEARCH.NO_RESULTS" size="3"]
 <div class="form-group col-md-${size}">
     <label for="${id}">[@spring.message label /]</label>
@@ -72,6 +84,16 @@
 
 [#macro hiddenInput id name]
 <input type="text" id="${id}" name="${name}" hidden="hidden">
+[/#macro]
+
+[#macro adminInput id name label placeholder value="" size="3"]
+<div class="form-group col-md-${size}">
+    <label for="${id}">[@spring.message label/]</label>
+    <input type="text" class="form-control input-sm" id="${id}" name="${name}" title="[@spring.message label /]" placeholder="[@spring.message placeholder /]" value="${value}" required="true"
+        [@security.authorize access="!hasAnyRole('ROLE_ADMIN')"] readonly[/@security.authorize] >
+
+    <div id="${name}-error" class="help-block"></div>
+</div>
 [/#macro]
 
 [#macro inputReadOnly id name label size="3"]
