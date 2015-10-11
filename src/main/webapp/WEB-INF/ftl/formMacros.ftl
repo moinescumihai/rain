@@ -86,6 +86,10 @@
 <input type="text" id="${id}" name="${name}" hidden="hidden">
 [/#macro]
 
+[#macro scanInput id name]
+<input type="text" id="${id}" name="${name}" class="scan-input">
+[/#macro]
+
 [#macro adminInput id name label placeholder value="" size="3"]
 <div class="form-group col-md-${size}">
     <label for="${id}">[@spring.message label/]</label>
@@ -192,8 +196,15 @@
 </div>
 [/#macro]
 
-[#macro infobox name text additionalClass=""]
-<div class="well-sm infobox ${additionalClass}">
+[#macro topInfobox name text additionalClass=""]
+<div class="well-sm infobox infobox-top ${additionalClass}">
+    <span class="fa fa-info-circle"></span>
+    <span class="small text-justify">[@spring.message text /]</span>
+</div>
+[/#macro]
+
+[#macro bottomInfobox name text additionalClass=""]
+<div class="well-sm infobox infobox-bottom ${additionalClass}">
     <span class="fa fa-info-circle"></span>
     <span class="small text-justify">[@spring.message text /]</span>
 </div>

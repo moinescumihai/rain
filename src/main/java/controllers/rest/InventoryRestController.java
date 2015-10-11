@@ -116,6 +116,13 @@ public class InventoryRestController {
     }
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_INVENTAR')")
+    @RequestMapping(value = "/articol-by-code/{codStoc}", method = RequestMethod.GET, produces = "application/json")
+    @ResponseBody
+    public Stoc getArticolByCode(@PathVariable String codStoc) {
+        return inventoryService.findArticolByCodStoc(codStoc);
+    }
+
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_INVENTAR')")
     @RequestMapping(value = "/generatebarcode/{barcode}", method = RequestMethod.GET)
     @ResponseBody
     public String generateBarcode(@PathVariable String barcode) {

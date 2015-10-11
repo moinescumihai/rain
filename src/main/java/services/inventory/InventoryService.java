@@ -19,6 +19,8 @@ public interface InventoryService {
 
     Stoc findArticol(Long idArticol);
 
+    Stoc findArticolByCodStoc(String codStoc);
+
     List<StareStoc> findAllStari();
 
     TranzactieStoc findLastTranzactieForArticol(Long idArticol);

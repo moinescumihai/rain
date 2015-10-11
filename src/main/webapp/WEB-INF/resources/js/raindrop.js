@@ -324,6 +324,42 @@ function getProfile() {
     });
 }
 
+Array.prototype.remove = function () {
+    var what, a = arguments, L = a.length, ax;
+    while (L && this.length) {
+        what = a[--L];
+        while ((ax = this.indexOf(what)) !== -1) {
+            this.splice(ax, 1);
+        }
+    }
+    return this;
+};
+
+Function.prototype.chain = function () {
+    var that = this;
+    return function () {
+        // New function runs the old function
+        var retVal = that.apply(this, arguments);
+        // Returns "this" if old function returned nothing
+        if (typeof retVal === 'undefined') {
+            return this;
+        }
+        // else returns old value
+        else {
+            return retVal;
+        }
+    }
+};
+
+var chain = function (obj) {
+    for (var fn in obj) {
+        if (typeof obj[fn] === 'function') {
+            obj[fn] = obj[fn].chain();
+        }
+    }
+    return obj;
+};
+
 $(document).ready(function () {
     $('#an-copyright').text(new Date().getFullYear());
     $('input[type=file]').bootstrapFileInput();
@@ -427,3 +463,4 @@ $(document).ajaxStart(function () {
 $(document).ajaxStop(function () {
     //ajaxSpinnerOff();
 });
+

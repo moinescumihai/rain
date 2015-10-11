@@ -29,7 +29,7 @@
                     [@embedableSelectBox "addProject-form-client" "idClient" "CLIENT" "SELECT.PLACEHOLDER" "SEARCH.NO_RESULTS"]
                     [/@embedableSelectBox]
                 [/@elementWithLink]
-                [@infobox "client-info" "INFOBOX.ADDCLIENT"/]
+                [@bottomInfobox "client-info" "INFOBOX.ADDCLIENT"/]
             [/@modalContainer]
         </div>
         <div class="tab-pane fade" id="category-project" role="tabpanel">
@@ -38,7 +38,7 @@
                     [@embedableSelectBox "addProject-form-category" "categorieProiect" "CATEGORY" "SELECT.PLACEHOLDER" "SEARCH.NO_RESULTS"]
                     [/@embedableSelectBox]
                 [/@elementWithLink]
-                [@infobox "client-info" "INFOBOX.ADDCATEGORY"/]
+                [@bottomInfobox "client-info" "INFOBOX.ADDCATEGORY"/]
             [/@modalContainer]
         </div>
         <div class="tab-pane fade" id="dates-project" role="tabpanel">
@@ -46,7 +46,7 @@
                 [@datepicker "addProject-form-start-date" "dataStart" "STARTDATE" "DATE.PLACEHOLDER" "6" /]
                 [@rowBreak/]
                 [@datepicker "addProject-form-end-date" "dataEndEstimativa" "ENDDATE" "DATE.PLACEHOLDER" "6" /]
-                [@infobox "client-info" "INFOBOX.ADDDATE"/]
+                [@bottomInfobox "client-info" "INFOBOX.ADDDATE"/]
             [/@modalContainer]
         </div>
     </div>

@@ -67,7 +67,7 @@
         [@rowBreak/]
         [@datepicker "userProfile-form-dataAngajare" "dataAngajare" "USER.DATAANGAJARE" "USER.DATAANGAJARE.PLACEHOLDER" "4"/]
         [@input "userProfile-form-zileConcediu" "zileConcediu" "USER.ZILECONCEDIU" "USER.ZILECONCEDIU.PLACEHOLDER" "" "3"/]
-        [@infobox "user-legal-info" "INFOBOX.ADDCLIENT" "infobox-profile"/]
+        [@bottomInfobox "user-legal-info" "INFOBOX.ADDCLIENT" "infobox-profile"/]
     [/@modalContainer]
     </div>
 </div>

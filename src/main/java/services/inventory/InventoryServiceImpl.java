@@ -167,6 +167,11 @@ public class InventoryServiceImpl implements InventoryService {
     }
 
     @Override
+    public Stoc findArticolByCodStoc(String codStoc) {
+        return stocRepository.findOneByCodStocEquals(codStoc);
+    }
+
+    @Override
     public TranzactieStoc findLastTranzactieForArticol(Long idArticol) {
         try {
             Stoc stoc = stocRepository.findOne(idArticol);

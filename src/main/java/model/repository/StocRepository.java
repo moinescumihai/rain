@@ -11,4 +11,6 @@ public interface StocRepository extends CrudRepository<Stoc, Long> {
     List<Stoc> findAllByDeletedEquals(Integer deleted);
 
     List<Stoc> findAllByIdResurseUmaneAndDeleted(ResurseUmane resurseUmane, Integer deleted);
+
+    Stoc findOneByCodStocEquals(String codStoc);
 }
