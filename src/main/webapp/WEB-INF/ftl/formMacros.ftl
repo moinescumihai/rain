@@ -321,3 +321,9 @@
     </div>
 </div>
 [/#macro]
+
+[#macro formatTemplate]
+<div id="formatTemplate" class="hidden">
+    [#nested/]
+</div>
+[/#macro]

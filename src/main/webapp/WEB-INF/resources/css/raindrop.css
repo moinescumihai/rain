@@ -1447,7 +1447,6 @@ button.toast-close-button {
 
 .popover-options {
     list-style: none;
-    padding: 2px;
     cursor: pointer;
 }
 
@@ -1456,7 +1455,7 @@ button.toast-close-button {
 }
 
 .popover-options li {
-    padding: 5px;
+    padding: 3px;
 }
 
 .popover-options a {
@@ -1567,7 +1566,7 @@ a.dropdown-carret:focus {
 }
 
 .webui-popover-content {
-    padding: 9px 14px;
+    padding: 9px 7px;
     overflow: auto;
 }
 

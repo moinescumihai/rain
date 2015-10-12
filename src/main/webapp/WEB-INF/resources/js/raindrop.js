@@ -8,7 +8,6 @@ var EMPTY = '';
 var UNSELECT = [];
 var ZERO = 0;
 var chosenUpdated = 'chosen:updated';
-var rightSlidebar;
 
 $.extend($.fn.dataTable.defaults, {
     "aLengthMenu": [[5, 10, 25, 50, 100, -1], [5, 10, 25, 50, 100, "Toate"]],
@@ -364,6 +363,7 @@ $(document).ready(function () {
     $('#an-copyright').text(new Date().getFullYear());
     $('input[type=file]').bootstrapFileInput();
     $('.file-inputs').bootstrapFileInput();
+    $('[data-toggle="tooltip"]').tooltip();
 
     $(".chosen-select").chosen({
         disable_search_threshold: 10,
@@ -383,6 +383,7 @@ $(document).ready(function () {
         if (linkLocation)
             $('html,body').animate({scrollTop: linkLocation.top}, "10000", 'linear');
     });
+
 
     var profileModalForm = $('#modal-userProfile-form');
 
