@@ -1,6 +1,9 @@
 package services.inventory;
 
 import model.domain.*;
+import model.forms.GrupStocFormModel;
+import model.forms.IesireFormModel;
+import model.forms.StocFormModel;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletResponse;
@@ -49,4 +52,5 @@ public interface InventoryService {
 
     Stoc removeStoc(Long idStoc);
 
+    boolean iesire(IesireFormModel iesire);
 }

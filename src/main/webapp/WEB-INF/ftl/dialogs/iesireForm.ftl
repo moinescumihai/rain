@@ -4,8 +4,8 @@
 <div role="tabpanel">
     <!-- Nav tabs -->
     <ul class="nav nav-tabs" role="tablist">
-        <li class="active"><a href="#iesire-detalii" role="tab" data-toggle="tab">[@spring.message "DETAILS"/]</a></li>
-        <li><a href="#iesire-scaneaza" role="tab" data-toggle="tab">[@spring.message "SCANEAZA"/]</a></li>
+        <li class="active"><a href="#iesire-detalii" role="tab" data-toggle="tab">[@spring.message "DETAILS"/]  <span class="badge">1</span></a></li>
+        <li><a href="#iesire-scaneaza" role="tab" data-toggle="tab">[@spring.message "SCANEAZA"/]  <span class="badge">2</span></a></li>
     </ul>
     <!-- Tab content -->
     <div class="tab-content">
@@ -23,8 +23,8 @@
             [/@elementWithLink]
             [@rowBreak/]
             [@selectBox "iesire-form-tip-iesire" "tipIesire" "INVENTAR.TIP_IESIRE" "SELECT.PLACEHOLDER" "SEARCH.NO_RESULTS" "6"]
-                <option value="1">Predare personal&abreve;</option>
-                <option value="2">Curier</option>
+                <option value="3">Predare personal&abreve;</option>
+                <option value="4">Curier</option>
             [/@selectBox]
             [@rowBreak/]
             [@textarea "iesire-form-detalii" "detalii" "MODAL.DETAILS" "MODAL.DETAILS.PLACEHOLDER" "12"/]
@@ -45,10 +45,13 @@
             <div id="iesire-form-scan-manual-wrapper" class="hidden row">
                 <div class="col-md-offset-3 col-md-6 form-group">
                     <label for="iesire-form-scan-manual">[@spring.message "SCANEAZA_MANUAL"/]</label>
-                    <input type="text" class="form-control" id="iesire-form-scan-manual" title="[@spring.message "SCANEAZA_MANUAL"/]">
-                </div>
-                <div class="col-md-1 form-group">
-                    <button id="button-scanare-refresh" type="button" class="btn btn-info" title="[@spring.message "SCANEAZA_CAUTA"/]"><i class="fa fa-search"></i></button>
+
+                    <div class="input-group">
+                        <input type="text" class="input-sm form-control" id="iesire-form-scan-manual" title="[@spring.message "SCANEAZA_MANUAL"/]">
+                    <span class="input-group-btn">
+                        <button id="button-scanare-refresh" type="button" class="btn btn-default" title="[@spring.message "SCANEAZA_CAUTA"/]"><i class="fa fa-search"></i></button>
+                    </span>
+                    </div>
                 </div>
             </div>
             <div id="iesire-form-list-articole" class="hidden">

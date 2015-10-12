@@ -4,6 +4,9 @@ import com.google.zxing.BarcodeFormat;
 import common.utils.UserUtils;
 import model.common.FileBean;
 import model.domain.*;
+import model.forms.GrupStocFormModel;
+import model.forms.IesireFormModel;
+import model.forms.StocFormModel;
 import model.repository.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -321,5 +324,28 @@ public class InventoryServiceImpl implements InventoryService {
         Stoc stoc = stocRepository.findOne(idStoc);
         stoc.setDeleted(1);
         return stocRepository.save(stoc);
+    }
+
+    @Override
+    @Transactional
+    public boolean iesire(IesireFormModel iesire) {
+        String username = UserUtils.getLoggedInUsername();
+        Timestamp curentTime = new Timestamp(System.currentTimeMillis());
+        Stoc stoc;
+        Colet colet = new Colet();
+        colet.setNumeColet(String.valueOf(UUID.randomUUID()));
+        coletRepository.save(colet);
+        StareStoc stareStoc = stareStocRepository.findOne(iesire.getTipIesire());
+        for (long idArticol : iesire.getArticole()) {
+            stoc = stocRepository.findOne(idArticol);
+            stoc.setIdLoc(locRepository.findOne(iesire.getIdLoc()));
+            stoc.setIdResurseUmane(resurseUmaneService.findOne(iesire.getIdResurseUmane()));
+            stoc.setIdStare(stareStoc);
+            stoc.setModificatDe(username);
+            stoc.setModificatLa(curentTime);
+            stocRepository.save(stoc);
+            buildAndSaveTranzactieStoc(stoc, colet, iesire.getDetalii());
+        }
+        return true;
     }
 }

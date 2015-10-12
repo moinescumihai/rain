@@ -971,7 +971,8 @@ button.toast-close-button {
     overflow: hidden;
     margin: 0 0 6px;
     padding: 15px 15px 15px 50px;
-    width: 300px;
+    min-width: 300px;
+    max-width: 500px;
     -moz-border-radius: 3px 3px 3px 3px;
     -webkit-border-radius: 3px 3px 3px 3px;
     border-radius: 3px 3px 3px 3px;
@@ -1014,7 +1015,7 @@ button.toast-close-button {
 
 #toast-container.toast-top-center > div,
 #toast-container.toast-bottom-center > div {
-    width: 300px;
+    min-width: 300px;
     margin: auto;
 }
 
@@ -2169,4 +2170,9 @@ div[id^="history"] .modal-body {
 
 .articol .alert-link {
     color: #245269;
+}
+
+#button-scanare-refresh {
+    padding: 7px 10px;
+    background-color: floralwhite;
 }
