@@ -49,7 +49,7 @@
                     <div class="input-group">
                         <input type="text" class="input-sm form-control" id="iesire-form-scan-manual" title="[@spring.message "SCANEAZA_MANUAL"/]">
                     <span class="input-group-btn">
-                        <button id="button-scanare-refresh" type="button" class="btn btn-default" title="[@spring.message "SCANEAZA_CAUTA"/]"><i class="fa fa-search"></i></button>
+                        <button id="button-scanare-iesire-refresh" type="button" class="btn btn-default" title="[@spring.message "SCANEAZA_CAUTA"/]"><i class="fa fa-search"></i></button>
                     </span>
                     </div>
                 </div>

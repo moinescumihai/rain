@@ -5,7 +5,7 @@ import common.utils.UserUtils;
 import model.common.FileBean;
 import model.domain.*;
 import model.forms.GrupStocFormModel;
-import model.forms.IesireFormModel;
+import model.forms.InventarFormModel;
 import model.forms.StocFormModel;
 import model.repository.*;
 import org.slf4j.Logger;
@@ -328,23 +328,46 @@ public class InventoryServiceImpl implements InventoryService {
 
     @Override
     @Transactional
-    public boolean iesire(IesireFormModel iesire) {
+    public boolean iesire(InventarFormModel model) {
         String username = UserUtils.getLoggedInUsername();
         Timestamp curentTime = new Timestamp(System.currentTimeMillis());
         Stoc stoc;
         Colet colet = new Colet();
         colet.setNumeColet(String.valueOf(UUID.randomUUID()));
         coletRepository.save(colet);
-        StareStoc stareStoc = stareStocRepository.findOne(iesire.getTipIesire());
-        for (long idArticol : iesire.getArticole()) {
+        StareStoc stareStoc = stareStocRepository.findOne(model.getTipIesire());
+        for (long idArticol : model.getArticole()) {
             stoc = stocRepository.findOne(idArticol);
-            stoc.setIdLoc(locRepository.findOne(iesire.getIdLoc()));
-            stoc.setIdResurseUmane(resurseUmaneService.findOne(iesire.getIdResurseUmane()));
+            stoc.setIdLoc(locRepository.findOne(model.getIdLoc()));
+            stoc.setIdResurseUmane(resurseUmaneService.findOne(model.getIdResurseUmane()));
             stoc.setIdStare(stareStoc);
             stoc.setModificatDe(username);
             stoc.setModificatLa(curentTime);
             stocRepository.save(stoc);
-            buildAndSaveTranzactieStoc(stoc, colet, iesire.getDetalii());
+            buildAndSaveTranzactieStoc(stoc, colet, model.getDetalii());
+        }
+        return true;
+    }
+
+    @Override
+    @Transactional
+    public boolean intrare(InventarFormModel model) {
+        String username = UserUtils.getLoggedInUsername();
+        Timestamp curentTime = new Timestamp(System.currentTimeMillis());
+        Stoc stoc;
+        Colet colet = new Colet();
+        colet.setNumeColet(String.valueOf(UUID.randomUUID()));
+        coletRepository.save(colet);
+        StareStoc stareStoc = stareStocRepository.findOne(2L);
+        for (long idArticol : model.getArticole()) {
+            stoc = stocRepository.findOne(idArticol);
+            stoc.setIdLoc(locRepository.findOne(model.getIdLoc()));
+            stoc.setIdResurseUmane(resurseUmaneService.findOne(1L));
+            stoc.setIdStare(stareStoc);
+            stoc.setModificatDe(username);
+            stoc.setModificatLa(curentTime);
+            stocRepository.save(stoc);
+            buildAndSaveTranzactieStoc(stoc, colet, model.getDetalii());
         }
         return true;
     }

@@ -4,7 +4,7 @@ import common.utils.UserUtils;
 import model.common.JSONResponseWithId;
 import model.domain.*;
 import model.forms.GrupStocFormModel;
-import model.forms.IesireFormModel;
+import model.forms.InventarFormModel;
 import model.forms.StocFormModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
@@ -142,12 +142,29 @@ public class InventoryRestController {
     @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_SUPERUSER', 'ROLE_INVENTAR')")
     @RequestMapping(value = "/iesire", method = RequestMethod.POST, produces = "application/json")
     @ResponseBody
-    public JSONResponseWithId iesire(@RequestBody IesireFormModel iesire) {
+    public JSONResponseWithId iesire(@RequestBody InventarFormModel iesire) {
         JSONResponseWithId response = new JSONResponseWithId();
         try {
             boolean success = inventoryService.iesire(iesire);
             response.setId(1);
             String articolarticole = iesire.getArticole().length == 1 ? "-a predat articolul" : "-au predat articolele";
+            response.setMessage("S-" + articolarticole);
+        } catch (DataAccessException e) {
+            response.setId(-1);
+            response.setMessage("Eroare la iesire");
+        }
+        return response;
+    }
+
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_SUPERUSER', 'ROLE_INVENTAR')")
+    @RequestMapping(value = "/intrare", method = RequestMethod.POST, produces = "application/json")
+    @ResponseBody
+    public JSONResponseWithId intrare(@RequestBody InventarFormModel model) {
+        JSONResponseWithId response = new JSONResponseWithId();
+        try {
+            boolean success = inventoryService.intrare(model);
+            response.setId(1);
+            String articolarticole = model.getArticole().length == 1 ? "-a predat articolul" : "-au predat articolele";
             response.setMessage("S-" + articolarticole);
         } catch (DataAccessException e) {
             response.setId(-1);

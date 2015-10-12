@@ -2,7 +2,7 @@ package services.inventory;
 
 import model.domain.*;
 import model.forms.GrupStocFormModel;
-import model.forms.IesireFormModel;
+import model.forms.InventarFormModel;
 import model.forms.StocFormModel;
 import org.springframework.stereotype.Service;
 
@@ -52,5 +52,7 @@ public interface InventoryService {
 
     Stoc removeStoc(Long idStoc);
 
-    boolean iesire(IesireFormModel iesire);
+    boolean iesire(InventarFormModel iesire);
+
+    boolean intrare(InventarFormModel model);
 }
