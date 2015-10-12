@@ -1,6 +1,9 @@
 package services.inventory;
 
 import model.domain.*;
+import model.forms.GrupStocFormModel;
+import model.forms.InventarFormModel;
+import model.forms.StocFormModel;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletResponse;
@@ -18,6 +21,8 @@ public interface InventoryService {
     Stoc edit(StocFormModel entity);
 
     Stoc findArticol(Long idArticol);
+
+    Stoc findArticolByCodStoc(String codStoc);
 
     List<StareStoc> findAllStari();
 
@@ -47,4 +52,7 @@ public interface InventoryService {
 
     Stoc removeStoc(Long idStoc);
 
+    boolean iesire(InventarFormModel iesire);
+
+    boolean intrare(InventarFormModel model);
 }

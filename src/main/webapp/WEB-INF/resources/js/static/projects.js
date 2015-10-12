@@ -66,6 +66,7 @@ function deleteProject(id) {
             xhr.setRequestHeader(header, token);
         },
         success: function (response) {
+            getProjects();
             showNotification(response.message, 'Success', SUCCESS);
         },
         error: function () {
@@ -81,11 +82,12 @@ function getProjects() {
     var header = $("meta[name='_csrf_header']").prop("content");
     var tableHeader = '<table id="project-table" class="table table-hover table-responsive">'
         + '<thead><tr class="text-table-head">'
-        + '<td>Name</td>'
-        + '<td>Category</td>'
-        + '<td>Start Date</td>'
-        + '<td>End Date</td>'
+        + '<td>Nume</td>'
+        + '<td>Categorie</td>'
+        + '<td>Dat&abreve; start</td>'
+        + '<td>Dat&abreve; final</td>'
         + '</tr></thead><tbody>';
+
     $.ajax({
         method: 'get',
         dataType: "json",
@@ -178,18 +180,16 @@ $(document).ready(function () {
                         var retValue;
                         var data = $($(this)[0]).data('load').split('=');
                         var idProject = data[1];
-                        retValue = '<div class="popover-left-column"><ul class="popover-options">'
-                            + '<li><a><span class="fa fa-group fa-fw">&nbsp;</span>&nbsp; People</a></li>'
-                            + '<li><a><span class="fa fa-tasks fa-fw">&nbsp;</span>&nbsp; Tasks</a></li>'
-                            + '<li><a><span class="fa fa-bookmark-o fa-fw">&nbsp;</span>&nbsp; Milestones</a></li>'
-                            + '<li><a><span class="fa fa-bomb fa-fw">&nbsp;</span>&nbsp; Risks</a></li>'
-                            + '<li><a><span class="fa fa-archive fa-fw">&nbsp;</span>&nbsp; Archive</a></li>'
+                        retValue = '<div class="col-md-6"><ul class="popover-options">'
+                            + '<li><a><span class="fa fa-cog fa-fw">&nbsp;</span>&nbsp; Set&abreve;ri</a></li>'
+                            + '<li><a><span class="fa fa-archive fa-fw">&nbsp;</span>&nbsp; Arhiv&abreve;</a></li>'
+                            + '<li><a id="pop-proj-del-' + idProject + '"><span class="fa fa-trash-o fa-fw">&nbsp;</span>&nbsp; &\#350;terge</a></li>'
                             + '</ul></div>'
-                            + '<div class="popover-right-column"><ul class="popover-options">'
-                            + '<li><a><span class="fa fa-cog fa-fw">&nbsp;</span>&nbsp; Settings</a></li>'
-                            + '<li><a><span class="fa fa-paperclip fa-fw">&nbsp;</span>&nbsp; Files</a></li>'
-                            + '<li><a><span class="fa fa-line-chart fa-fw">&nbsp;</span>&nbsp; Report</a></li>'
-                            + '<li><a id="pop-proj-del-' + idProject + '"><span class="fa fa-trash-o fa-fw">&nbsp;</span>&nbsp; Delete</a></li>'
+                            + '<div class="col-md-6"><ul class="popover-options">'
+                            + '<li><a><span class="fa fa-group fa-fw">&nbsp;</span>&nbsp; Persoane</a></li>'
+                            + '<li><a><span class="fa fa-tasks fa-fw">&nbsp;</span>&nbsp; Task-uri</a></li>'
+                            + '<li><a><span class="fa fa-paperclip fa-fw">&nbsp;</span>&nbsp; Fi&\#x219;iere</a></li>'
+                            + '<li><a><span class="fa fa-line-chart fa-fw">&nbsp;</span>&nbsp; Rapoarte</a></li>'
                             + '</ul></div>';
 
                         return retValue;
@@ -199,12 +199,12 @@ $(document).ready(function () {
         )
     });
 
-    $('body').on('click', 'a[id^="pop-proj-del-"]', function (e) {
+    $(document).on('click', 'a[id^="pop-proj-del-"]', function (e) {
         var idProject = $(this).prop('id').replace('pop-proj-del-', '');
         confirmModal('delete-project-confirm-' + idProject, 'Are you sure you want to delete this project?');
     });
 
-    $('body').on('click', 'button[id^=delete-project-confirm-]', function (e) {
+    $(document).on('click', 'button[id^=delete-project-confirm-]', function (e) {
         var idProject = $(this).prop('id').replace('delete-project-confirm-', '');
         var modalConfirm;
         idProject = idProject.replace('-yes', '');
@@ -212,10 +212,6 @@ $(document).ready(function () {
         deleteProject(idProject);
         modalConfirm.modal('hide');
         $('body').remove(modalConfirm);
-    });
-
-    $('body').on('hidden.bs.modal', 'div[id^=delete-project-confirm-]', function () {
-        getProjects();
     });
 
     addCategoryForm.validate({

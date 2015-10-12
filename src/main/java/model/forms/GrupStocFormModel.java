@@ -1,4 +1,4 @@
-package model.domain;
+package model.forms;
 
 public class GrupStocFormModel {
     private long idGrupStoc;

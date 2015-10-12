@@ -8,7 +8,6 @@ var EMPTY = '';
 var UNSELECT = [];
 var ZERO = 0;
 var chosenUpdated = 'chosen:updated';
-var rightSlidebar;
 
 $.extend($.fn.dataTable.defaults, {
     "aLengthMenu": [[5, 10, 25, 50, 100, -1], [5, 10, 25, 50, 100, "Toate"]],
@@ -324,10 +323,47 @@ function getProfile() {
     });
 }
 
+Array.prototype.remove = function () {
+    var what, a = arguments, L = a.length, ax;
+    while (L && this.length) {
+        what = a[--L];
+        while ((ax = this.indexOf(what)) !== -1) {
+            this.splice(ax, 1);
+        }
+    }
+    return this;
+};
+
+Function.prototype.chain = function () {
+    var that = this;
+    return function () {
+        // New function runs the old function
+        var retVal = that.apply(this, arguments);
+        // Returns "this" if old function returned nothing
+        if (typeof retVal === 'undefined') {
+            return this;
+        }
+        // else returns old value
+        else {
+            return retVal;
+        }
+    }
+};
+
+var chain = function (obj) {
+    for (var fn in obj) {
+        if (typeof obj[fn] === 'function') {
+            obj[fn] = obj[fn].chain();
+        }
+    }
+    return obj;
+};
+
 $(document).ready(function () {
     $('#an-copyright').text(new Date().getFullYear());
     $('input[type=file]').bootstrapFileInput();
     $('.file-inputs').bootstrapFileInput();
+    $('[data-toggle="tooltip"]').tooltip();
 
     $(".chosen-select").chosen({
         disable_search_threshold: 10,
@@ -347,6 +383,7 @@ $(document).ready(function () {
         if (linkLocation)
             $('html,body').animate({scrollTop: linkLocation.top}, "10000", 'linear');
     });
+
 
     var profileModalForm = $('#modal-userProfile-form');
 
@@ -427,3 +464,4 @@ $(document).ajaxStart(function () {
 $(document).ajaxStop(function () {
     //ajaxSpinnerOff();
 });
+

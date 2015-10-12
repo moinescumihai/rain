@@ -20,13 +20,15 @@
 [#macro elementWithLink target label size="6"]
 <div class="form-group col-md-${size}">
     [#nested]
-    <a data-toggle="modal" data-target="#${target}" class="small form-link">[@spring.message label /]</a>
+    [@security.authorize access="hasAnyRole('ROLE_ADMIN','ROLE_SUPERUSER')"]
+        <a data-toggle="modal" data-target="#${target}" class="small form-link">[@spring.message label /]</a>
+    [/@security.authorize]
 </div>
 [/#macro]
 
 [#macro selectBox id name label placeholder="SELECT.PLACEHOLDER" noResultsText="SEARCH.NO_RESULTS" size="4"]
 <div class="form-group col-md-${size}">
-    <label for="${id}">[@spring.message label /]</label>
+    <label for="${id}" class="control-label">[@spring.message label /]</label>
     <select data-placeholder="[@spring.message placeholder /]" data-no_results_text="[@spring.message noResultsText/]"
             class="chosen-select" id="${id}" name="${name}" title="[@spring.message label /]" required="true">
         <option></option>
@@ -38,7 +40,7 @@
 [/#macro]
 
 [#macro embedableSelectBox id name label placeholder="SELECT.PLACEHOLDER" noResultsText="SEARCH.NO_RESULTS"]
-    <label for="${id}">[@spring.message label /]</label>
+<label for="${id}" class="control-label">[@spring.message label /]</label>
     <select data-placeholder="[@spring.message placeholder /]" data-no_results_text="[@spring.message noResultsText/]"
             class="chosen-select" id="${id}" name="${name}" title="[@spring.message label /]" required="true">
         <option></option>
@@ -49,7 +51,7 @@
 [/#macro]
 
 [#macro adminEmbedableSelectBox id name label placeholder="SELECT.PLACEHOLDER" noResultsText="SEARCH.NO_RESULTS"]
-<label for="${id}">[@spring.message label /]</label>
+<label for="${id}" class="control-label">[@spring.message label /]</label>
 <select data-placeholder="[@spring.message placeholder /]" data-no_results_text="[@spring.message noResultsText/]"
         class="chosen-select" id="${id}" name="${name}" title="[@spring.message label /]" required="true"
     [@security.authorize access="!hasAnyRole('ROLE_ADMIN')"] readonly[/@security.authorize]>
@@ -62,7 +64,7 @@
 
 [#macro selectBoxMulti id name label placeholder="SELECT.MULTI.PLACEHOLDER" noResultsText="SEARCH.NO_RESULTS" size="3"]
 <div class="form-group col-md-${size}">
-    <label for="${id}">[@spring.message label /]</label>
+    <label for="${id}" class="control-label">[@spring.message label /]</label>
     <select data-placeholder="[@spring.message placeholder /]" multiple data-no_results_text="[@spring.message noResultsText/]"
             class="chosen-select" id="${id}" name="${name}" title="[@spring.message label /]" required="true">
         <option></option>
@@ -75,7 +77,7 @@
 
 [#macro input id name label placeholder value="" size="3"]
 <div class="form-group col-md-${size}">
-    <label for="${id}">[@spring.message label/]</label>
+    <label for="${id}" class="control-label">[@spring.message label/]</label>
     <input type="text" class="form-control input-sm" id="${id}" name="${name}" title="[@spring.message label /]" placeholder="[@spring.message placeholder /]" value="${value}" required="true">
 
     <div id="${name}-error" class="help-block"></div>
@@ -86,9 +88,13 @@
 <input type="text" id="${id}" name="${name}" hidden="hidden">
 [/#macro]
 
+[#macro scanInput id name]
+<input type="text" id="${id}" name="${name}" class="scan-input">
+[/#macro]
+
 [#macro adminInput id name label placeholder value="" size="3"]
 <div class="form-group col-md-${size}">
-    <label for="${id}">[@spring.message label/]</label>
+    <label for="${id}" class="control-label">[@spring.message label/]</label>
     <input type="text" class="form-control input-sm" id="${id}" name="${name}" title="[@spring.message label /]" placeholder="[@spring.message placeholder /]" value="${value}" required="true"
         [@security.authorize access="!hasAnyRole('ROLE_ADMIN')"] readonly[/@security.authorize] >
 
@@ -98,7 +104,7 @@
 
 [#macro inputReadOnly id name label size="3"]
 <div class="form-group col-md-${size}">
-    <label for="${id}">[@spring.message label/]</label>
+    <label for="${id}" class="control-label">[@spring.message label/]</label>
     <input type="text" class="form-control input-sm" id="${id}" name="${name}" title="[@spring.message label /]" required="true" readonly>
 
     <div id="${name}-error" class="help-block"></div>
@@ -107,7 +113,7 @@
 
 [#macro emailInput id name label placeholder value="" size="3"]
 <div class="form-group col-md-${size}">
-    <label for="${id}">[@spring.message label/]</label>
+    <label for="${id}" class="control-label">[@spring.message label/]</label>
     <input type="email" class="form-control input-sm" id="${id}" name="${name}" title="[@spring.message label /]" placeholder="[@spring.message placeholder /]" value="${value}" required="true">
 
     <div id="${name}-error" class="help-block"></div>
@@ -116,7 +122,7 @@
 
 [#macro datepicker id name label placeholder size="3"]
 <div class="form-group col-md-${size}">
-    <label for="${id}">[@spring.message label/]</label>
+    <label for="${id}" class="control-label">[@spring.message label/]</label>
 
     <div class="input-group date">
         <input type="text" class="form-control input-sm date-picker" id="${id}" name="${name}" placeholder="[@spring.message placeholder /]" title="[@spring.message label /]"
@@ -131,7 +137,7 @@
 
 [#macro textarea id name label placeholder size="3"]
 <div class="form-group col-md-${size}">
-    <label for="${id}">[@spring.message label/]</label>
+    <label for="${id}" class="control-label">[@spring.message label/]</label>
     <textarea class="form-control" id="${id}" rows="4" name="${name}" title="[@spring.message label /]" placeholder="[@spring.message placeholder /]" required="true"></textarea>
 
     <div id="${name}-error" class="help-block"></div>
@@ -140,7 +146,7 @@
 
 [#macro password id name label placeholder size="3"]
 <div class="form-group col-md-${size}">
-    <label for="${id}">[@spring.message label/]</label>
+    <label for="${id}" class="control-label">[@spring.message label/]</label>
     <input type="password" class="form-control input-sm" id="${id}" name="${name}" title="[@spring.message label /]" placeholder="[@spring.message placeholder /]" required="true">
 
     <div id="${name}-error" class="help-block"></div>
@@ -150,7 +156,7 @@
 [#macro checkbox id name label placeholder value="" size="3"]
 <div class="form-group col-md-${size}">
     <div class="checkbox">
-        <label><input type="checkbox" id="${id}" name="${name}" title="[@spring.message label /]" required="true"> [@spring.message label/]</label>
+        <label class="control-label"><input type="checkbox" id="${id}" name="${name}" title="[@spring.message label /]" required="true"> [@spring.message label/]</label>
     </div>
     <div id="${name}-error" class="help-block"></div>
 </div>
@@ -192,8 +198,15 @@
 </div>
 [/#macro]
 
-[#macro infobox name text additionalClass=""]
-<div class="well-sm infobox ${additionalClass}">
+[#macro topInfobox name text additionalClass=""]
+<div class="well-sm infobox infobox-top ${additionalClass}">
+    <span class="fa fa-info-circle"></span>
+    <span class="small text-justify">[@spring.message text /]</span>
+</div>
+[/#macro]
+
+[#macro bottomInfobox name text additionalClass=""]
+<div class="well-sm infobox infobox-bottom ${additionalClass}">
     <span class="fa fa-info-circle"></span>
     <span class="small text-justify">[@spring.message text /]</span>
 </div>
@@ -306,5 +319,11 @@
 
         <div class="image-message"></div>
     </div>
+</div>
+[/#macro]
+
+[#macro formatTemplate]
+<div id="formatTemplate" class="hidden">
+    [#nested/]
 </div>
 [/#macro]
