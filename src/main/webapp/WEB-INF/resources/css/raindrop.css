@@ -2060,7 +2060,7 @@ tr.shown td.details-control {
     font-size: 12px;
 }
 
-.dataTables_wrapper  {
+.dataTables_wrapper {
     margin-bottom: 100px;
 }
 
@@ -2174,4 +2174,44 @@ div[id^="history"] .modal-body {
 #button-scanare-refresh {
     padding: 7px 10px;
     background-color: floralwhite;
+}
+
+#rMenu {
+    background-color: #3c3c3c;
+    opacity: 0.9;
+    box-shadow: 5px 5px 10px #828282;
+    border: 1px solid #737373;
+    border-radius: 5px;
+    padding-top: 5px;
+    position: absolute;
+    color: white;
+    display: none;
+    top: 0;
+    z-index: 5000;
+}
+
+.menuItem {
+    padding-left: 20px;
+    padding-right: 20px;
+    cursor: pointer;
+    z-index: 9999;
+    width: 150px;
+}
+
+.menuItem:hover {
+    background-color: darkgrey;
+    width: 150px;
+}
+
+.ztree li a input.rename {
+    height: 19px;
+    width: 169px;
+    padding: 0;
+    margin: 0 -5px 0 0;
+    font-size: 12px;
+    line-height: 12px;
+}
+
+.ztree {
+    overflow: auto;
 }

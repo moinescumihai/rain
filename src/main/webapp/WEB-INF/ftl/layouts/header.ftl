@@ -21,7 +21,7 @@
     <link href="css/datepicker.css" rel="stylesheet">
     <link href="css/inbox.css" rel="stylesheet">
     <link href="css/timeline.css" rel="stylesheet">
-    <link href="css/tree.css" rel="stylesheet">
+    <link href="plugins/zTree/metroStyle/metroStyle.css" rel="stylesheet">
     <link href="css/dataTables-bootstrap.css" rel="stylesheet">
     <link href="css/slidebars.css" rel="stylesheet">
     <link href="css/dropzone.css" rel="stylesheet">

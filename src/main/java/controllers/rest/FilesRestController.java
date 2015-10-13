@@ -1,5 +1,6 @@
 package controllers.rest;
 
+import model.common.TreeFile;
 import model.domain.Attachment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
@@ -12,6 +13,7 @@ import services.files.FilesService;
 import java.beans.PropertyEditorSupport;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 @RestController
 @RequestMapping("/app/secure/files")
@@ -45,10 +47,22 @@ public class FilesRestController {
     }
 
 
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_INVENTAR')")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_INVENTAR', 'ROLE_FISIERE')")
     @RequestMapping(value = "/get-inventory-image/{idStoc}", method = RequestMethod.GET)
     @ResponseBody
     public Attachment getInventoryImage(@PathVariable("idStoc") long idStoc) {
         return filesService.getStocImage(idStoc);
+    }
+
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_FISIERE')")
+    @RequestMapping(value = "/list-files", method = RequestMethod.GET)
+    @ResponseBody
+    public List<TreeFile> listFiles(@RequestParam(value = "id", defaultValue = "0") long id,
+                                    @RequestParam(value = "name", defaultValue = "") String name,
+                                    @RequestParam(value = "level", defaultValue = "0") long level,
+                                    @RequestParam(value = "url", defaultValue = "") String url) {
+
+
+        return filesService.listFiles(id, name, level, url);
     }
 }

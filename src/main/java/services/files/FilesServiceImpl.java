@@ -1,6 +1,8 @@
 package services.files;
 
+import com.google.common.collect.Lists;
 import common.utils.UserUtils;
+import model.common.TreeFile;
 import model.domain.Attachment;
 import model.domain.Stoc;
 import model.repository.AttachmentRepository;
@@ -19,6 +21,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.sql.Timestamp;
+import java.util.List;
 
 @Service
 public class FilesServiceImpl implements FilesService {
@@ -66,6 +69,7 @@ public class FilesServiceImpl implements FilesService {
         Attachment image = new Attachment();
         image.setIdStoc(idStoc);
         image.setFileName(fileName);
+        image.setSize(imageFile.getSize());
         image.setOriginalFileName(originalFilename);
         image.setPath(pathOnServer);
         image.setCreatDe(UserUtils.getLoggedInUsername());
@@ -84,5 +88,15 @@ public class FilesServiceImpl implements FilesService {
     public Attachment getStocImage(long idStoc) {
         long idAttachment = stocRepository.findOne(idStoc).getImagine().getIdAttachment();
         return attachmentRepository.findOne(idAttachment);
+    }
+
+    @Override
+    public List<TreeFile> listFiles(long id, String name, long level, String url) {
+        List<Attachment> allFiles = (List<Attachment>) attachmentRepository.findAll();
+        List<TreeFile> treeFiles = Lists.newArrayList();
+        for (Attachment file : allFiles) {
+            treeFiles.add(new TreeFile(file.getIdAttachment(), file.getOriginalFileName(), file.getPath(), file.getSize()));
+        }
+        return treeFiles;
     }
 }
