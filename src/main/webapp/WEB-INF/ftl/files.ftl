@@ -13,7 +13,7 @@
     [/@sidebar]
     [@content]
     <div>
-        <table class="table table-hover">
+        <table class="table table-hover table-striped table-condensed">
             <thead>
             <tr class="text-table-head">
                 <th>#</th>
