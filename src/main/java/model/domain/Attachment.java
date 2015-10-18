@@ -1,7 +1,11 @@
 package model.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.Collection;
 
 @Entity
 public class Attachment {
@@ -9,6 +13,11 @@ public class Attachment {
     private Long idProiect;
     private Long idStoc;
     private Long idUser;
+    private Attachment parent;
+    private Collection<Attachment> children;
+    private Integer isDirectory;
+    private Integer isArchive;
+    private Integer isReadonly;
     private String path;
     private String fileName;
     private String originalFileName;
@@ -17,7 +26,7 @@ public class Attachment {
     private Timestamp creatLa;
     private String modificatDe;
     private Timestamp modificatLa;
-
+    private Timestamp accesatLa;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -48,6 +57,27 @@ public class Attachment {
 
     public void setIdUser(Long idUser) {
         this.idUser = idUser;
+    }
+
+    @Basic
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JsonBackReference
+    public Attachment getParent() {
+        return parent;
+    }
+
+    public void setParent(Attachment parent) {
+        this.parent = parent;
+    }
+
+    @OneToMany(mappedBy = "parent", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JsonManagedReference
+    public Collection<Attachment> getChildren() {
+        return children;
+    }
+
+    public void setChildren(Collection<Attachment> children) {
+        this.children = children;
     }
 
     @Basic
@@ -138,5 +168,45 @@ public class Attachment {
 
     public void setModificatLa(Timestamp modificatLa) {
         this.modificatLa = modificatLa;
+    }
+
+    @Basic
+    @Column(name = "is_directory", nullable = false, insertable = true, updatable = true, columnDefinition = "INT(1) default 0")
+    public Integer getIsDirectory() {
+        return isDirectory;
+    }
+
+    public void setIsDirectory(Integer isDirectory) {
+        this.isDirectory = isDirectory;
+    }
+
+    @Basic
+    @Column(name = "is_archive", nullable = false, insertable = true, updatable = true, columnDefinition = "INT(1) default 0")
+    public Integer getIsArchive() {
+        return isArchive;
+    }
+
+    public void setIsArchive(Integer isArchive) {
+        this.isArchive = isArchive;
+    }
+
+    @Basic
+    @Column(name = "is_readonly", nullable = false, insertable = true, updatable = true, columnDefinition = "INT(1) default 0")
+    public Integer getIsReadonly() {
+        return isReadonly;
+    }
+
+    public void setIsReadonly(Integer isReadonly) {
+        this.isReadonly = isReadonly;
+    }
+
+    @Basic
+    @Column(name = "accesat_la", nullable = true, insertable = true, updatable = true)
+    public Timestamp getAccesatLa() {
+        return accesatLa;
+    }
+
+    public void setAccesatLa(Timestamp accesatLa) {
+        this.accesatLa = accesatLa;
     }
 }

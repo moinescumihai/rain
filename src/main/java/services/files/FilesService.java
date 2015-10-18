@@ -1,6 +1,5 @@
 package services.files;
 
-import model.common.TreeFile;
 import model.domain.Attachment;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -15,5 +14,5 @@ public interface FilesService {
 
     Attachment getStocImage(long idStoc);
 
-    List<TreeFile> listFiles(long id, String name, long level, String url);
+    List<Attachment> listFiles(long id);
 }

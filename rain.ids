@@ -17,11 +17,22 @@
       <column name="original_file_name" sqlType="TEXT" precision="65535" scale="0" nullable="false" jdbcType="-1"/>
       <column name="creat_de" sqlType="VARCHAR" precision="250" scale="0" nullable="false" jdbcType="12"/>
       <column name="creat_la" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93"/>
+      <column name="modificat_de" sqlType="VARCHAR" precision="250" scale="0" nullable="true" jdbcType="12"/>
+      <column name="modificat_la" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93"/>
+      <column name="size" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="accesat_la" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93"/>
+      <column name="is_archive" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
+      <column name="is_directory" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
+      <column name="is_readonly" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
+      <column name="parent_id_attachment" sqlType="BIGINT" precision="19" scale="0" nullable="true" jdbcType="-5"/>
       <primary-key name="PRIMARY" columns="id_attachment"/>
+      <foreign-key name="FKi8lh12bleiyn1qp0yhhdty5l5" columns="parent_id_attachment" ref-table="attachment" ref-schema="" ref-catalog="raindrop" ref-columns="id_attachment" update-rule="3" delete-rule="3" deferrability="2"/>
+      <exported-key name="FKi8lh12bleiyn1qp0yhhdty5l5" table="attachment" schema="" catalog="raindrop" columns="parent_id_attachment"/>
       <exported-key name="FK_f8ju7h9ge6ook3j46qe3hxb21" table="stoc" schema="" catalog="raindrop" columns="imagine"/>
       <exported-key name="FK_siqqcshl4ehyvo1aag1spsj3h" table="stoc" schema="" catalog="raindrop" columns="factura"/>
       <exported-key name="FKdatp3poniene6rern09hw1p1y" table="stoc" schema="" catalog="raindrop" columns="imagine"/>
       <exported-key name="FKle5bivk481ptmpdfad6bcns41" table="stoc" schema="" catalog="raindrop" columns="factura"/>
+      <index name="FKi8lh12bleiyn1qp0yhhdty5l5" unique="false" columns="parent_id_attachment"/>
     </table>
     <table name="buget_proiect" schema="" catalog="raindrop" type="TABLE">
       <column name="id_buget" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" autoIncrement="true"/>
@@ -71,10 +82,12 @@
       <column name="nume_categorie" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
       <column name="este_subcategorie" sqlType="TINYINT" precision="3" scale="0" nullable="true" jdbcType="-6"/>
       <column name="id_categorie_parinte" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="cod_categorie" sqlType="BIGINT" precision="19" scale="0" nullable="true" jdbcType="-5"/>
       <primary-key name="PRIMARY" columns="id_categorie_stoc"/>
       <exported-key name="FK8h1737dlck6li5pr2vftht491" table="grup_stoc" schema="" catalog="raindrop" columns="id_categorie_stoc"/>
       <exported-key name="FK_stoc_categorie_stoc" table="stoc" schema="" catalog="raindrop" columns="id_categorie_stoc"/>
       <exported-key name="FKgwuaia0dt07k9b9g0iqxkx19c" table="stoc" schema="" catalog="raindrop" columns="id_categorie_stoc"/>
+      <index name="nume_categorie" unique="true" columns="nume_categorie"/>
     </table>
     <table name="chat_message" schema="" catalog="raindrop" type="TABLE">
       <column name="id_chat_message" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
@@ -312,6 +325,7 @@
       <column name="creat_la" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93"/>
       <column name="modificat_de" sqlType="VARCHAR" precision="250" scale="0" nullable="true" jdbcType="12"/>
       <column name="modificat_la" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93"/>
+      <column name="deleted" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4" def="MA=="/>
       <primary-key name="PRIMARY" columns="id_stoc"/>
       <foreign-key name="FK3d0y57rjciac4tkvun0lceade" columns="id_resurse_umane" ref-table="resurse_umane" ref-schema="" ref-catalog="raindrop" ref-columns="id_resurse_umane" update-rule="3" delete-rule="3" deferrability="2"/>
       <foreign-key name="FK_26olc19dd77nb27artehdfnpx" columns="id_resurse_umane" ref-table="resurse_umane" ref-schema="" ref-catalog="raindrop" ref-columns="id_resurse_umane" update-rule="3" delete-rule="3" deferrability="2"/>

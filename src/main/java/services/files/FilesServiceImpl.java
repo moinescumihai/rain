@@ -1,8 +1,6 @@
 package services.files;
 
-import com.google.common.collect.Lists;
 import common.utils.UserUtils;
-import model.common.TreeFile;
 import model.domain.Attachment;
 import model.domain.Stoc;
 import model.repository.AttachmentRepository;
@@ -15,7 +13,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.ServletContext;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -27,8 +24,6 @@ import java.util.List;
 public class FilesServiceImpl implements FilesService {
     private static final Logger LOGGER = LoggerFactory.getLogger(FilesServiceImpl.class);
 
-    @Autowired
-    private ServletContext servletContext;
     @Autowired
     private AttachmentRepository attachmentRepository;
     @Autowired
@@ -74,6 +69,7 @@ public class FilesServiceImpl implements FilesService {
         image.setPath(pathOnServer);
         image.setCreatDe(UserUtils.getLoggedInUsername());
         image.setCreatLa(new Timestamp(System.currentTimeMillis()));
+        image.setParent(attachmentRepository.findOne(19L));
 
         image = attachmentRepository.save(image);
         Stoc stocToBeUpdated = stocRepository.findOne(idStoc);
@@ -84,19 +80,20 @@ public class FilesServiceImpl implements FilesService {
     }
 
     @Override
-
     public Attachment getStocImage(long idStoc) {
         long idAttachment = stocRepository.findOne(idStoc).getImagine().getIdAttachment();
         return attachmentRepository.findOne(idAttachment);
     }
 
     @Override
-    public List<TreeFile> listFiles(long id, String name, long level, String url) {
-        List<Attachment> allFiles = (List<Attachment>) attachmentRepository.findAll();
-        List<TreeFile> treeFiles = Lists.newArrayList();
-        for (Attachment file : allFiles) {
-            treeFiles.add(new TreeFile(file.getIdAttachment(), file.getOriginalFileName(), file.getPath(), file.getSize()));
+    public List<Attachment> listFiles(long id) {
+        List<Attachment> files;
+        if (id == 0) {
+            files = attachmentRepository.findAllByIsDirectoryAndParent(1, null);
+        } else {
+            files = (List<Attachment>) attachmentRepository.findOne(id).getChildren();
         }
-        return treeFiles;
+
+        return files;
     }
 }

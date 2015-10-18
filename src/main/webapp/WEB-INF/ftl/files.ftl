@@ -7,21 +7,28 @@
         <div class="panel-heading">
         </div>
         <div class="panel-body">
+            <div class="bubblingG">
+                <span id="bubblingG_1"></span>
+                <span id="bubblingG_2"></span>
+                <span id="bubblingG_3"></span>
+            </div>
             <div id="file-tree" class="ztree"></div>
         </div>
     </div>
     [/@sidebar]
     [@content]
     <div>
-        <table class="table table-hover">
+        <table class="table table-hover table-condensed table-striped">
             <thead>
             <tr class="text-table-head">
-                <th>#</th>
-                <th>Nume</th>
-                <th>M&abreve;rime</th>
+                <th class="align-center">#</th>
+                <th class="align-left">Nume</th>
+                <th class="align-right">M&abreve;rime</th>
+                <th class="align-right">Ultima accesare</th>
+                <th class="align-right">Ultima modificare</th>
             </tr>
             </thead>
-            <tbody id="file-display">
+            <tbody id="file-display" class="text-center">
 
             </tbody>
 

@@ -20,6 +20,15 @@
           <file>file://$MODULE_DIR$/src/main/java/configuration/FreemarkerConfig.java</file>
           <file>file://$MODULE_DIR$/src/main/java/configuration/WebSecurityConfig.java</file>
           <file>file://$MODULE_DIR$/src/main/java/configuration/WebSocketConfig.java</file>
+          <file>file://$MODULE_DIR$/src/main/resources/i18n/messages_de.properties</file>
+          <file>file://$MODULE_DIR$/src/main/resources/i18n/messages_en.properties</file>
+          <file>file://$MODULE_DIR$/src/main/resources/i18n/messages_es.properties</file>
+          <file>file://$MODULE_DIR$/src/main/resources/i18n/messages_fr.properties</file>
+          <file>file://$MODULE_DIR$/src/main/resources/i18n/messages_it.properties</file>
+          <file>file://$MODULE_DIR$/src/main/resources/i18n/messages_nl.properties</file>
+          <file>file://$MODULE_DIR$/src/main/resources/i18n/messages_ro.properties</file>
+          <file>file://$MODULE_DIR$/src/main/resources/application.properties</file>
+          <file>file://$MODULE_DIR$/src/main/resources/log4j.properties</file>
         </fileset>
       </configuration>
     </facet>

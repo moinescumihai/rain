@@ -1,6 +1,5 @@
 package controllers.rest;
 
-import model.common.TreeFile;
 import model.domain.Attachment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
@@ -18,7 +17,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/app/secure/files")
 public class FilesRestController {
-
     @Autowired
     private FilesService filesService;
 
@@ -55,14 +53,9 @@ public class FilesRestController {
     }
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_FISIERE')")
-    @RequestMapping(value = "/list-files", method = RequestMethod.GET)
+    @RequestMapping(value = "/list-files", method = RequestMethod.GET, produces = "application/json")
     @ResponseBody
-    public List<TreeFile> listFiles(@RequestParam(value = "id", defaultValue = "0") long id,
-                                    @RequestParam(value = "name", defaultValue = "") String name,
-                                    @RequestParam(value = "level", defaultValue = "0") long level,
-                                    @RequestParam(value = "url", defaultValue = "") String url) {
-
-
-        return filesService.listFiles(id, name, level, url);
+    public List<Attachment> listFiles(@RequestParam(value = "id", defaultValue = "0") long id) {
+        return filesService.listFiles(id);
     }
 }

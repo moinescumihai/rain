@@ -6,8 +6,9 @@ import javax.persistence.*;
 @Table(name = "categorie_stoc", schema = "", catalog = "raindrop")
 public class CategorieStoc {
     private long idCategorieStoc;
+    private Long codCategorie;
     private String numeCategorie;
-    private Integer idCategorieParinte;
+    private Long idCategorieParinte;
     private Byte esteSubcategorie;
 
     @Id
@@ -33,11 +34,11 @@ public class CategorieStoc {
 
     @Basic
     @Column(name = "id_categorie_parinte", nullable = true, insertable = true, updatable = true)
-    public Integer getIdCategorieParinte() {
+    public Long getIdCategorieParinte() {
         return idCategorieParinte;
     }
 
-    public void setIdCategorieParinte(Integer idCategorieParinte) {
+    public void setIdCategorieParinte(Long idCategorieParinte) {
         this.idCategorieParinte = idCategorieParinte;
     }
 
@@ -51,26 +52,13 @@ public class CategorieStoc {
         this.esteSubcategorie = esteSubcategorie;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof CategorieStoc)) return false;
-
-        CategorieStoc that = (CategorieStoc) o;
-
-        if (idCategorieStoc != that.idCategorieStoc) return false;
-        if (numeCategorie != null ? !numeCategorie.equals(that.numeCategorie) : that.numeCategorie != null) return false;
-        if (idCategorieParinte != null ? !idCategorieParinte.equals(that.idCategorieParinte) : that.idCategorieParinte != null) return false;
-        return !(esteSubcategorie != null ? !esteSubcategorie.equals(that.esteSubcategorie) : that.esteSubcategorie != null);
-
+    @Basic
+    @Column(name = "cod_categorie", nullable = true, insertable = true, updatable = true)
+    public Long getCodCategorie() {
+        return codCategorie;
     }
 
-    @Override
-    public int hashCode() {
-        int result = (int) (idCategorieStoc ^ (idCategorieStoc >>> 32));
-        result = 31 * result + (numeCategorie != null ? numeCategorie.hashCode() : 0);
-        result = 31 * result + (idCategorieParinte != null ? idCategorieParinte.hashCode() : 0);
-        result = 31 * result + (esteSubcategorie != null ? esteSubcategorie.hashCode() : 0);
-        return result;
+    public void setCodCategorie(Long codCategorie) {
+        this.codCategorie = codCategorie;
     }
 }

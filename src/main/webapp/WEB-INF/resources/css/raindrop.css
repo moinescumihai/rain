@@ -1380,6 +1380,7 @@ button.toast-close-button {
 
 .panel-body {
     padding: 10px;
+    height: 87%;
 }
 
 .progress {
@@ -2214,4 +2215,141 @@ div[id^="history"] .modal-body {
 
 .ztree {
     overflow: auto;
+    height: 100%;
+}
+
+.align-right {
+    text-align: right;
+}
+
+.align-left {
+    text-align: left;
+}
+
+.align-center {
+    text-align: center;
+}
+
+.bubblingG {
+    text-align: center;
+    width: 100%;
+    height: 94px;
+}
+
+.bubblingG span {
+    display: inline-block;
+    vertical-align: middle;
+    width: 19px;
+    height: 19px;
+    margin: 47px auto;
+    background: #3e3e3e;
+    -moz-border-radius: 94px;
+    -moz-animation: bubblingG 1.6s infinite alternate;
+    -webkit-border-radius: 94px;
+    -webkit-animation: bubblingG 1.6s infinite alternate;
+    -ms-border-radius: 94px;
+    -ms-animation: bubblingG 1.6s infinite alternate;
+    -o-border-radius: 94px;
+    -o-animation: bubblingG 1.6s infinite alternate;
+    border-radius: 94px;
+    animation: bubblingG 1.6s infinite alternate;
+}
+
+#bubblingG_1 {
+    -moz-animation-delay: 0.96s;
+    -webkit-animation-delay: 0.96s;
+    -ms-animation-delay: 0.96s;
+    -o-animation-delay: 0.96s;
+    animation-delay: 0.96s;
+}
+
+#bubblingG_2 {
+    -moz-animation-delay: 0.48s;
+    -webkit-animation-delay: 0.48s;
+    -ms-animation-delay: 0.48s;
+    -o-animation-delay: 0.48s;
+    animation-delay: 0.48s;
+}
+
+#bubblingG_3 {
+    -moz-animation-delay: 0s;
+    -webkit-animation-delay: 0s;
+    -ms-animation-delay: 0s;
+    -o-animation-delay: 0s;
+    animation-delay: 0s;
+}
+
+@-moz-keyframes bubblingG {
+    0% {
+        width: 19px;
+        height: 19px;
+        background-color: #3e3e3e;
+        -moz-transform: translateY(0);
+    }
+    100% {
+        width: 45px;
+        height: 45px;
+        background-color: #FFFFFF;
+        -moz-transform: translateY(-39px);
+    }
+}
+
+@-webkit-keyframes bubblingG {
+    0% {
+        width: 19px;
+        height: 19px;
+        background-color: #3e3e3e;
+        -webkit-transform: translateY(0);
+    }
+    100% {
+        width: 45px;
+        height: 45px;
+        background-color: #FFFFFF;
+        -webkit-transform: translateY(-39px);
+    }
+}
+
+@-ms-keyframes bubblingG {
+    0% {
+        width: 19px;
+        height: 19px;
+        background-color: #3e3e3e;
+        -ms-transform: translateY(0);
+    }
+    100% {
+        width: 45px;
+        height: 45px;
+        background-color: #FFFFFF;
+        -ms-transform: translateY(-39px);
+    }
+}
+
+@-o-keyframes bubblingG {
+    0% {
+        width: 19px;
+        height: 19px;
+        background-color: #3E3E3E;
+        -o-transform: translateY(0);
+    }
+    100% {
+        width: 45px;
+        height: 45px;
+        background-color: #FFFFFF;
+        -o-transform: translateY(-39px);
+    }
+}
+
+@keyframes bubblingG {
+    0% {
+        width: 19px;
+        height: 19px;
+        background-color: #3E3E3E;
+        transform: translateY(0);
+    }
+    100% {
+        width: 45px;
+        height: 45px;
+        background-color: #FFFFFF;
+        transform: translateY(-39px);
+    }
 }
