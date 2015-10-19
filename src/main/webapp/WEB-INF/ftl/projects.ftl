@@ -10,6 +10,12 @@
         <div class="list-group">
             [@listItemOpenModal "addProiect" "PROJECTS.ADDPROJECT" "modal-addProiect" "plus fa-1-5x"/]
         </div>
+        <div class="list-group">
+            [@listItemOpenModal "addClient" "MODAL.ADDCLIENT" "modal-addClient" "group fa-1-5x"/]
+        </div>
+        <div class="list-group">
+            [@listItemOpenModal "addCategory" "MODAL.ADDCATEGORY" "modal-addCategory" "tag fa-1-5x"/]
+        </div>
     </div>
     [/@sidebar]
     [@content]

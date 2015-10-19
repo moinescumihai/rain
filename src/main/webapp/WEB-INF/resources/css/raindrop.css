@@ -1380,6 +1380,9 @@ button.toast-close-button {
 
 .panel-body {
     padding: 10px;
+}
+
+.tree-wrapper .panel-body {
     height: 87%;
 }
 

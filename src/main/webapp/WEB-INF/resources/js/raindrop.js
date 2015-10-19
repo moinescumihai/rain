@@ -44,14 +44,15 @@ var popoverDefaultSettings = {
     padding: true//content padding
 };
 
-function startSpinner() {
+var startSpinner = function () {
     $("#overlay").show();
-}
-function stopSpinner() {
-    $("#overlay").hide();
-}
+};
 
-function generateFormattedDate(date) {
+var stopSpinner = function () {
+    $("#overlay").hide();
+};
+
+var generateFormattedDate = function (date) {
     if (date) {
         var year = date.getFullYear();
         var month = date.getMonth() <= 8 ? '0' + (date.getMonth() + 1) : (date.getMonth() + 1);
@@ -60,24 +61,24 @@ function generateFormattedDate(date) {
     } else {
         return '';
     }
-}
+};
 
-function hideModal() {
+var hideModal = function () {
     $('.modal.in').modal('hide');
     $('body').removeClass('modal-open');
     $('.modal-backdrop').remove();
-}
+};
 
-function formSubmit() {
+var formSubmit = function () {
     document.getElementById("logoutForm").submit();
-}
+};
 
 // Closes the Responsive Menu on Menu Item Click
 $('.navbar-collapse ul li a').click(function () {
     $('.navbar-toggle:visible').click();
 });
 
-function showNotification(message, title, type) {
+var showNotification = function (message, title, type) {
     if (typeof(type) === "undefined") {
         type = SUCCESS;
     }
@@ -98,9 +99,9 @@ function showNotification(message, title, type) {
         "hideMethod": "fadeOut"
     };
     toastr[type](message, title)
-}
+};
 
-function toJSDate(dateParam, locale) {
+var toJSDate = function (dateParam, locale) {
     var options = {
         weekday: "long",
         year: "numeric",
@@ -118,9 +119,9 @@ function toJSDate(dateParam, locale) {
     //dateTime[0] = date, dateTime[1] = time
     date = dateParam[0].split("-");
     return new Date(date[0], date[1], date[2]).toLocaleString(locale, options);
-}
+};
 
-function toJSDateTime(dateParam) {
+var toJSDateTime = function (dateParam) {
     var locale = 'ro';
     var returnDate;
     var options = {
@@ -135,9 +136,9 @@ function toJSDateTime(dateParam) {
 
     returnDate = new Date(dateParam).toLocaleString(locale, options);
     return returnDate;
-}
+};
 
-function showModal(id, title, content, buttons) {
+var showModal = function (id, title, content, buttons) {
     var modalHtml = '';
     var modalId = '#' + id;
     if (!buttons) {
@@ -169,20 +170,20 @@ function showModal(id, title, content, buttons) {
     } else {
         throw "you must specify mandatory arguments "
     }
-}
+};
 
-function confirmModal(id, title) {
+var confirmModal = function (id, title) {
     var modalHtml = '';
     var modalId = '#' + id;
-    var buttons = '<button type="button" id="' + id + '-yes" class="btn btn-success" onclick="javascript:return true;"><span class="fa fa-check"></span>&nbsp;&nbsp;Yes</button>';
-    buttons += '<button type="button" class="btn btn-danger" data-dismiss="modal"><span class="fa fa-times"></span>&nbsp;&nbsp;No</button>';
+    var buttons = '<button type="button" id="' + id + '-yes" class="btn btn-success" onclick="javascript:return true;"><span class="fa fa-check"></span>&nbsp;&nbsp;Da</button>';
+    buttons += '<button type="button" class="btn btn-danger" data-dismiss="modal"><span class="fa fa-times"></span>&nbsp;&nbsp;Nu</button>';
 
     modalHtml += '<div class="modal fade" id="' + id + '">'
             .concat('<div class="modal-dialog">')
             .concat('<div class="modal-content">')
             .concat('<div class="modal-header">')
             .concat('<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>')
-            .concat('<h4 class="modal-title"><span class="fa fa-question-circle">&nbsp;</span>').concat("Are you sure?").concat('</h4></div>')
+            .concat('<h4 class="modal-title"><span class="fa fa-question-circle">&nbsp;</span>').concat("E&#x219;ti sigur?").concat('</h4></div>')
             .concat('<div class="modal-body">')
             .concat('<h4>' + title + '</h4>')
             .concat('</div><div class="modal-footer">')
@@ -191,9 +192,9 @@ function confirmModal(id, title) {
 
     $('body').append(modalHtml);
     $(modalId).modal('show');
-}
+};
 
-function ajaxSpinnerOn() {
+var ajaxSpinnerOn = function () {
     var modalHtml = '<div class="modal fade" id="modal-spinner">'
         .concat('<div class="modal-dialog spinner-dialog">')
         .concat('<div class="modal-content">')
@@ -203,11 +204,11 @@ function ajaxSpinnerOn() {
 
     $('body').append(modalHtml);
     $('#modal-spinner').modal('show');
-}
+};
 
-function ajaxSpinnerOff() {
+var ajaxSpinnerOff = function () {
     $('#modal-spinner').modal('hide');
-}
+};
 
 $(window).scroll(function () {
     if ($(document).scrollTop() > 0) {
@@ -256,7 +257,7 @@ jQuery.validator.setDefaults({
 
 });
 
-function getProfile() {
+var getProfile = function () {
     var token = $("meta[name='_csrf']").attr("content");
     var header = $("meta[name='_csrf_header']").attr("content");
 
@@ -321,7 +322,7 @@ function getProfile() {
             showNotification("Error. Please try again later." + e.Message, "Error", DANGER);
         }
     });
-}
+};
 
 Array.prototype.remove = function () {
     var what, a = arguments, L = a.length, ax;
