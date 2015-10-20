@@ -1,9 +1,6 @@
 package model.domain;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Client {
@@ -17,11 +14,11 @@ public class Client {
     private String oras;
     private String judet;
     private String codPostal;
-    private Integer idTara;
-    private Integer idIndustrie;
+    private Tara idTara;
+    private Industrie idIndustrie;
 
     @Id
-
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_client", nullable = false, insertable = true, updatable = true)
     public long getIdClient() {
         return idClient;
@@ -121,23 +118,23 @@ public class Client {
         this.codPostal = codPostal;
     }
 
-    @Basic
-    @Column(name = "id_tara", nullable = true, insertable = true, updatable = true)
-    public Integer getIdTara() {
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "id_tara")
+    public Tara getIdTara() {
         return idTara;
     }
 
-    public void setIdTara(Integer idTara) {
+    public void setIdTara(Tara idTara) {
         this.idTara = idTara;
     }
 
-    @Basic
-    @Column(name = "id_industrie", nullable = true, insertable = true, updatable = true)
-    public Integer getIdIndustrie() {
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "id_industrie")
+    public Industrie getIdIndustrie() {
         return idIndustrie;
     }
 
-    public void setIdIndustrie(Integer idIndustrie) {
+    public void setIdIndustrie(Industrie idIndustrie) {
         this.idIndustrie = idIndustrie;
     }
 

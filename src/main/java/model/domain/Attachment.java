@@ -59,7 +59,6 @@ public class Attachment {
         this.idUser = idUser;
     }
 
-    @Basic
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JsonBackReference
     public Attachment getParent() {

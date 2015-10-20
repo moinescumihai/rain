@@ -14,8 +14,8 @@ import java.util.List;
 @Service
 public class ProjectsServiceImpl implements ProjectsService {
     private static final Logger LOGGER = LoggerFactory.getLogger(ProjectsServiceImpl.class);
-    private static final byte DELETED = 1;
-    private static final byte NOT_DELETED = 0;
+    private static final int DELETED = 1;
+    private static final int NOT_DELETED = 0;
 
     @Autowired
     private ProiectRepository proiectRepository;

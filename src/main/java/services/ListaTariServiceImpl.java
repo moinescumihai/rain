@@ -1,6 +1,6 @@
 package services;
 
-import model.domain.ListaTari;
+import model.domain.Tara;
 import model.repository.ListaTariRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,9 +19,9 @@ public class ListaTariServiceImpl implements ListaTariService {
     private ListaTariRepository listaTariRepository;
 
     @Override
-    public List<ListaTari> getTari() {
+    public List<Tara> getTari() {
         try {
-            return (List<ListaTari>) listaTariRepository.findAll();
+            return (List<Tara>) listaTariRepository.findAll();
         } catch (DataAccessException e) {
             LOGGER.error("TARI.NO_TARI", e);
             return Collections.emptyList();

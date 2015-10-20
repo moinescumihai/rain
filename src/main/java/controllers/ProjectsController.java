@@ -1,8 +1,8 @@
 package controllers;
 
 import model.domain.Industrie;
-import model.domain.ListaTari;
 import model.domain.StatusProiect;
+import model.domain.Tara;
 import model.repository.IndustrieRepository;
 import model.repository.StatusProiectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +39,7 @@ public class ProjectsController {
             listaIndustrie.put(String.valueOf(industry.getIdIndustrie()), industry.getNume());
         }
         Map<String, String> listaTari = new HashMap<>();
-        for (ListaTari tariList : listaTariRepository.getTari()) {
+        for (Tara tariList : listaTariRepository.getTari()) {
             listaTari.put(String.valueOf(tariList.getIdTara()), tariList.getNume());
         }
         model.addObject("listaIndustrie", listaIndustrie);

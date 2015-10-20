@@ -1,7 +1,7 @@
 package controllers.rest;
 
-import model.domain.ListaTari;
 import model.domain.ResurseUmane;
+import model.domain.Tara;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -48,7 +48,7 @@ public class ProfileRestController {
     @ResponseBody
     public ResurseUmane getRaindropUser(@PathVariable("username") String username, Model model) {
         Map<String, String> listaTari = new HashMap<>();
-        for (ListaTari tariList : listaTariService.getTari()) {
+        for (Tara tariList : listaTariService.getTari()) {
             listaTari.put(String.valueOf(tariList.getIdTara()), tariList.getNume());
         }
         model.addAttribute("listaTari", listaTari);

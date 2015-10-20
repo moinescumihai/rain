@@ -4,7 +4,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "lista_tari", schema = "", catalog = "raindrop")
-public class ListaTari {
+public class Tara {
     private int idTara;
     private String nume;
 
@@ -34,10 +34,10 @@ public class ListaTari {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        ListaTari listaTari = (ListaTari) o;
+        Tara tara = (Tara) o;
 
-        if (idTara != listaTari.idTara) return false;
-        return !(nume != null ? !nume.equals(listaTari.nume) : listaTari.nume != null);
+        if (idTara != tara.idTara) return false;
+        return !(nume != null ? !nume.equals(tara.nume) : tara.nume != null);
 
     }
 
