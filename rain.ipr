@@ -155,6 +155,7 @@
   </component>
   <component name="Encoding">
     <file url="file://$PROJECT_DIR$/src/main/java/controllers/rest/FilesRestController.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/controllers/rest/HrRestController.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java/controllers/rest/InventoryRestController.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java/controllers/rest/ProfileRestController.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java/controllers/rest/ProjectsRestController.java" charset="UTF-8" />

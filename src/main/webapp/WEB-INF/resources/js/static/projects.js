@@ -11,7 +11,6 @@ var getClients = function (container) {
         type: 'get',
         url: '/app/secure/projects/getclients',
         contentType: "application/json",
-        async: false,
         success: function (response) {
             if (typeof response !== 'undefined') {
                 for (var i = 0; i < response.length; i++) {
@@ -34,7 +33,6 @@ var getCategories = function (container) {
         type: 'get',
         url: '/app/secure/projects/getcategories',
         contentType: "application/json",
-        async: false,
         success: function (response) {
             if (typeof response !== 'undefined') {
                 for (var i = 0; i < response.length; i++) {

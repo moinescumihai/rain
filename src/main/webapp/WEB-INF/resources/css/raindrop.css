@@ -1251,6 +1251,8 @@ button.toast-close-button {
 /*Directory Styles*/
 
 .directory-list, .directory-info-row .social-links {
+    position: fixed;
+    top: 70px;
     list-style-type: none;
     padding: 0;
     margin: 0;
@@ -1275,6 +1277,11 @@ button.toast-close-button {
     text-decoration: none;
     border-radius: 5px;
     -webkit-border-radius: 5px;
+}
+
+.directory-list li.active a {
+    background: #B9B8B8;
+    color: #fff;
 }
 
 .directory-list li a:hover, .directory-info-row .social-links li a:hover {
@@ -1307,6 +1314,7 @@ button.toast-close-button {
     border-radius: 5px;
     -webkit-border-radius: 5px;
     color: #7A7676;
+    padding-top: 8px;
 }
 
 .directory-info-row h4, .directory-info-row a {
@@ -2356,3 +2364,24 @@ div[id^="history"] .modal-body {
         transform: translateY(-39px);
     }
 }
+
+.hr-header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 110px;
+    background-color: #FFF;
+    z-index: 1000;
+}
+
+.hr-panel {
+    background-color: #F9F9F9;
+    -moz-box-shadow: 0 0 12px #B1AFAF;
+    -webkit-box-shadow: 0 0 12px #B1AFAF;
+    box-shadow: 0 0 12px #B1AFAF;
+    opacity: 1;
+    -ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+    filter: alpha(opacity=100);
+    cursor: pointer;
+}
+
