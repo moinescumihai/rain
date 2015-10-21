@@ -1,23 +1,17 @@
 package model.domain;
 
-import org.springframework.data.annotation.CreatedBy;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedBy;
-import org.springframework.data.annotation.LastModifiedDate;
-
 import javax.persistence.*;
 import java.sql.Date;
-import java.sql.Timestamp;
 
 @Entity
 @Table(name = "resurse_umane", schema = "", catalog = "raindrop")
-public class ResurseUmane {
+public class ResurseUmane extends BaseEntity {
     private long idResurseUmane;
     private String nume;
     private String prenume;
     private String prenume2;
     private String email;
-    private int idClient;
+    private Client idClient;
     private String pozitie;
     private String pozitieAnterioara;
     private String cnp;
@@ -31,20 +25,19 @@ public class ResurseUmane {
     private String oras;
     private String judet;
     private String codPostal;
-    private String idTara;
+    private Tara idTara;
     private Date dataAngajare;
-    private String tipContract;
-    private Long idUser;
+    private TipContract tipContract;
+    private User idUser;
     private Date dataNastere;
-    private Byte esteDepartament;
-    private Byte esteContact;
+    private Integer esteDepartament;
+    private Integer esteContact;
     private String zileConcediu;
-    private String creatDe;
-    private Timestamp creatLa;
-    private String modificatDe;
-    private Timestamp modificatLa;
+    @Transient
+    private String fullName;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_resurse_umane", nullable = false, insertable = true, updatable = true)
     public long getIdResurseUmane() {
         return idResurseUmane;
@@ -94,13 +87,13 @@ public class ResurseUmane {
         this.email = email;
     }
 
-    @Basic
-    @Column(name = "id_client", nullable = false, insertable = true, updatable = true)
-    public int getIdClient() {
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "id_client")
+    public Client getIdClient() {
         return idClient;
     }
 
-    public void setIdClient(int idClient) {
+    public void setIdClient(Client idClient) {
         this.idClient = idClient;
     }
 
@@ -234,13 +227,13 @@ public class ResurseUmane {
         this.codPostal = codPostal;
     }
 
-    @Basic
-    @Column(name = "id_tara", nullable = true, insertable = true, updatable = true, length = 45)
-    public String getIdTara() {
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "id_tara")
+    public Tara getIdTara() {
         return idTara;
     }
 
-    public void setIdTara(String idTara) {
+    public void setIdTara(Tara idTara) {
         this.idTara = idTara;
     }
 
@@ -254,23 +247,23 @@ public class ResurseUmane {
         this.dataAngajare = dataAngajare;
     }
 
-    @Basic
-    @Column(name = "tip_contract", nullable = true, insertable = true, updatable = true, length = 150)
-    public String getTipContract() {
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "tip_contract")
+    public TipContract getTipContract() {
         return tipContract;
     }
 
-    public void setTipContract(String tipContract) {
+    public void setTipContract(TipContract tipContract) {
         this.tipContract = tipContract;
     }
 
-    @Basic
-    @Column(name = "id_user", nullable = true, insertable = true, updatable = true)
-    public Long getIdUser() {
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "id_user")
+    public User getIdUser() {
         return idUser;
     }
 
-    public void setIdUser(Long idUser) {
+    public void setIdUser(User idUser) {
         this.idUser = idUser;
     }
 
@@ -286,21 +279,21 @@ public class ResurseUmane {
 
     @Basic
     @Column(name = "este_departament", nullable = true, insertable = true, updatable = true)
-    public Byte getEsteDepartament() {
+    public Integer getEsteDepartament() {
         return esteDepartament;
     }
 
-    public void setEsteDepartament(Byte esteDepartament) {
+    public void setEsteDepartament(Integer esteDepartament) {
         this.esteDepartament = esteDepartament;
     }
 
     @Basic
     @Column(name = "este_contact", nullable = true, insertable = true, updatable = true)
-    public Byte getEsteContact() {
+    public Integer getEsteContact() {
         return esteContact;
     }
 
-    public void setEsteContact(Byte esteContact) {
+    public void setEsteContact(Integer esteContact) {
         this.esteContact = esteContact;
     }
 
@@ -314,68 +307,33 @@ public class ResurseUmane {
         this.zileConcediu = zileConcediu;
     }
 
-    @Basic
-    @CreatedBy
-    @Column(name = "creat_de", nullable = false, insertable = true, updatable = true, length = 150)
-    public String getCreatDe() {
-        return creatDe;
+    @PostLoad
+    public void setFullName() {
+        this.fullName = this.prenume + " " + this.nume;
     }
 
-    public void setCreatDe(String creatDe) {
-        this.creatDe = creatDe;
-    }
-
-    @Basic
-    @CreatedDate
-    @Column(name = "creat_la", nullable = true, insertable = true, updatable = true)
-    public Timestamp getCreatLa() {
-        return creatLa;
-    }
-
-    public void setCreatLa(Timestamp creatLa) {
-        this.creatLa = creatLa;
-    }
-
-    @Basic
-    @LastModifiedBy
-    @Column(name = "modificat_de", nullable = true, insertable = true, updatable = true, length = 150)
-    public String getModificatDe() {
-        return modificatDe;
-    }
-
-    public void setModificatDe(String modificatDe) {
-        this.modificatDe = modificatDe;
-    }
-
-    @Basic
-    @LastModifiedDate
-    @Column(name = "modificat_la", nullable = true, insertable = true, updatable = true)
-    public Timestamp getModificatLa() {
-        return modificatLa;
-    }
-
-    public void setModificatLa(Timestamp modificatLa) {
-        this.modificatLa = modificatLa;
-    }
-
-
-    @Transient
     public String getFullName() {
-        return getNume() + " " + getPrenume();
+        return fullName;
     }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof ResurseUmane)) return false;
 
         ResurseUmane that = (ResurseUmane) o;
 
         if (idResurseUmane != that.idResurseUmane) return false;
-        if (idClient != that.idClient) return false;
         if (nume != null ? !nume.equals(that.nume) : that.nume != null) return false;
         if (prenume != null ? !prenume.equals(that.prenume) : that.prenume != null) return false;
         if (prenume2 != null ? !prenume2.equals(that.prenume2) : that.prenume2 != null) return false;
+        if (fullName != null ? !fullName.equals(that.fullName) : that.fullName != null) return false;
         if (email != null ? !email.equals(that.email) : that.email != null) return false;
+        if (idClient != null ? !idClient.equals(that.idClient) : that.idClient != null) return false;
         if (pozitie != null ? !pozitie.equals(that.pozitie) : that.pozitie != null) return false;
         if (pozitieAnterioara != null ? !pozitieAnterioara.equals(that.pozitieAnterioara) : that.pozitieAnterioara != null) return false;
         if (cnp != null ? !cnp.equals(that.cnp) : that.cnp != null) return false;
@@ -396,11 +354,7 @@ public class ResurseUmane {
         if (dataNastere != null ? !dataNastere.equals(that.dataNastere) : that.dataNastere != null) return false;
         if (esteDepartament != null ? !esteDepartament.equals(that.esteDepartament) : that.esteDepartament != null) return false;
         if (esteContact != null ? !esteContact.equals(that.esteContact) : that.esteContact != null) return false;
-        if (zileConcediu != null ? !zileConcediu.equals(that.zileConcediu) : that.zileConcediu != null) return false;
-        if (creatDe != null ? !creatDe.equals(that.creatDe) : that.creatDe != null) return false;
-        if (creatLa != null ? !creatLa.equals(that.creatLa) : that.creatLa != null) return false;
-        if (modificatDe != null ? !modificatDe.equals(that.modificatDe) : that.modificatDe != null) return false;
-        return !(modificatLa != null ? !modificatLa.equals(that.modificatLa) : that.modificatLa != null);
+        return !(zileConcediu != null ? !zileConcediu.equals(that.zileConcediu) : that.zileConcediu != null);
 
     }
 
@@ -410,8 +364,9 @@ public class ResurseUmane {
         result = 31 * result + (nume != null ? nume.hashCode() : 0);
         result = 31 * result + (prenume != null ? prenume.hashCode() : 0);
         result = 31 * result + (prenume2 != null ? prenume2.hashCode() : 0);
+        result = 31 * result + (fullName != null ? fullName.hashCode() : 0);
         result = 31 * result + (email != null ? email.hashCode() : 0);
-        result = 31 * result + idClient;
+        result = 31 * result + (idClient != null ? idClient.hashCode() : 0);
         result = 31 * result + (pozitie != null ? pozitie.hashCode() : 0);
         result = 31 * result + (pozitieAnterioara != null ? pozitieAnterioara.hashCode() : 0);
         result = 31 * result + (cnp != null ? cnp.hashCode() : 0);
@@ -433,10 +388,6 @@ public class ResurseUmane {
         result = 31 * result + (esteDepartament != null ? esteDepartament.hashCode() : 0);
         result = 31 * result + (esteContact != null ? esteContact.hashCode() : 0);
         result = 31 * result + (zileConcediu != null ? zileConcediu.hashCode() : 0);
-        result = 31 * result + (creatDe != null ? creatDe.hashCode() : 0);
-        result = 31 * result + (creatLa != null ? creatLa.hashCode() : 0);
-        result = 31 * result + (modificatDe != null ? modificatDe.hashCode() : 0);
-        result = 31 * result + (modificatLa != null ? modificatLa.hashCode() : 0);
         return result;
     }
 }

@@ -4,7 +4,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "grup_stoc", schema = "", catalog = "raindrop")
-public class GrupStoc {
+public class GrupStoc extends BaseEntity {
     private long idGrupStoc;
     private String numeGrup;
     private CategorieStoc idCategorieStoc;

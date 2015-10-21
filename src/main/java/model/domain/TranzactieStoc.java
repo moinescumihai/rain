@@ -5,7 +5,7 @@ import java.sql.Timestamp;
 
 @Entity
 @Table(name = "tranzactie_stoc", schema = "", catalog = "raindrop")
-public class TranzactieStoc {
+public class TranzactieStoc extends BaseEntity {
     private long idTranzactieStoc;
     private Colet idColet;
     private Stoc idStoc;
@@ -15,10 +15,6 @@ public class TranzactieStoc {
     private StareStoc idStareAnterioara;
     private String detalii;
     private Timestamp dataTranzactie;
-    private String creatDe;
-    private Timestamp creatLa;
-    private String modificatDe;
-    private Timestamp modificatLa;
 
     @Id
     @Column(name = "id_tranzactie_stoc", nullable = false, insertable = true, updatable = true)
@@ -78,46 +74,6 @@ public class TranzactieStoc {
 
     public void setDataTranzactie(Timestamp dataTranzactie) {
         this.dataTranzactie = dataTranzactie;
-    }
-
-    @Basic
-    @Column(name = "creat_de", nullable = false, insertable = true, updatable = true, length = 150)
-    public String getCreatDe() {
-        return creatDe;
-    }
-
-    public void setCreatDe(String creatDe) {
-        this.creatDe = creatDe;
-    }
-
-    @Basic
-    @Column(name = "creat_la", nullable = false, insertable = true, updatable = true)
-    public Timestamp getCreatLa() {
-        return creatLa;
-    }
-
-    public void setCreatLa(Timestamp creatLa) {
-        this.creatLa = creatLa;
-    }
-
-    @Basic
-    @Column(name = "modificat_de", nullable = true, insertable = true, updatable = true, length = 150)
-    public String getModificatDe() {
-        return modificatDe;
-    }
-
-    public void setModificatDe(String modificatDe) {
-        this.modificatDe = modificatDe;
-    }
-
-    @Basic
-    @Column(name = "modificat_la", nullable = true, insertable = true, updatable = true)
-    public Timestamp getModificatLa() {
-        return modificatLa;
-    }
-
-    public void setModificatLa(Timestamp modificatLa) {
-        this.modificatLa = modificatLa;
     }
 
     @ManyToOne(fetch = FetchType.EAGER)

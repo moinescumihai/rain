@@ -3,19 +3,15 @@ package model.domain;
 import common.validator.EndDate;
 import common.validator.StartDate;
 import org.hibernate.validator.constraints.NotEmpty;
-import org.springframework.data.annotation.CreatedBy;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedBy;
-import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.sql.Date;
-import java.sql.Timestamp;
 
 @Entity
-public class Proiect {
+@Table(name = "proiect", schema = "", catalog = "raindrop")
+public class Proiect extends BaseEntity {
     private long idProiect;
     private String numeProiect;
     private String descriere;
@@ -26,10 +22,6 @@ public class Proiect {
     @EndDate(minimumDaysRange = 1, id = 1)
     private Date dataEndEstimativa;
     private StatusProiect idStatusProiect;
-    private String creatDe;
-    private Timestamp creatLa;
-    private String modificatDe;
-    private Timestamp modificatLa;
     private Integer deleted;
 
     @Id
@@ -115,50 +107,6 @@ public class Proiect {
 
     public void setIdStatusProiect(StatusProiect idStatusProiect) {
         this.idStatusProiect = idStatusProiect;
-    }
-
-    @Basic
-    @CreatedBy
-    @Column(name = "creat_de", nullable = true, insertable = true, updatable = true, length = 150)
-    public String getCreatDe() {
-        return creatDe;
-    }
-
-    public void setCreatDe(String creatDe) {
-        this.creatDe = creatDe;
-    }
-
-    @Basic
-    @CreatedDate
-    @Column(name = "creat_la", nullable = true, insertable = true, updatable = true)
-    public Timestamp getCreatLa() {
-        return creatLa;
-    }
-
-    public void setCreatLa(Timestamp creatLa) {
-        this.creatLa = creatLa;
-    }
-
-    @Basic
-    @LastModifiedBy
-    @Column(name = "modificat_de", nullable = true, insertable = true, updatable = true, length = 150)
-    public String getModificatDe() {
-        return modificatDe;
-    }
-
-    public void setModificatDe(String modificatDe) {
-        this.modificatDe = modificatDe;
-    }
-
-    @Basic
-    @LastModifiedDate
-    @Column(name = "modificat_la", nullable = true, insertable = true, updatable = true)
-    public Timestamp getModificatLa() {
-        return modificatLa;
-    }
-
-    public void setModificatLa(Timestamp modificatLa) {
-        this.modificatLa = modificatLa;
     }
 
     @Basic

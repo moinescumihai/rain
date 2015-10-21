@@ -8,7 +8,8 @@ import java.sql.Timestamp;
 import java.util.Collection;
 
 @Entity
-public class Attachment {
+@Table(name = "attachment", schema = "", catalog = "raindrop")
+public class Attachment extends BaseEntity {
     private long idAttachment;
     private Long idProiect;
     private Long idStoc;
@@ -22,10 +23,6 @@ public class Attachment {
     private String fileName;
     private String originalFileName;
     private Long size;
-    private String creatDe;
-    private Timestamp creatLa;
-    private String modificatDe;
-    private Timestamp modificatLa;
     private Timestamp accesatLa;
 
     @Id
@@ -80,33 +77,13 @@ public class Attachment {
     }
 
     @Basic
-    @Column(name = "path", nullable = false, insertable = true, updatable = true, length = 65535)
+    @Column(name = "path", nullable = false, insertable = true, updatable = true, columnDefinition = "text", length = 65535)
     public String getPath() {
         return path;
     }
 
     public void setPath(String path) {
         this.path = path;
-    }
-
-    @Basic
-    @Column(name = "creat_de", nullable = false, insertable = true, updatable = true, length = 250)
-    public String getCreatDe() {
-        return creatDe;
-    }
-
-    public void setCreatDe(String creatDe) {
-        this.creatDe = creatDe;
-    }
-
-    @Basic
-    @Column(name = "creat_la", nullable = false, insertable = true, updatable = true)
-    public Timestamp getCreatLa() {
-        return creatLa;
-    }
-
-    public void setCreatLa(Timestamp creatLa) {
-        this.creatLa = creatLa;
     }
 
     @Basic
@@ -147,26 +124,6 @@ public class Attachment {
 
     public void setSize(Long size) {
         this.size = size;
-    }
-
-    @Basic
-    @Column(name = "modificat_de", nullable = true, insertable = true, updatable = true, length = 250)
-    public String getModificatDe() {
-        return modificatDe;
-    }
-
-    public void setModificatDe(String modificatDe) {
-        this.modificatDe = modificatDe;
-    }
-
-    @Basic
-    @Column(name = "modificat_la", nullable = true, insertable = true, updatable = true)
-    public Timestamp getModificatLa() {
-        return modificatLa;
-    }
-
-    public void setModificatLa(Timestamp modificatLa) {
-        this.modificatLa = modificatLa;
     }
 
     @Basic

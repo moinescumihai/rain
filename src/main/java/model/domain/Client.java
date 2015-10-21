@@ -3,7 +3,8 @@ package model.domain;
 import javax.persistence.*;
 
 @Entity
-public class Client {
+@Table(name = "client", schema = "", catalog = "raindrop")
+public class Client extends BaseEntity {
     private long idClient;
     private String numeClient;
     private String website;
@@ -140,7 +141,6 @@ public class Client {
 
     @Override
     public boolean equals(Object o) {
-
         if (this == o) return true;
         if (!(o instanceof Client)) return false;
 

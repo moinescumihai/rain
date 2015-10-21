@@ -3,7 +3,8 @@ package model.domain;
 import javax.persistence.*;
 
 @Entity
-public class Colet {
+@Table(name = "colet", schema = "", catalog = "raindrop")
+public class Colet extends BaseEntity {
     private long idColet;
     private String numeColet;
 

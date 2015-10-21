@@ -3,11 +3,10 @@ package model.domain;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
 
 @Entity
 @Table(name = "stoc", schema = "", catalog = "raindrop")
-public class Stoc {
+public class Stoc extends BaseEntity {
     private long idStoc;
     private CategorieStoc idCategorieStoc;
     private GrupStoc idGrupStoc;
@@ -20,10 +19,6 @@ public class Stoc {
     private Attachment factura;
     private Attachment imagine;
     private Integer deleted;
-    private String creatDe;
-    private Timestamp creatLa;
-    private Timestamp modificatLa;
-    private String modificatDe;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -89,7 +84,7 @@ public class Stoc {
     }
 
     @Basic
-    @Column(name = "detalii", nullable = true, insertable = true, updatable = true, length = 65535)
+    @Column(name = "detalii", nullable = true, insertable = true, updatable = true)
     public String getDetalii() {
         return detalii;
     }
@@ -116,46 +111,6 @@ public class Stoc {
 
     public void setImagine(Attachment imagine) {
         this.imagine = imagine;
-    }
-
-    @Basic
-    @Column(name = "creat_de", nullable = false, insertable = true, updatable = true, length = 150)
-    public String getCreatDe() {
-        return creatDe;
-    }
-
-    public void setCreatDe(String creatDe) {
-        this.creatDe = creatDe;
-    }
-
-    @Basic
-    @Column(name = "creat_la", nullable = true, insertable = true, updatable = true)
-    public Timestamp getCreatLa() {
-        return creatLa;
-    }
-
-    public void setCreatLa(Timestamp creatLa) {
-        this.creatLa = creatLa;
-    }
-
-    @Basic
-    @Column(name = "modificat_la", nullable = true, insertable = true, updatable = true)
-    public Timestamp getModificatLa() {
-        return modificatLa;
-    }
-
-    public void setModificatLa(Timestamp modificatLa) {
-        this.modificatLa = modificatLa;
-    }
-
-    @Basic
-    @Column(name = "modificat_de", nullable = true, insertable = true, updatable = true, length = 150)
-    public String getModificatDe() {
-        return modificatDe;
-    }
-
-    public void setModificatDe(String modificatDe) {
-        this.modificatDe = modificatDe;
     }
 
     @ManyToOne(fetch = FetchType.EAGER)

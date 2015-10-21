@@ -4,7 +4,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "status_proiect", schema = "", catalog = "raindrop")
-public class StatusProiect {
+public class StatusProiect extends BaseEntity {
     private long idStatusProiect;
     private String numeStatus;
 

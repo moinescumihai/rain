@@ -8,7 +8,7 @@ import java.util.Collection;
 
 @Entity
 @Table(name = "categorie_proiect", schema = "", catalog = "raindrop")
-public class CategorieProiect {
+public class CategorieProiect extends BaseEntity {
     private long idCategorieProiect;
     private String nume;
     private CategorieProiect parent;

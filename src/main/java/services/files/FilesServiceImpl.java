@@ -1,6 +1,5 @@
 package services.files;
 
-import common.utils.UserUtils;
 import model.domain.Attachment;
 import model.domain.Stoc;
 import model.repository.AttachmentRepository;
@@ -17,7 +16,6 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.sql.Timestamp;
 import java.util.List;
 
 @Service
@@ -67,8 +65,6 @@ public class FilesServiceImpl implements FilesService {
         image.setSize(imageFile.getSize());
         image.setOriginalFileName(originalFilename);
         image.setPath(pathOnServer);
-        image.setCreatDe(UserUtils.getLoggedInUsername());
-        image.setCreatLa(new Timestamp(System.currentTimeMillis()));
         image.setParent(attachmentRepository.findOne(19L));
 
         image = attachmentRepository.save(image);

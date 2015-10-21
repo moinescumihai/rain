@@ -16,7 +16,7 @@ public class ChatMessage {
     private long idProiect;
 
     @Id
-
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_chat_message", nullable = false, insertable = true, updatable = true)
     public long getIdChatMessage() {
         return idChatMessage;

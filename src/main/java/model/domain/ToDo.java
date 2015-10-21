@@ -4,15 +4,15 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "to_do", schema = "", catalog = "raindrop")
-public class ToDo {
+public class ToDo extends BaseEntity {
     private long idToDo;
     private String nume;
     private String valoare;
-    private long idUser;
+    private User idUser;
 
     @Id
-
-    @Column(name = "id_to_do", nullable = false, insertable = true, updatable = true)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_to_do")
     public long getIdToDo() {
         return idToDo;
     }
@@ -32,7 +32,7 @@ public class ToDo {
     }
 
     @Basic
-    @Column(name = "valoare", nullable = false, insertable = true, updatable = true, length = 65535)
+    @Column(name = "valoare", nullable = false, insertable = true, updatable = true)
     public String getValoare() {
         return valoare;
     }
@@ -41,27 +41,27 @@ public class ToDo {
         this.valoare = valoare;
     }
 
-    @Basic
-    @Column(name = "id_user", nullable = false, insertable = true, updatable = true)
-    public long getIdUser() {
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "id_user")
+    public User getIdUser() {
         return idUser;
     }
 
-    public void setIdUser(long idUser) {
+    public void setIdUser(User idUser) {
         this.idUser = idUser;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof ToDo)) return false;
 
         ToDo toDo = (ToDo) o;
 
         if (idToDo != toDo.idToDo) return false;
-        if (idUser != toDo.idUser) return false;
         if (nume != null ? !nume.equals(toDo.nume) : toDo.nume != null) return false;
-        return !(valoare != null ? !valoare.equals(toDo.valoare) : toDo.valoare != null);
+        if (valoare != null ? !valoare.equals(toDo.valoare) : toDo.valoare != null) return false;
+        return !(idUser != null ? !idUser.equals(toDo.idUser) : toDo.idUser != null);
 
     }
 
@@ -70,7 +70,7 @@ public class ToDo {
         int result = (int) (idToDo ^ (idToDo >>> 32));
         result = 31 * result + (nume != null ? nume.hashCode() : 0);
         result = 31 * result + (valoare != null ? valoare.hashCode() : 0);
-        result = 31 * result + (int) (idUser ^ (idUser >>> 32));
+        result = 31 * result + (idUser != null ? idUser.hashCode() : 0);
         return result;
     }
 }

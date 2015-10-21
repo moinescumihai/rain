@@ -1,18 +1,16 @@
 package model.domain;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
+@Table(name = "milestone", schema = "", catalog = "raindrop")
 public class Milestone {
     private long idMilestone;
     private long idProiect;
     private String numeMilestone;
 
     @Id
-
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_milestone", nullable = false, insertable = true, updatable = true)
     public long getIdMilestone() {
         return idMilestone;

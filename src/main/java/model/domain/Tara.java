@@ -4,12 +4,12 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "lista_tari", schema = "", catalog = "raindrop")
-public class Tara {
+public class Tara extends BaseEntity {
     private int idTara;
     private String nume;
 
     @Id
-
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_tara", nullable = false, insertable = true, updatable = true)
     public int getIdTara() {
         return idTara;
