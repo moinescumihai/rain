@@ -54,4 +54,27 @@ public class CategorieProiect extends BaseEntity {
     public void setChildren(Collection<CategorieProiect> children) {
         this.children = children;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof CategorieProiect)) return false;
+
+        CategorieProiect that = (CategorieProiect) o;
+
+        if (idCategorieProiect != that.idCategorieProiect) return false;
+        if (nume != null ? !nume.equals(that.nume) : that.nume != null) return false;
+        if (parent != null ? !parent.equals(that.parent) : that.parent != null) return false;
+        return !(children != null ? !children.equals(that.children) : that.children != null);
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = (int) (idCategorieProiect ^ (idCategorieProiect >>> 32));
+        result = 31 * result + (nume != null ? nume.hashCode() : 0);
+        result = 31 * result + (parent != null ? parent.hashCode() : 0);
+        result = 31 * result + (children != null ? children.hashCode() : 0);
+        return result;
+    }
 }

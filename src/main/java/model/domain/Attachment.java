@@ -16,9 +16,10 @@ public class Attachment extends BaseEntity {
     private Long idUser;
     private Attachment parent;
     private Collection<Attachment> children;
-    private Integer isDirectory;
-    private Integer isArchive;
-    private Integer isReadonly;
+    private int isDirectory;
+    private int isArchive;
+    private int isReadonly;
+    private int isHidden;
     private String path;
     private String fileName;
     private String originalFileName;
@@ -127,33 +128,43 @@ public class Attachment extends BaseEntity {
     }
 
     @Basic
-    @Column(name = "is_directory", nullable = false, insertable = true, updatable = true, columnDefinition = "INT(1) default 0")
-    public Integer getIsDirectory() {
+    @Column(name = "is_directory", nullable = false, insertable = true, updatable = true, columnDefinition = "INT(1) default '0'")
+    public int getIsDirectory() {
         return isDirectory;
     }
 
-    public void setIsDirectory(Integer isDirectory) {
+    public void setIsDirectory(int isDirectory) {
         this.isDirectory = isDirectory;
     }
 
     @Basic
-    @Column(name = "is_archive", nullable = false, insertable = true, updatable = true, columnDefinition = "INT(1) default 0")
-    public Integer getIsArchive() {
+    @Column(name = "is_archive", nullable = false, insertable = true, updatable = true, columnDefinition = "INT(1) default '0'")
+    public int getIsArchive() {
         return isArchive;
     }
 
-    public void setIsArchive(Integer isArchive) {
+    public void setIsArchive(int isArchive) {
         this.isArchive = isArchive;
     }
 
     @Basic
-    @Column(name = "is_readonly", nullable = false, insertable = true, updatable = true, columnDefinition = "INT(1) default 0")
-    public Integer getIsReadonly() {
+    @Column(name = "is_readonly", nullable = false, insertable = true, updatable = true, columnDefinition = "INT(1) default '0'")
+    public int getIsReadonly() {
         return isReadonly;
     }
 
-    public void setIsReadonly(Integer isReadonly) {
+    public void setIsReadonly(int isReadonly) {
         this.isReadonly = isReadonly;
+    }
+
+    @Basic
+    @Column(name = "is_hidden", nullable = false, insertable = true, updatable = true, columnDefinition = "INT(1) default '0'")
+    public int getIsHidden() {
+        return isHidden;
+    }
+
+    public void setIsHidden(int isHidden) {
+        this.isHidden = isHidden;
     }
 
     @Basic
@@ -164,5 +175,51 @@ public class Attachment extends BaseEntity {
 
     public void setAccesatLa(Timestamp accesatLa) {
         this.accesatLa = accesatLa;
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Attachment)) return false;
+
+        Attachment that = (Attachment) o;
+
+        if (idAttachment != that.idAttachment) return false;
+        if (isDirectory != that.isDirectory) return false;
+        if (isArchive != that.isArchive) return false;
+        if (isReadonly != that.isReadonly) return false;
+        if (isHidden != that.isHidden) return false;
+        if (idProiect != null ? !idProiect.equals(that.idProiect) : that.idProiect != null) return false;
+        if (idStoc != null ? !idStoc.equals(that.idStoc) : that.idStoc != null) return false;
+        if (idUser != null ? !idUser.equals(that.idUser) : that.idUser != null) return false;
+        if (parent != null ? !parent.equals(that.parent) : that.parent != null) return false;
+        if (children != null ? !children.equals(that.children) : that.children != null) return false;
+        if (path != null ? !path.equals(that.path) : that.path != null) return false;
+        if (fileName != null ? !fileName.equals(that.fileName) : that.fileName != null) return false;
+        if (originalFileName != null ? !originalFileName.equals(that.originalFileName) : that.originalFileName != null) return false;
+        if (size != null ? !size.equals(that.size) : that.size != null) return false;
+        return !(accesatLa != null ? !accesatLa.equals(that.accesatLa) : that.accesatLa != null);
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = (int) (idAttachment ^ (idAttachment >>> 32));
+        result = 31 * result + (idProiect != null ? idProiect.hashCode() : 0);
+        result = 31 * result + (idStoc != null ? idStoc.hashCode() : 0);
+        result = 31 * result + (idUser != null ? idUser.hashCode() : 0);
+        result = 31 * result + (parent != null ? parent.hashCode() : 0);
+        result = 31 * result + (children != null ? children.hashCode() : 0);
+        result = 31 * result + isDirectory;
+        result = 31 * result + isArchive;
+        result = 31 * result + isReadonly;
+        result = 31 * result + isHidden;
+        result = 31 * result + (path != null ? path.hashCode() : 0);
+        result = 31 * result + (fileName != null ? fileName.hashCode() : 0);
+        result = 31 * result + (originalFileName != null ? originalFileName.hashCode() : 0);
+        result = 31 * result + (size != null ? size.hashCode() : 0);
+        result = 31 * result + (accesatLa != null ? accesatLa.hashCode() : 0);
+        return result;
     }
 }

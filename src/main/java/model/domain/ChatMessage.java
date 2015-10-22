@@ -12,8 +12,8 @@ public class ChatMessage {
     private Timestamp received;
     private String unitate;
     private String receiver;
-    private byte seen;
-    private long idProiect;
+    private Integer seen;
+    private Proiect idProiect;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -78,39 +78,39 @@ public class ChatMessage {
 
     @Basic
     @Column(name = "seen", nullable = false, insertable = true, updatable = true)
-    public byte getSeen() {
+    public Integer getSeen() {
         return seen;
     }
 
-    public void setSeen(byte seen) {
+    public void setSeen(Integer seen) {
         this.seen = seen;
     }
 
-    @Basic
-    @Column(name = "id_proiect", nullable = false, insertable = true, updatable = true)
-    public long getIdProiect() {
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "id_proiect")
+    public Proiect getIdProiect() {
         return idProiect;
     }
 
-    public void setIdProiect(long idProiect) {
+    public void setIdProiect(Proiect idProiect) {
         this.idProiect = idProiect;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof ChatMessage)) return false;
 
         ChatMessage that = (ChatMessage) o;
 
         if (idChatMessage != that.idChatMessage) return false;
-        if (seen != that.seen) return false;
-        if (idProiect != that.idProiect) return false;
         if (message != null ? !message.equals(that.message) : that.message != null) return false;
         if (sender != null ? !sender.equals(that.sender) : that.sender != null) return false;
         if (received != null ? !received.equals(that.received) : that.received != null) return false;
         if (unitate != null ? !unitate.equals(that.unitate) : that.unitate != null) return false;
-        return !(receiver != null ? !receiver.equals(that.receiver) : that.receiver != null);
+        if (receiver != null ? !receiver.equals(that.receiver) : that.receiver != null) return false;
+        if (seen != null ? !seen.equals(that.seen) : that.seen != null) return false;
+        return !(idProiect != null ? !idProiect.equals(that.idProiect) : that.idProiect != null);
 
     }
 
@@ -122,8 +122,8 @@ public class ChatMessage {
         result = 31 * result + (received != null ? received.hashCode() : 0);
         result = 31 * result + (unitate != null ? unitate.hashCode() : 0);
         result = 31 * result + (receiver != null ? receiver.hashCode() : 0);
-        result = 31 * result + (int) seen;
-        result = 31 * result + (int) (idProiect ^ (idProiect >>> 32));
+        result = 31 * result + (seen != null ? seen.hashCode() : 0);
+        result = 31 * result + (idProiect != null ? idProiect.hashCode() : 0);
         return result;
     }
 }

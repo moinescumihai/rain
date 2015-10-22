@@ -110,12 +110,12 @@ public class Proiect extends BaseEntity {
     }
 
     @Basic
-    @Column(name = "deleted", nullable = false, insertable = true, updatable = true, columnDefinition = "INT(1) default 0")
-    public Integer getDeleted() {
+    @Column(name = "deleted", nullable = false, insertable = true, updatable = true, columnDefinition = "INT(1) default '0'")
+    public int getDeleted() {
         return deleted;
     }
 
-    public void setDeleted(Integer deleted) {
+    public void setDeleted(int deleted) {
         this.deleted = deleted;
     }
 }

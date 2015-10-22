@@ -65,7 +65,7 @@ public class FilesServiceImpl implements FilesService {
         image.setSize(imageFile.getSize());
         image.setOriginalFileName(originalFilename);
         image.setPath(pathOnServer);
-        image.setParent(attachmentRepository.findOne(19L));
+        image.setParent(attachmentRepository.findOne(1L));
 
         image = attachmentRepository.save(image);
         Stoc stocToBeUpdated = stocRepository.findOne(idStoc);

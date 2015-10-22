@@ -271,10 +271,6 @@ public class InventoryServiceImpl implements InventoryService {
 
     @Override
     public CategorieStoc saveCategorie(CategorieStoc entity) {
-        entity.setEsteSubcategorie(OFF);
-        if (entity.getIdCategorieParinte() > 0) {
-            entity.setEsteSubcategorie(ON);
-        }
         return categorieStocRepository.save(entity);
     }
 

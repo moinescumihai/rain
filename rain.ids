@@ -20,6 +20,7 @@
       <column name="id_user" sqlType="BIGINT" precision="19" scale="0" nullable="true" jdbcType="-5"/>
       <column name="is_archive" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
       <column name="is_directory" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
+      <column name="is_hidden" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
       <column name="is_readonly" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
       <column name="original_file_name" sqlType="VARCHAR" precision="500" scale="0" nullable="false" jdbcType="12"/>
       <column name="path" sqlType="TEXT" precision="65535" scale="0" nullable="false" jdbcType="-1"/>
@@ -53,23 +54,27 @@
       <column name="modificat_de" sqlType="VARCHAR" precision="150" scale="0" nullable="true" jdbcType="12"/>
       <column name="modificat_la" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93"/>
       <column name="cod_categorie" sqlType="BIGINT" precision="19" scale="0" nullable="true" jdbcType="-5"/>
-      <column name="este_subcategorie" sqlType="TINYINT" precision="3" scale="0" nullable="true" jdbcType="-6"/>
-      <column name="id_categorie_parinte" sqlType="BIGINT" precision="19" scale="0" nullable="true" jdbcType="-5"/>
       <column name="nume_categorie" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="parent_id_categorie_stoc" sqlType="BIGINT" precision="19" scale="0" nullable="true" jdbcType="-5"/>
       <primary-key name="PRIMARY" columns="id_categorie_stoc"/>
+      <foreign-key name="FKmcj9gpe160g34h9w38obcm644" columns="parent_id_categorie_stoc" ref-table="categorie_stoc" ref-schema="" ref-catalog="raindrop" ref-columns="id_categorie_stoc" update-rule="3" delete-rule="3" deferrability="2"/>
+      <exported-key name="FKmcj9gpe160g34h9w38obcm644" table="categorie_stoc" schema="" catalog="raindrop" columns="parent_id_categorie_stoc"/>
       <exported-key name="FK8h1737dlck6li5pr2vftht491" table="grup_stoc" schema="" catalog="raindrop" columns="id_categorie_stoc"/>
       <exported-key name="FKgwuaia0dt07k9b9g0iqxkx19c" table="stoc" schema="" catalog="raindrop" columns="id_categorie_stoc"/>
+      <index name="FKmcj9gpe160g34h9w38obcm644" unique="false" columns="parent_id_categorie_stoc"/>
     </table>
     <table name="chat_message" schema="" catalog="raindrop" type="TABLE">
       <column name="id_chat_message" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" autoIncrement="true"/>
-      <column name="id_proiect" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
       <column name="message" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
       <column name="received" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93"/>
       <column name="receiver" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
-      <column name="seen" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6"/>
+      <column name="seen" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
       <column name="sender" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
       <column name="unitate" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="id_proiect" sqlType="BIGINT" precision="19" scale="0" nullable="true" jdbcType="-5"/>
       <primary-key name="PRIMARY" columns="id_chat_message"/>
+      <foreign-key name="FK20815e50jnog5rwkhk6p70y98" columns="id_proiect" ref-table="proiect" ref-schema="" ref-catalog="raindrop" ref-columns="id_proiect" update-rule="3" delete-rule="3" deferrability="2"/>
+      <index name="FK20815e50jnog5rwkhk6p70y98" unique="false" columns="id_proiect"/>
     </table>
     <table name="client" schema="" catalog="raindrop" type="TABLE">
       <column name="id_client" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" autoIncrement="true"/>
@@ -155,10 +160,12 @@
     </table>
     <table name="milestone" schema="" catalog="raindrop" type="TABLE">
       <column name="id_milestone" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" autoIncrement="true"/>
-      <column name="id_proiect" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
       <column name="nume_milestone" sqlType="VARCHAR" precision="250" scale="0" nullable="false" jdbcType="12"/>
+      <column name="id_proiect" sqlType="BIGINT" precision="19" scale="0" nullable="true" jdbcType="-5"/>
       <primary-key name="PRIMARY" columns="id_milestone"/>
+      <foreign-key name="FKlxp1of0wh5d2hxh1w7dnsrmfs" columns="id_proiect" ref-table="proiect" ref-schema="" ref-catalog="raindrop" ref-columns="id_proiect" update-rule="3" delete-rule="3" deferrability="2"/>
       <exported-key name="FKd016j234s08nlcibyuxwiqn2h" table="obiectiv" schema="" catalog="raindrop" columns="id_milestone"/>
+      <index name="FKlxp1of0wh5d2hxh1w7dnsrmfs" unique="false" columns="id_proiect"/>
     </table>
     <table name="obiectiv" schema="" catalog="raindrop" type="TABLE">
       <column name="id_obiectiv" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" autoIncrement="true"/>
@@ -212,6 +219,8 @@
       <foreign-key name="FK2jno8tp4apmqrwwx7h5b8dlqr" columns="id_client" ref-table="client" ref-schema="" ref-catalog="raindrop" ref-columns="id_client" update-rule="3" delete-rule="3" deferrability="2"/>
       <foreign-key name="FKlr037echotai4pal33g0ygdmv" columns="id_status_proiect" ref-table="status_proiect" ref-schema="" ref-catalog="raindrop" ref-columns="id_status_proiect" update-rule="3" delete-rule="3" deferrability="2"/>
       <foreign-key name="FKqrtyl69osc5rfk2qla9f39rrk" columns="id_categorie_proiect" ref-table="categorie_proiect" ref-schema="" ref-catalog="raindrop" ref-columns="id_categorie_proiect" update-rule="3" delete-rule="3" deferrability="2"/>
+      <exported-key name="FK20815e50jnog5rwkhk6p70y98" table="chat_message" schema="" catalog="raindrop" columns="id_proiect"/>
+      <exported-key name="FKlxp1of0wh5d2hxh1w7dnsrmfs" table="milestone" schema="" catalog="raindrop" columns="id_proiect"/>
       <exported-key name="FKcesk0x3fthcar6xux4cldijs4" table="obiectiv" schema="" catalog="raindrop" columns="id_proiect"/>
       <exported-key name="FK57tprh0h6vdxpd72ky63e5lqd" table="risc" schema="" catalog="raindrop" columns="id_proiect"/>
       <index name="FK2jno8tp4apmqrwwx7h5b8dlqr" unique="false" columns="id_client"/>
@@ -412,13 +421,11 @@
       <column name="creat_la" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93"/>
       <column name="modificat_de" sqlType="VARCHAR" precision="150" scale="0" nullable="true" jdbcType="12"/>
       <column name="modificat_la" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93"/>
-      <column name="active_project" sqlType="BIGINT" precision="19" scale="0" nullable="true" jdbcType="-5"/>
       <column name="enabled" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
       <column name="last_login" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93"/>
       <column name="last_pass_change" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93"/>
       <column name="password" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
       <column name="username" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
-      <column name="userphoto" sqlType="TINYBLOB" precision="255" scale="0" nullable="true" jdbcType="-2"/>
       <primary-key name="PRIMARY" columns="id_user"/>
       <exported-key name="FKn2qkdeworvg21na14uihe608f" table="resurse_umane" schema="" catalog="raindrop" columns="id_user"/>
       <exported-key name="FK48b17pwgdat3fcjnk29600xxc" table="to_do" schema="" catalog="raindrop" columns="id_user"/>

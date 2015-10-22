@@ -74,4 +74,30 @@ public class User extends BaseEntity {
         this.enabled = enabled;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof User)) return false;
+
+        User user = (User) o;
+
+        if (idUser != user.idUser) return false;
+        if (username != null ? !username.equals(user.username) : user.username != null) return false;
+        if (password != null ? !password.equals(user.password) : user.password != null) return false;
+        if (lastLogin != null ? !lastLogin.equals(user.lastLogin) : user.lastLogin != null) return false;
+        if (lastPassChange != null ? !lastPassChange.equals(user.lastPassChange) : user.lastPassChange != null) return false;
+        return !(enabled != null ? !enabled.equals(user.enabled) : user.enabled != null);
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = (int) (idUser ^ (idUser >>> 32));
+        result = 31 * result + (username != null ? username.hashCode() : 0);
+        result = 31 * result + (password != null ? password.hashCode() : 0);
+        result = 31 * result + (lastLogin != null ? lastLogin.hashCode() : 0);
+        result = 31 * result + (lastPassChange != null ? lastPassChange.hashCode() : 0);
+        result = 31 * result + (enabled != null ? enabled.hashCode() : 0);
+        return result;
+    }
 }

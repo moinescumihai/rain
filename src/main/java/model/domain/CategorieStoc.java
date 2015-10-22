@@ -1,6 +1,10 @@
 package model.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
+import java.util.Collection;
 
 @Entity
 @Table(name = "categorie_stoc", schema = "", catalog = "raindrop")
@@ -8,8 +12,8 @@ public class CategorieStoc extends BaseEntity {
     private long idCategorieStoc;
     private Long codCategorie;
     private String numeCategorie;
-    private Long idCategorieParinte;
-    private Byte esteSubcategorie;
+    private CategorieStoc parent;
+    private Collection<CategorieStoc> children;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,24 +36,24 @@ public class CategorieStoc extends BaseEntity {
         this.numeCategorie = numeCategorie;
     }
 
-    @Basic
-    @Column(name = "id_categorie_parinte", nullable = true, insertable = true, updatable = true)
-    public Long getIdCategorieParinte() {
-        return idCategorieParinte;
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JsonBackReference
+    public CategorieStoc getParent() {
+        return parent;
     }
 
-    public void setIdCategorieParinte(Long idCategorieParinte) {
-        this.idCategorieParinte = idCategorieParinte;
+    public void setParent(CategorieStoc parent) {
+        this.parent = parent;
     }
 
-    @Basic
-    @Column(name = "este_subcategorie", nullable = true, insertable = true, updatable = true)
-    public Byte getEsteSubcategorie() {
-        return esteSubcategorie;
+    @OneToMany(mappedBy = "parent", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JsonManagedReference
+    public Collection<CategorieStoc> getChildren() {
+        return children;
     }
 
-    public void setEsteSubcategorie(Byte esteSubcategorie) {
-        this.esteSubcategorie = esteSubcategorie;
+    public void setChildren(Collection<CategorieStoc> children) {
+        this.children = children;
     }
 
     @Basic
@@ -60,5 +64,30 @@ public class CategorieStoc extends BaseEntity {
 
     public void setCodCategorie(Long codCategorie) {
         this.codCategorie = codCategorie;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof CategorieStoc)) return false;
+
+        CategorieStoc that = (CategorieStoc) o;
+
+        if (idCategorieStoc != that.idCategorieStoc) return false;
+        if (codCategorie != null ? !codCategorie.equals(that.codCategorie) : that.codCategorie != null) return false;
+        if (numeCategorie != null ? !numeCategorie.equals(that.numeCategorie) : that.numeCategorie != null) return false;
+        if (parent != null ? !parent.equals(that.parent) : that.parent != null) return false;
+        return !(children != null ? !children.equals(that.children) : that.children != null);
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = (int) (idCategorieStoc ^ (idCategorieStoc >>> 32));
+        result = 31 * result + (codCategorie != null ? codCategorie.hashCode() : 0);
+        result = 31 * result + (numeCategorie != null ? numeCategorie.hashCode() : 0);
+        result = 31 * result + (parent != null ? parent.hashCode() : 0);
+        result = 31 * result + (children != null ? children.hashCode() : 0);
+        return result;
     }
 }

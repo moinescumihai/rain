@@ -6,7 +6,7 @@ import javax.persistence.*;
 @Table(name = "milestone", schema = "", catalog = "raindrop")
 public class Milestone {
     private long idMilestone;
-    private long idProiect;
+    private Proiect idProiect;
     private String numeMilestone;
 
     @Id
@@ -20,13 +20,13 @@ public class Milestone {
         this.idMilestone = idMilestone;
     }
 
-    @Basic
-    @Column(name = "id_proiect", nullable = false, insertable = true, updatable = true)
-    public long getIdProiect() {
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "id_proiect")
+    public Proiect getIdProiect() {
         return idProiect;
     }
 
-    public void setIdProiect(long idProiect) {
+    public void setIdProiect(Proiect idProiect) {
         this.idProiect = idProiect;
     }
 
@@ -43,20 +43,20 @@ public class Milestone {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof Milestone)) return false;
 
-        Milestone that = (Milestone) o;
+        Milestone milestone = (Milestone) o;
 
-        if (idMilestone != that.idMilestone) return false;
-        if (idProiect != that.idProiect) return false;
-        return !(numeMilestone != null ? !numeMilestone.equals(that.numeMilestone) : that.numeMilestone != null);
+        if (idMilestone != milestone.idMilestone) return false;
+        if (idProiect != null ? !idProiect.equals(milestone.idProiect) : milestone.idProiect != null) return false;
+        return !(numeMilestone != null ? !numeMilestone.equals(milestone.numeMilestone) : milestone.numeMilestone != null);
 
     }
 
     @Override
     public int hashCode() {
         int result = (int) (idMilestone ^ (idMilestone >>> 32));
-        result = 31 * result + (int) (idProiect ^ (idProiect >>> 32));
+        result = 31 * result + (idProiect != null ? idProiect.hashCode() : 0);
         result = 31 * result + (numeMilestone != null ? numeMilestone.hashCode() : 0);
         return result;
     }

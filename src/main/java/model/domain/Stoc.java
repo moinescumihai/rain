@@ -18,7 +18,7 @@ public class Stoc extends BaseEntity {
     private String detalii;
     private Attachment factura;
     private Attachment imagine;
-    private Integer deleted;
+    private int deleted;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -52,7 +52,7 @@ public class Stoc extends BaseEntity {
     }
 
     @Basic
-    @Column(name = "nume_stoc", nullable = false, insertable = true, updatable = true, length = 255)
+    @Column(name = "nume_stoc", nullable = false, insertable = true, updatable = true)
     public String getNumeStoc() {
         return numeStoc;
     }
@@ -64,7 +64,7 @@ public class Stoc extends BaseEntity {
     @Basic
     @GeneratedValue(generator = "system-uuid")
     @GenericGenerator(name = "system-uuid", strategy = "uuid")
-    @Column(name = "cod_stoc", nullable = true, insertable = true, updatable = false, length = 255)
+    @Column(name = "cod_stoc", nullable = false, insertable = true, updatable = false)
     public String getCodStoc() {
         return codStoc;
     }
@@ -134,12 +134,51 @@ public class Stoc extends BaseEntity {
     }
 
     @Basic
-    @Column(name = "deleted", nullable = true, insertable = true, updatable = true, columnDefinition = "INT(1) default 0")
-    public Integer getDeleted() {
+    @Column(name = "deleted", nullable = false, insertable = true, updatable = true, columnDefinition = "INT(1) default '0'")
+    public int getDeleted() {
         return deleted;
     }
 
-    public void setDeleted(Integer deleted) {
+    public void setDeleted(int deleted) {
         this.deleted = deleted;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Stoc)) return false;
+
+        Stoc stoc = (Stoc) o;
+
+        if (idStoc != stoc.idStoc) return false;
+        if (deleted != stoc.deleted) return false;
+        if (idCategorieStoc != null ? !idCategorieStoc.equals(stoc.idCategorieStoc) : stoc.idCategorieStoc != null) return false;
+        if (idGrupStoc != null ? !idGrupStoc.equals(stoc.idGrupStoc) : stoc.idGrupStoc != null) return false;
+        if (numeStoc != null ? !numeStoc.equals(stoc.numeStoc) : stoc.numeStoc != null) return false;
+        if (codStoc != null ? !codStoc.equals(stoc.codStoc) : stoc.codStoc != null) return false;
+        if (idStare != null ? !idStare.equals(stoc.idStare) : stoc.idStare != null) return false;
+        if (idLoc != null ? !idLoc.equals(stoc.idLoc) : stoc.idLoc != null) return false;
+        if (idResurseUmane != null ? !idResurseUmane.equals(stoc.idResurseUmane) : stoc.idResurseUmane != null) return false;
+        if (detalii != null ? !detalii.equals(stoc.detalii) : stoc.detalii != null) return false;
+        if (factura != null ? !factura.equals(stoc.factura) : stoc.factura != null) return false;
+        return !(imagine != null ? !imagine.equals(stoc.imagine) : stoc.imagine != null);
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = (int) (idStoc ^ (idStoc >>> 32));
+        result = 31 * result + (idCategorieStoc != null ? idCategorieStoc.hashCode() : 0);
+        result = 31 * result + (idGrupStoc != null ? idGrupStoc.hashCode() : 0);
+        result = 31 * result + (numeStoc != null ? numeStoc.hashCode() : 0);
+        result = 31 * result + (codStoc != null ? codStoc.hashCode() : 0);
+        result = 31 * result + (idStare != null ? idStare.hashCode() : 0);
+        result = 31 * result + (idLoc != null ? idLoc.hashCode() : 0);
+        result = 31 * result + (idResurseUmane != null ? idResurseUmane.hashCode() : 0);
+        result = 31 * result + (detalii != null ? detalii.hashCode() : 0);
+        result = 31 * result + (factura != null ? factura.hashCode() : 0);
+        result = 31 * result + (imagine != null ? imagine.hashCode() : 0);
+        result = 31 * result + deleted;
+        return result;
     }
 }
