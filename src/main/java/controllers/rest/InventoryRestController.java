@@ -168,7 +168,7 @@ public class InventoryRestController {
             response.setMessage("S" + articolarticole);
         } catch (DataAccessException e) {
             response.setId(-1);
-            response.setMessage("Eroare la iesire");
+            response.setMessage("Eroare la intrare");
         }
         return response;
     }

@@ -9,6 +9,12 @@ var UNSELECT = [];
 var ZERO = 0;
 var chosenUpdated = 'chosen:updated';
 
+if (!('contains' in String.prototype)) {
+    String.prototype.contains = function (str, startIndex) {
+        return -1 !== String.prototype.indexOf.call(this, str, startIndex);
+    };
+}
+
 $.extend($.fn.dataTable.defaults, {
     "aLengthMenu": [[5, 10, 25, 50, 100, -1], [5, 10, 25, 50, 100, "Toate"]],
     stateSave: true,

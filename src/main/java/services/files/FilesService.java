@@ -15,4 +15,6 @@ public interface FilesService {
     Attachment getStocImage(long idStoc);
 
     List<Attachment> listFiles(long id);
+
+    long getFolderForPath(String path);
 }

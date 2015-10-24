@@ -57,7 +57,7 @@ public class FilesServiceImpl implements FilesService {
     public Attachment saveStocImage(long idStoc, MultipartFile imageFile) {
         String pathOnServer = writeFileToDisk(imageFile);
         String originalFilename = imageFile.getOriginalFilename();
-        String fileName = pathOnServer.substring(pathOnServer.lastIndexOf(File.separatorChar));
+        String fileName = pathOnServer.substring(pathOnServer.lastIndexOf(File.separatorChar) + 1);
 
         Attachment image = new Attachment();
         image.setIdStoc(idStoc);
@@ -91,5 +91,10 @@ public class FilesServiceImpl implements FilesService {
         }
 
         return files;
+    }
+
+    @Override
+    public long getFolderForPath(String path) {
+        return attachmentRepository.findByPathEquals(path).getIdAttachment();
     }
 }

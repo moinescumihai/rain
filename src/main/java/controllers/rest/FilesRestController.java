@@ -58,4 +58,11 @@ public class FilesRestController {
     public List<Attachment> listFiles(@RequestParam(value = "id", defaultValue = "0") long id) {
         return filesService.listFiles(id);
     }
+
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_FISIERE')")
+    @RequestMapping(value = "/get-folder/{path}", method = RequestMethod.GET, produces = "application/json")
+    @ResponseBody
+    public long getFolderForPath(@PathVariable String path) {
+        return filesService.getFolderForPath(path);
+    }
 }

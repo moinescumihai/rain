@@ -2385,3 +2385,7 @@ div[id^="history"] .modal-body {
     cursor: pointer;
 }
 
+.breadcrumb, .clickable-file {
+    cursor: pointer;
+}
+

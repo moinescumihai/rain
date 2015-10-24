@@ -18,6 +18,7 @@
     [/@sidebar]
     [@content]
     <div>
+        <ol id="file-breadcrumb" class="breadcrumb"></ol>
         <table class="table table-hover table-condensed table-striped">
             <thead>
             <tr class="text-table-head">
