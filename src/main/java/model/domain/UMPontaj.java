@@ -4,13 +4,13 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "u_m_pontaj", schema = "", catalog = "raindrop")
-public class UMPontaj {
+public class UMPontaj extends BaseEntity {
     private long idUMPontaj;
     private String nume;
     private String valoare;
 
     @Id
-
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_u_m_pontaj")
     public long getIdUMPontaj() {
         return idUMPontaj;

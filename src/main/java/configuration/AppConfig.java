@@ -40,6 +40,11 @@ public class AppConfig extends WebMvcConfigurerAdapter {
 
     private static final String MESSAGE_SOURCE_BASE_NAME = "classpath:i18n/messages";
 
+    @Bean
+    public static PropertySourcesPlaceholderConfigurer propertyPlaceHolderConfigurer() {
+        return new PropertySourcesPlaceholderConfigurer();
+    }
+
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/assets/**").addResourceLocations("classpath:/META-INF/resources/webjars/");
@@ -82,11 +87,6 @@ public class AppConfig extends WebMvcConfigurerAdapter {
         messageSource.setDefaultEncoding("UTF-8");
         messageSource.setCacheSeconds(0);
         return messageSource;
-    }
-
-    @Bean
-    PropertySourcesPlaceholderConfigurer propertyPlaceHolderConfigurer() {
-        return new PropertySourcesPlaceholderConfigurer();
     }
 
     @Bean

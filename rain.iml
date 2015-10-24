@@ -20,6 +20,15 @@
           <file>file://$MODULE_DIR$/src/main/java/configuration/FreemarkerConfig.java</file>
           <file>file://$MODULE_DIR$/src/main/java/configuration/WebSecurityConfig.java</file>
           <file>file://$MODULE_DIR$/src/main/java/configuration/WebSocketConfig.java</file>
+          <file>file://$MODULE_DIR$/src/main/resources/i18n/messages_de.properties</file>
+          <file>file://$MODULE_DIR$/src/main/resources/i18n/messages_en.properties</file>
+          <file>file://$MODULE_DIR$/src/main/resources/i18n/messages_es.properties</file>
+          <file>file://$MODULE_DIR$/src/main/resources/i18n/messages_fr.properties</file>
+          <file>file://$MODULE_DIR$/src/main/resources/i18n/messages_it.properties</file>
+          <file>file://$MODULE_DIR$/src/main/resources/i18n/messages_nl.properties</file>
+          <file>file://$MODULE_DIR$/src/main/resources/i18n/messages_ro.properties</file>
+          <file>file://$MODULE_DIR$/src/main/resources/application.properties</file>
+          <file>file://$MODULE_DIR$/src/main/resources/log4j.properties</file>
         </fileset>
       </configuration>
     </facet>
@@ -92,6 +101,7 @@
     <orderEntry type="library" name="Maven: mysql:mysql-connector-java:5.1.30" level="project" />
     <orderEntry type="library" name="Maven: commons-fileupload:commons-fileupload:1.3.1" level="project" />
     <orderEntry type="library" name="Maven: commons-io:commons-io:2.4" level="project" />
+    <orderEntry type="library" name="Maven: com.google.guava:guava:18.0" level="project" />
     <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-databind:2.6.2" level="project" />
     <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-core:2.6.2" level="project" />
     <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-annotations:2.6.2" level="project" />

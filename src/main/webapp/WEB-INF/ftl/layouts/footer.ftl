@@ -6,7 +6,7 @@
         <span class="green">Raindrop Software&nbsp;
             <span id="an-copyright"></span>
         </span>
-        <span class="version pull-right">0.9.3</span>
+        <span class="version pull-right">[@spring.message "PROJECT.VERSION" /]</span>
     </p>
 </div>
 <form action="/logout?${_csrf.parameterName}=${_csrf.token}" method="post" id="logoutForm"></form>

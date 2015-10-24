@@ -7,6 +7,7 @@ import org.springframework.data.repository.CrudRepository;
 import java.util.List;
 
 public interface ProiectRepository extends CrudRepository<Proiect, Long> {
-    List<Proiect> findByDeletedEquals(byte deleted);
-    List<Proiect> findAllByDeletedEquals(byte deleted);
+    List<Proiect> findByDeletedEquals(int deleted);
+
+    List<Proiect> findAllByDeletedEquals(int deleted);
 }

@@ -111,8 +111,6 @@ public class InventoryServiceImpl implements InventoryService {
         stoc.setIdStare(stareStocRepository.findOne(entity.getIdStare()));
         stoc.setIdLoc(locRepository.findOne(entity.getIdLoc()));
         stoc.setIdResurseUmane(resurseUmaneService.findOne(entity.getIdResurseUmane()));
-        stoc.setModificatDe(UserUtils.getLoggedInUsername());
-        stoc.setModificatLa(new Timestamp(System.currentTimeMillis()));
         stoc = stocRepository.save(stoc);
         buildAndSaveTranzactieStoc(stoc, null, entity.getDetalii());
 
@@ -134,22 +132,16 @@ public class InventoryServiceImpl implements InventoryService {
         newStockAdded.setIdColet(idColet);
         newStockAdded.setDetalii(detalii);
         newStockAdded.setDataTranzactie(new Timestamp(System.currentTimeMillis()));
-        newStockAdded.setCreatDe(UserUtils.getLoggedInUsername());
-        newStockAdded.setCreatLa(new Timestamp(System.currentTimeMillis()));
 
         return tranzactieStocRepository.save(newStockAdded);
     }
 
     private Stoc saveDefaultStoc(Stoc entity) {
         String codStoc = String.valueOf(UUID.randomUUID());
-        String creatDe = UserUtils.getLoggedInUsername();
         entity.setCodStoc(codStoc);
-        entity.setDeleted(0);
-        entity.setCreatDe(creatDe);
         entity.setFactura(filesService.getStocImage(1L));
         entity.setImagine(filesService.getStocImage(1L));
         entity.setIdResurseUmane(resurseUmaneService.findOne(1L));
-        entity.setCreatLa(new Timestamp(System.currentTimeMillis()));
 
         return stocRepository.save(entity);
     }
@@ -279,10 +271,6 @@ public class InventoryServiceImpl implements InventoryService {
 
     @Override
     public CategorieStoc saveCategorie(CategorieStoc entity) {
-        entity.setEsteSubcategorie(OFF);
-        if (entity.getIdCategorieParinte() > 0) {
-            entity.setEsteSubcategorie(ON);
-        }
         return categorieStocRepository.save(entity);
     }
 
@@ -329,8 +317,6 @@ public class InventoryServiceImpl implements InventoryService {
     @Override
     @Transactional
     public boolean iesire(InventarFormModel model) {
-        String username = UserUtils.getLoggedInUsername();
-        Timestamp curentTime = new Timestamp(System.currentTimeMillis());
         Stoc stoc;
         Colet colet = new Colet();
         colet.setNumeColet(String.valueOf(UUID.randomUUID()));
@@ -341,8 +327,6 @@ public class InventoryServiceImpl implements InventoryService {
             stoc.setIdLoc(locRepository.findOne(model.getIdLoc()));
             stoc.setIdResurseUmane(resurseUmaneService.findOne(model.getIdResurseUmane()));
             stoc.setIdStare(stareStoc);
-            stoc.setModificatDe(username);
-            stoc.setModificatLa(curentTime);
             stocRepository.save(stoc);
             buildAndSaveTranzactieStoc(stoc, colet, model.getDetalii());
         }
@@ -352,8 +336,6 @@ public class InventoryServiceImpl implements InventoryService {
     @Override
     @Transactional
     public boolean intrare(InventarFormModel model) {
-        String username = UserUtils.getLoggedInUsername();
-        Timestamp curentTime = new Timestamp(System.currentTimeMillis());
         Stoc stoc;
         Colet colet = new Colet();
         colet.setNumeColet(String.valueOf(UUID.randomUUID()));
@@ -364,8 +346,6 @@ public class InventoryServiceImpl implements InventoryService {
             stoc.setIdLoc(locRepository.findOne(model.getIdLoc()));
             stoc.setIdResurseUmane(resurseUmaneService.findOne(1L));
             stoc.setIdStare(stareStoc);
-            stoc.setModificatDe(username);
-            stoc.setModificatLa(curentTime);
             stocRepository.save(stoc);
             buildAndSaveTranzactieStoc(stoc, colet, model.getDetalii());
         }

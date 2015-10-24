@@ -148,7 +148,7 @@ public class InventoryRestController {
             boolean success = inventoryService.iesire(iesire);
             response.setId(1);
             String articolarticole = iesire.getArticole().length == 1 ? "-a predat articolul" : "-au predat articolele";
-            response.setMessage("S-" + articolarticole);
+            response.setMessage("S" + articolarticole);
         } catch (DataAccessException e) {
             response.setId(-1);
             response.setMessage("Eroare la iesire");
@@ -164,11 +164,11 @@ public class InventoryRestController {
         try {
             boolean success = inventoryService.intrare(model);
             response.setId(1);
-            String articolarticole = model.getArticole().length == 1 ? "-a predat articolul" : "-au predat articolele";
-            response.setMessage("S-" + articolarticole);
+            String articolarticole = model.getArticole().length == 1 ? "-a primit articolul" : "-au primit articolele";
+            response.setMessage("S" + articolarticole);
         } catch (DataAccessException e) {
             response.setId(-1);
-            response.setMessage("Eroare la iesire");
+            response.setMessage("Eroare la intrare");
         }
         return response;
     }

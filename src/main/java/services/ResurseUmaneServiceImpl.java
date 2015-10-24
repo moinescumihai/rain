@@ -16,6 +16,7 @@ import java.util.List;
 @Service
 public class ResurseUmaneServiceImpl implements ResurseUmaneService {
     private static final Logger LOGGER = LoggerFactory.getLogger(ResurseUmaneServiceImpl.class);
+    private static final String TOTI = "toti";
 
     @Autowired
     private ResurseUmaneRepository resurseUmaneRepository;
@@ -51,6 +52,15 @@ public class ResurseUmaneServiceImpl implements ResurseUmaneService {
         } catch (DataAccessException e) {
             LOGGER.error("RESURSE_UMANE.NO_RESURSE_UMANE", e);
             return Collections.emptyList();
+        }
+    }
+
+    @Override
+    public List<ResurseUmane> getPersoaneByFirstLetter(String firstLetter) {
+        if (firstLetter.equalsIgnoreCase(TOTI)) {
+            return findAllPersoane();
+        } else {
+            return resurseUmaneRepository.findAllByNumeStartingWithOrderByNumeAsc(firstLetter);
         }
     }
 }

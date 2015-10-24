@@ -12,11 +12,11 @@ import services.files.FilesService;
 import java.beans.PropertyEditorSupport;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 @RestController
 @RequestMapping("/app/secure/files")
 public class FilesRestController {
-
     @Autowired
     private FilesService filesService;
 
@@ -45,10 +45,24 @@ public class FilesRestController {
     }
 
 
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_INVENTAR')")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_INVENTAR', 'ROLE_FISIERE')")
     @RequestMapping(value = "/get-inventory-image/{idStoc}", method = RequestMethod.GET)
     @ResponseBody
     public Attachment getInventoryImage(@PathVariable("idStoc") long idStoc) {
         return filesService.getStocImage(idStoc);
+    }
+
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_FISIERE')")
+    @RequestMapping(value = "/list-files", method = RequestMethod.GET, produces = "application/json")
+    @ResponseBody
+    public List<Attachment> listFiles(@RequestParam(value = "id", defaultValue = "0") long id) {
+        return filesService.listFiles(id);
+    }
+
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_FISIERE')")
+    @RequestMapping(value = "/get-folder/{path}", method = RequestMethod.GET, produces = "application/json")
+    @ResponseBody
+    public long getFolderForPath(@PathVariable String path) {
+        return filesService.getFolderForPath(path);
     }
 }

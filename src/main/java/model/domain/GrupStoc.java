@@ -4,9 +4,10 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "grup_stoc", schema = "", catalog = "raindrop")
-public class GrupStoc {
+public class GrupStoc extends BaseEntity {
     private long idGrupStoc;
     private String numeGrup;
+    private Long codGrup;
     private CategorieStoc idCategorieStoc;
 
     @Id
@@ -21,13 +22,23 @@ public class GrupStoc {
     }
 
     @Basic
-    @Column(name = "nume_grup", nullable = false, insertable = true, updatable = true, length = 255)
+    @Column(name = "nume_grup", nullable = false, insertable = true, updatable = true)
     public String getNumeGrup() {
         return numeGrup;
     }
 
     public void setNumeGrup(String numeGrup) {
         this.numeGrup = numeGrup;
+    }
+
+    @Basic
+    @Column(name = "cod_grup", nullable = true, insertable = true, updatable = true)
+    public Long getCodCategorie() {
+        return codGrup;
+    }
+
+    public void setCodCategorie(Long codCategorie) {
+        this.codGrup = codCategorie;
     }
 
     @ManyToOne(fetch = FetchType.EAGER)

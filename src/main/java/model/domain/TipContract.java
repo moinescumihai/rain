@@ -4,14 +4,14 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "tip_contract", schema = "", catalog = "raindrop")
-public class TipContract {
+public class TipContract extends BaseEntity {
     private long idTipContract;
     private String numeTipContract;
     private String durataContract;
     private String descriereTipContract;
 
     @Id
-
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_tip_contract")
     public long getIdTipContract() {
         return idTipContract;
@@ -42,7 +42,7 @@ public class TipContract {
     }
 
     @Basic
-    @Column(name = "descriere_tip_contract", nullable = true, insertable = true, updatable = true, length = 65535)
+    @Column(name = "descriere_tip_contract", nullable = true, insertable = true, updatable = true)
     public String getDescriereTipContract() {
         return descriereTipContract;
     }

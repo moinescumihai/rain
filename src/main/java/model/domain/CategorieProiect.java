@@ -1,18 +1,21 @@
 package model.domain;
 
-import javax.persistence.*;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
+import javax.persistence.*;
+import java.util.Collection;
 
 @Entity
 @Table(name = "categorie_proiect", schema = "", catalog = "raindrop")
-public class CategorieProiect {
+public class CategorieProiect extends BaseEntity {
     private long idCategorieProiect;
     private String nume;
-    private Integer idCategorieParinte;
-    private Byte esteSubcategorie;
+    private CategorieProiect parent;
+    private Collection<CategorieProiect> children;
 
     @Id
-
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_categorie_proiect")
     public long getIdCategorieProiect() {
         return idCategorieProiect;
@@ -32,44 +35,46 @@ public class CategorieProiect {
         this.nume = nume;
     }
 
-    @Basic
-    @Column(name = "id_categorie_parinte", nullable = true, insertable = true, updatable = true)
-    public Integer getIdCategorieParinte() {
-        return idCategorieParinte;
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JsonBackReference
+    public CategorieProiect getParent() {
+        return parent;
     }
 
-    public void setIdCategorieParinte(Integer idCategorieParinte) {
-        this.idCategorieParinte = idCategorieParinte;
+    public void setParent(CategorieProiect parent) {
+        this.parent = parent;
     }
 
-    @Basic
-    @Column(name = "este_subcategorie", nullable = true, insertable = true, updatable = true)
-    public Byte getEsteSubcategorie() {
-        return esteSubcategorie;
+    @OneToMany(mappedBy = "parent", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JsonManagedReference
+    public Collection<CategorieProiect> getChildren() {
+        return children;
     }
 
-    public void setEsteSubcategorie(Byte esteSubcategorie) {
-        this.esteSubcategorie = esteSubcategorie;
+    public void setChildren(Collection<CategorieProiect> children) {
+        this.children = children;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof CategorieProiect)) return false;
 
         CategorieProiect that = (CategorieProiect) o;
 
+        if (idCategorieProiect != that.idCategorieProiect) return false;
         if (nume != null ? !nume.equals(that.nume) : that.nume != null) return false;
-        if (idCategorieParinte != null ? !idCategorieParinte.equals(that.idCategorieParinte) : that.idCategorieParinte != null) return false;
-        return !(esteSubcategorie != null ? !esteSubcategorie.equals(that.esteSubcategorie) : that.esteSubcategorie != null);
+        if (parent != null ? !parent.equals(that.parent) : that.parent != null) return false;
+        return !(children != null ? !children.equals(that.children) : that.children != null);
 
     }
 
     @Override
     public int hashCode() {
-        int result = nume != null ? nume.hashCode() : 0;
-        result = 31 * result + (idCategorieParinte != null ? idCategorieParinte.hashCode() : 0);
-        result = 31 * result + (esteSubcategorie != null ? esteSubcategorie.hashCode() : 0);
+        int result = (int) (idCategorieProiect ^ (idCategorieProiect >>> 32));
+        result = 31 * result + (nume != null ? nume.hashCode() : 0);
+        result = 31 * result + (parent != null ? parent.hashCode() : 0);
+        result = 31 * result + (children != null ? children.hashCode() : 0);
         return result;
     }
 }

@@ -1,19 +1,17 @@
 package model.domain;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
-public class Loc {
+@Table(name = "loc", schema = "", catalog = "raindrop")
+public class Loc extends BaseEntity {
     private long idLoc;
     private String numeLoc;
     private String latitude;
     private String longitude;
 
     @Id
-
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_loc", nullable = false, insertable = true, updatable = true)
     public long getIdLoc() {
         return idLoc;

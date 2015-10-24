@@ -1,20 +1,18 @@
 package model.domain;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
-public class Obiectiv {
+@Table(name = "obiectiv", schema = "", catalog = "raindrop")
+public class Obiectiv extends BaseEntity {
     private long idObiectiv;
     private String nume;
     private String descriere;
-    private long idProiect;
-    private long idMilestone;
+    private Proiect idProiect;
+    private Milestone idMilestone;
 
     @Id
-
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_obiectiv")
     public long getIdObiectiv() {
         return idObiectiv;
@@ -44,46 +42,24 @@ public class Obiectiv {
         this.descriere = descriere;
     }
 
-    @Basic
-    @Column(name = "id_proiect", nullable = false, insertable = true, updatable = true)
-    public long getIdProiect() {
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "id_proiect")
+    public Proiect getIdProiect() {
         return idProiect;
     }
 
-    public void setIdProiect(long idProiect) {
+    public void setIdProiect(Proiect idProiect) {
         this.idProiect = idProiect;
     }
 
-    @Basic
-    @Column(name = "id_milestone", nullable = false, insertable = true, updatable = true)
-    public long getIdMilestone() {
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "id_milestone")
+    public Milestone getIdMilestone() {
         return idMilestone;
     }
 
-    public void setIdMilestone(long idMilestone) {
+    public void setIdMilestone(Milestone idMilestone) {
         this.idMilestone = idMilestone;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Obiectiv obiectiv = (Obiectiv) o;
-
-        if (idProiect != obiectiv.idProiect) return false;
-        if (idMilestone != obiectiv.idMilestone) return false;
-        if (nume != null ? !nume.equals(obiectiv.nume) : obiectiv.nume != null) return false;
-        return !(descriere != null ? !descriere.equals(obiectiv.descriere) : obiectiv.descriere != null);
-
-    }
-
-    @Override
-    public int hashCode() {
-        int result = nume != null ? nume.hashCode() : 0;
-        result = 31 * result + (descriere != null ? descriere.hashCode() : 0);
-        result = 31 * result + (int) (idProiect ^ (idProiect >>> 32));
-        result = 31 * result + (int) (idMilestone ^ (idMilestone >>> 32));
-        return result;
-    }
 }

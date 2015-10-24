@@ -4,13 +4,13 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "user_role", schema = "", catalog = "raindrop")
-public class UserRole {
+public class UserRole extends BaseEntity {
     private long idRole;
     private String username;
     private String role;
 
     @Id
-
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_role")
     public long getIdRole() {
         return idRole;

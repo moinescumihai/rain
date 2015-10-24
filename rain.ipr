@@ -50,6 +50,7 @@
             <element id="library" level="project" name="Maven: mysql:mysql-connector-java:5.1.30" />
             <element id="library" level="project" name="Maven: commons-fileupload:commons-fileupload:1.3.1" />
             <element id="library" level="project" name="Maven: commons-io:commons-io:2.4" />
+            <element id="library" level="project" name="Maven: com.google.guava:guava:18.0" />
             <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-databind:2.6.2" />
             <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-core:2.6.2" />
             <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-annotations:2.6.2" />
@@ -136,7 +137,7 @@
     </bytecodeTargetLevel>
   </component>
   <component name="CopyrightManager" default="" />
-  <component name="DataSourceManagerImpl" format="xml" hash="1109356864">
+  <component name="DataSourceManagerImpl" format="xml" hash="743207841">
     <data-source source="LOCAL" name="MySQL - raindrop@localhost" uuid="f438a555-b6d9-40f7-9d51-6f5e20757093">
       <driver-ref>mysql</driver-ref>
       <synchronize>true</synchronize>
@@ -154,6 +155,7 @@
   </component>
   <component name="Encoding">
     <file url="file://$PROJECT_DIR$/src/main/java/controllers/rest/FilesRestController.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/controllers/rest/HrRestController.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java/controllers/rest/InventoryRestController.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java/controllers/rest/ProfileRestController.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java/controllers/rest/ProjectsRestController.java" charset="UTF-8" />
@@ -908,6 +910,17 @@
       </JAVADOC>
       <SOURCES>
         <root url="jar://$MAVEN_REPOSITORY$/com/fasterxml/classmate/1.1.0/classmate-1.1.0-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Maven: com.google.guava:guava:18.0">
+      <CLASSES>
+        <root url="jar://$MAVEN_REPOSITORY$/com/google/guava/guava/18.0/guava-18.0.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar://$MAVEN_REPOSITORY$/com/google/guava/guava/18.0/guava-18.0-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar://$MAVEN_REPOSITORY$/com/google/guava/guava/18.0/guava-18.0-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: com.google.zxing:core:3.1.0">

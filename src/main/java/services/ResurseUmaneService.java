@@ -12,4 +12,6 @@ public interface ResurseUmaneService {
     ResurseUmane findByUsername(String username);
 
     List<ResurseUmane> findAllPersoane();
+
+    List<ResurseUmane> getPersoaneByFirstLetter(String firstLetter);
 }

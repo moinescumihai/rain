@@ -3,15 +3,14 @@ var addClientForm = $('#modal-addClient-form');
 var addCategoryForm = $('#modal-addCategory-form');
 var projectsTable;
 
-function getClients() {
-    var clientsSelect = $('#addProject-form-client');
+var getClients = function (container) {
+    var clientsSelect = $('#' + container);
     clientsSelect.html(EMPTY);
     clientsSelect.append("<option></option>");
     $.ajax({
         type: 'get',
         url: '/app/secure/projects/getclients',
         contentType: "application/json",
-        async: false,
         success: function (response) {
             if (typeof response !== 'undefined') {
                 for (var i = 0; i < response.length; i++) {
@@ -24,37 +23,31 @@ function getClients() {
             showNotification("Error. Please try again later." + e.Message, "Error", DANGER);
         }
     });
-}
+};
 
-function getCategories() {
-    var categoriesSelect = $('#addProject-form-category');
-    var parentCategoriesSelect = $('#addCategory-form-categorie-parinte');
+var getCategories = function (container) {
+    var categoriesSelect = $('#' + container);
     categoriesSelect.html(EMPTY);
-    parentCategoriesSelect.html(EMPTY);
     categoriesSelect.append("<option></option>");
-    parentCategoriesSelect.append("<option></option>");
     $.ajax({
         type: 'get',
         url: '/app/secure/projects/getcategories',
         contentType: "application/json",
-        async: false,
         success: function (response) {
             if (typeof response !== 'undefined') {
                 for (var i = 0; i < response.length; i++) {
                     categoriesSelect.append($("<option>").val(response[i].idCategorieProiect).text(response[i].nume));
-                    parentCategoriesSelect.append($("<option>").val(response[i].idCategorieProiect).text(response[i].nume));
                 }
             }
             categoriesSelect.trigger(chosenUpdated);
-            parentCategoriesSelect.trigger(chosenUpdated);
         },
         error: function (e) {
             showNotification("Error. Please try again later." + e.Message, "Error", DANGER);
         }
     });
-}
+};
 
-function deleteProject(id) {
+var deleteProject = function (id) {
     var token = $("meta[name='_csrf']").prop("content");
     var header = $("meta[name='_csrf_header']").prop("content");
 
@@ -73,9 +66,9 @@ function deleteProject(id) {
             showNotification("Error. Please try again later.", "Error", ERROR);
         }
     });
-}
+};
 
-function getProjects() {
+var getProjects = function () {
     var projectContainer = $('#project-container');
     projectContainer.empty();
     var token = $("meta[name='_csrf']").prop("content");
@@ -99,7 +92,7 @@ function getProjects() {
             var rows = [];
             var projectString;
             if (response.length <= 0) {
-                projectContainer.html('<div class="panel text-center"><div class="panel-body"><h2><span class="text-muted"> No projects are defined, use the ' + $('#addProiect-open').parent().html() + '  button to define new projects</span></h2></div></div>');
+                projectContainer.html('<div class="panel text-center"><div class="panel-body"><h2><span class="text-muted"> Nu sunt proiecte, folose&#x219;te butonul ' + $('#addProiect-open').parent().html() + '  pentru a ad&abreve;uga proiecte noi</span></h2></div></div>');
                 return;
             }
             $.each(response, function (i, proj) {
@@ -162,14 +155,15 @@ function getProjects() {
         }
     });
 
-}
+};
 
 $(document).ready(function () {
     $('#projects').addClass('active');
 
     getProjects();
-    getClients();
-    getCategories();
+    getClients('addProject-form-client');
+    getCategories('addProject-form-category');
+    getCategories('addCategory-form-categorie-parinte');
 
     $('body').on('mouseover', '.project-item', function () {
         $(this).find('a.popup-marker').webuiPopover($.extend({}, popoverDefaultSettings, {
@@ -187,7 +181,7 @@ $(document).ready(function () {
                             + '</ul></div>'
                             + '<div class="col-md-6"><ul class="popover-options">'
                             + '<li><a><span class="fa fa-group fa-fw">&nbsp;</span>&nbsp; Persoane</a></li>'
-                            + '<li><a><span class="fa fa-tasks fa-fw">&nbsp;</span>&nbsp; Task-uri</a></li>'
+                            + '<li><a><span class="fa fa-tasks fa-fw">&nbsp;</span>&nbsp; Sarcini</a></li>'
                             + '<li><a><span class="fa fa-paperclip fa-fw">&nbsp;</span>&nbsp; Fi&\#x219;iere</a></li>'
                             + '<li><a><span class="fa fa-line-chart fa-fw">&nbsp;</span>&nbsp; Rapoarte</a></li>'
                             + '</ul></div>';
@@ -201,7 +195,7 @@ $(document).ready(function () {
 
     $(document).on('click', 'a[id^="pop-proj-del-"]', function (e) {
         var idProject = $(this).prop('id').replace('pop-proj-del-', '');
-        confirmModal('delete-project-confirm-' + idProject, 'Are you sure you want to delete this project?');
+        confirmModal('delete-project-confirm-' + idProject, 'E&#x219;ti sigur c&abreve; vrei s&abreve; &#x219;tergi proiectul?');
     });
 
     $(document).on('click', 'button[id^=delete-project-confirm-]', function (e) {
@@ -222,7 +216,6 @@ $(document).ready(function () {
             }
         }
     });
-
 
     addCategoryForm.on('submit', function (e) {
         if (!$(this).valid()) {
@@ -270,7 +263,8 @@ $(document).ready(function () {
     });
 
     $(document).on('hidden.bs.modal', '#modal-addCategory', function (e) {
-        getCategories();
+        getCategories('addProject-form-category');
+        getCategories('addCategory-form-categorie-parinte');
     });
 
     addClientForm.validate({
@@ -342,7 +336,8 @@ $(document).ready(function () {
                     }
                 } else {
                     addClientForm.trigger('reset');
-                    $('#modal-addClient-close').click();
+                    $('#modal-addClient').modal('hide');
+                    $('.chosen-select').trigger(chosenUpdated);
                     showNotification(response.message, 'Success', SUCCESS);
                 }
             },
@@ -353,7 +348,7 @@ $(document).ready(function () {
     });
 
     $(document).on('hidden.bs.modal', '#modal-addClient', function (e) {
-        getClients();
+        getClients('addProject-form-client');
     });
 
     addProjectForm.validate({
@@ -408,8 +403,9 @@ $(document).ready(function () {
                         $("[id^='" + key + "-error']").html(err);
                     }
                 } else {
+                    $('#modal-addProiect').modal('hide');
                     addProjectForm.trigger('reset');
-                    $('#modal-addProiect-close').click();
+                    $('.chosen-select').trigger(chosenUpdated);
                     showNotification(response.message, 'Success', SUCCESS);
                     getProjects();
                 }

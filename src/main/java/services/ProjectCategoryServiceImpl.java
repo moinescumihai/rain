@@ -33,11 +33,6 @@ public class ProjectCategoryServiceImpl implements ProjectCategoryService {
 
     @Override
     public CategorieProiect save(CategorieProiect entity) {
-        entity.setEsteSubcategorie(OFF);
-        if(entity.getIdCategorieProiect() > 0){
-            entity.setEsteSubcategorie(ON);
-        }
-
         return categorieProiectRepository.save(entity);
     }
 }

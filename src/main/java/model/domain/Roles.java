@@ -1,17 +1,15 @@
 package model.domain;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
-public class Roles {
+@Table(name = "roles", schema = "", catalog = "raindrop")
+public class Roles extends BaseEntity {
     private long idRole;
     private String role;
 
     @Id
-
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_role")
     public long getIdRole() {
         return idRole;

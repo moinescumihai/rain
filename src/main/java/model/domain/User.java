@@ -1,25 +1,20 @@
 package model.domain;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.sql.Timestamp;
-import java.util.Arrays;
 
 @Entity
-public class User {
+@Table(name = "user", schema = "", catalog = "raindrop")
+public class User extends BaseEntity {
     private long idUser;
     private String username;
     private String password;
     private Timestamp lastLogin;
     private Timestamp lastPassChange;
-    private byte[] userphoto;
-    private int enabled;
-    private Long activeProject;
+    private Integer enabled;
 
     @Id
-
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_user", nullable = false, updatable = true)
     public long getIdUser() {
         return idUser;
@@ -70,33 +65,13 @@ public class User {
     }
 
     @Basic
-    @Column(name = "userphoto", nullable = true, insertable = true, updatable = true)
-    public byte[] getUserphoto() {
-        return userphoto;
-    }
-
-    public void setUserphoto(byte[] userphoto) {
-        this.userphoto = userphoto;
-    }
-
-    @Basic
     @Column(name = "enabled", nullable = false, insertable = true, updatable = true)
-    public int getEnabled() {
+    public Integer getEnabled() {
         return enabled;
     }
 
-    public void setEnabled(int enabled) {
+    public void setEnabled(Integer enabled) {
         this.enabled = enabled;
-    }
-
-    @Basic
-    @Column(name = "active_project", nullable = true, insertable = true, updatable = true)
-    public Long getActiveProject() {
-        return activeProject;
-    }
-
-    public void setActiveProject(Long activeProject) {
-        this.activeProject = activeProject;
     }
 
     @Override
@@ -107,26 +82,22 @@ public class User {
         User user = (User) o;
 
         if (idUser != user.idUser) return false;
-        if (activeProject != user.activeProject) return false;
-        if (enabled != user.enabled) return false;
-        if (!username.equals(user.username)) return false;
-        if (!password.equals(user.password)) return false;
+        if (username != null ? !username.equals(user.username) : user.username != null) return false;
+        if (password != null ? !password.equals(user.password) : user.password != null) return false;
         if (lastLogin != null ? !lastLogin.equals(user.lastLogin) : user.lastLogin != null) return false;
         if (lastPassChange != null ? !lastPassChange.equals(user.lastPassChange) : user.lastPassChange != null) return false;
-        return Arrays.equals(userphoto, user.userphoto);
+        return !(enabled != null ? !enabled.equals(user.enabled) : user.enabled != null);
 
     }
 
     @Override
     public int hashCode() {
         int result = (int) (idUser ^ (idUser >>> 32));
-        result = 31 * result + (int) (activeProject ^ (activeProject >>> 32));
-        result = 31 * result + username.hashCode();
-        result = 31 * result + password.hashCode();
+        result = 31 * result + (username != null ? username.hashCode() : 0);
+        result = 31 * result + (password != null ? password.hashCode() : 0);
         result = 31 * result + (lastLogin != null ? lastLogin.hashCode() : 0);
         result = 31 * result + (lastPassChange != null ? lastPassChange.hashCode() : 0);
-        result = 31 * result + (userphoto != null ? Arrays.hashCode(userphoto) : 0);
-        result = 31 * result + enabled;
+        result = 31 * result + (enabled != null ? enabled.hashCode() : 0);
         return result;
     }
 }
