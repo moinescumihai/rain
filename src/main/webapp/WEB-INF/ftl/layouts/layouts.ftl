@@ -17,7 +17,6 @@
 <script src="/js/bootstrap.file-input.js"></script>
 <script src="/js/bootstrap-modalmanager.js"></script>
 <script src="/js/bootstrap-modal.js"></script>
-<script src="/js/jquery-ui.min.js"></script>
 <script src="/js/bootstrap-datepicker.js"></script>
 <script src="/js/chosen.jquery.js"></script>
 <script src="/js/toastr.js"></script>

@@ -92,7 +92,7 @@ var getProjects = function () {
             $.each(response, function (index, project) {
                 var idProiect = project.idProiect;
                 var numeProiect = project.numeProiect;
-                var categorie = project.idCategorieProiect;
+                var categorie = project.idCategorieProiect.nume;
                 var dataNow = new Date();
                 var dataEnd = toJSDateTime(project.dataEndEstimativa);
                 var dataStart = toJSDateTime(project.dataStart);
@@ -299,7 +299,7 @@ $(document).ready(function () {
         var oras = $('#addClient-form-oras').val();
         var judet = $('#addClient-form-judet').val();
         var codPostal = $('#addClient-form-cod-postal').val();
-        var idTara = $('#addClient-form-taral').val();
+        var idTara = $('#addClient-form-tara').val();
         var data = {
             "numeClient": numeClient, "website": website, "email": email, "telefon": telefon,
             "fax": fax, "idIndustrie": idIndustrie, "adresa": adresa, "oras": oras, "judet": judet,

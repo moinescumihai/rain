@@ -2,8 +2,6 @@ package services.files;
 
 import model.domain.Attachment;
 import model.domain.Stoc;
-import model.repository.AttachmentRepository;
-import model.repository.StocRepository;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
+import services.repository.AttachmentRepository;
+import services.repository.StocRepository;
 
 import java.io.BufferedOutputStream;
 import java.io.File;

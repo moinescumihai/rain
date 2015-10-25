@@ -1,12 +1,15 @@
 package services;
 
 import model.domain.Proiect;
-import model.repository.ProiectRepository;
+import model.forms.ProiectFormModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import services.repository.ProiectRepository;
+import services.repository.StatusProiectRepository;
 
 import java.util.Collections;
 import java.util.List;
@@ -19,6 +22,12 @@ public class ProjectsServiceImpl implements ProjectsService {
 
     @Autowired
     private ProiectRepository proiectRepository;
+    @Autowired
+    private StatusProiectRepository statusProiectRepository;
+    @Autowired
+    private ClientServiceImpl clientService;
+    @Autowired
+    private ProjectCategoryService projectCategoryService;
 
     @Override
     public List<Proiect> findAll() {
@@ -44,8 +53,18 @@ public class ProjectsServiceImpl implements ProjectsService {
     }
 
     @Override
-    public Proiect save(Proiect entity) {
-        return proiectRepository.save(entity);
+    @Transactional
+    public Proiect saveProject(ProiectFormModel entity) {
+        Proiect proiect = new Proiect();
+        proiect.setNumeProiect(entity.getNumeProiect());
+        proiect.setDescriere(entity.getDescriere());
+        proiect.setIdStatusProiect(statusProiectRepository.findOne(entity.getIdStatusProiect()));
+        proiect.setIdClient(clientService.findOne(entity.getIdClient()));
+        proiect.setIdCategorieProiect(projectCategoryService.findOne(entity.getIdCategorieProiect()));
+        proiect.setDataStart(entity.getDataStart());
+        proiect.setDataEndEstimativa(entity.getDataEndEstimativa());
+
+        return proiectRepository.save(proiect);
     }
 
     @Override

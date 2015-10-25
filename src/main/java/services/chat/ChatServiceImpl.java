@@ -1,12 +1,11 @@
 package services.chat;
 
 import model.domain.ChatMessage;
-import model.repository.ChatMessageRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+import services.repository.ChatMessageRepository;
 
 @Service
 public class ChatServiceImpl implements ChatService {

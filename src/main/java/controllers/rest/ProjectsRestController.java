@@ -4,6 +4,8 @@ import model.common.JSONResponse;
 import model.domain.CategorieProiect;
 import model.domain.Client;
 import model.domain.Proiect;
+import model.forms.ClientFormModel;
+import model.forms.ProiectFormModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +17,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
-import services.ClientsService;
+import services.ClientServiceImpl;
 import services.ProjectCategoryService;
 import services.ProjectsService;
 
@@ -37,7 +39,7 @@ public class ProjectsRestController {
     @Autowired
     private MessageSource messageSource;
     @Autowired
-    private ClientsService clientsService;
+    private ClientServiceImpl clientService;
     @Autowired
     private ProjectCategoryService projectCategoryService;
 
@@ -69,7 +71,7 @@ public class ProjectsRestController {
     @RequestMapping(value = "/getclients", method = RequestMethod.GET, produces = "application/json")
     @ResponseBody
     public List<Client> getClients() {
-        return clientsService.findAll();
+        return clientService.findAll();
     }
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
@@ -86,9 +88,9 @@ public class ProjectsRestController {
         JSONResponse response = new JSONResponse();
         try {
             projectsService.delete(id);
-            response.setMessage("Deleted project successfully");
+            response.setMessage("Proiectul a fost &#x219;ters");
         } catch (DataAccessException e) {
-            response.setMessage("Project not added");
+            response.setMessage("Proiectul nu a fost &#x219;ters");
 
         }
         return response;
@@ -97,7 +99,7 @@ public class ProjectsRestController {
     @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_SUPERUSER')")
     @RequestMapping(value = "/addproject", method = RequestMethod.POST, produces = "application/json")
     @ResponseBody
-    public JSONResponse addProiect(@Valid @RequestBody Proiect proiect, BindingResult result) {
+    public JSONResponse addProiect(@Valid @RequestBody ProiectFormModel proiect, BindingResult result) {
         JSONResponse response = new JSONResponse();
         if (result.hasErrors()) {
             Map<String, String> errors = getValidationErrorMap(result);
@@ -108,10 +110,10 @@ public class ProjectsRestController {
             response.setErrorsMap(errors);
         } else {
             try {
-                projectsService.save(proiect);
-                response.setMessage("Added new project: " + proiect.getNumeProiect());
+                projectsService.saveProject(proiect);
+                response.setMessage("S-a ad&abreve;ugat proiectul: " + proiect.getNumeProiect());
             } catch (DataAccessException e) {
-                response.setMessage("Project not added");
+                response.setMessage("Proiectul nu a fost ad&abreve;ugat");
             }
         }
         return response;
@@ -120,17 +122,17 @@ public class ProjectsRestController {
     @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_SUPERUSER')")
     @RequestMapping(value = "/addclient", method = RequestMethod.POST, produces = "application/json")
     @ResponseBody
-    public JSONResponse addClient(@Valid @RequestBody Client client, BindingResult result) {
+    public JSONResponse addClient(@Valid @RequestBody ClientFormModel client, BindingResult result) {
         JSONResponse response = new JSONResponse();
         if (result.hasErrors()) {
             Map<String, String> errors = getValidationErrorMap(result);
             response.setErrorsMap(errors);
         } else {
             try {
-                clientsService.save(client);
-                response.setMessage("Added new client: " + client.getNumeClient());
+                clientService.saveClient(client);
+                response.setMessage("S-a ad&abreve;ugat clientul: " + client.getNumeClient());
             } catch (DataAccessException e) {
-                response.setMessage("Client not added");
+                response.setMessage("Clientul nu a fost ad&abreve;ugat");
             }
         }
         return response;
@@ -147,9 +149,9 @@ public class ProjectsRestController {
         } else {
             try {
                 projectCategoryService.save(categorieProiect);
-                response.setMessage("Added new category: " + categorieProiect.getNume());
+                response.setMessage("S-a ad&abreve;ugat categoria: " + categorieProiect.getNume());
             } catch (DataAccessException e) {
-                response.setMessage("Category not added");
+                response.setMessage("Categoria nu a fost ad&abreve;ugat&abreve;");
             }
         }
         return response;

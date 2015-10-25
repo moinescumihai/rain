@@ -1,11 +1,11 @@
 package services.inventory;
 
 import model.domain.Loc;
-import model.repository.LocRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import services.repository.LocRepository;
 
 @Service
 public class LocServiceImpl implements LocService {

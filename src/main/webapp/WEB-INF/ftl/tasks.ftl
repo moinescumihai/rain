@@ -163,7 +163,7 @@
         </div>
     [/@content]
 [/@layout.basic]
-    <script src="/js/jquery-ui.js"></script>
+    <script src="/js/jquery-ui.min.js"></script>
     <script type="text/javascript">
         $(document).ready(function () {
             $('#tasks').addClass('active');

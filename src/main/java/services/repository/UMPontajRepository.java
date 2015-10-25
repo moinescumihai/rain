@@ -1,4 +1,4 @@
-package model.repository;
+package services.repository;
 
 
 import model.domain.UMPontaj;

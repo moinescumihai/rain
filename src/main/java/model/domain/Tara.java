@@ -5,17 +5,17 @@ import javax.persistence.*;
 @Entity
 @Table(name = "lista_tari", schema = "", catalog = "raindrop")
 public class Tara extends BaseEntity {
-    private int idTara;
+    private long idTara;
     private String nume;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_tara", nullable = false, insertable = true, updatable = true)
-    public int getIdTara() {
+    public long getIdTara() {
         return idTara;
     }
 
-    public void setIdTara(int idTara) {
+    public void setIdTara(long idTara) {
         this.idTara = idTara;
     }
 
@@ -27,12 +27,13 @@ public class Tara extends BaseEntity {
 
     public void setNume(String nume) {
         this.nume = nume;
+
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof Tara)) return false;
 
         Tara tara = (Tara) o;
 
@@ -43,7 +44,7 @@ public class Tara extends BaseEntity {
 
     @Override
     public int hashCode() {
-        int result = idTara;
+        int result = (int) (idTara ^ (idTara >>> 32));
         result = 31 * result + (nume != null ? nume.hashCode() : 0);
         return result;
     }

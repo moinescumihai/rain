@@ -1,12 +1,12 @@
 package services;
 
 import model.domain.Tara;
-import model.repository.ListaTariRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
+import services.repository.ListaTariRepository;
 
 import java.util.Collections;
 import java.util.List;
@@ -26,5 +26,10 @@ public class ListaTariServiceImpl implements ListaTariService {
             LOGGER.error("TARI.NO_TARI", e);
             return Collections.emptyList();
         }
+    }
+
+    @Override
+    public Tara findOne(long idTara) {
+        return listaTariRepository.findOne(idTara);
     }
 }
