@@ -20,11 +20,9 @@
     <link href="css/chosen.css" rel="stylesheet">
     <link href="css/datepicker.css" rel="stylesheet">
     <link href="css/inbox.css" rel="stylesheet">
-    <link href="css/timeline.css" rel="stylesheet">
     <link href="plugins/zTree/metroStyle/metroStyle.css" rel="stylesheet">
     <link href="css/dataTables-bootstrap.css" rel="stylesheet">
-    <link href="css/slidebars.css" rel="stylesheet">
-    <link href="css/dropzone.css" rel="stylesheet">
+    <link href="plugins/fullcalendar/fullcalendar.min.css" rel="stylesheet">
     <link href="css/raindrop.css" rel="stylesheet">
 </head>
 <body class="unselectable" oncontextmenu="return false;">

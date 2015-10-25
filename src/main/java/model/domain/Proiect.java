@@ -22,7 +22,7 @@ public class Proiect extends BaseEntity {
     @EndDate(minimumDaysRange = 1, id = 1)
     private Date dataEndEstimativa;
     private StatusProiect idStatusProiect;
-    private Integer deleted;
+    private int deleted;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

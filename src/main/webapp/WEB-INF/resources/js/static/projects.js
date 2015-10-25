@@ -10,17 +10,15 @@ var getClients = function (container) {
     $.ajax({
         type: 'get',
         url: '/app/secure/projects/getclients',
-        contentType: "application/json",
+        contentType: 'application/json',
         success: function (response) {
-            if (typeof response !== 'undefined') {
-                for (var i = 0; i < response.length; i++) {
-                    clientsSelect.append($("<option>").val(response[i].idClient).text(response[i].numeClient));
-                }
-            }
+            $.each(response, function (index, client) {
+                clientsSelect.append($("<option>").val(client.idClient).text(client.numeClient));
+            });
             clientsSelect.trigger(chosenUpdated);
         },
         error: function (e) {
-            showNotification("Error. Please try again later." + e.Message, "Error", DANGER);
+            showNotification('Error. Please try again later.' + e.Message, 'Error', DANGER);
         }
     });
 };
@@ -28,32 +26,30 @@ var getClients = function (container) {
 var getCategories = function (container) {
     var categoriesSelect = $('#' + container);
     categoriesSelect.html(EMPTY);
-    categoriesSelect.append("<option></option>");
+    categoriesSelect.append('<option></option>');
     $.ajax({
         type: 'get',
         url: '/app/secure/projects/getcategories',
-        contentType: "application/json",
+        contentType: 'application/json',
         success: function (response) {
-            if (typeof response !== 'undefined') {
-                for (var i = 0; i < response.length; i++) {
-                    categoriesSelect.append($("<option>").val(response[i].idCategorieProiect).text(response[i].nume));
-                }
-            }
+            $.each(response, function (index, category) {
+                categoriesSelect.append($('<option>').val(category.idCategorieProiect).text(category.nume));
+            });
             categoriesSelect.trigger(chosenUpdated);
         },
         error: function (e) {
-            showNotification("Error. Please try again later." + e.Message, "Error", DANGER);
+            showNotification('Error. Please try again later.' + e.Message, 'Error', DANGER);
         }
     });
 };
 
 var deleteProject = function (id) {
-    var token = $("meta[name='_csrf']").prop("content");
-    var header = $("meta[name='_csrf_header']").prop("content");
+    var token = $('meta[name="_csrf"]').prop('content');
+    var header = $('meta[name="_csrf_header"]').prop('content');
 
     $.ajax({
         method: 'get',
-        dataType: "json",
+        dataType: 'json',
         url: '/app/secure/projects/deleteproject/' + id,
         beforeSend: function (xhr) {
             xhr.setRequestHeader(header, token);
@@ -63,16 +59,17 @@ var deleteProject = function (id) {
             showNotification(response.message, 'Success', SUCCESS);
         },
         error: function () {
-            showNotification("Error. Please try again later.", "Error", ERROR);
+            showNotification('Error. Please try again later.', 'Error', ERROR);
         }
     });
 };
 
 var getProjects = function () {
     var projectContainer = $('#project-container');
-    projectContainer.empty();
-    var token = $("meta[name='_csrf']").prop("content");
-    var header = $("meta[name='_csrf_header']").prop("content");
+    projectContainer.html(EMPTY);
+    var token = $("meta[name='_csrf']").prop('content');
+    var header = $("meta[name='_csrf_header']").prop('content');
+
     var tableHeader = '<table id="project-table" class="table table-hover table-responsive">'
         + '<thead><tr class="text-table-head">'
         + '<td>Nume</td>'
@@ -83,7 +80,7 @@ var getProjects = function () {
 
     $.ajax({
         method: 'get',
-        dataType: "json",
+        dataType: 'json',
         url: '/app/secure/projects/getprojects',
         beforeSend: function (xhr) {
             xhr.setRequestHeader(header, token);
@@ -91,20 +88,17 @@ var getProjects = function () {
         success: function (response) {
             var rows = [];
             var projectString;
-            if (response.length <= 0) {
-                projectContainer.html('<div class="panel text-center"><div class="panel-body"><h2><span class="text-muted"> Nu sunt proiecte, folose&#x219;te butonul ' + $('#addProiect-open').parent().html() + '  pentru a ad&abreve;uga proiecte noi</span></h2></div></div>');
-                return;
-            }
-            $.each(response, function (i, proj) {
-                var idProiect = proj.idProiect;
-                var numeProiect = proj.numeProiect;
-                var categorie = proj.idCategorieProiect;
+
+            $.each(response, function (index, project) {
+                var idProiect = project.idProiect;
+                var numeProiect = project.numeProiect;
+                var categorie = project.idCategorieProiect;
                 var dataNow = new Date();
-                var dataEnd = toJSDateTime(proj.dataEndEstimativa);
-                var dataStart = toJSDateTime(proj.dataStart);
-                var isOverdue = dataNow > new Date(proj.dataEndEstimativa);
+                var dataEnd = toJSDateTime(project.dataEndEstimativa);
+                var dataStart = toJSDateTime(project.dataStart);
+                var isOverdue = dataNow > new Date(project.dataEndEstimativa);
                 var overdue = '';
-                if (isOverdue && proj.idStatusProiect == '3') {
+                if (isOverdue && project.idStatusProiect == '3') {
                     overdue = '<span class="fa fa-exclamation-circle text-danger" data-toggle="tooltip" data-placement="bottom" title="Project is overdue">&nbsp;</span>';
                 }
                 projectString = '<tr id="proiect-item' + idProiect + '" class="project-item"><td>'
@@ -142,16 +136,11 @@ var getProjects = function () {
                         "searchable": true
                     }
                 ]
-
             });
-            $("#project-search").on('keyup', function () {
+            $('#project-search').on('keyup', function () {
                 projectsTable.search(this.value).draw();
             });
-
             $('[data-toggle="tooltip"]').tooltip();
-        },
-        error: function () {
-
         }
     });
 
@@ -165,7 +154,7 @@ $(document).ready(function () {
     getCategories('addProject-form-category');
     getCategories('addCategory-form-categorie-parinte');
 
-    $('body').on('mouseover', '.project-item', function () {
+    $(document).on('mouseover', '.project-item', function () {
         $(this).find('a.popup-marker').webuiPopover($.extend({}, popoverDefaultSettings, {
                     type: 'html',//content type, values:'html','iframe','async'
                     url: '',//if not empty ,plugin will load content by url
@@ -221,8 +210,8 @@ $(document).ready(function () {
         if (!$(this).valid()) {
             return;
         }
-        var token = $("meta[name='_csrf']").prop("content");
-        var header = $("meta[name='_csrf_header']").prop("content");
+        var token = $("meta[name='_csrf']").prop('content');
+        var header = $("meta[name='_csrf_header']").prop('content');
 
         var nume = $('#addCategory-form-nume').val();
         var idCategorieParinte = $('#addCategory-form-categorie-parinte').val();
@@ -246,7 +235,7 @@ $(document).ready(function () {
                 if (response.errorsMap != null) {
                     $('.form-error').html(EMPTY);
                     for (var key in response.errorsMap) {
-                        var err = "<span class=\"text-danger small form-error\" id=\"" + key + "Id\">" + response.errorsMap[key] + "</span>";
+                        var err = '<span class="text-danger small form-error" id="' + key + 'Id">' + response.errorsMap[key] + '</span>';
                         $("[id^='" + key + "-error']").html(err);
                     }
                 } else {
@@ -256,7 +245,7 @@ $(document).ready(function () {
                 }
             },
             error: function () {
-                showNotification("Error. Please try again later.", "Error", ERROR);
+                showNotification('Error. Please try again later.', 'Error', ERROR);
             }
         });
         e.preventDefault();
@@ -297,8 +286,8 @@ $(document).ready(function () {
         if (!$(this).valid()) {
             return;
         }
-        var token = $("meta[name='_csrf']").prop("content");
-        var header = $("meta[name='_csrf_header']").prop("content");
+        var token = $("meta[name='_csrf']").prop('content');
+        var header = $("meta[name='_csrf_header']").prop('content');
 
         var numeClient = $('#addClient-form-nume').val();
         var website = $('#addClient-form-website').val();
@@ -363,8 +352,7 @@ $(document).ready(function () {
         }
     });
 
-    addProjectForm.on('submit', function (e) {
-        e.preventDefault();
+    addProjectForm.on('submit', function (event) {
         if (!$(this).valid()) {
             return;
         }
@@ -411,9 +399,10 @@ $(document).ready(function () {
                 }
             },
             error: function () {
-                showNotification("Error. Please try again later.", "Error", DANGER);
+                showNotification('Error. Please try again later.', 'Error', ERROR);
             }
         });
+        event.preventDefault();
     });
 
 });
