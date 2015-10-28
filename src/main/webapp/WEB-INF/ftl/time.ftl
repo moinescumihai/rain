@@ -8,11 +8,12 @@
     </div>
     [/@sidebar]
     [@content]
-    <div></div>
+    <div class="content-time">
+        <div id='calendar'></div>
+    </div>
     [/@content]
 [/@layout.basic]
-<script type="text/javascript">
-    $(document).ready(function(){
-        $('#time').addClass('active');
-    });
-</script>
+<script src="/plugins/fullcalendar/lib/moment.min.js"></script>
+<script src="/plugins/fullcalendar/fullcalendar.min.js"></script>
+<script src="/plugins/fullcalendar/lang-all.js"></script>
+<script src="/js/static/time.js"></script>

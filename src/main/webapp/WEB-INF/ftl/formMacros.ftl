@@ -84,6 +84,14 @@
 </div>
 [/#macro]
 
+[#macro readonlyEmbedableInput id name label placeholder value="" size="3"]
+<label for="${id}" class="control-label">[@spring.message label/]</label>
+<input type="text" class="form-control input-sm" id="${id}" name="${name}" title="[@spring.message label /]" placeholder="[@spring.message placeholder /]" value="${value}" required="true"
+       readonly>
+
+<div id="${name}-error" class="help-block"></div>
+[/#macro]
+
 [#macro hiddenInput id name]
 <input type="text" id="${id}" name="${name}" hidden="hidden">
 [/#macro]

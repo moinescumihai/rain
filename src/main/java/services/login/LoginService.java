@@ -17,11 +17,9 @@ public class LoginService implements ApplicationListener<InteractiveAuthenticati
     @Autowired
     private UserService userService;
 
-
     @Override
     public void onApplicationEvent(InteractiveAuthenticationSuccessEvent event) {
-        String userName = ((UserDetails) event.getAuthentication().
-                getPrincipal()).getUsername();
+        String userName = ((UserDetails) event.getAuthentication().getPrincipal()).getUsername();
         User user = userService.findByUsername(userName);
         user.setLastLogin(new Timestamp(System.currentTimeMillis()));
         userService.save(user);

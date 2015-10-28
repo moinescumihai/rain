@@ -138,4 +138,49 @@ public class StocFormModel {
     public void setModificatDe(String modificatDe) {
         this.modificatDe = modificatDe;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof StocFormModel)) return false;
+
+        StocFormModel that = (StocFormModel) o;
+
+        if (idStoc != that.idStoc) return false;
+        if (idCategorieStoc != that.idCategorieStoc) return false;
+        if (idGrupStoc != that.idGrupStoc) return false;
+        if (idStare != that.idStare) return false;
+        if (idLoc != that.idLoc) return false;
+        if (idResurseUmane != that.idResurseUmane) return false;
+        if (factura != that.factura) return false;
+        if (imagine != that.imagine) return false;
+        if (numeStoc != null ? !numeStoc.equals(that.numeStoc) : that.numeStoc != null) return false;
+        if (codStoc != null ? !codStoc.equals(that.codStoc) : that.codStoc != null) return false;
+        if (detalii != null ? !detalii.equals(that.detalii) : that.detalii != null) return false;
+        if (creatDe != null ? !creatDe.equals(that.creatDe) : that.creatDe != null) return false;
+        if (creatLa != null ? !creatLa.equals(that.creatLa) : that.creatLa != null) return false;
+        if (modificatLa != null ? !modificatLa.equals(that.modificatLa) : that.modificatLa != null) return false;
+        return !(modificatDe != null ? !modificatDe.equals(that.modificatDe) : that.modificatDe != null);
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = (int) (idStoc ^ (idStoc >>> 32));
+        result = 31 * result + (int) (idCategorieStoc ^ (idCategorieStoc >>> 32));
+        result = 31 * result + (int) (idGrupStoc ^ (idGrupStoc >>> 32));
+        result = 31 * result + (numeStoc != null ? numeStoc.hashCode() : 0);
+        result = 31 * result + (codStoc != null ? codStoc.hashCode() : 0);
+        result = 31 * result + (int) (idStare ^ (idStare >>> 32));
+        result = 31 * result + (int) (idLoc ^ (idLoc >>> 32));
+        result = 31 * result + (int) (idResurseUmane ^ (idResurseUmane >>> 32));
+        result = 31 * result + (detalii != null ? detalii.hashCode() : 0);
+        result = 31 * result + (int) (factura ^ (factura >>> 32));
+        result = 31 * result + (int) (imagine ^ (imagine >>> 32));
+        result = 31 * result + (creatDe != null ? creatDe.hashCode() : 0);
+        result = 31 * result + (creatLa != null ? creatLa.hashCode() : 0);
+        result = 31 * result + (modificatLa != null ? modificatLa.hashCode() : 0);
+        result = 31 * result + (modificatDe != null ? modificatDe.hashCode() : 0);
+        return result;
+    }
 }

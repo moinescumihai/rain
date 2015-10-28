@@ -2,14 +2,11 @@ package configuration;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
-import configuration.security.SpringSecurityAuditorAware;
-import model.common.AuditableUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
-import org.springframework.data.domain.AuditorAware;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.orm.jpa.JpaTransactionManager;
@@ -23,7 +20,7 @@ import javax.sql.DataSource;
 import java.util.Properties;
 
 @Configuration
-@EnableJpaRepositories(basePackages = {"model"})
+@EnableJpaRepositories(basePackages = {"services.repository"})
 @PropertySource("classpath:application.properties")
 @EnableJpaAuditing
 @EnableTransactionManagement
@@ -53,11 +50,6 @@ public class DatasourceConfig {
         dataSourceConfig.setPassword(env.getProperty(PROPERTY_NAME_DB_PASSWORD));
 
         return new HikariDataSource(dataSourceConfig);
-    }
-
-    @Bean
-    public AuditorAware<AuditableUser> auditorProvider() {
-        return new SpringSecurityAuditorAware();
     }
 
     @Bean

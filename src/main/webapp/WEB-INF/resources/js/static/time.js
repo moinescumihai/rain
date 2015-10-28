@@ -1,0 +1,1 @@
+$(document).ready(function () {    $('#time').addClass('active');    $('#calendar').fullCalendar({        lang: 'ro'    })});

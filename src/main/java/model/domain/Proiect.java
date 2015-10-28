@@ -2,11 +2,8 @@ package model.domain;
 
 import common.validator.EndDate;
 import common.validator.StartDate;
-import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import java.sql.Date;
 
 @Entity
@@ -22,7 +19,7 @@ public class Proiect extends BaseEntity {
     @EndDate(minimumDaysRange = 1, id = 1)
     private Date dataEndEstimativa;
     private StatusProiect idStatusProiect;
-    private Integer deleted;
+    private int deleted;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,8 +32,6 @@ public class Proiect extends BaseEntity {
         this.idProiect = idProiect;
     }
 
-    @Size(min = 5)
-    @NotEmpty
     @Basic
     @Column(name = "nume_proiect", nullable = false, insertable = true, updatable = true, length = 150)
     public String getNumeProiect() {
@@ -77,7 +72,6 @@ public class Proiect extends BaseEntity {
         this.idCategorieProiect = idCategorieProiect;
     }
 
-    @NotNull
     @Basic
     @Column(name = "data_start", nullable = true, insertable = true, updatable = true)
     public Date getDataStart() {
@@ -88,7 +82,6 @@ public class Proiect extends BaseEntity {
         this.dataStart = dataStart;
     }
 
-    @NotNull
     @Basic
     @Column(name = "data_end_estimativa", nullable = true, insertable = true, updatable = true)
     public Date getDataEndEstimativa() {
@@ -117,5 +110,38 @@ public class Proiect extends BaseEntity {
 
     public void setDeleted(int deleted) {
         this.deleted = deleted;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Proiect)) return false;
+
+        Proiect proiect = (Proiect) o;
+
+        if (idProiect != proiect.idProiect) return false;
+        if (deleted != proiect.deleted) return false;
+        if (numeProiect != null ? !numeProiect.equals(proiect.numeProiect) : proiect.numeProiect != null) return false;
+        if (descriere != null ? !descriere.equals(proiect.descriere) : proiect.descriere != null) return false;
+        if (idClient != null ? !idClient.equals(proiect.idClient) : proiect.idClient != null) return false;
+        if (idCategorieProiect != null ? !idCategorieProiect.equals(proiect.idCategorieProiect) : proiect.idCategorieProiect != null) return false;
+        if (dataStart != null ? !dataStart.equals(proiect.dataStart) : proiect.dataStart != null) return false;
+        if (dataEndEstimativa != null ? !dataEndEstimativa.equals(proiect.dataEndEstimativa) : proiect.dataEndEstimativa != null) return false;
+        return !(idStatusProiect != null ? !idStatusProiect.equals(proiect.idStatusProiect) : proiect.idStatusProiect != null);
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = (int) (idProiect ^ (idProiect >>> 32));
+        result = 31 * result + (numeProiect != null ? numeProiect.hashCode() : 0);
+        result = 31 * result + (descriere != null ? descriere.hashCode() : 0);
+        result = 31 * result + (idClient != null ? idClient.hashCode() : 0);
+        result = 31 * result + (idCategorieProiect != null ? idCategorieProiect.hashCode() : 0);
+        result = 31 * result + (dataStart != null ? dataStart.hashCode() : 0);
+        result = 31 * result + (dataEndEstimativa != null ? dataEndEstimativa.hashCode() : 0);
+        result = 31 * result + (idStatusProiect != null ? idStatusProiect.hashCode() : 0);
+        result = 31 * result + deleted;
+        return result;
     }
 }

@@ -1,0 +1,1 @@
+package services.repository;import model.domain.StatusTask;import org.springframework.data.repository.CrudRepository;public interface StatusTaskRepository extends CrudRepository<StatusTask, Long> {}

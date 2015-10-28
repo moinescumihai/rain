@@ -7,7 +7,6 @@ import model.domain.*;
 import model.forms.GrupStocFormModel;
 import model.forms.InventarFormModel;
 import model.forms.StocFormModel;
-import model.repository.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.FileCopyUtils;
 import services.ResurseUmaneService;
 import services.files.FilesService;
+import services.repository.*;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletResponse;
@@ -32,8 +32,6 @@ import java.util.UUID;
 @Service
 public class InventoryServiceImpl implements InventoryService {
     private static final Logger LOGGER = LoggerFactory.getLogger(InventoryServiceImpl.class);
-    private static final byte ON = 1;
-    private static final byte OFF = 0;
 
     @Autowired
     private StocRepository stocRepository;
@@ -57,7 +55,6 @@ public class InventoryServiceImpl implements InventoryService {
     private ResurseUmaneService resurseUmaneService;
     @Autowired
     private FilesService filesService;
-
 
     @Override
     @Transactional

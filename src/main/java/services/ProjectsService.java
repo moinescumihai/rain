@@ -1,6 +1,7 @@
 package services;
 
 import model.domain.Proiect;
+import model.forms.ProiectFormModel;
 
 import java.util.List;
 
@@ -10,7 +11,7 @@ public interface ProjectsService {
 
     Proiect findOne(long id);
 
-    Proiect save(Proiect entity);
+    Proiect saveProject(ProiectFormModel entity);
 
     void delete(long id);
 

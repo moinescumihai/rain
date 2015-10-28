@@ -18,7 +18,9 @@
     [/@sidebar]
     [@content]
     <div>
-        <ol id="file-breadcrumb" class="breadcrumb"></ol>
+        <ol id="file-breadcrumb" class="breadcrumb">
+            <li><i class="fa fa-home"></i> <a id="file-home">Acas&abreve;</a></li>
+        </ol>
         <table class="table table-hover table-condensed table-striped">
             <thead>
             <tr class="text-table-head">
@@ -29,9 +31,7 @@
                 <th class="align-right">Ultima modificare</th>
             </tr>
             </thead>
-            <tbody id="file-display" class="text-center">
-
-            </tbody>
+            <tbody id="file-display" class="text-center"></tbody>
 
         </table>
     </div>

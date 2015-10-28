@@ -1,13 +1,14 @@
 package services;
 
 import model.domain.ResurseUmane;
-import model.repository.ResurseUmaneRepository;
+import model.domain.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.security.acls.model.NotFoundException;
 import org.springframework.stereotype.Service;
+import services.repository.ResurseUmaneRepository;
 import services.user.UserService;
 
 import java.util.Collections;
@@ -25,8 +26,7 @@ public class ResurseUmaneServiceImpl implements ResurseUmaneService {
 
 
     @Override
-
-    public ResurseUmane findByIdUser(long id) {
+    public ResurseUmane findByIdUser(User id) {
         try {
             return resurseUmaneRepository.findByIdUser(id);
         } catch (DataAccessException e) {
@@ -42,7 +42,7 @@ public class ResurseUmaneServiceImpl implements ResurseUmaneService {
 
     @Override
     public ResurseUmane findByUsername(String username) {
-        return findByIdUser(userService.findByUsername(username).getIdUser());
+        return findByIdUser(userService.findByUsername(username));
     }
 
     @Override

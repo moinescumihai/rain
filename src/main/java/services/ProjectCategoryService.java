@@ -9,4 +9,6 @@ public interface ProjectCategoryService {
     List<CategorieProiect> findAll();
 
     CategorieProiect save(CategorieProiect entity);
+
+    CategorieProiect findOne(long idCategorieProiect);
 }
