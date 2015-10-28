@@ -60,7 +60,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.formLogin().loginPage("/login").failureUrl("/login?error").defaultSuccessUrl("/tasks", true).usernameParameter("username").passwordParameter("password").permitAll(true).and().csrf().and().logout().logoutUrl("/logout").logoutSuccessUrl("/login?logout").permitAll(true);
+        http.formLogin().loginPage("/login").failureUrl("/login?error").defaultSuccessUrl("/", true).usernameParameter("username").passwordParameter("password").permitAll(true).and().csrf().and().logout().logoutUrl("/logout").logoutSuccessUrl("/login?logout").permitAll(true);
         http.sessionManagement().maximumSessions(1).expiredUrl("/session-expired");
         http.authorizeRequests().antMatchers("/admin").hasAnyRole(RoleType.ROLE_ADMIN.getLabel(), RoleType.ROLE_SUPERUSER.getLabel()).anyRequest().hasAnyRole(RoleType.ROLE_USER.getLabel(), RoleType.ROLE_ADMIN.getLabel()).and().exceptionHandling().accessDeniedPage("/403");
     }

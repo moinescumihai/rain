@@ -45,21 +45,21 @@ public class FilesRestController {
     }
 
 
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_INVENTAR', 'ROLE_FISIERE')")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_INVENTAR', 'ROLE_FILES')")
     @RequestMapping(value = "/get-inventory-image/{idStoc}", method = RequestMethod.GET)
     @ResponseBody
     public Attachment getInventoryImage(@PathVariable("idStoc") long idStoc) {
         return filesService.getStocImage(idStoc);
     }
 
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_FISIERE')")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_FILES')")
     @RequestMapping(value = "/list-files", method = RequestMethod.GET, produces = "application/json")
     @ResponseBody
     public List<Attachment> listFiles(@RequestParam(value = "id", defaultValue = "0") long id) {
         return filesService.listFiles(id);
     }
 
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_FISIERE')")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_FILES')")
     @RequestMapping(value = "/get-folder/{path}", method = RequestMethod.GET, produces = "application/json")
     @ResponseBody
     public long getFolderForPath(@PathVariable String path) {

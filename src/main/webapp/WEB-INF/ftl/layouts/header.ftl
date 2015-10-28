@@ -35,27 +35,27 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/tasks"><img src="/img/raindrop-logo.png" class="logo"/></a>
+            <a class="navbar-brand" href="/"><img src="/img/raindrop-logo.png" class="logo"/></a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-            [@security.authorize access="hasAnyRole('ROLE_ADMIN','ROLE_DEV')"]
                 <li id="tasks"><a href="/tasks">[@spring.message "TASKS"/]</a></li>
                 <li id="projects">
                     <a href="/projects">[@spring.message "PROJECTS"/]</a>
                 </li>
-            [/@security.authorize]
-            [@security.authorize access="hasAnyRole('ROLE_ADMIN','ROLE_PERSONNEL')"]
+            [@security.authorize access="hasAnyRole('ROLE_ADMIN','ROLE_SUPERUSER','ROLE_HR')"]
                 <li id="personnel"><a href="/personnel">[@spring.message "PERSONNEL"/]</a></li>
             [/@security.authorize]
-            [@security.authorize access="hasAnyRole('ROLE_ADMIN','ROLE_DEV')"]
+            [@security.authorize access="hasAnyRole('ROLE_ADMIN','ROLE_SUPERUSER','ROLE_TIME')"]
                 <li id="time"><a href="/time">[@spring.message "TIME"/]</a></li>
             [/@security.authorize]
-            [@security.authorize access="hasAnyRole('ROLE_ADMIN','ROLE_INVENTAR')"]
+            [@security.authorize access="hasAnyRole('ROLE_ADMIN','ROLE_SUPERUSER','ROLE_INVENTAR')"]
                 <li id="inventory"><a href="/inventory">[@spring.message "INVENTORY"/]</a></li>
             [/@security.authorize]
+            [@security.authorize access="hasAnyRole('ROLE_ADMIN','ROLE_SUPERUSER','ROLE_FILES')"]
                 <li id="files"><a href="/files">[@spring.message "FILES"/]</a></li>
-            [@security.authorize access="hasAnyRole('ROLE_ADMIN','ROLE_DEV')"]
+            [/@security.authorize]
+            [@security.authorize access="hasAnyRole('ROLE_ADMIN','ROLE_REPORTS','ROLE_SUPERUSER')"]
                 <li id="reports"><a href="/reports">[@spring.message "REPORTS"/]</a></li>
             [/@security.authorize]
             </ul>

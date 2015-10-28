@@ -10,7 +10,7 @@
         <p class="lead">[@spring.message "ACCESS.NORIGHT" /]</p>
 
         <p class="lead">
-            <a href="/main" class="btn btn-large btn-info"><i class="fa fa-home"></i> [@spring.message "ERROR.HOME" /]</a>
+            <a href="/" class="btn btn-large btn-info"><i class="fa fa-home"></i> [@spring.message "ERROR.HOME" /]</a>
         </p>
     </div>
 </div>
