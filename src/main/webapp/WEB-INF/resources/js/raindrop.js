@@ -1,13 +1,13 @@
-var SUCCESS = 'success';
-var DANGER = 'danger';
-var ERROR = 'error';
-var WARNING = 'warning';
-var PRIMARY = 'primary';
-var INFO = 'info';
-var EMPTY = '';
-var UNSELECT = [];
-var ZERO = 0;
-var chosenUpdated = 'chosen:updated';
+const SUCCESS = 'success';
+const DANGER = 'danger';
+const ERROR = 'error';
+const WARNING = 'warning';
+const PRIMARY = 'primary';
+const INFO = 'info';
+const EMPTY = '';
+const UNSELECT = [];
+const ZERO = 0;
+const chosenUpdated = 'chosen:updated';
 
 if (!('contains' in String.prototype)) {
     String.prototype.contains = function (str, startIndex) {
@@ -69,12 +69,6 @@ var generateFormattedDate = function (date) {
     }
 };
 
-var hideModal = function () {
-    $('.modal.in').modal('hide');
-    $('body').removeClass('modal-open');
-    $('.modal-backdrop').remove();
-};
-
 var formSubmit = function () {
     document.getElementById("logoutForm").submit();
 };
@@ -90,32 +84,32 @@ var showNotification = function (message, title, type) {
     }
 
     toastr.options = {
-        "closeButton": true,
-        "debug": false,
-        "progressBar": false,
-        "positionClass": "toast-top-center",
-        "onclick": null,
-        "showDuration": "7500",
-        "hideDuration": "1500",
-        "timeOut": "10500",
-        "extendedTimeOut": "10000",
-        "showEasing": "swing",
-        "hideEasing": "linear",
-        "showMethod": "fadeIn",
-        "hideMethod": "fadeOut"
+        closeButton: true,
+        debug: false,
+        progressBar: false,
+        positionClass: 'toast-top-center',
+        onclick: null,
+        showDuration: '7500',
+        hideDuration: '1500',
+        timeOut: '10500',
+        extendedTimeOut: '10000',
+        showEasing: 'swing',
+        hideEasing: 'linear',
+        showMethod: 'fadeIn',
+        hideMethod: 'fadeOut'
     };
     toastr[type](message, title)
 };
 
 var toJSDate = function (dateParam, locale) {
     var options = {
-        weekday: "long",
-        year: "numeric",
-        month: "long",
-        day: "numeric",
-        "second": "2-digit",
-        "minute": "2-digit",
-        "hour": "2-digit"
+        weekday: 'long',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+        "second": '2-digit',
+        "minute": '2-digit',
+        "hour": '2-digit'
     };
     var date;
 
@@ -131,13 +125,13 @@ var toJSDateTime = function (dateParam) {
     var locale = 'ro';
     var returnDate;
     var options = {
-        weekday: "long",
-        year: "numeric",
-        month: "long",
-        day: "numeric",
-        "second": "2-digit",
-        "minute": "2-digit",
-        "hour": "2-digit"
+        weekday: 'long',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+        "second": '2-digit',
+        "minute": '2-digit',
+        "hour": '2-digit'
     };
 
     returnDate = new Date(dateParam).toLocaleString(locale, options);
@@ -145,7 +139,7 @@ var toJSDateTime = function (dateParam) {
 };
 
 var showModal = function (id, title, content, buttons) {
-    var modalHtml = '';
+    var modalHtml = EMPTY;
     var modalId = '#' + id;
     if (!buttons) {
         buttons = '<button type="button" id="' + id + '-close" class="btn btn-default" data-dismiss="modal"><span class="fa fa-times"></span>&nbsp;&nbsp;Close</button>';
@@ -179,7 +173,7 @@ var showModal = function (id, title, content, buttons) {
 };
 
 var confirmModal = function (id, title) {
-    var modalHtml = '';
+    var modalHtml = EMPTY;
     var modalId = '#' + id;
     var buttons = '<button type="button" id="' + id + '-yes" class="btn btn-success" onclick="javascript:return true;"><span class="fa fa-check"></span>&nbsp;&nbsp;Da</button>';
     buttons += '<button type="button" class="btn btn-danger" data-dismiss="modal"><span class="fa fa-times"></span>&nbsp;&nbsp;Nu</button>';
@@ -238,7 +232,7 @@ jQuery.validator.setDefaults({
         }
         var tab_content = $(element).closest('.tab-pane');
         if ($(tab_content).find('div.has-error').length > ZERO) {
-            var id = $(tab_content).attr("id");
+            var id = $(tab_content).prop("id");
             $('a[href="#' + id + '"]').css('color', '#a94442');
         }
     },
@@ -253,7 +247,7 @@ jQuery.validator.setDefaults({
         $(element).closest('.form-group').removeClass('has-error');
         var tab_content = $(element).closest('.tab-pane');
         if ($(tab_content).find('div.has-error').length == ZERO) {
-            var id = $(tab_content).attr("id");
+            var id = $(tab_content).prop("id");
             $('a[href="#' + id + '"]').css('color', '#333');
         }
     },
@@ -264,30 +258,30 @@ jQuery.validator.setDefaults({
 });
 
 var getProfile = function () {
-    var token = $("meta[name='_csrf']").attr("content");
-    var header = $("meta[name='_csrf_header']").attr("content");
+    var token = $("meta[name='_csrf']").prop("content"),
+        header = $("meta[name='_csrf_header']").prop("content"),
 
-    var nume = $('#userProfile-form-nume');
-    var prenume = $('#userProfile-form-prenume');
-    var email = $('#userProfile-form-email');
-    var pozitie = $('#userProfile-form-pozitie');
-    var workTel = $('#userProfile-form-workTel');
-    var mobilTel = $('#userProfile-form-mobilTel');
-    var homeTel = $('#userProfile-form-homeTel');
-    var fax = $('#userProfile-form-fax');
-    var adresa = $('#userProfile-form-adresa');
-    var oras = $('#userProfile-form-oras');
-    var judet = $('#userProfile-form-judet');
-    var codPostal = $('#userProfile-form-codPostal');
-    var idTara = $('#userProfile-form-idTara');
-    var username = $('#userProfile-form-username');
-    var cnp = $('#userProfile-form-cnp');
-    var tipContract = $('#userProfile-form-tipContract');
-    var serieCi = $('#userProfile-form-serieCi');
-    var nrCi = $('#userProfile-form-nrCi');
-    var dataNastere = $('#userProfile-form-dataNastere');
-    var dataAngajare = $('#userProfile-form-dataAngajare');
-    var zileConcediu = $('#userProfile-form-zileConcediu');
+        nume = $('#userProfile-form-nume'),
+        prenume = $('#userProfile-form-prenume'),
+        email = $('#userProfile-form-email'),
+        pozitie = $('#userProfile-form-pozitie'),
+        workTel = $('#userProfile-form-workTel'),
+        mobilTel = $('#userProfile-form-mobilTel'),
+        homeTel = $('#userProfile-form-homeTel'),
+        fax = $('#userProfile-form-fax'),
+        adresa = $('#userProfile-form-adresa'),
+        oras = $('#userProfile-form-oras'),
+        judet = $('#userProfile-form-judet'),
+        codPostal = $('#userProfile-form-codPostal'),
+        idTara = $('#userProfile-form-idTara'),
+        username = $('#userProfile-form-username'),
+        cnp = $('#userProfile-form-cnp'),
+        tipContract = $('#userProfile-form-tipContract'),
+        serieCi = $('#userProfile-form-serieCi'),
+        nrCi = $('#userProfile-form-nrCi'),
+        dataNastere = $('#userProfile-form-dataNastere'),
+        dataAngajare = $('#userProfile-form-dataAngajare'),
+        zileConcediu = $('#userProfile-form-zileConcediu');
 
     $.ajax({
         type: 'get',
@@ -298,31 +292,28 @@ var getProfile = function () {
         },
         async: false,
         success: function (response) {
-            if (response) {
-                nume.val(response.nume);
-                prenume.val(response.prenume);
-                email.val(response.email);
-                pozitie.val(response.pozitie);
-                workTel.val(response.workTel);
-                mobilTel.val(response.mobilTel);
-                homeTel.val(response.homeTel);
-                fax.val(response.fax);
-                adresa.val(response.adresa);
-                oras.val(response.oras);
-                judet.val(response.judet);
-                codPostal.val(response.codPostal);
-                idTara.val(response.idTara);
-                username.val(response.idUser);
-                cnp.val(response.cnp);
-                tipContract.val(response.tipContract);
-                serieCi.val(response.serieCi);
-                nrCi.val(response.nrCi);
-                dataNastere.val(response.dataNastere);
-                dataAngajare.val(response.dataAngajare);
-                zileConcediu.val(response.zileConcediu);
-            } else {
-                showNotification("Error. Please try again later.", "Error", DANGER);
-            }
+            nume.val(response.nume);
+            prenume.val(response.prenume);
+            email.val(response.email);
+            pozitie.val(response.pozitie);
+            workTel.val(response.workTel);
+            mobilTel.val(response.mobilTel);
+            homeTel.val(response.homeTel);
+            fax.val(response.fax);
+            adresa.val(response.adresa);
+            oras.val(response.oras);
+            judet.val(response.judet);
+            codPostal.val(response.codPostal);
+            idTara.val(response.idTara.idTara);
+            username.val(response.idUser.username);
+            cnp.val(response.cnp);
+            tipContract.val(response.tipContract.idTipContract);
+            serieCi.val(response.serieCi);
+            nrCi.val(response.nrCi);
+            dataNastere.val(response.dataNastere);
+            dataAngajare.val(response.dataAngajare);
+            zileConcediu.val(response.zileConcediu);
+            $('.chosen-select').trigger(chosenUpdated);
         },
         error: function (e) {
             showNotification("Error. Please try again later." + e.Message, "Error", DANGER);
@@ -372,7 +363,7 @@ $(document).ready(function () {
     $('.file-inputs').bootstrapFileInput();
     $('[data-toggle="tooltip"]').tooltip();
 
-    $(".chosen-select").chosen({
+    $('.chosen-select').chosen({
         disable_search_threshold: 10,
         allow_single_deselect: true,
         inherit_select_classes: true,
@@ -386,11 +377,10 @@ $(document).ready(function () {
     });
 
     $('a').on('click', function () {
-        var linkLocation = $($(this).attr('href')).offset();
+        var linkLocation = $($(this).prop('href')).offset();
         if (linkLocation)
             $('html,body').animate({scrollTop: linkLocation.top}, "10000", 'linear');
     });
-
 
     var profileModalForm = $('#modal-userProfile-form');
 

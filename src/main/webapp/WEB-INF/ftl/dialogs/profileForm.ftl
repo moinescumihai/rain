@@ -47,7 +47,7 @@
     <div class="tab-pane fade" id="useraccount">
     [@modalContainer]
         [@elementWithLink "modal-changePassword" "USER.PASSWORD.CHANGE"]
-        [@input "userProfile-form-username" "idUser" "USER.USERNAME" "USER.USERNAME.PLACEHOLDER" "" "12"/]
+        [@readonlyEmbedableInput "userProfile-form-username" "idUser" "USER.USERNAME" "USER.USERNAME.PLACEHOLDER" "" "12"/]
         [/@elementWithLink]
     [/@modalContainer]
     </div>

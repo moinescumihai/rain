@@ -1,11 +1,12 @@
 package services;
 
 import model.domain.ResurseUmane;
+import model.domain.User;
 
 import java.util.List;
 
 public interface ResurseUmaneService {
-    ResurseUmane findByIdUser(long id);
+    ResurseUmane findByIdUser(User id);
 
     ResurseUmane findOne(long id);
 

@@ -2152,7 +2152,7 @@ form {
     bottom: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, .5) url('/img/spinner.gif') center center no-repeat;
+    background: rgba(0, 0, 0, .2) url('/img/ajax-loader.gif') center center no-repeat;
 }
 
 .modal-body {

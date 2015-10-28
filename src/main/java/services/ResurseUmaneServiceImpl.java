@@ -1,6 +1,7 @@
 package services;
 
 import model.domain.ResurseUmane;
+import model.domain.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,8 +26,7 @@ public class ResurseUmaneServiceImpl implements ResurseUmaneService {
 
 
     @Override
-
-    public ResurseUmane findByIdUser(long id) {
+    public ResurseUmane findByIdUser(User id) {
         try {
             return resurseUmaneRepository.findByIdUser(id);
         } catch (DataAccessException e) {
@@ -42,7 +42,7 @@ public class ResurseUmaneServiceImpl implements ResurseUmaneService {
 
     @Override
     public ResurseUmane findByUsername(String username) {
-        return findByIdUser(userService.findByUsername(username).getIdUser());
+        return findByIdUser(userService.findByUsername(username));
     }
 
     @Override

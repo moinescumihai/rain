@@ -72,9 +72,9 @@ public class TasksRestController {
     public JSONResponseWithId intrare(@RequestBody Task model) {
         JSONResponseWithId response = new JSONResponseWithId();
         try {
-            boolean success = taskService.updateTask(model);
+            Task success = taskService.updateTask(model);
             response.setId(1);
-            response.setMessage("Marcat ca ");
+            response.setMessage("Marcat ca " + success.getIdStatusTask().getNume());
         } catch (DataAccessException e) {
             response.setId(-1);
             response.setMessage("Eroare la mutare");

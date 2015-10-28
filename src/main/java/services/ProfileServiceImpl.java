@@ -2,7 +2,6 @@ package services;
 
 import common.utils.UserUtils;
 import model.domain.ResurseUmane;
-import model.domain.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,14 +19,7 @@ public class ProfileServiceImpl implements ProfileService {
 
     @Override
     public ResurseUmane getRaindropUser(String username) {
-        String name = UserUtils.getLoggedInUsername();
-        if (!name.equals(username)){
-            LOGGER.error("USERNAME_DOES_NOT_MATCH");
-            throw new IllegalArgumentException("USERNAME_DOES_NOT_MATCH");
-        }
-
-        User user = userService.findByUsername(name);
-        return resurseUmaneService.findByIdUser(user.getIdUser());
+        return resurseUmaneService.findByUsername(username);
     }
 
     @Override
