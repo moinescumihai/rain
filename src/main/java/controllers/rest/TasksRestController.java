@@ -4,6 +4,7 @@ import common.utils.UserUtils;
 import model.common.JSONResponseWithId;
 import model.domain.StatusTask;
 import model.domain.Task;
+import model.forms.TaskFormModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.dao.DataAccessException;
@@ -69,7 +70,7 @@ public class TasksRestController {
     @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_SUPERUSER', 'ROLE_USER')")
     @RequestMapping(value = "/update-task", method = RequestMethod.POST, produces = "application/json")
     @ResponseBody
-    public JSONResponseWithId intrare(@RequestBody Task model) {
+    public JSONResponseWithId updataTask(@RequestBody Task model) {
         JSONResponseWithId response = new JSONResponseWithId();
         try {
             Task success = taskService.updateTask(model);
@@ -78,6 +79,22 @@ public class TasksRestController {
         } catch (DataAccessException e) {
             response.setId(-1);
             response.setMessage("Eroare la mutare");
+        }
+        return response;
+    }
+
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_SUPERUSER', 'ROLE_USER')")
+    @RequestMapping(value = "/add-task", method = RequestMethod.POST, produces = "application/json")
+    @ResponseBody
+    public JSONResponseWithId addTask(@RequestBody TaskFormModel model) {
+        JSONResponseWithId response = new JSONResponseWithId();
+        try {
+            Task success = taskService.addTask(model);
+            response.setId(1);
+            response.setMessage("Sarcin&abreve; ad&abreve;ugat&abreve; cu success ");
+        } catch (DataAccessException e) {
+            response.setId(-1);
+            response.setMessage("Sarcina nu a fost ad&abreve;ugat&abreve;!");
         }
         return response;
     }

@@ -257,6 +257,26 @@ jQuery.validator.setDefaults({
 
 });
 
+var getPersoane = function (container) {
+    var persoaneSelect = $('#' + container);
+    persoaneSelect.html(EMPTY);
+    persoaneSelect.append("<option></option>");
+    $.ajax({
+        type: 'get',
+        url: '/app/secure/inventory/getpersoane',
+        contentType: "application/json",
+        success: function (response) {
+            $.each(response, function (index, persoana) {
+                persoaneSelect.append($("<option>").val(persoana.idResurseUmane).text(persoana.prenume + ' ' + persoana.nume));
+            });
+            persoaneSelect.trigger(chosenUpdated);
+        },
+        error: function (e) {
+            showNotification("Eroare. Re&icirc;nc&abreve;rca&#539;i pagina." + e.message, "Eroare", DANGER);
+        }
+    });
+};
+
 var getProfile = function () {
     var token = $("meta[name='_csrf']").prop("content"),
         header = $("meta[name='_csrf_header']").prop("content"),

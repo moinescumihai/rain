@@ -379,6 +379,8 @@
       <column name="id_proiect" sqlType="BIGINT" precision="19" scale="0" nullable="true" jdbcType="-5"/>
       <column name="id_resurse_umane" sqlType="BIGINT" precision="19" scale="0" nullable="true" jdbcType="-5"/>
       <column name="id_status_task" sqlType="BIGINT" precision="19" scale="0" nullable="true" jdbcType="-5"/>
+      <column name="ordine" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="cod" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
       <primary-key name="PRIMARY" columns="id_task"/>
       <foreign-key name="FKmdr1m42cj6j4fdxawtt1u2v8s" columns="id_status_task" ref-table="status_task" ref-schema="" ref-catalog="raindrop" ref-columns="id_status_task" update-rule="3" delete-rule="3" deferrability="2"/>
       <foreign-key name="FKogshbdkh6sqcmktl0fdyp9r71" columns="id_proiect" ref-table="proiect" ref-schema="" ref-catalog="raindrop" ref-columns="id_proiect" update-rule="3" delete-rule="3" deferrability="2"/>

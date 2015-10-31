@@ -13,6 +13,8 @@ import services.repository.StatusProiectRepository;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Service
 public class ProjectsServiceImpl implements ProjectsService {
@@ -55,8 +57,13 @@ public class ProjectsServiceImpl implements ProjectsService {
     @Override
     @Transactional
     public Proiect saveProject(ProiectFormModel entity) {
+        Pattern pattern = Pattern.compile("^([a-zA-Z0-9]{4}).{0,}$");
+        Matcher matcher = pattern.matcher(entity.getNumeProiect());
         Proiect proiect = new Proiect();
         proiect.setNumeProiect(entity.getNumeProiect());
+        while (matcher.find()) {
+            proiect.setCodroiect(matcher.group(1).toUpperCase());
+        }
         proiect.setDescriere(entity.getDescriere());
         proiect.setIdStatusProiect(statusProiectRepository.findOne(entity.getIdStatusProiect()));
         proiect.setIdClient(clientService.findOne(entity.getIdClient()));

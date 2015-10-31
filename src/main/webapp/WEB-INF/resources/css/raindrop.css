@@ -1105,7 +1105,8 @@ div[id$='-container'] {
 
 div[id$='-container'] div.todo-task {
     padding-left: 3em;
-    font-size: 12px;
+    font-size: 14px;
+    height: 100px;
 }
 
 div[id$='-container'] div.todo-task i {
@@ -2405,4 +2406,22 @@ div[id^="history"] .modal-body {
 
 .content-div {
     margin-top: 70px;
+}
+
+.badge.estimare {
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+}
+
+.todo-task.selected {
+    background-color: #FBE594 !important;
+}
+
+.todo-task:hover {
+    background-color: #F1F1F1 !important;
+}
+
+.todo-task.selected:hover {
+    background-color: #FFEAA5 !important;
 }
