@@ -216,6 +216,7 @@
       <column name="id_categorie_proiect" sqlType="BIGINT" precision="19" scale="0" nullable="true" jdbcType="-5"/>
       <column name="id_client" sqlType="BIGINT" precision="19" scale="0" nullable="true" jdbcType="-5"/>
       <column name="id_status_proiect" sqlType="BIGINT" precision="19" scale="0" nullable="true" jdbcType="-5"/>
+      <column name="cod_proiect" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
       <primary-key name="PRIMARY" columns="id_proiect"/>
       <foreign-key name="FK2jno8tp4apmqrwwx7h5b8dlqr" columns="id_client" ref-table="client" ref-schema="" ref-catalog="raindrop" ref-columns="id_client" update-rule="3" delete-rule="3" deferrability="2"/>
       <foreign-key name="FKlr037echotai4pal33g0ygdmv" columns="id_status_proiect" ref-table="status_proiect" ref-schema="" ref-catalog="raindrop" ref-columns="id_status_proiect" update-rule="3" delete-rule="3" deferrability="2"/>
@@ -269,7 +270,8 @@
       <foreign-key name="FKn2qkdeworvg21na14uihe608f" columns="id_user" ref-table="user" ref-schema="" ref-catalog="raindrop" ref-columns="id_user" update-rule="3" delete-rule="3" deferrability="2"/>
       <exported-key name="FKi5fp8j1tt7lxcdao9dge9mgay" table="pontaj" schema="" catalog="raindrop" columns="id_resurse_umane"/>
       <exported-key name="FK3d0y57rjciac4tkvun0lceade" table="stoc" schema="" catalog="raindrop" columns="id_resurse_umane"/>
-      <exported-key name="FKt0vp1gssy6d62rr3euffp0r41" table="task" schema="" catalog="raindrop" columns="id_resurse_umane"/>
+      <exported-key name="FK47i2jlc9irwwc8std0rbpcmkf" table="task" schema="" catalog="raindrop" columns="id_assignee"/>
+      <exported-key name="FKcid7ymw1u9ewy1me63cs7sxyo" table="task" schema="" catalog="raindrop" columns="id_reporter"/>
       <exported-key name="FK5cdrcbteap78vxmsahtgfp877" table="tranzactie_stoc" schema="" catalog="raindrop" columns="id_resurse_umnane"/>
       <index name="FK53pxff3xxk05i26gp0vw4ii4h" unique="false" columns="id_client"/>
       <index name="FK8b0wtcnj4llui8xp2k77fmps6" unique="false" columns="tip_contract"/>
@@ -371,23 +373,26 @@
       <column name="creat_la" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93"/>
       <column name="modificat_de" sqlType="VARCHAR" precision="150" scale="0" nullable="true" jdbcType="12"/>
       <column name="modificat_la" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93"/>
+      <column name="cod" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
       <column name="complet" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
       <column name="deleted" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
       <column name="descriere" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
       <column name="estimare" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
       <column name="nume" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
-      <column name="id_proiect" sqlType="BIGINT" precision="19" scale="0" nullable="true" jdbcType="-5"/>
-      <column name="id_resurse_umane" sqlType="BIGINT" precision="19" scale="0" nullable="true" jdbcType="-5"/>
-      <column name="id_status_task" sqlType="BIGINT" precision="19" scale="0" nullable="true" jdbcType="-5"/>
       <column name="ordine" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
-      <column name="cod" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="id_assignee" sqlType="BIGINT" precision="19" scale="0" nullable="true" jdbcType="-5"/>
+      <column name="id_proiect" sqlType="BIGINT" precision="19" scale="0" nullable="true" jdbcType="-5"/>
+      <column name="id_status_task" sqlType="BIGINT" precision="19" scale="0" nullable="true" jdbcType="-5"/>
+      <column name="id_reporter" sqlType="BIGINT" precision="19" scale="0" nullable="true" jdbcType="-5"/>
       <primary-key name="PRIMARY" columns="id_task"/>
+      <foreign-key name="FK47i2jlc9irwwc8std0rbpcmkf" columns="id_assignee" ref-table="resurse_umane" ref-schema="" ref-catalog="raindrop" ref-columns="id_resurse_umane" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="FKcid7ymw1u9ewy1me63cs7sxyo" columns="id_reporter" ref-table="resurse_umane" ref-schema="" ref-catalog="raindrop" ref-columns="id_resurse_umane" update-rule="3" delete-rule="3" deferrability="2"/>
       <foreign-key name="FKmdr1m42cj6j4fdxawtt1u2v8s" columns="id_status_task" ref-table="status_task" ref-schema="" ref-catalog="raindrop" ref-columns="id_status_task" update-rule="3" delete-rule="3" deferrability="2"/>
       <foreign-key name="FKogshbdkh6sqcmktl0fdyp9r71" columns="id_proiect" ref-table="proiect" ref-schema="" ref-catalog="raindrop" ref-columns="id_proiect" update-rule="3" delete-rule="3" deferrability="2"/>
-      <foreign-key name="FKt0vp1gssy6d62rr3euffp0r41" columns="id_resurse_umane" ref-table="resurse_umane" ref-schema="" ref-catalog="raindrop" ref-columns="id_resurse_umane" update-rule="3" delete-rule="3" deferrability="2"/>
+      <index name="FK47i2jlc9irwwc8std0rbpcmkf" unique="false" columns="id_assignee"/>
+      <index name="FKcid7ymw1u9ewy1me63cs7sxyo" unique="false" columns="id_reporter"/>
       <index name="FKmdr1m42cj6j4fdxawtt1u2v8s" unique="false" columns="id_status_task"/>
       <index name="FKogshbdkh6sqcmktl0fdyp9r71" unique="false" columns="id_proiect"/>
-      <index name="FKt0vp1gssy6d62rr3euffp0r41" unique="false" columns="id_resurse_umane"/>
     </table>
     <table name="tip_contract" schema="" catalog="raindrop" type="TABLE">
       <column name="id_tip_contract" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" autoIncrement="true"/>

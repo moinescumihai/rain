@@ -76,7 +76,7 @@ body {
     min-height: 100%;
     max-height: none;
     overflow: auto;
-    padding: 20px;
+    padding: 30px 20px 20px 20px;
     background-color: #F7F7F7;
     border-right: 1px solid #D1D1D1;
 }
@@ -1121,7 +1121,7 @@ div[id$='-container'] div.todo-task input[type=checkbox] {
 }
 
 .ui-sortable > div.todo-task {
-    padding: 15px 0 15px 35px !important;
+    padding: 15px 0 15px 20px !important;
     position: relative;
     background: #f5f6f8;
     margin-bottom: 2px;
@@ -2034,6 +2034,10 @@ tr.shown td.details-control {
     .modal-mlg {
         width: 1200px;
     }
+
+    .modal-md {
+        width: 1000px;
+    }
 }
 
 .text-bold {
@@ -2410,7 +2414,7 @@ div[id^="history"] .modal-body {
 
 .badge.estimare {
     position: absolute;
-    right: 10px;
+    right: 16px;
     bottom: 10px;
 }
 
@@ -2424,4 +2428,20 @@ div[id^="history"] .modal-body {
 
 .todo-task.selected:hover {
     background-color: #FFEAA5 !important;
+}
+
+.panel-default > .panel-heading {
+    background-color: inherit;
+}
+
+.task-container .panel-default {
+    border-color: #F3F3F3;
+}
+
+.task-user-photo {
+    position: absolute;
+    bottom: 10px;
+    left: 20px;
+    width: 25px;
+    height: 25px;
 }

@@ -75,7 +75,7 @@ public class TasksRestController {
         try {
             Task success = taskService.updateTask(model);
             response.setId(1);
-            response.setMessage("Marcat ca " + success.getIdStatusTask().getNume());
+            response.setMessage(success.getCod() + " a fost marcat ca " + success.getIdStatusTask().getNume());
         } catch (DataAccessException e) {
             response.setId(-1);
             response.setMessage("Eroare la mutare");

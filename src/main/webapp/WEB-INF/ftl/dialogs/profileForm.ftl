@@ -46,21 +46,21 @@
     </div>
     <div class="tab-pane fade" id="useraccount">
     [@modalContainer]
-        [@elementWithLink "modal-changePassword" "USER.PASSWORD.CHANGE"]
+        [@elementWithModalLink "modal-changePassword" "USER.PASSWORD.CHANGE"]
         [@readonlyEmbedableInput "userProfile-form-username" "idUser" "USER.USERNAME" "USER.USERNAME.PLACEHOLDER" "" "12"/]
-        [/@elementWithLink]
+    [/@elementWithModalLink]
     [/@modalContainer]
     </div>
     <div class="tab-pane fade" id="userlegal">
     [@modalContainer]
         [@input "userProfile-form-cnp" "cnp" "USER.CNP" "USER.CNP.PLACEHOLDER" "" "6"/]
-        [@elementWithLink "modal-addTipContract" "USER.TIPCONTRACT" "6"]
+        [@elementWithModalLink "modal-addTipContract" "USER.TIPCONTRACT" "6"]
             [@embedableSelectBox "serProfile-form-tipContract" "tipContract" "USER.TIPCONTRACT" "USER.TIPCONTRACTSELECT" "SEARCH.NO_RESULTS"]
             [#--[#list listaTari?keys as key]--]
             [#--<option id="${key}" value="${key}">${listaTari[key]}</option>--]
             [#--[/#list]--]
             [/@embedableSelectBox]
-        [/@elementWithLink]
+    [/@elementWithModalLink]
         [@datepicker "userProfile-form-dataNastere" "dataNastere" "USER.DATANASTERE" "USER.DATANASTERE.PLACEHOLDER" "4"/]
         [@input "userProfile-form-serieCi" "serieCi" "USER.CI.SERIE" "USER.CI.SERIE.PLACEHOLDER" "" "3"/]
         [@input "userProfile-form-nrCi" "nrCi" "USER.CI.NUMAR" "USER.CI.NUMAR.PLACEHOLDER" "" "3"/]

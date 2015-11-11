@@ -137,7 +137,7 @@
     </bytecodeTargetLevel>
   </component>
   <component name="CopyrightManager" default="" />
-  <component name="DataSourceManagerImpl" format="xml" hash="2572072118">
+  <component name="DataSourceManagerImpl" format="xml" hash="1118024312">
     <data-source source="LOCAL" name="MySQL - raindrop@localhost" uuid="f438a555-b6d9-40f7-9d51-6f5e20757093">
       <driver-ref>mysql</driver-ref>
       <synchronize>true</synchronize>

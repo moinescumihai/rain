@@ -278,7 +278,8 @@ var getPersoane = function (container) {
 };
 
 var getProfile = function () {
-    var token = $("meta[name='_csrf']").prop("content"),
+    var profile,
+        token = $("meta[name='_csrf']").prop("content"),
         header = $("meta[name='_csrf_header']").prop("content"),
 
         nume = $('#userProfile-form-nume'),
@@ -312,6 +313,7 @@ var getProfile = function () {
         },
         async: false,
         success: function (response) {
+            profile = response;
             nume.val(response.nume);
             prenume.val(response.prenume);
             email.val(response.email);
@@ -339,6 +341,7 @@ var getProfile = function () {
             showNotification("Error. Please try again later." + e.Message, "Error", DANGER);
         }
     });
+    return profile;
 };
 
 Array.prototype.remove = function () {
@@ -384,10 +387,11 @@ $(document).ready(function () {
     $('[data-toggle="tooltip"]').tooltip();
 
     $('.chosen-select').chosen({
-        disable_search_threshold: 10,
+        disable_search_threshold: 6,
         allow_single_deselect: true,
         inherit_select_classes: true,
         search_contains: true,
+        no_results_text: 'Nu exista optiuni',
         width: '100%'
     });
 

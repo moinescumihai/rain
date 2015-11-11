@@ -17,12 +17,19 @@
 </div>
 [/#macro]
 
-[#macro elementWithLink target label size="6"]
+[#macro elementWithModalLink target label size="6"]
 <div class="form-group col-md-${size}">
     [#nested]
     [@security.authorize access="hasAnyRole('ROLE_ADMIN','ROLE_SUPERUSER')"]
         <a data-toggle="modal" data-target="#${target}" class="small form-link">[@spring.message label /]</a>
     [/@security.authorize]
+</div>
+[/#macro]
+
+[#macro elementWithLink id label size=6]
+<div class="form-group col-md-${size}">
+    [#nested]
+    <a id="${id}" class="small form-link">[@spring.message label /]</a>
 </div>
 [/#macro]
 
@@ -41,13 +48,13 @@
 
 [#macro embedableSelectBox id name label placeholder="SELECT.PLACEHOLDER" noResultsText="SEARCH.NO_RESULTS"]
 <label for="${id}" class="control-label">[@spring.message label /]</label>
-    <select data-placeholder="[@spring.message placeholder /]" data-no_results_text="[@spring.message noResultsText/]"
-            class="chosen-select" id="${id}" name="${name}" title="[@spring.message label /]" required="true">
-        <option></option>
-        [#nested]
-    </select>
+<select data-placeholder="[@spring.message placeholder /]" data-no_results_text="[@spring.message noResultsText/]"
+        class="chosen-select" id="${id}" name="${name}" title="[@spring.message label /]" required="true">
+    <option></option>
+    [#nested]
+</select>
 
-    <div id="${name}-error" class="help-block"></div>
+<div id="${name}-error" class="help-block"></div>
 [/#macro]
 
 [#macro adminEmbedableSelectBox id name label placeholder="SELECT.PLACEHOLDER" noResultsText="SEARCH.NO_RESULTS"]
@@ -78,7 +85,8 @@
 [#macro input id name label placeholder value="" size="3"]
 <div class="form-group col-md-${size}">
     <label for="${id}" class="control-label">[@spring.message label/]</label>
-    <input type="text" class="form-control input-sm" id="${id}" name="${name}" title="[@spring.message label /]" placeholder="[@spring.message placeholder /]" value="${value}" required="true">
+    <input type="text" class="form-control input-sm" id="${id}" name="${name}" title="[@spring.message label /]" placeholder="[@spring.message placeholder /]" value="${value}" required
+           autocomplete="off">
 
     <div id="${name}-error" class="help-block"></div>
 </div>
@@ -86,7 +94,7 @@
 
 [#macro readonlyEmbedableInput id name label placeholder value="" size="3"]
 <label for="${id}" class="control-label">[@spring.message label/]</label>
-<input type="text" class="form-control input-sm" id="${id}" name="${name}" title="[@spring.message label /]" placeholder="[@spring.message placeholder /]" value="${value}" required="true"
+<input type="text" class="form-control input-sm" id="${id}" name="${name}" title="[@spring.message label /]" placeholder="[@spring.message placeholder /]" value="${value}" required autocomplete="off"
        readonly>
 
 <div id="${name}-error" class="help-block"></div>
@@ -103,7 +111,8 @@
 [#macro adminInput id name label placeholder value="" size="3"]
 <div class="form-group col-md-${size}">
     <label for="${id}" class="control-label">[@spring.message label/]</label>
-    <input type="text" class="form-control input-sm" id="${id}" name="${name}" title="[@spring.message label /]" placeholder="[@spring.message placeholder /]" value="${value}" required="true"
+    <input type="text" class="form-control input-sm" id="${id}" name="${name}" title="[@spring.message label /]" placeholder="[@spring.message placeholder /]" value="${value}" required
+           autocomplete="off"
         [@security.authorize access="!hasAnyRole('ROLE_ADMIN')"] readonly[/@security.authorize] >
 
     <div id="${name}-error" class="help-block"></div>
@@ -113,7 +122,7 @@
 [#macro inputReadOnly id name label size="3"]
 <div class="form-group col-md-${size}">
     <label for="${id}" class="control-label">[@spring.message label/]</label>
-    <input type="text" class="form-control input-sm" id="${id}" name="${name}" title="[@spring.message label /]" required="true" readonly>
+    <input type="text" class="form-control input-sm" id="${id}" name="${name}" title="[@spring.message label /]" required readonly>
 
     <div id="${name}-error" class="help-block"></div>
 </div>
@@ -122,7 +131,8 @@
 [#macro emailInput id name label placeholder value="" size="3"]
 <div class="form-group col-md-${size}">
     <label for="${id}" class="control-label">[@spring.message label/]</label>
-    <input type="email" class="form-control input-sm" id="${id}" name="${name}" title="[@spring.message label /]" placeholder="[@spring.message placeholder /]" value="${value}" required="true">
+    <input type="email" class="form-control input-sm" id="${id}" name="${name}" title="[@spring.message label /]" placeholder="[@spring.message placeholder /]" value="${value}" required
+           autocomplete="off">
 
     <div id="${name}-error" class="help-block"></div>
 </div>
@@ -134,7 +144,7 @@
 
     <div class="input-group date">
         <input type="text" class="form-control input-sm date-picker" id="${id}" name="${name}" placeholder="[@spring.message placeholder /]" title="[@spring.message label /]"
-               data-date-format="yyyy-mm-dd" required>
+               data-date-format="yyyy-mm-dd" required autocomplete="off">
         <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
     </div>
 
@@ -146,7 +156,7 @@
 [#macro textarea id name label placeholder size="3"]
 <div class="form-group col-md-${size}">
     <label for="${id}" class="control-label">[@spring.message label/]</label>
-    <textarea class="form-control" id="${id}" rows="4" name="${name}" title="[@spring.message label /]" placeholder="[@spring.message placeholder /]" required="true"></textarea>
+    <textarea class="form-control" id="${id}" rows="4" name="${name}" title="[@spring.message label /]" placeholder="[@spring.message placeholder /]" required autocomplete="off"></textarea>
 
     <div id="${name}-error" class="help-block"></div>
 </div>
@@ -155,7 +165,7 @@
 [#macro password id name label placeholder size="3"]
 <div class="form-group col-md-${size}">
     <label for="${id}" class="control-label">[@spring.message label/]</label>
-    <input type="password" class="form-control input-sm" id="${id}" name="${name}" title="[@spring.message label /]" placeholder="[@spring.message placeholder /]" required="true">
+    <input type="password" class="form-control input-sm" id="${id}" name="${name}" title="[@spring.message label /]" placeholder="[@spring.message placeholder /]" required autocomplete="off">
 
     <div id="${name}-error" class="help-block"></div>
 </div>
@@ -164,7 +174,7 @@
 [#macro checkbox id name label placeholder value="" size="3"]
 <div class="form-group col-md-${size}">
     <div class="checkbox">
-        <label class="control-label"><input type="checkbox" id="${id}" name="${name}" title="[@spring.message label /]" required="true"> [@spring.message label/]</label>
+        <label class="control-label"><input type="checkbox" id="${id}" name="${name}" title="[@spring.message label /]" required autocomplete="off"> [@spring.message label/]</label>
     </div>
     <div id="${name}-error" class="help-block"></div>
 </div>
@@ -264,6 +274,28 @@
 </div>
 [/#macro]
 
+[#macro mediumModalForm name title action submitLabel icon btnIcon="plus-square-o" btnClass="primary"]
+<div id="${name}" class="modal fade">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">[@spring.message "MODAL.CLOSEDIALOG"/]</span></button>
+                <h4 class="modal-title"><span class="fa fa-${icon}">&nbsp;</span>[@spring.message title /]&nbsp;<span class="custom-modal-title"></span></h4>
+            </div>
+            <form id="${name}-form" action="${action}">
+                <div class="modal-body">
+                    [#nested]
+                </div>
+                <div class="modal-footer">
+                    [@buttonSubmit name submitLabel btnClass btnIcon /]
+                    [@buttonCloseModal name "MODAL.CLOSEDIALOG"/]
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+[/#macro]
+
 [#macro largeModalForm name title action submitLabel icon btnIcon="plus-square-o" btnClass="primary"]
 <div id="${name}" class="modal fade">
     <div class="modal-dialog modal-mlg">
@@ -311,7 +343,7 @@
 <div class="search-box">
     <div class="input-group">
         <span class="input-group-addon" id="search-${id}-addon"><i class="fa fa-search"></i></span>
-        <input id="${id}" type="text" class="form-control" placeholder="[@spring.message "SEARCH"/]" aria-describedby="search-${id}-addon">
+        <input id="${id}" type="text" class="form-control" placeholder="[@spring.message "SEARCH"/]" aria-describedby="search-${id}-addon" autocomplete="off">
     </div>
 </div>
 
@@ -323,7 +355,7 @@
 
     <div class="image_preview"><img id="preview-${fileName}" class="previewing" src="/img/noimageplaceholder.png"/></div>
     <div class="selectImage">
-        <input class="img-selector" type="file" data-filename-placement="inside" id="${fileName}" name="${fileName}">
+        <input class="img-selector" type="file" data-filename-placement="inside" id="${fileName}" name="${fileName}" autocomplete="off">
 
         <div class="image-message"></div>
     </div>
