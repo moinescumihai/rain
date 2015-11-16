@@ -7,6 +7,7 @@ import java.sql.Date;
 @Table(name = "resurse_umane", schema = "", catalog = "raindrop")
 public class ResurseUmane extends BaseEntity {
     private long idResurseUmane;
+    private Attachment userPhoto;
     private String nume;
     private String prenume;
     private String prenume2;
@@ -320,6 +321,16 @@ public class ResurseUmane extends BaseEntity {
         this.fullName = fullName;
     }
 
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_photo")
+    public Attachment getUserPhoto() {
+        return userPhoto;
+    }
+
+    public void setUserPhoto(Attachment userPhoto) {
+        this.userPhoto = userPhoto;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -328,10 +339,10 @@ public class ResurseUmane extends BaseEntity {
         ResurseUmane that = (ResurseUmane) o;
 
         if (idResurseUmane != that.idResurseUmane) return false;
+        if (userPhoto != null ? !userPhoto.equals(that.userPhoto) : that.userPhoto != null) return false;
         if (nume != null ? !nume.equals(that.nume) : that.nume != null) return false;
         if (prenume != null ? !prenume.equals(that.prenume) : that.prenume != null) return false;
         if (prenume2 != null ? !prenume2.equals(that.prenume2) : that.prenume2 != null) return false;
-        if (fullName != null ? !fullName.equals(that.fullName) : that.fullName != null) return false;
         if (email != null ? !email.equals(that.email) : that.email != null) return false;
         if (idClient != null ? !idClient.equals(that.idClient) : that.idClient != null) return false;
         if (pozitie != null ? !pozitie.equals(that.pozitie) : that.pozitie != null) return false;
@@ -354,17 +365,18 @@ public class ResurseUmane extends BaseEntity {
         if (dataNastere != null ? !dataNastere.equals(that.dataNastere) : that.dataNastere != null) return false;
         if (esteDepartament != null ? !esteDepartament.equals(that.esteDepartament) : that.esteDepartament != null) return false;
         if (esteContact != null ? !esteContact.equals(that.esteContact) : that.esteContact != null) return false;
-        return !(zileConcediu != null ? !zileConcediu.equals(that.zileConcediu) : that.zileConcediu != null);
+        if (zileConcediu != null ? !zileConcediu.equals(that.zileConcediu) : that.zileConcediu != null) return false;
+        return !(fullName != null ? !fullName.equals(that.fullName) : that.fullName != null);
 
     }
 
     @Override
     public int hashCode() {
         int result = (int) (idResurseUmane ^ (idResurseUmane >>> 32));
+        result = 31 * result + (userPhoto != null ? userPhoto.hashCode() : 0);
         result = 31 * result + (nume != null ? nume.hashCode() : 0);
         result = 31 * result + (prenume != null ? prenume.hashCode() : 0);
         result = 31 * result + (prenume2 != null ? prenume2.hashCode() : 0);
-        result = 31 * result + (fullName != null ? fullName.hashCode() : 0);
         result = 31 * result + (email != null ? email.hashCode() : 0);
         result = 31 * result + (idClient != null ? idClient.hashCode() : 0);
         result = 31 * result + (pozitie != null ? pozitie.hashCode() : 0);
@@ -388,6 +400,7 @@ public class ResurseUmane extends BaseEntity {
         result = 31 * result + (esteDepartament != null ? esteDepartament.hashCode() : 0);
         result = 31 * result + (esteContact != null ? esteContact.hashCode() : 0);
         result = 31 * result + (zileConcediu != null ? zileConcediu.hashCode() : 0);
+        result = 31 * result + (fullName != null ? fullName.hashCode() : 0);
         return result;
     }
 }
