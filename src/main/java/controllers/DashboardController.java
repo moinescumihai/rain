@@ -12,7 +12,6 @@ public class DashboardController {
     public ModelAndView overview() {
         ModelAndView model = new ModelAndView();
 
-
         model.setViewName("dashboard");
 
         return model;

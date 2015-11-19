@@ -12,7 +12,6 @@ public class FilesController {
     public ModelAndView files() {
         ModelAndView model = new ModelAndView();
 
-
         model.setViewName("files");
 
         return model;

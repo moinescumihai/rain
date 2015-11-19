@@ -27,7 +27,6 @@ public class FilesServiceImpl implements FilesService {
     @Autowired
     private StocRepository stocRepository;
 
-
     @Override
     public String writeFileToDisk(MultipartFile file) {
         byte[] bytes;

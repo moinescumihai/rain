@@ -8,7 +8,6 @@ public class JSONResult {
     private String message;
     private Map<String, String> errorsMap;
 
-
     public int getCode() {
         return code;
     }

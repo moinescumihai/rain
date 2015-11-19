@@ -34,6 +34,5 @@ public class ChatController {
         chatService.save(message);
 
         return new Result(message.toString());
-
     }
 }

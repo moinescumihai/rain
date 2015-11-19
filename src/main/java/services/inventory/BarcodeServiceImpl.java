@@ -92,6 +92,7 @@ public class BarcodeServiceImpl implements BarcodeService{
         try {
             image = ImageIO.read(file);
         } catch (IOException e) {
+            LOGGER.error(e.getLocalizedMessage(), e);
             throw new Exception(e.getMessage());
         }
         if (image == null) {

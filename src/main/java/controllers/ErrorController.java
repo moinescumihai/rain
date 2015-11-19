@@ -19,7 +19,7 @@ public class ErrorController {
 
     @PreAuthorize("isAuthenticated()")
     @RequestMapping(value = "/error", method = RequestMethod.GET)
-    public String proiecte() {
+    public String error() {
         return "error";
     }
 

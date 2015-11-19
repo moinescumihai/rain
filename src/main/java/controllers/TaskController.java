@@ -12,7 +12,6 @@ public class TaskController {
     public ModelAndView tasks() {
         ModelAndView model = new ModelAndView();
 
-
         model.setViewName("tasks");
 
         return model;

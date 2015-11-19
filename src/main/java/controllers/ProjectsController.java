@@ -25,7 +25,6 @@ public class ProjectsController {
     @Autowired
     private StatusProiectRepository statusProiectRepository;
 
-
     @RequestMapping(value = "/projects", method = RequestMethod.GET)
     public ModelAndView getProjects() {
         ModelAndView model = new ModelAndView();
