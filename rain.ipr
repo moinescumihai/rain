@@ -68,7 +68,7 @@
             <element id="library" level="project" name="Maven: org.freemarker:freemarker:2.3.22" />
             <element id="library" level="project" name="Maven: org.apache.commons:commons-lang3:3.1" />
             <element id="library" level="project" name="Maven: commons-collections:commons-collections:3.2.1" />
-            <element id="library" level="project" name="Maven: com.zaxxer:HikariCP:2.3.7" />
+            <element id="library" level="project" name="Maven: com.zaxxer:HikariCP:2.4.1" />
             <element id="library" level="project" name="Maven: org.hibernate:hibernate-core:5.0.2.Final" />
             <element id="library" level="project" name="Maven: org.jboss.logging:jboss-logging:3.3.0.Final" />
             <element id="library" level="project" name="Maven: org.apache.geronimo.specs:geronimo-jta_1.1_spec:1.1.1" />
@@ -125,20 +125,20 @@
         <processorPath useClasspath="true" />
       </profile>
       <profile default="false" name="Annotation profile for rain" enabled="true">
-        <sourceOutputDir name="target\generated-sources\annotations" />
-        <sourceTestOutputDir name="target\generated-test-sources\test-annotations" />
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="true" />
         <module name="rain" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="rain" target="1.7" />
+      <module name="rain" target="1.8" />
     </bytecodeTargetLevel>
   </component>
   <component name="CopyrightManager" default="" />
-  <component name="DataSourceManagerImpl" format="xml" hash="1118024312">
-    <data-source source="LOCAL" name="MySQL - raindrop@localhost" uuid="f438a555-b6d9-40f7-9d51-6f5e20757093">
+  <component name="DataSourceManagerImpl" format="xml" hash="83023478">
+    <data-source source="LOCAL" name="Raindrop" uuid="d6790f20-eacc-4738-a378-5afb0f2da8df">
       <driver-ref>mysql</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>com.mysql.jdbc.Driver</jdbc-driver>
@@ -154,6 +154,7 @@
     </data-source>
   </component>
   <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/src" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java/controllers/rest/FilesRestController.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java/controllers/rest/HrRestController.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java/controllers/rest/InventoryRestController.java" charset="UTF-8" />
@@ -162,6 +163,7 @@
     <file url="file://$PROJECT_DIR$/src/main/java/controllers/rest/TasksRestController.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/ftl/inventory.ftl" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/resources/js/static/tasks.js" charset="UTF-8" />
+    <file url="PROJECT" charset="UTF-8" />
   </component>
   <component name="EntryPointsManager">
     <entry_points version="2.0" />
@@ -810,10 +812,11 @@
         </XML>
       </value>
     </option>
-    <option name="PREFERRED_PROJECT_CODE_STYLE" value="Default (2)" />
+    <option name="PREFERRED_PROJECT_CODE_STYLE" value="Default (1)" />
   </component>
   <component name="ProjectDictionaryState">
     <dictionary name="Ciprian" />
+    <dictionary name="ciprian" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -840,7 +843,7 @@
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
   </component>
   <component name="dataSourceStorageLocal">
-    <data-source name="MySQL - raindrop@localhost" uuid="f438a555-b6d9-40f7-9d51-6f5e20757093">
+    <data-source name="Raindrop" uuid="d6790f20-eacc-4738-a378-5afb0f2da8df">
       <secret-storage>master_key</secret-storage>
       <user-name>root</user-name>
       <schema-pattern>raindrop.*</schema-pattern>
@@ -991,15 +994,15 @@
         <root url="jar://$MAVEN_REPOSITORY$/com/sun/mail/smtp/1.5.0/smtp-1.5.0-sources.jar!/" />
       </SOURCES>
     </library>
-    <library name="Maven: com.zaxxer:HikariCP:2.3.7">
+    <library name="Maven: com.zaxxer:HikariCP:2.4.1">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/com/zaxxer/HikariCP/2.3.7/HikariCP-2.3.7.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/com/zaxxer/HikariCP/2.4.1/HikariCP-2.4.1.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/com/zaxxer/HikariCP/2.3.7/HikariCP-2.3.7-javadoc.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/com/zaxxer/HikariCP/2.4.1/HikariCP-2.4.1-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/com/zaxxer/HikariCP/2.3.7/HikariCP-2.3.7-sources.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/com/zaxxer/HikariCP/2.4.1/HikariCP-2.4.1-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: commons-codec:commons-codec:1.5">

@@ -12,6 +12,9 @@ var getClients = function (container) {
         url: '/app/secure/projects/getclients',
         contentType: 'application/json',
         success: function (response) {
+            if (response.length === 0) {
+                clientsSelect.append($("<option>").prop('disabled', true).text('Nu ai definit niciun client'));
+            }
             $.each(response, function (index, client) {
                 clientsSelect.append($("<option>").val(client.idClient).text(client.numeClient));
             });
@@ -32,6 +35,9 @@ var getCategories = function (container) {
         url: '/app/secure/projects/getcategories',
         contentType: 'application/json',
         success: function (response) {
+            if (response.length === 0) {
+                categoriesSelect.append($("<option>").prop('disabled', true).text('Nu ai definit nicio categorie'));
+            }
             $.each(response, function (index, category) {
                 categoriesSelect.append($('<option>').val(category.idCategorieProiect).text(category.nume));
             });
