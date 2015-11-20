@@ -11,6 +11,10 @@
     [@modalForm "modal-userProfile" "MODAL.USERPROFILE" "/app/secure/profile/" "SAVE.CHANGES" "user"]
         [#include "../dialogs/profileForm.ftl"]
     [/@modalForm]
+
+    [@smallModalForm "modal-changePassword" "USER.NEW_PASSWORD" "/app/secure/profile/change-password" "SAVE.CHANGES" "key" "pencil"]
+        [#include "../dialogs/changePassword.ftl"]
+    [/@smallModalForm]
 </body>
 
 <script src="plugins/DataTables/datatables.js"></script>

@@ -2445,3 +2445,9 @@ div[id^="history"] .modal-body {
     width: 25px;
     height: 25px;
 }
+
+@media (min-width: 768px) {
+    .modal-msm {
+        width: 450px;
+    }
+}

@@ -12,10 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 import services.repository.AttachmentRepository;
 import services.repository.StocRepository;
 
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.util.List;
 
 @Service
@@ -35,15 +32,26 @@ public class FilesServiceImpl implements FilesService {
         String contextDirName = System.getProperty("catalina.home") + File.separator + "attachments";
         File dir = new File(contextDirName);
         if (!dir.exists()) {
-            dir.mkdirs();
+            boolean attachmentsDirWasCreated = dir.mkdirs();
+            if(!attachmentsDirWasCreated) {
+                String errorMessage = "Raindrop does not have enough permissions to create 'attachments' directory";
+                LOGGER.error(errorMessage);
+                throw new IllegalStateException(errorMessage);
+            }
         }
         // Create the file on server
         String filePath = dir + File.separator + fileName;
         File serverFile = new File(filePath);
         try (BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(serverFile))) {
-            serverFile.createNewFile();
-            bytes = file.getBytes();
-            stream.write(bytes);
+            boolean newFileCreated = serverFile.createNewFile();
+            if(newFileCreated) {
+                bytes = file.getBytes();
+                stream.write(bytes);
+            } else {
+                String errorMessage = "Raindrop does not have enough permissions to create file on disk";
+                LOGGER.error(errorMessage);
+                throw new IllegalStateException(errorMessage);
+            }
         } catch (IOException e) {
             LOGGER.error(e.getMessage(), e);
         }

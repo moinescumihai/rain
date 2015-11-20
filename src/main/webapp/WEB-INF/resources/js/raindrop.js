@@ -149,7 +149,7 @@ var showModal = function (id, title, content, buttons) {
                 .concat('<div class="modal-dialog modal-xlg">')
                 .concat('<div class="modal-content">')
                 .concat('<div class="modal-header">')
-                .concat('<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>')
+                .concat('<button type="button" class="close" data-dismiss="modal" aria-hidden="true">ï¿½</button>')
                 .concat('<h4 class="modal-title">').concat(title).concat('</h4></div>')
                 .concat('<div class="modal-body">')
                 .concat(content)
@@ -182,7 +182,7 @@ var confirmModal = function (id, title) {
             .concat('<div class="modal-dialog">')
             .concat('<div class="modal-content">')
             .concat('<div class="modal-header">')
-            .concat('<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>')
+            .concat('<button type="button" class="close" data-dismiss="modal" aria-hidden="true">ï¿½</button>')
             .concat('<h4 class="modal-title"><span class="fa fa-question-circle">&nbsp;</span>').concat("E&#x219;ti sigur?").concat('</h4></div>')
             .concat('<div class="modal-body">')
             .concat('<h4>' + title + '</h4>')
@@ -277,8 +277,28 @@ var getPersoane = function (container) {
     });
 };
 
+var getTari = function (container) {
+    var select = $('#' + container);
+    select.html(EMPTY);
+    select.append("<option></option>");
+    $.ajax({
+        type: 'get',
+        url: '/app/secure/profile/get-tari',
+        contentType: "application/json",
+        success: function (response) {
+            $.each(response, function (index, tara) {
+                select.append($("<option>").val(tara.idTara).text(tara.nume));
+            });
+            select.trigger(chosenUpdated);
+        },
+        error: function (e) {
+            showNotification("Eroare. Re&icirc;nc&abreve;rca&#539;i pagina." + e.message, "Eroare", DANGER);
+        }
+    });
+};
+
 var getProfile = function () {
-    var profile,
+    var profile = {},
         token = $("meta[name='_csrf']").prop("content"),
         header = $("meta[name='_csrf_header']").prop("content"),
 
@@ -294,10 +314,9 @@ var getProfile = function () {
         oras = $('#userProfile-form-oras'),
         judet = $('#userProfile-form-judet'),
         codPostal = $('#userProfile-form-codPostal'),
-        idTara = $('#userProfile-form-idTara'),
+        idTara = $('#userProfile-form-tara'),
         username = $('#userProfile-form-username'),
         cnp = $('#userProfile-form-cnp'),
-        tipContract = $('#userProfile-form-tipContract'),
         serieCi = $('#userProfile-form-serieCi'),
         nrCi = $('#userProfile-form-nrCi'),
         dataNastere = $('#userProfile-form-dataNastere'),
@@ -329,7 +348,6 @@ var getProfile = function () {
             idTara.val(response.idTara.idTara);
             username.val(response.idUser.username);
             cnp.val(response.cnp);
-            tipContract.val(response.tipContract.idTipContract);
             serieCi.val(response.serieCi);
             nrCi.val(response.nrCi);
             dataNastere.val(response.dataNastere);
@@ -386,6 +404,7 @@ $(document).ready(function () {
     $('.file-inputs').bootstrapFileInput();
     $('[data-toggle="tooltip"]').tooltip();
 
+    getTari('userProfile-form-tara');
     $('.chosen-select').chosen({
         disable_search_threshold: 6,
         allow_single_deselect: true,

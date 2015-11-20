@@ -12,7 +12,7 @@
 [/#macro]
 
 [#macro modalContainer]
-<div class="container container-modal">
+<div class="container-fluid container-modal">
     [#nested]
 </div>
 [/#macro]
@@ -232,7 +232,7 @@
 
 [#macro smallModalForm name title action submitLabel icon btnIcon]
 <div id="${name}" class="modal fade">
-    <div class="modal-dialog modal-sm">
+    <div class="modal-dialog modal-msm">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">[@spring.message "MODAL.CLOSEDIALOG"/]</span></button>

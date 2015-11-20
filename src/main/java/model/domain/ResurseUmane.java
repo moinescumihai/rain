@@ -28,7 +28,6 @@ public class ResurseUmane extends BaseEntity {
     private String codPostal;
     private Tara idTara;
     private Date dataAngajare;
-    private TipContract tipContract;
     private User idUser;
     private Date dataNastere;
     private Integer esteDepartament;
@@ -249,16 +248,6 @@ public class ResurseUmane extends BaseEntity {
     }
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "tip_contract")
-    public TipContract getTipContract() {
-        return tipContract;
-    }
-
-    public void setTipContract(TipContract tipContract) {
-        this.tipContract = tipContract;
-    }
-
-    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_user")
     public User getIdUser() {
         return idUser;
@@ -334,7 +323,7 @@ public class ResurseUmane extends BaseEntity {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof ResurseUmane)) return false;
+        if (o == null || getClass() != o.getClass()) return false;
 
         ResurseUmane that = (ResurseUmane) o;
 
@@ -360,7 +349,6 @@ public class ResurseUmane extends BaseEntity {
         if (codPostal != null ? !codPostal.equals(that.codPostal) : that.codPostal != null) return false;
         if (idTara != null ? !idTara.equals(that.idTara) : that.idTara != null) return false;
         if (dataAngajare != null ? !dataAngajare.equals(that.dataAngajare) : that.dataAngajare != null) return false;
-        if (tipContract != null ? !tipContract.equals(that.tipContract) : that.tipContract != null) return false;
         if (idUser != null ? !idUser.equals(that.idUser) : that.idUser != null) return false;
         if (dataNastere != null ? !dataNastere.equals(that.dataNastere) : that.dataNastere != null) return false;
         if (esteDepartament != null ? !esteDepartament.equals(that.esteDepartament) : that.esteDepartament != null) return false;
@@ -394,7 +382,6 @@ public class ResurseUmane extends BaseEntity {
         result = 31 * result + (codPostal != null ? codPostal.hashCode() : 0);
         result = 31 * result + (idTara != null ? idTara.hashCode() : 0);
         result = 31 * result + (dataAngajare != null ? dataAngajare.hashCode() : 0);
-        result = 31 * result + (tipContract != null ? tipContract.hashCode() : 0);
         result = 31 * result + (idUser != null ? idUser.hashCode() : 0);
         result = 31 * result + (dataNastere != null ? dataNastere.hashCode() : 0);
         result = 31 * result + (esteDepartament != null ? esteDepartament.hashCode() : 0);
