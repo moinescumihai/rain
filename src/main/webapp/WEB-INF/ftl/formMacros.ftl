@@ -14,6 +14,7 @@
 [#macro modalContainer]
 <div class="container-fluid container-modal">
     [#nested]
+    <span class="eroare-generala"></span>
 </div>
 [/#macro]
 

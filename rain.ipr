@@ -137,7 +137,7 @@
     </bytecodeTargetLevel>
   </component>
   <component name="CopyrightManager" default="" />
-  <component name="DataSourceManagerImpl" format="xml" hash="83023478">
+  <component name="DataSourceManagerImpl" format="xml" hash="2898532894">
     <data-source source="LOCAL" name="Raindrop" uuid="d6790f20-eacc-4738-a378-5afb0f2da8df">
       <driver-ref>mysql</driver-ref>
       <synchronize>true</synchronize>
@@ -845,8 +845,8 @@
   </component>
   <component name="dataSourceStorageLocal">
     <data-source name="Raindrop" uuid="d6790f20-eacc-4738-a378-5afb0f2da8df">
-      <secret-storage>master_key</secret-storage>
       <user-name>root</user-name>
+      <user-password>dfc9dfdfdfc9dfdfdfc8dfcbdfdf</user-password>
       <schema-pattern>raindrop.*</schema-pattern>
       <default-schemas>raindrop.*</default-schemas>
     </data-source>

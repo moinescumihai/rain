@@ -1,7 +1,9 @@
 package controllers.rest;
 
+import model.common.JSONResponseWithId;
 import model.domain.ResurseUmane;
 import model.domain.Tara;
+import model.forms.PasswordString;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -60,5 +62,16 @@ public class ProfileRestController {
     @ResponseBody
     public ResurseUmane getLoggedInUser() {
         return profileService.getLoggedInRaindropUser();
+    }
+
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
+    @RequestMapping(value = "/change-password", method = RequestMethod.POST, consumes = "application/json")
+    @ResponseBody
+    public JSONResponseWithId changePassword(@RequestBody PasswordString password) {
+        JSONResponseWithId response = new JSONResponseWithId();
+        String message = profileService.changePassword(password.getPassword());
+        response.setMessage(message);
+
+        return response;
     }
 }

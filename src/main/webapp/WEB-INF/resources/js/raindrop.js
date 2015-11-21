@@ -8,6 +8,12 @@ const EMPTY = '';
 const UNSELECT = [];
 const ZERO = 0;
 const chosenUpdated = 'chosen:updated';
+var $changePasswordForm = $('#modal-changePassword-form');
+var $changePasswordModal = $('#modal-changePassword');
+
+jQuery.validator.addMethod("samePasswords", function (value, element, param) {
+    return this.optional(element) || passwordsAreTheSame();
+}, "Parolele nu se potrivesc");
 
 if (!('contains' in String.prototype)) {
     String.prototype.contains = function (str, startIndex) {
@@ -24,6 +30,10 @@ $.extend($.fn.dataTable.defaults, {
         "url": '/fonts/ro_RO.txt'
     }
 });
+
+var passwordsAreTheSame = function () {
+    return $('#changePassword-form-password').val() === $('#changePassword-form-repeatPassword').val();
+};
 
 var popoverDefaultSettings = {
     placement: 'bottom',//values: auto,top,right,bottom,left,top-right,top-left,bottom-right,bottom-left,auto-top,auto-right,auto-bottom,auto-left
@@ -142,14 +152,14 @@ var showModal = function (id, title, content, buttons) {
     var modalHtml = EMPTY;
     var modalId = '#' + id;
     if (!buttons) {
-        buttons = '<button type="button" id="' + id + '-close" class="btn btn-default" data-dismiss="modal"><span class="fa fa-times"></span>&nbsp;&nbsp;Close</button>';
+        buttons = '<button type="button" id="' + id + '-close" class="btn btn-default" data-dismiss="modal"><span class="fa fa-times"></span>&nbsp;&nbsp;&Icirc;nchide</button>';
     }
     if (id && title && content) {
         modalHtml += '<div class="modal fade" id="' + id + '">'
                 .concat('<div class="modal-dialog modal-xlg">')
                 .concat('<div class="modal-content">')
                 .concat('<div class="modal-header">')
-                .concat('<button type="button" class="close" data-dismiss="modal" aria-hidden="true">�</button>')
+                .concat('<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&#10060;<span class="sr-only">&Icirc;nchide</span></button>')
                 .concat('<h4 class="modal-title">').concat(title).concat('</h4></div>')
                 .concat('<div class="modal-body">')
                 .concat(content)
@@ -420,7 +430,7 @@ $(document).ready(function () {
     });
 
     $('a').on('click', function () {
-        var linkLocation = $($(this).prop('href')).offset();
+        var linkLocation = $($(this).attr('href')).offset();
         if (linkLocation)
             $('html,body').animate({scrollTop: linkLocation.top}, "10000", 'linear');
     });
@@ -495,13 +505,72 @@ $(document).ready(function () {
         $(this).remove();
     });
 
+    $(document).on('change', '#changePassword-form-showPassword', function () {
+        if ($(this).is(':checked')) {
+            $('#changePassword-form-password').prop('type', 'text');
+            $('#changePassword-form-repeatPassword').prop('type', 'text');
+        } else {
+            $('#changePassword-form-password').prop('type', 'password');
+            $('#changePassword-form-repeatPassword').prop('type', 'password');
+        }
+    });
 
-});
-$(document).ajaxStart(function () {
-    //ajaxSpinnerOn();
-});
+    $changePasswordForm.validate({
+        onfocusout: false,
+        rules: {
+            showPassword: {
+                required: false
+            },
+            password: {
+                minlength: 8,
+                samePasswords: true
+            },
+            repeatPassword: {
+                minlength: 8,
+                samePasswords: true
+            }
+        }
+    });
 
-$(document).ajaxStop(function () {
-    //ajaxSpinnerOff();
+    $changePasswordForm.on('submit', function (event) {
+        if (!$(this).valid()) {
+            return;
+        }
+        var $changePassword = $('#changePassword-form-password');
+        var $changeRepeatPassword = $('#changePassword-form-repeatPassword'),
+            token = $("meta[name='_csrf']").prop('content'),
+            header = $("meta[name='_csrf_header']").prop('content'),
+            password = $changePassword.val(),
+            data = {
+                password: password
+            };
+
+
+        $.ajax({
+            type: 'post',
+            url: $(this).prop('action'),
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader(header, token);
+            },
+            dataType: 'json',
+            contentType: 'application/json',
+            mimeType: 'application/json',
+            data: JSON.stringify(data),
+            success: function (response) {
+                $changePassword.val(EMPTY);
+                $changeRepeatPassword.val(EMPTY);
+                $('#changePassword-form-showPassword').prop('checked', false);
+                $changePassword.prop('type', 'password');
+                $changeRepeatPassword.prop('type', 'password');
+                $changePasswordModal.modal('hide');
+                showNotification(response.message, 'Success', SUCCESS);
+            },
+            error: function () {
+                showNotification("Eroare. Re&icirc;nc&abreve;rca&#539;i pagina.", "Eroare", DANGER);
+            }
+        });
+
+        event.preventDefault();
+    });
 });
 

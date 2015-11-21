@@ -12,7 +12,10 @@ import org.springframework.web.multipart.MultipartFile;
 import services.repository.AttachmentRepository;
 import services.repository.StocRepository;
 
-import java.io.*;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.List;
 
 @Service
@@ -43,8 +46,11 @@ public class FilesServiceImpl implements FilesService {
         String filePath = dir + File.separator + fileName;
         File serverFile = new File(filePath);
         try (BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(serverFile))) {
-            boolean newFileCreated = serverFile.createNewFile();
-            if(newFileCreated) {
+            serverFile.createNewFile();
+            serverFile.setExecutable(true);
+            serverFile.setReadable(true);
+            serverFile.setWritable(true);
+            if (serverFile.exists()) {
                 bytes = file.getBytes();
                 stream.write(bytes);
             } else {
