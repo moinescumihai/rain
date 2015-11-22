@@ -8,8 +8,8 @@ const EMPTY = '';
 const UNSELECT = [];
 const ZERO = 0;
 const chosenUpdated = 'chosen:updated';
-var $changePasswordForm = $('#modal-changePassword-form');
-var $changePasswordModal = $('#modal-changePassword');
+var $changePasswordForm = $('#modal-changePassword-form'),
+    $changePasswordModal = $('#modal-changePassword');
 
 jQuery.validator.addMethod("samePasswords", function (value, element, param) {
     return this.optional(element) || passwordsAreTheSame();
@@ -267,7 +267,7 @@ jQuery.validator.setDefaults({
 
 });
 
-var getPersoane = function (container) {
+var getPersoaneForContainer = function (container) {
     var persoaneSelect = $('#' + container);
     persoaneSelect.html(EMPTY);
     persoaneSelect.append("<option></option>");
@@ -285,6 +285,28 @@ var getPersoane = function (container) {
             showNotification("Eroare. Re&icirc;nc&abreve;rca&#539;i pagina." + e.message, "Eroare", DANGER);
         }
     });
+};
+
+var substringMatcher = function (strs) {
+    return function findMatches(q, cb) {
+        var matches, substrRegex;
+
+        // an array that will be populated with substring matches
+        matches = [];
+
+        // regex used to determine if a string contains the substring `q`
+        substrRegex = new RegExp(q, 'i');
+
+        // iterate through the pool of strings and for any string that
+        // contains the substring `q`, add it to the `matches` array
+        $.each(strs, function (i, str) {
+            if (substrRegex.test(str)) {
+                matches.push(str);
+            }
+        });
+
+        cb(matches);
+    };
 };
 
 var getTari = function (container) {

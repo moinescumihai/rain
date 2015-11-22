@@ -1,10 +1,10 @@
 package controllers.rest;
 
 import model.common.JSONResponse;
-import model.domain.CategorieProiect;
-import model.domain.Client;
-import model.domain.Proiect;
+import model.common.JSONResponseWithId;
+import model.domain.*;
 import model.forms.ClientFormModel;
+import model.forms.PersonOnProjectFormModel;
 import model.forms.ProiectFormModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -67,22 +67,40 @@ public class ProjectsRestController {
         return projectsService.findAll();
     }
 
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER','ROLE_SUPERUSER')")
+    @RequestMapping(value = "/get-users-on-project/{idProiect}", method = RequestMethod.GET)
+    @ResponseBody
+    public List<ResurseUmane> getUsersOnProject(@PathVariable long idProiect) {
+        return projectsService.getUsersOnProject(idProiect);
+    }
+
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER','ROLE_SUPERUSER')")
+    @RequestMapping(value = "/unassign-user-from-project/{idUserOnProject}", method = RequestMethod.GET)
+    @ResponseBody
+    public JSONResponseWithId removeUserFromProject(@PathVariable long idUserOnProject) {
+        JSONResponseWithId response = new JSONResponseWithId();
+
+        UserOnProject removed = projectsService.removePersoanaFromProiect(idUserOnProject);
+        response.setMessage(String.format("%s a fost exclus din %s", removed.getPersoana().getFullName(), removed.getProiect().getNumeProiect()));
+        return response;
+    }
+
     @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
-    @RequestMapping(value = "/getclients", method = RequestMethod.GET, produces = "application/json")
+    @RequestMapping(value = "/getclients", method = RequestMethod.GET)
     @ResponseBody
     public List<Client> getClients() {
         return clientService.findAll();
     }
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
-    @RequestMapping(value = "/getcategories", method = RequestMethod.GET, produces = "application/json")
+    @RequestMapping(value = "/getcategories", method = RequestMethod.GET)
     @ResponseBody
     public List<CategorieProiect> getCategories() {
         return projectCategoryService.findAll();
     }
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
-    @RequestMapping(value = "/deleteproject/{id}", method = RequestMethod.GET, produces = "application/json")
+    @RequestMapping(value = "/deleteproject/{id}", method = RequestMethod.GET)
     @ResponseBody
     public JSONResponse deleteProject(@PathVariable long id) {
         JSONResponse response = new JSONResponse();
@@ -97,7 +115,7 @@ public class ProjectsRestController {
     }
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_SUPERUSER')")
-    @RequestMapping(value = "/addproject", method = RequestMethod.POST, produces = "application/json")
+    @RequestMapping(value = "/addproject", method = RequestMethod.POST)
     @ResponseBody
     public JSONResponse addProiect(@Valid @RequestBody ProiectFormModel proiect, BindingResult result) {
         JSONResponse response = new JSONResponse();
@@ -120,7 +138,7 @@ public class ProjectsRestController {
     }
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_SUPERUSER')")
-    @RequestMapping(value = "/addclient", method = RequestMethod.POST, produces = "application/json")
+    @RequestMapping(value = "/addclient", method = RequestMethod.POST)
     @ResponseBody
     public JSONResponse addClient(@Valid @RequestBody ClientFormModel client, BindingResult result) {
         JSONResponse response = new JSONResponse();
@@ -139,7 +157,7 @@ public class ProjectsRestController {
     }
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_SUPERUSER')")
-    @RequestMapping(value = "/addcategory", method = RequestMethod.POST, produces = "application/json")
+    @RequestMapping(value = "/addcategory", method = RequestMethod.POST)
     @ResponseBody
     public JSONResponse addCategory(@Valid @RequestBody CategorieProiect categorieProiect, BindingResult result) {
         JSONResponse response = new JSONResponse();
@@ -155,6 +173,13 @@ public class ProjectsRestController {
             }
         }
         return response;
+    }
+
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_SUPERUSER')")
+    @RequestMapping(value = "/add-persoana-to-project", method = RequestMethod.POST)
+    @ResponseBody
+    public UserOnProject addPersoanaToProiect(@RequestBody PersonOnProjectFormModel personOnProject) {
+        return projectsService.assignPersoanaToProiect(personOnProject);
     }
 
     private Map<String, String> getValidationErrorMap(BindingResult result) {

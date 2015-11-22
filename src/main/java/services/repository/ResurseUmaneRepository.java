@@ -11,4 +11,6 @@ public interface ResurseUmaneRepository extends CrudRepository<ResurseUmane, Lon
     ResurseUmane findByIdUser(User idUser);
 
     List<ResurseUmane> findAllByNumeStartingWithOrderByNumeAsc(String firstLetter);
+
+    ResurseUmane findByFullNameEquals(String fullName);
 }

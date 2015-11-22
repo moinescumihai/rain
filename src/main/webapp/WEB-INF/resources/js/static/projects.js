@@ -1,7 +1,11 @@
-var addProjectForm = $('#modal-addProiect-form');
-var addClientForm = $('#modal-addClient-form');
-var addCategoryForm = $('#modal-addCategory-form');
-var projectsTable;
+var addProjectForm = $('#modal-addProiect-form'),
+    addClientForm = $('#modal-addClient-form'),
+    addCategoryForm = $('#modal-addCategory-form'),
+    $persoaneHolder = $('#persoane-holder'),
+    $persoaneModal = $('#modal-persoane'),
+    $addPersoanaForm = $('#add-persoana-to-project-form'),
+    alertType = ['alert-primary', 'alert-success', 'alert-warning', 'alert-info'],
+    projectsTable;
 
 var getClients = function (container) {
     var clientsSelect = $('#' + container);
@@ -152,6 +156,54 @@ var getProjects = function () {
 
 };
 
+var getPersoaneForProject = function (idProject) {
+    var token = $('meta[name="_csrf"]').prop('content'),
+        header = $('meta[name="_csrf_header"]').prop('content'),
+        randomAlertType;
+
+    $.ajax({
+        method: 'get',
+        dataType: 'json',
+        url: '/app/secure/projects/get-users-on-project/' + idProject,
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader(header, token);
+        },
+        success: function (response) {
+            $persoaneHolder.html(EMPTY);
+            $persoaneHolder.data('idProiect', idProject);
+            $('#add-persoana-to-project-idProiect').val(idProject);
+            $.each(response, function (index, mapping) {
+                randomAlertType = alertType[Math.floor(Math.random() * alertType.length)];
+                $persoaneHolder.append(
+                    '<div id="' + mapping.idUserOnProject + '-user-on-project" class="col-md-4 alert ' + randomAlertType + ' alert-dismissible" role="alert">' +
+                    '<button type="button" class="close" data-dismiss="alert" aria-label="&Icirc;nchide"><span aria-hidden="true">&times;</span></button>' +
+                    mapping.persoana.fullName +
+                    '</div>');
+            });
+        },
+        error: function () {
+            showNotification('Error. Please try again later.', 'Error', ERROR);
+        }
+    });
+};
+
+var unassignUserFromProject = function (idUserOnProject) {
+    var token = $("meta[name='_csrf']").prop('content'),
+        header = $("meta[name='_csrf_header']").prop('content');
+
+    $.ajax({
+        method: 'get',
+        dataType: 'json',
+        url: '/app/secure/projects/unassign-user-from-project/' + idUserOnProject,
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader(header, token);
+        },
+        success: function (response) {
+            showNotification(response.message, 'Success', SUCCESS);
+        }
+    });
+};
+
 $(document).ready(function () {
     $('#projects').addClass('active');
 
@@ -170,12 +222,12 @@ $(document).ready(function () {
                         var data = $($(this)[0]).data('load').split('=');
                         var idProject = data[1];
                         retValue = '<div class="col-md-6"><ul class="popover-options">'
-                            + '<li><a><span class="fa fa-cog fa-fw">&nbsp;</span>&nbsp; Set&abreve;ri</a></li>'
+                            + '<li><a><span class="fa fa-cog fa-fw">&nbsp;</span>&nbsp; Editeaz&abreve;</a></li>'
                             + '<li><a><span class="fa fa-archive fa-fw">&nbsp;</span>&nbsp; Arhiv&abreve;</a></li>'
                             + '<li><a id="pop-proj-del-' + idProject + '"><span class="fa fa-trash-o fa-fw">&nbsp;</span>&nbsp; &\#350;terge</a></li>'
                             + '</ul></div>'
                             + '<div class="col-md-6"><ul class="popover-options">'
-                            + '<li><a><span class="fa fa-group fa-fw">&nbsp;</span>&nbsp; Persoane</a></li>'
+                            + '<li><a id="pop-proj-persoane-' + idProject + '"><span class="fa fa-group fa-fw">&nbsp;</span>&nbsp; Persoane</a></li>'
                             + '<li><a><span class="fa fa-tasks fa-fw">&nbsp;</span>&nbsp; Sarcini</a></li>'
                             + '<li><a><span class="fa fa-paperclip fa-fw">&nbsp;</span>&nbsp; Fi&\#x219;iere</a></li>'
                             + '<li><a><span class="fa fa-line-chart fa-fw">&nbsp;</span>&nbsp; Rapoarte</a></li>'
@@ -188,12 +240,48 @@ $(document).ready(function () {
         )
     });
 
-    $(document).on('click', 'a[id^="pop-proj-del-"]', function (e) {
-        var idProject = $(this).prop('id').replace('pop-proj-del-', '');
-        confirmModal('delete-project-confirm-' + idProject, 'E&#x219;ti sigur c&abreve; vrei s&abreve; &#x219;tergi proiectul?');
+    var persoane = new Bloodhound({
+        datumTokenizer: Bloodhound.tokenizers.obj.whitespace('fullName'),
+        queryTokenizer: Bloodhound.tokenizers.whitespace,
+        // url points to a json file that contains an array of country names, see
+        // https://github.com/twitter/typeahead.js/blob/gh-pages/data/countries.json
+        prefetch: '../app/secure/inventory/getpersoane'
     });
 
-    $(document).on('click', 'button[id^=delete-project-confirm-]', function (e) {
+    $('#add-persoana-to-project-fullName').typeahead({
+            hint: true,
+            highlight: true,
+            minLength: 1
+        },
+        {
+            name: 'persoane',
+            display: 'fullName',
+            source: persoane,
+            templates: {
+                empty: [
+                    '<div class="empty-message">',
+                    'Utilizatorul nu a fost g&#259;sit',
+                    '</div>'
+                ].join('\n')
+            }
+        });
+
+    $(document).on('click', 'a[id^="pop-proj-persoane-"]', function (event) {
+        var idProject = $(this).prop('id').replace(/pop-proj-persoane-/g, '');
+        $persoaneModal.modal('show');
+        getPersoaneForProject(idProject);
+
+        event.preventDefault();
+    });
+
+    $(document).on('click', 'a[id^="pop-proj-del-"]', function (event) {
+        var idProject = $(this).prop('id').replace(/pop-proj-del-/g, '');
+        confirmModal('delete-project-confirm-' + idProject, 'E&#x219;ti sigur c&abreve; vrei s&abreve; &#x219;tergi proiectul?');
+
+        event.preventDefault();
+    });
+
+    $(document).on('click', 'button[id^=delete-project-confirm-]', function (event) {
         var idProject = $(this).prop('id').replace('delete-project-confirm-', '');
         var modalConfirm;
         idProject = idProject.replace('-yes', '');
@@ -201,6 +289,8 @@ $(document).ready(function () {
         deleteProject(idProject);
         modalConfirm.modal('hide');
         $('body').remove(modalConfirm);
+
+        event.preventDefault();
     });
 
     addCategoryForm.validate({
@@ -212,7 +302,7 @@ $(document).ready(function () {
         }
     });
 
-    addCategoryForm.on('submit', function (e) {
+    addCategoryForm.on('submit', function (event) {
         if (!$(this).valid()) {
             return;
         }
@@ -254,7 +344,8 @@ $(document).ready(function () {
                 showNotification('Error. Please try again later.', 'Error', ERROR);
             }
         });
-        e.preventDefault();
+
+        event.preventDefault();
     });
 
     $(document).on('hidden.bs.modal', '#modal-addCategory', function (e) {
@@ -287,8 +378,8 @@ $(document).ready(function () {
         }
     });
 
-    addClientForm.on('submit', function (e) {
-        e.preventDefault();
+    addClientForm.on('submit', function (event) {
+
         if (!$(this).valid()) {
             return;
         }
@@ -340,10 +431,17 @@ $(document).ready(function () {
                 showNotification("Error. Please try again later.", "Error", ERROR);
             }
         });
+
+        event.preventDefault();
     });
 
     $(document).on('hidden.bs.modal', '#modal-addClient', function (e) {
         getClients('addProject-form-client');
+    });
+
+    $(document).on('close.bs.alert', 'div[id$="-user-on-project"]', function (e) {
+        var idUserOnProject = parseInt($(this).prop('id'));
+        unassignUserFromProject(idUserOnProject);
     });
 
     addProjectForm.validate({
@@ -403,6 +501,48 @@ $(document).ready(function () {
                     showNotification(response.message, 'Success', SUCCESS);
                     getProjects();
                 }
+            },
+            error: function () {
+                showNotification('Error. Please try again later.', 'Error', ERROR);
+            }
+        });
+        event.preventDefault();
+    });
+
+    $addPersoanaForm.validate({
+        rules: {
+            required: true
+        }
+    });
+
+    $addPersoanaForm.on('submit', function (event) {
+        if (!$(this).valid()) {
+            return;
+        }
+        var token = $("meta[name='_csrf']").prop("content");
+        var header = $("meta[name='_csrf_header']").prop("content");
+
+        var idProiect = $('#add-persoana-to-project-idProiect').val();
+        var fullName = $('#add-persoana-to-project-fullName').val();
+        var data = {
+            idProiect: idProiect,
+            fullName: fullName
+        };
+
+        $.ajax({
+            type: 'post',
+            url: $(this).prop('action'),
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader(header, token);
+            },
+            dataType: 'json',
+            contentType: 'application/json',
+            mimeType: 'application/json',
+            data: JSON.stringify(data),
+            success: function (response) {
+                $addPersoanaForm.trigger('reset');
+                $addPersoanaForm.closest('.modal').modal('hide');
+                getPersoaneForProject(idProiect);
             },
             error: function () {
                 showNotification('Error. Please try again later.', 'Error', ERROR);

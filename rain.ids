@@ -227,6 +227,7 @@
       <exported-key name="FKcesk0x3fthcar6xux4cldijs4" table="obiectiv" schema="" catalog="raindrop" columns="id_proiect"/>
       <exported-key name="FK57tprh0h6vdxpd72ky63e5lqd" table="risc" schema="" catalog="raindrop" columns="id_proiect"/>
       <exported-key name="FKogshbdkh6sqcmktl0fdyp9r71" table="task" schema="" catalog="raindrop" columns="id_proiect"/>
+      <exported-key name="FKjhy53n351102d4jqvqgkpcrn3" table="users_on_projects" schema="" catalog="raindrop" columns="id_proiect"/>
       <index name="FK2jno8tp4apmqrwwx7h5b8dlqr" unique="false" columns="id_client"/>
       <index name="FKlr037echotai4pal33g0ygdmv" unique="false" columns="id_status_proiect"/>
       <index name="FKqrtyl69osc5rfk2qla9f39rrk" unique="false" columns="id_categorie_proiect"/>
@@ -276,6 +277,7 @@
       <exported-key name="FK47i2jlc9irwwc8std0rbpcmkf" table="task" schema="" catalog="raindrop" columns="id_assignee"/>
       <exported-key name="FKcid7ymw1u9ewy1me63cs7sxyo" table="task" schema="" catalog="raindrop" columns="id_reporter"/>
       <exported-key name="FK5cdrcbteap78vxmsahtgfp877" table="tranzactie_stoc" schema="" catalog="raindrop" columns="id_resurse_umnane"/>
+      <exported-key name="FKmpawdub55s2guqecfg9a5anfa" table="users_on_projects" schema="" catalog="raindrop" columns="id_resurse_umane"/>
       <index name="FK53pxff3xxk05i26gp0vw4ii4h" unique="false" columns="id_client"/>
       <index name="FK8b0wtcnj4llui8xp2k77fmps6" unique="false" columns="tip_contract"/>
       <index name="FKd2cnubtfp39uc0tloew1m0whc" unique="false" columns="id_tara"/>
@@ -486,6 +488,20 @@
       <column name="role" sqlType="VARCHAR" precision="150" scale="0" nullable="false" jdbcType="12"/>
       <column name="username" sqlType="VARCHAR" precision="150" scale="0" nullable="false" jdbcType="12"/>
       <primary-key name="PRIMARY" columns="id_role"/>
+    </table>
+    <table name="users_on_projects" schema="" catalog="raindrop" type="TABLE">
+      <column name="id_user_on_project" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" autoIncrement="true"/>
+      <column name="creat_de" sqlType="VARCHAR" precision="150" scale="0" nullable="false" jdbcType="12"/>
+      <column name="creat_la" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93"/>
+      <column name="modificat_de" sqlType="VARCHAR" precision="150" scale="0" nullable="true" jdbcType="12"/>
+      <column name="modificat_la" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93"/>
+      <column name="id_resurse_umane" sqlType="BIGINT" precision="19" scale="0" nullable="true" jdbcType="-5"/>
+      <column name="id_proiect" sqlType="BIGINT" precision="19" scale="0" nullable="true" jdbcType="-5"/>
+      <primary-key name="PRIMARY" columns="id_user_on_project"/>
+      <foreign-key name="FKjhy53n351102d4jqvqgkpcrn3" columns="id_proiect" ref-table="proiect" ref-schema="" ref-catalog="raindrop" ref-columns="id_proiect" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="FKmpawdub55s2guqecfg9a5anfa" columns="id_resurse_umane" ref-table="resurse_umane" ref-schema="" ref-catalog="raindrop" ref-columns="id_resurse_umane" update-rule="3" delete-rule="3" deferrability="2"/>
+      <index name="FKjhy53n351102d4jqvqgkpcrn3" unique="false" columns="id_proiect"/>
+      <index name="FKmpawdub55s2guqecfg9a5anfa" unique="false" columns="id_resurse_umane"/>
     </table>
   </data-source>
 </component>

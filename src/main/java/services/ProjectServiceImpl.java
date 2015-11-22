@@ -1,6 +1,9 @@
 package services;
 
 import model.domain.Proiect;
+import model.domain.ResurseUmane;
+import model.domain.UserOnProject;
+import model.forms.PersonOnProjectFormModel;
 import model.forms.ProiectFormModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import services.repository.ProiectRepository;
 import services.repository.StatusProiectRepository;
+import services.repository.UserOnProjectRepository;
 
 import java.util.Collections;
 import java.util.List;
@@ -17,8 +21,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 @Service
-public class ProjectsServiceImpl implements ProjectsService {
-    private static final Logger LOGGER = LoggerFactory.getLogger(ProjectsServiceImpl.class);
+public class ProjectServiceImpl implements ProjectsService {
+    private static final Logger LOGGER = LoggerFactory.getLogger(ProjectServiceImpl.class);
     private static final int DELETED = 1;
     private static final int NOT_DELETED = 0;
 
@@ -30,6 +34,11 @@ public class ProjectsServiceImpl implements ProjectsService {
     private ClientServiceImpl clientService;
     @Autowired
     private ProjectCategoryService projectCategoryService;
+    @Autowired
+    private UserOnProjectRepository userOnProjectRepository;
+    @Autowired
+    private ResurseUmaneService resurseUmaneService;
+
 
     @Override
     public List<Proiect> findAll() {
@@ -57,7 +66,7 @@ public class ProjectsServiceImpl implements ProjectsService {
     @Override
     @Transactional
     public Proiect saveProject(ProiectFormModel entity) {
-        Pattern pattern = Pattern.compile("^([a-zA-Z0-9]{4}).{0,}$");
+        Pattern pattern = Pattern.compile("^([a-zA-Z0-9]{4}).*$");
         Matcher matcher = pattern.matcher(entity.getNumeProiect());
         Proiect proiect = new Proiect();
         proiect.setNumeProiect(entity.getNumeProiect());
@@ -101,4 +110,53 @@ public class ProjectsServiceImpl implements ProjectsService {
             throw new RuntimeException(msg, e);
         }
     }
+
+    @Override
+    public List<ResurseUmane> getUsersOnProject(long idProiect) {
+        List<ResurseUmane> usersOnProject;
+        Proiect proiect = proiectRepository.findOne(idProiect);
+        try {
+            usersOnProject = userOnProjectRepository.findAllByProiectEquals(proiect);
+
+        } catch (DataAccessException e) {
+            LOGGER.info(String.format("No users assigned to project %s", proiect.getNumeProiect()));
+            usersOnProject = Collections.emptyList();
+        }
+        return usersOnProject;
+    }
+
+    @Override
+    public UserOnProject removePersoanaFromProiect(ResurseUmane persoana, Proiect proiect) {
+        UserOnProject toDelete = userOnProjectRepository.findByPersoanaAndProiectEquals(persoana, proiect);
+
+        return removePersoanaFromProiect(toDelete.getIdUserOnProject());
+    }
+
+    @Override
+    public UserOnProject removePersoanaFromProiect(long idUserOnProject) {
+        UserOnProject toDelete = userOnProjectRepository.findOne(idUserOnProject);
+
+        userOnProjectRepository.delete(toDelete);
+
+        return toDelete;
+    }
+
+    @Override
+    @Transactional
+    public UserOnProject assignPersoanaToProiect(PersonOnProjectFormModel personOnProject) {
+        ResurseUmane persoana = resurseUmaneService.findByFullNameEquals(personOnProject.getFullName());
+        Proiect proiect = proiectRepository.findOne(personOnProject.getIdProiect());
+        UserOnProject mapping = userOnProjectRepository.findByPersoanaAndProiectEquals(persoana, proiect);
+        if (mapping == null) {
+            mapping = new UserOnProject();
+            mapping.setPersoana(persoana);
+            mapping.setProiect(proiect);
+
+            userOnProjectRepository.save(mapping);
+        }
+
+        return mapping;
+    }
+
+
 }
