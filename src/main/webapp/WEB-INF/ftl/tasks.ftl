@@ -15,10 +15,10 @@
     <div class="row task-container"></div>
 
         [@modalForm "modal-addTask" "TASKS.ADD_TASK" "/app/secure/tasks/add-task" "OK" "tasks" "check"]
-            [#include "dialogs/addTaskForm.ftl"]
+            [#include "dialogs/taskForm.ftl"]
         [/@modalForm]
     [/@content]
 [/@layout.basic]
 
-<script src="/js/jquery-ui.min.js"></script>
-<script src="/js/static/tasks.js"></script>
+<script src="js/jquery-ui.min.js"></script>
+<script src="js/static/tasks.js"></script>

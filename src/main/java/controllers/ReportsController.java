@@ -12,7 +12,6 @@ public class ReportsController {
     public ModelAndView reports() {
         ModelAndView model = new ModelAndView();
 
-
         model.setViewName("reports");
 
         return model;

@@ -27,7 +27,6 @@ public class FilesServiceImpl implements FilesService {
     @Autowired
     private StocRepository stocRepository;
 
-
     @Override
     public String writeFileToDisk(MultipartFile file) {
         byte[] bytes;
@@ -36,15 +35,29 @@ public class FilesServiceImpl implements FilesService {
         String contextDirName = System.getProperty("catalina.home") + File.separator + "attachments";
         File dir = new File(contextDirName);
         if (!dir.exists()) {
-            dir.mkdirs();
+            boolean attachmentsDirWasCreated = dir.mkdirs();
+            if(!attachmentsDirWasCreated) {
+                String errorMessage = "Raindrop does not have enough permissions to create 'attachments' directory";
+                LOGGER.error(errorMessage);
+                throw new IllegalStateException(errorMessage);
+            }
         }
         // Create the file on server
         String filePath = dir + File.separator + fileName;
         File serverFile = new File(filePath);
         try (BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(serverFile))) {
             serverFile.createNewFile();
-            bytes = file.getBytes();
-            stream.write(bytes);
+            serverFile.setExecutable(true);
+            serverFile.setReadable(true);
+            serverFile.setWritable(true);
+            if (serverFile.exists()) {
+                bytes = file.getBytes();
+                stream.write(bytes);
+            } else {
+                String errorMessage = "Raindrop does not have enough permissions to create file on disk";
+                LOGGER.error(errorMessage);
+                throw new IllegalStateException(errorMessage);
+            }
         } catch (IOException e) {
             LOGGER.error(e.getMessage(), e);
         }

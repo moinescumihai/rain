@@ -1,5 +1,7 @@
 package model.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 
@@ -35,6 +37,7 @@ public class User extends BaseEntity {
     }
 
     @Basic
+    @JsonIgnore
     @Column(name = "password", nullable = false, insertable = true, updatable = true, length = 255)
     public String getPassword() {
         return password;

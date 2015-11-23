@@ -63,4 +63,9 @@ public class ResurseUmaneServiceImpl implements ResurseUmaneService {
             return resurseUmaneRepository.findAllByNumeStartingWithOrderByNumeAsc(firstLetter);
         }
     }
+
+    @Override
+    public ResurseUmane findByFullNameEquals(String fullName) {
+        return resurseUmaneRepository.findByFullNameEquals(fullName);
+    }
 }

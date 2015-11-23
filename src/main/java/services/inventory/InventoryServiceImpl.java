@@ -136,9 +136,6 @@ public class InventoryServiceImpl implements InventoryService {
     private Stoc saveDefaultStoc(Stoc entity) {
         String codStoc = String.valueOf(UUID.randomUUID());
         entity.setCodStoc(codStoc);
-        entity.setFactura(filesService.getStocImage(1L));
-        entity.setImagine(filesService.getStocImage(1L));
-        entity.setIdResurseUmane(resurseUmaneService.findOne(1L));
 
         return stocRepository.save(entity);
     }

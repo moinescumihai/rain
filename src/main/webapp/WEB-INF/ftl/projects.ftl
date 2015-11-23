@@ -31,6 +31,22 @@
         [@modalForm "modal-addCategory" "MODAL.ADDCATEGORY" "/app/secure/projects/addcategory" "MODAL.ADDCATEGORY" "tag"]
             [#include "dialogs/addCategoryForm.ftl"]
         [/@modalForm]
+
+        [#assign addButton="<button type='button' data-toggle='modal'  data-target='#add-persoana-to-project'  class='btn btn-success'><i class='fa fa-plus'></i> Adaug&#259;</button>"/]
+        [@modalDialog "modal-persoane" "PERSONNEL" "tag" addButton]
+        <div class="well">
+            <i class="fa fa-info-circle"></i>
+            [@spring.message "LISTA_PERSOANE.INFO"/]
+        </div>
+        <div id="persoane-holder"></div>
+        [/@modalDialog]
+
+        [@modalForm "add-persoana-to-project" "ADD_PERSOANA" "/app/secure/projects/add-persoana-to-project" "MODAL.ADD" "user-plus"]
+            [#include "dialogs/addPersoanaToProiect.ftl"]
+        [/@modalForm]
     [/@content]
 [/@layout.basic]
+<script src="/plugins/typeahead/bloodhound.min.js"></script>
+<script src="/plugins/typeahead/typeahead.bundle.min.js"></script>
+<script src="/plugins/typeahead/typeahead.jquery.min.js"></script>
 <script src="/js/static/projects.js"></script>

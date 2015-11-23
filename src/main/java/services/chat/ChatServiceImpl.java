@@ -15,7 +15,6 @@ public class ChatServiceImpl implements ChatService {
     ChatMessageRepository chatMessageRepository;
 
     @Override
-
     public ChatMessage save(ChatMessage chatMessage) {
         return chatMessageRepository.save(chatMessage);
     }

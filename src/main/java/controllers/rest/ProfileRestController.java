@@ -1,11 +1,12 @@
 package controllers.rest;
 
+import model.common.JSONResponseWithId;
 import model.domain.ResurseUmane;
 import model.domain.Tara;
+import model.forms.PasswordString;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import services.ListaTariService;
@@ -14,8 +15,7 @@ import services.ProfileService;
 import java.beans.PropertyEditorSupport;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
 
 @RestController
 @RequestMapping("/app/secure/profile")
@@ -46,13 +46,15 @@ public class ProfileRestController {
     @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
     @RequestMapping(value = "/{username}", method = RequestMethod.GET, produces = "application/json")
     @ResponseBody
-    public ResurseUmane getRaindropUser(@PathVariable("username") String username, Model model) {
-        Map<String, String> listaTari = new HashMap<>();
-        for (Tara tariList : listaTariService.getTari()) {
-            listaTari.put(String.valueOf(tariList.getIdTara()), tariList.getNume());
-        }
-        model.addAttribute("listaTari", listaTari);
+    public ResurseUmane getRaindropUser(@PathVariable("username") String username) {
         return profileService.getRaindropUser(username);
+    }
+
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
+    @RequestMapping(value = "/get-tari", method = RequestMethod.GET)
+    @ResponseBody
+    public List<Tara> getTari() {
+        return listaTariService.getTari();
     }
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
@@ -60,5 +62,16 @@ public class ProfileRestController {
     @ResponseBody
     public ResurseUmane getLoggedInUser() {
         return profileService.getLoggedInRaindropUser();
+    }
+
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
+    @RequestMapping(value = "/change-password", method = RequestMethod.POST, consumes = "application/json")
+    @ResponseBody
+    public JSONResponseWithId changePassword(@RequestBody PasswordString password) {
+        JSONResponseWithId response = new JSONResponseWithId();
+        String message = profileService.changePassword(password.getPassword());
+        response.setMessage(message);
+
+        return response;
     }
 }

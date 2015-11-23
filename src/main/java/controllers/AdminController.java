@@ -12,7 +12,6 @@ public class AdminController {
     public ModelAndView reports() {
         ModelAndView model = new ModelAndView();
 
-
         model.setViewName("admin");
 
         return model;

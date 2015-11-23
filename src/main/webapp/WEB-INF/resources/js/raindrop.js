@@ -8,6 +8,12 @@ const EMPTY = '';
 const UNSELECT = [];
 const ZERO = 0;
 const chosenUpdated = 'chosen:updated';
+var $changePasswordForm = $('#modal-changePassword-form'),
+    $changePasswordModal = $('#modal-changePassword');
+
+jQuery.validator.addMethod("samePasswords", function (value, element, param) {
+    return this.optional(element) || passwordsAreTheSame();
+}, "Parolele nu se potrivesc");
 
 if (!('contains' in String.prototype)) {
     String.prototype.contains = function (str, startIndex) {
@@ -24,6 +30,10 @@ $.extend($.fn.dataTable.defaults, {
         "url": '/fonts/ro_RO.txt'
     }
 });
+
+var passwordsAreTheSame = function () {
+    return $('#changePassword-form-password').val() === $('#changePassword-form-repeatPassword').val();
+};
 
 var popoverDefaultSettings = {
     placement: 'bottom',//values: auto,top,right,bottom,left,top-right,top-left,bottom-right,bottom-left,auto-top,auto-right,auto-bottom,auto-left
@@ -142,14 +152,14 @@ var showModal = function (id, title, content, buttons) {
     var modalHtml = EMPTY;
     var modalId = '#' + id;
     if (!buttons) {
-        buttons = '<button type="button" id="' + id + '-close" class="btn btn-default" data-dismiss="modal"><span class="fa fa-times"></span>&nbsp;&nbsp;Close</button>';
+        buttons = '<button type="button" id="' + id + '-close" class="btn btn-default" data-dismiss="modal"><span class="fa fa-times"></span>&nbsp;&nbsp;&Icirc;nchide</button>';
     }
     if (id && title && content) {
         modalHtml += '<div class="modal fade" id="' + id + '">'
                 .concat('<div class="modal-dialog modal-xlg">')
                 .concat('<div class="modal-content">')
                 .concat('<div class="modal-header">')
-                .concat('<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>')
+                .concat('<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;<span class="sr-only">&Icirc;nchide</span></button>')
                 .concat('<h4 class="modal-title">').concat(title).concat('</h4></div>')
                 .concat('<div class="modal-body">')
                 .concat(content)
@@ -182,7 +192,7 @@ var confirmModal = function (id, title) {
             .concat('<div class="modal-dialog">')
             .concat('<div class="modal-content">')
             .concat('<div class="modal-header">')
-            .concat('<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>')
+            .concat('<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>')
             .concat('<h4 class="modal-title"><span class="fa fa-question-circle">&nbsp;</span>').concat("E&#x219;ti sigur?").concat('</h4></div>')
             .concat('<div class="modal-body">')
             .concat('<h4>' + title + '</h4>')
@@ -257,8 +267,49 @@ jQuery.validator.setDefaults({
 
 });
 
+var getPersoaneForContainer = function (container) {
+    var persoaneSelect = $('#' + container);
+    persoaneSelect.html(EMPTY);
+    persoaneSelect.append("<option></option>");
+    $.ajax({
+        type: 'get',
+        url: '/app/secure/inventory/getpersoane',
+        contentType: "application/json",
+        success: function (response) {
+            $.each(response, function (index, persoana) {
+                persoaneSelect.append($("<option>").val(persoana.idResurseUmane).text(persoana.prenume + ' ' + persoana.nume));
+            });
+            persoaneSelect.trigger(chosenUpdated);
+        },
+        error: function (e) {
+            showNotification("Eroare. Re&icirc;nc&abreve;rca&#539;i pagina." + e.message, "Eroare", DANGER);
+        }
+    });
+};
+
+var getTari = function (container) {
+    var select = $('#' + container);
+    select.html(EMPTY);
+    select.append("<option></option>");
+    $.ajax({
+        type: 'get',
+        url: '/app/secure/profile/get-tari',
+        contentType: "application/json",
+        success: function (response) {
+            $.each(response, function (index, tara) {
+                select.append($("<option>").val(tara.idTara).text(tara.nume));
+            });
+            select.trigger(chosenUpdated);
+        },
+        error: function (e) {
+            showNotification("Eroare. Re&icirc;nc&abreve;rca&#539;i pagina." + e.message, "Eroare", DANGER);
+        }
+    });
+};
+
 var getProfile = function () {
-    var token = $("meta[name='_csrf']").prop("content"),
+    var profile = {},
+        token = $("meta[name='_csrf']").prop("content"),
         header = $("meta[name='_csrf_header']").prop("content"),
 
         nume = $('#userProfile-form-nume'),
@@ -273,10 +324,9 @@ var getProfile = function () {
         oras = $('#userProfile-form-oras'),
         judet = $('#userProfile-form-judet'),
         codPostal = $('#userProfile-form-codPostal'),
-        idTara = $('#userProfile-form-idTara'),
+        idTara = $('#userProfile-form-tara'),
         username = $('#userProfile-form-username'),
         cnp = $('#userProfile-form-cnp'),
-        tipContract = $('#userProfile-form-tipContract'),
         serieCi = $('#userProfile-form-serieCi'),
         nrCi = $('#userProfile-form-nrCi'),
         dataNastere = $('#userProfile-form-dataNastere'),
@@ -292,6 +342,7 @@ var getProfile = function () {
         },
         async: false,
         success: function (response) {
+            profile = response;
             nume.val(response.nume);
             prenume.val(response.prenume);
             email.val(response.email);
@@ -307,7 +358,6 @@ var getProfile = function () {
             idTara.val(response.idTara.idTara);
             username.val(response.idUser.username);
             cnp.val(response.cnp);
-            tipContract.val(response.tipContract.idTipContract);
             serieCi.val(response.serieCi);
             nrCi.val(response.nrCi);
             dataNastere.val(response.dataNastere);
@@ -319,6 +369,7 @@ var getProfile = function () {
             showNotification("Error. Please try again later." + e.Message, "Error", DANGER);
         }
     });
+    return profile;
 };
 
 Array.prototype.remove = function () {
@@ -363,11 +414,13 @@ $(document).ready(function () {
     $('.file-inputs').bootstrapFileInput();
     $('[data-toggle="tooltip"]').tooltip();
 
+    getTari('userProfile-form-tara');
     $('.chosen-select').chosen({
-        disable_search_threshold: 10,
+        disable_search_threshold: 6,
         allow_single_deselect: true,
         inherit_select_classes: true,
         search_contains: true,
+        no_results_text: 'Nu exista optiuni',
         width: '100%'
     });
 
@@ -377,9 +430,15 @@ $(document).ready(function () {
     });
 
     $('a').on('click', function () {
-        var linkLocation = $($(this).prop('href')).offset();
+        var linkLocation = $($(this).attr('href')).offset();
         if (linkLocation)
             $('html,body').animate({scrollTop: linkLocation.top}, "10000", 'linear');
+    });
+
+    $(document).on('click', '.date .input-group-addon', function (event) {
+        $(this).closest('.form-group').find('.date-picker').focus();
+
+        event.preventDefault();
     });
 
     var profileModalForm = $('#modal-userProfile-form');
@@ -452,13 +511,72 @@ $(document).ready(function () {
         $(this).remove();
     });
 
+    $(document).on('change', '#changePassword-form-showPassword', function () {
+        if ($(this).is(':checked')) {
+            $('#changePassword-form-password').prop('type', 'text');
+            $('#changePassword-form-repeatPassword').prop('type', 'text');
+        } else {
+            $('#changePassword-form-password').prop('type', 'password');
+            $('#changePassword-form-repeatPassword').prop('type', 'password');
+        }
+    });
 
-});
-$(document).ajaxStart(function () {
-    //ajaxSpinnerOn();
-});
+    $changePasswordForm.validate({
+        onfocusout: false,
+        rules: {
+            showPassword: {
+                required: false
+            },
+            password: {
+                minlength: 8,
+                samePasswords: true
+            },
+            repeatPassword: {
+                minlength: 8,
+                samePasswords: true
+            }
+        }
+    });
 
-$(document).ajaxStop(function () {
-    //ajaxSpinnerOff();
+    $changePasswordForm.on('submit', function (event) {
+        if (!$(this).valid()) {
+            return;
+        }
+        var $changePassword = $('#changePassword-form-password');
+        var $changeRepeatPassword = $('#changePassword-form-repeatPassword'),
+            token = $("meta[name='_csrf']").prop('content'),
+            header = $("meta[name='_csrf_header']").prop('content'),
+            password = $changePassword.val(),
+            data = {
+                password: password
+            };
+
+
+        $.ajax({
+            type: 'post',
+            url: $(this).prop('action'),
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader(header, token);
+            },
+            dataType: 'json',
+            contentType: 'application/json',
+            mimeType: 'application/json',
+            data: JSON.stringify(data),
+            success: function (response) {
+                $changePassword.val(EMPTY);
+                $changeRepeatPassword.val(EMPTY);
+                $('#changePassword-form-showPassword').prop('checked', false);
+                $changePassword.prop('type', 'password');
+                $changeRepeatPassword.prop('type', 'password');
+                $changePasswordModal.modal('hide');
+                showNotification(response.message, 'Success', SUCCESS);
+            },
+            error: function () {
+                showNotification("Eroare. Re&icirc;nc&abreve;rca&#539;i pagina.", "Eroare", DANGER);
+            }
+        });
+
+        event.preventDefault();
+    });
 });
 

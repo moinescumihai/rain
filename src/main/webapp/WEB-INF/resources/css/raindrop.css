@@ -76,7 +76,7 @@ body {
     min-height: 100%;
     max-height: none;
     overflow: auto;
-    padding: 20px;
+    padding: 30px 20px 20px 20px;
     background-color: #F7F7F7;
     border-right: 1px solid #D1D1D1;
 }
@@ -1105,7 +1105,8 @@ div[id$='-container'] {
 
 div[id$='-container'] div.todo-task {
     padding-left: 3em;
-    font-size: 12px;
+    font-size: 14px;
+    height: 100px;
 }
 
 div[id$='-container'] div.todo-task i {
@@ -1120,7 +1121,7 @@ div[id$='-container'] div.todo-task input[type=checkbox] {
 }
 
 .ui-sortable > div.todo-task {
-    padding: 15px 0 15px 35px !important;
+    padding: 15px 0 15px 20px !important;
     position: relative;
     background: #f5f6f8;
     margin-bottom: 2px;
@@ -2033,6 +2034,10 @@ tr.shown td.details-control {
     .modal-mlg {
         width: 1200px;
     }
+
+    .modal-md {
+        width: 1000px;
+    }
 }
 
 .text-bold {
@@ -2405,4 +2410,90 @@ div[id^="history"] .modal-body {
 
 .content-div {
     margin-top: 70px;
+}
+
+.badge.estimare {
+    position: absolute;
+    right: 16px;
+    bottom: 10px;
+}
+
+.todo-task.selected {
+    background-color: #FBE594 !important;
+}
+
+.todo-task:hover {
+    background-color: #F1F1F1 !important;
+}
+
+.todo-task.selected:hover {
+    background-color: #FFEAA5 !important;
+}
+
+.panel-default > .panel-heading {
+    background-color: inherit;
+}
+
+.task-container .panel-default {
+    border-color: #F3F3F3;
+}
+
+.task-user-photo {
+    position: absolute;
+    bottom: 10px;
+    left: 20px;
+    width: 25px;
+    height: 25px;
+}
+
+@media (min-width: 768px) {
+    .modal-msm {
+        width: 450px;
+    }
+}
+
+#persoane-holder .alert-dismissible {
+    padding: 4px 35px 0 5px !important;
+}
+
+#persoane-holder .alert {
+    padding: 5px;
+    margin-bottom: 0;
+    border: 1px solid transparent;
+    border-radius: 4px;
+}
+
+.tab-pane .row {
+    padding: 15px;
+}
+
+.modal-body .row {
+    padding: 15px;
+}
+
+.inline-block {
+    display: inline-block !important;
+    position: relative;
+}
+
+.alert-primary {
+    color: #337ab7;
+    background-color: #89cbff;
+    border-color: #73c0ff;
+}
+
+.twitter-typeahead {
+    display: block !important;
+}
+
+.tt-menu {
+    width: 100%;
+    padding: 9px;
+    border: 1px solid #CCCCCC;
+    border-radius: 3px;
+    text-align: left;
+}
+
+.date .input-group-addon {
+    cursor: pointer;
 }

@@ -12,7 +12,6 @@ public class HRController {
     public ModelAndView hr() {
         ModelAndView model = new ModelAndView();
 
-
         model.setViewName("hr");
 
         return model;
