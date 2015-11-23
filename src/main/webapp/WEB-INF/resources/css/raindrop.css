@@ -2493,3 +2493,7 @@ div[id^="history"] .modal-body {
     border-radius: 3px;
     text-align: left;
 }
+
+.date .input-group-addon {
+    cursor: pointer;
+}

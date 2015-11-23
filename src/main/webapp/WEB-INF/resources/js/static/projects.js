@@ -175,7 +175,7 @@ var getPersoaneForProject = function (idProject) {
             $.each(response, function (index, mapping) {
                 randomAlertType = alertType[Math.floor(Math.random() * alertType.length)];
                 $persoaneHolder.append(
-                    '<div id="' + mapping.idUserOnProject + '-user-on-project" class="col-md-4 alert ' + randomAlertType + ' alert-dismissible" role="alert">' +
+                    '<div id="' + mapping.idUserOnProject + '-user-on-project" class="col-md-3 alert ' + randomAlertType + ' alert-dismissible" role="alert">' +
                     '<button type="button" class="close" data-dismiss="alert" aria-label="&Icirc;nchide"><span aria-hidden="true">&times;</span></button>' +
                     mapping.persoana.fullName +
                     '</div>');
@@ -259,7 +259,7 @@ $(document).ready(function () {
             source: persoane,
             templates: {
                 empty: [
-                    '<div class="empty-message">',
+                    '<div class="empty-message text-muted">',
                     'Utilizatorul nu a fost g&#259;sit',
                     '</div>'
                 ].join('\n')

@@ -159,7 +159,7 @@ var showModal = function (id, title, content, buttons) {
                 .concat('<div class="modal-dialog modal-xlg">')
                 .concat('<div class="modal-content">')
                 .concat('<div class="modal-header">')
-                .concat('<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&#10060;<span class="sr-only">&Icirc;nchide</span></button>')
+                .concat('<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;<span class="sr-only">&Icirc;nchide</span></button>')
                 .concat('<h4 class="modal-title">').concat(title).concat('</h4></div>')
                 .concat('<div class="modal-body">')
                 .concat(content)
@@ -192,7 +192,7 @@ var confirmModal = function (id, title) {
             .concat('<div class="modal-dialog">')
             .concat('<div class="modal-content">')
             .concat('<div class="modal-header">')
-            .concat('<button type="button" class="close" data-dismiss="modal" aria-hidden="true">�</button>')
+            .concat('<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>')
             .concat('<h4 class="modal-title"><span class="fa fa-question-circle">&nbsp;</span>').concat("E&#x219;ti sigur?").concat('</h4></div>')
             .concat('<div class="modal-body">')
             .concat('<h4>' + title + '</h4>')
@@ -285,28 +285,6 @@ var getPersoaneForContainer = function (container) {
             showNotification("Eroare. Re&icirc;nc&abreve;rca&#539;i pagina." + e.message, "Eroare", DANGER);
         }
     });
-};
-
-var substringMatcher = function (strs) {
-    return function findMatches(q, cb) {
-        var matches, substrRegex;
-
-        // an array that will be populated with substring matches
-        matches = [];
-
-        // regex used to determine if a string contains the substring `q`
-        substrRegex = new RegExp(q, 'i');
-
-        // iterate through the pool of strings and for any string that
-        // contains the substring `q`, add it to the `matches` array
-        $.each(strs, function (i, str) {
-            if (substrRegex.test(str)) {
-                matches.push(str);
-            }
-        });
-
-        cb(matches);
-    };
 };
 
 var getTari = function (container) {
@@ -455,6 +433,12 @@ $(document).ready(function () {
         var linkLocation = $($(this).attr('href')).offset();
         if (linkLocation)
             $('html,body').animate({scrollTop: linkLocation.top}, "10000", 'linear');
+    });
+
+    $(document).on('click', '.date .input-group-addon', function (event) {
+        $(this).closest('.form-group').find('.date-picker').focus();
+
+        event.preventDefault();
     });
 
     var profileModalForm = $('#modal-userProfile-form');

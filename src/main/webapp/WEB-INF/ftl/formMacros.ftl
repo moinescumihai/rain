@@ -256,7 +256,7 @@
 
 [#macro modalDialog name title icon additionalButtons]
 <div id="${name}" class="modal fade">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span
