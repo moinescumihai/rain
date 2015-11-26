@@ -1,14 +1,10 @@
 package services.chat;
 
-import model.domain.ChatMessage;
+import model.chat.ChatMessage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.websocket.EncodeException;
-import javax.websocket.OnError;
-import javax.websocket.OnMessage;
-import javax.websocket.OnOpen;
-import javax.websocket.Session;
+import javax.websocket.*;
 import javax.websocket.server.PathParam;
 import javax.websocket.server.ServerEndpoint;
 import java.io.IOException;
@@ -42,4 +38,6 @@ public class ChatEndpoint implements Serializable {
     public void onError(Throwable exception, Session session) {
         LOGGER.info("Error ", exception);
     }
+
+
 }

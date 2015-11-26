@@ -1,3 +1,4 @@
+const ENTER_KEY = 13;
 const SUCCESS = 'success';
 const DANGER = 'danger';
 const ERROR = 'error';
@@ -135,7 +136,7 @@ var toJSDateTime = function (dateParam) {
     var locale = 'ro';
     var returnDate;
     var options = {
-        weekday: 'long',
+        //weekday: 'long',
         year: 'numeric',
         month: 'long',
         day: 'numeric',
@@ -308,6 +309,7 @@ var getTari = function (container) {
 };
 
 var getProfile = function () {
+    startSpinner();
     var profile = {},
         token = $("meta[name='_csrf']").prop("content"),
         header = $("meta[name='_csrf_header']").prop("content"),
@@ -340,7 +342,6 @@ var getProfile = function () {
         beforeSend: function (xhr) {
             xhr.setRequestHeader(header, token);
         },
-        async: false,
         success: function (response) {
             profile = response;
             nume.val(response.nume);
@@ -357,6 +358,7 @@ var getProfile = function () {
             codPostal.val(response.codPostal);
             idTara.val(response.idTara.idTara);
             username.val(response.idUser.username);
+            $('#nick-name').val(response.idUser.username);
             cnp.val(response.cnp);
             serieCi.val(response.serieCi);
             nrCi.val(response.nrCi);
@@ -364,6 +366,7 @@ var getProfile = function () {
             dataAngajare.val(response.dataAngajare);
             zileConcediu.val(response.zileConcediu);
             $('.chosen-select').trigger(chosenUpdated);
+            stopSpinner();
         },
         error: function (e) {
             showNotification("Error. Please try again later." + e.Message, "Error", DANGER);

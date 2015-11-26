@@ -30,6 +30,8 @@
 <script src="js/popover.js"></script>
 <script src="js/chart.min.js"></script>
 <script src="plugins/zTree/jquery.ztree.all-3.5.min.js"></script>
+<script src="plugins/jasny/js/jasny-bootstrap.min.js"></script>
+<script src="js/static/chat.js"></script>
 <script src="js/raindrop.js"></script>
 
 </html>

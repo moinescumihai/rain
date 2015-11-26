@@ -9,4 +9,6 @@
         <span class="version pull-right">[@spring.message "PROJECT.VERSION" /]</span>
     </p>
 </div>
+[#include "chat.ftl"/]
+
 <form action="/logout?${_csrf.parameterName}=${_csrf.token}" method="post" id="logoutForm"></form>

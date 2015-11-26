@@ -12,6 +12,8 @@ import services.user.UserService;
 
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ProfileServiceImpl implements ProfileService {
@@ -42,5 +44,14 @@ public class ProfileServiceImpl implements ProfileService {
         userService.save(userCurent);
 
         return "Parola a fost schimbata cu success";
+    }
+
+    @Override
+    public List<ResurseUmane> getEnabledUsers() {
+        return resurseUmaneService.findAllPersoane()
+                .stream()
+                .filter(persoana -> persoana.getIdUser().getEnabled() == 1 &&
+                        !persoana.getIdUser().getUsername().equals(UserUtils.getLoggedInUsername()))
+                .collect(Collectors.toList());
     }
 }

@@ -58,6 +58,13 @@ public class ProfileRestController {
     }
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
+    @RequestMapping(value = "/get-users", method = RequestMethod.GET)
+    @ResponseBody
+    public List<ResurseUmane> getUsers() {
+        return profileService.getEnabledUsers();
+    }
+
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
     @RequestMapping(value = "/", method = RequestMethod.GET, produces = "application/json")
     @ResponseBody
     public ResurseUmane getLoggedInUser() {
