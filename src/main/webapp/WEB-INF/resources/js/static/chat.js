@@ -49,7 +49,7 @@ var errorCallback = function (error) {
 var generateContact = function (persoana) {
     var username = persoana.idUser.username,
         fullName = persoana.fullName;
-    registerPopup(username, fullName);
+
     return chain($messageTemplate)
         .replace(/\$username\$/g, username)
         .replace(/\$fullName\$/g, fullName);
@@ -71,49 +71,105 @@ var loadContacts = function () {
     });
 };
 
-var displayMessage = function (chatWindow, message) {
-    var $messageLine = (message.sender !== $nickName) ? ('<div class="row msg_container base_receive">'
-    + '<div class="col-md-2 col-xs-2 avatar">'
-    + '<img src="/img/default-avatar.png" class=" img-responsive ">'
-    + '</div>'
-    + '<div class="col-xs-10 col-md-10">'
-    + '<div class="messages msg_receive">'
-    + '<p>' + message.message + '</p>'
-    + '<time datetime="' + message.received + '">' + message.sender + ' &middot; ' + toJSDateTime(message.received) + '</time>'
-    + '</div>'
-    + '</div>'
-    + '</div>') :
+var buildMessage = function (message) {
+    var messageBaseTemplate = '<div class="row msg_container $baseClass$">',
+        messageTemplate = '<div class="col-xs-10 col-md-10"><div class="messages $messageClass$">'
+            + '<p class="selectable">$message$</p>'
+            + '<time datetime="$time$">$time$</time>'
+            + '</div></div>',
+        avatarTemplate = '<div class="col-md-2 col-xs-2 avatar"><img src="/img/user-50x50.png" class="img-responsive"></div>',
+        closingTemplate = '</div>',
+        isForCurrentUser = message.sender === $nickName,
+        usernameReplacement = isForCurrentUser ? $nickName : message.sender,
+        userReplacement = getUserByUsername(usernameReplacement).fullName,
+        messageReplacement = message.message,
+        timeReplacement = toChatTime(new Date(message.received)),
+        baseClassReplacement = isForCurrentUser ? 'base_receive' : 'base_sent',
+        messageClassReplacement = isForCurrentUser ? 'msg_receive' : 'msg_sent',
+        chatMessageTemplate = messageBaseTemplate + (isForCurrentUser ? messageTemplate : (avatarTemplate + messageTemplate)) + closingTemplate;
 
-        ('<div class="row msg_container base_sent">'
-        + '<div class="col-xs-10 col-md-10">'
-        + '<div class="messages msg_sent">'
-        + '<p>' + message.message + '</p>'
-        + '<time datetime="' + message.received + '">' + message.sender + ' &middot; ' + toJSDateTime(message.received) + '</time>'
-        + '</div>'
-        + '</div>'
-        + '<div class="col-md-2 col-xs-2 avatar">'
-        + '<img src="/img/default-avatar.png" class=" img-responsive ">'
-        + '</div>'
-        + '</div>');
-
-    chatWindow.append($messageLine);
-    if (message.sender !== $nickName) {
-        $('#new-message-received').addClass('icon-animated-vertical');
-        $('#message-count').addClass('count-circle count-circle-middle count-circle-red');
-        $('#message-count').text(messageCount + 1);
-    }
-    chatWindow.animate({scrollTop: chatWindow.prop('scrollHeight') - chatWindow.height()});
+    return chain(chatMessageTemplate)
+        .replace(/\$baseClass\$/g, baseClassReplacement)
+        .replace(/\$messageClass\$/g, messageClassReplacement)
+        .replace(/\$user\$/g, userReplacement)
+        .replace(/\$message\$/g, messageReplacement)
+        .replace(/\$time\$/g, timeReplacement);
 };
+
+var newMessageAllert = (function () {
+    var memory = [];
+
+    return function (sender, seen) {
+        var count = memory[sender];
+        if (typeof count === 'undefined') {
+            count = 0;
+        }
+
+        if (seen) {
+            count = -count;
+            memory[sender] = 0;
+        } else {
+            count += 1;
+            memory[sender] = count;
+
+        }
+        return count;
+    }
+})();
+
+var displayMessage = function (chatWindow, message) {
+    var chatMessage = buildMessage(message),
+        $messageCount = $('#message-count'),
+        $messageAnnimation = $('#new-message-received'),
+        sender = message.sender;
+
+    chatWindow.append(chatMessage);
+    if (sender !== $nickName && !chatWindow.closest('.panel').find('input').is(':focus')) {
+        $messageAnnimation.addClass('icon-animated-vertical');
+        $messageCount.addClass('count-circle count-circle-middle count-circle-red');
+        newMessageAllert(sender, false);
+        $messageCount.text(messageCount += 1);
+
+        setTimeout(function () {
+            $messageAnnimation.removeClass('icon-animated-vertical');
+        }, 20000);
+    }
+
+    chatWindow.animate({scrollTop: chatWindow.prop('scrollHeight') - chatWindow.height()}, 100);
+};
+
+var getUserByUsername = (function () {
+    var memory = [];
+    return function (username) {
+        var user = memory[username];
+
+        if (typeof user !== 'object') {
+            $.ajax({
+                type: 'get',
+                url: '/app/secure/profile/' + username,
+                contentType: "application/json",
+                async: false,
+                success: function (response) {
+                    memory = user = response;
+                }
+            })
+        }
+        return user;
+    };
+})();
 
 var onMessageReceived = function (evt) {
     var msg = JSON.parse(JSON.parse(evt).result),
-        chatWindow = $('#' + msg.sender).find('.popup-messages');
+        chatWindowQuery = '#' + msg.sender,
+        chatWindow = $(chatWindowQuery).find('.popup-messages'),
+        username = msg.sender,
+        name = getUserByUsername(username).fullName;
+
+    if (chatWindow.length === 0 && $nickName !== username) {
+        registerPopup(username, name);
+        chatWindow = $(chatWindowQuery).find('.popup-messages');
+    }
     displayMessage(chatWindow, msg);
-
-
-    //setTimeout(function () {
-    //    $('#new-message-received').removeClass('icon-animated-vertical');
-    //}, 20000);
 };
 
 var sendMessage = function (message, receiver) {
@@ -216,7 +272,8 @@ var registerPopup = function (id, name) {
         '</span>' +
         '</div></div></div>';
 
-    document.getElementsByTagName('body')[0].innerHTML = document.getElementsByTagName('body')[0].innerHTML + element;
+    $(document).find('body').prepend(element);
+    //document.getElementsByTagName('body')[0].innerHTML = document.getElementsByTagName('body')[0].innerHTML + element;
 
     popups.unshift(id);
 
@@ -239,58 +296,3 @@ var calculatePopups = function () {
 
     displayPopups();
 };
-
-//recalculate when window is loaded and also when window is resized.
-window.addEventListener('resize', calculatePopups);
-window.addEventListener('load', calculatePopups);
-
-$(document).ready(function () {
-    getProfile();
-    loadContacts();
-    connectToChatserver('raindrop');
-    $('#messages').on('click', function () {
-        $('#chat-window').fadeToggle('600');
-    });
-
-    $(document).on('keypress', '.chat-input', function (event) {
-        if (event.keyCode === ENTER_KEY) {
-            var chatInput = $(this),
-                message = chatInput.val(),
-                receiver = chatInput.closest('.chat-popup').prop('id');
-            sendMessage(message, receiver);
-            chatInput.val(EMPTY).focus();
-
-            event.preventDefault();
-        }
-
-    });
-
-    $(document).on('mouseup', '.chat-popup button', function (event) {
-        var chatInput = $(this).closest('.input-group').find('.chat-input'),
-            message = chatInput.val(),
-            receiver = chatInput.closest('.chat-popup').prop('id');
-        sendMessage(message, receiver);
-        chatInput.val(EMPTY).focus();
-
-        event.preventDefault();
-    });
-
-    $('#leave-room').click(function () {
-        leaveRoom();
-    });
-
-    $(document).on('mouseup', '.chat-popup .close', function (event) {
-        var id = $(this).closest('.chat-popup').prop('id');
-        closePopup(id);
-
-        event.preventDefault();
-    });
-
-    $(document).on('mouseup', '.sidebar-name a', function (event) {
-        var username = $(this).data('username'),
-            name = $(this).data('name');
-        registerPopup(username, name);
-
-        event.preventDefault();
-    });
-});

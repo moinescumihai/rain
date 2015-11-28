@@ -90,7 +90,7 @@
                 </li>
 
                 <li>
-                    <a id="messages" data-toggle="offcanvas" data-target=".navmenu" title="Mesaje">
+                    <a id="messages" data-toggle="offcanvas" data-target=".chat-sidebar" title="Mesaje">
                         <span id="new-message-received" class="fa fa-envelope fa-lg">
                             <span id="message-count"></span>
                         </span>

@@ -149,6 +149,27 @@ var toJSDateTime = function (dateParam) {
     return returnDate;
 };
 
+var toChatTime = function (dateParam) {
+    var today = new Date(),
+        locale = 'ro',
+        isToday = false,
+        returnDate;
+    if (today.getDay() === dateParam.getDay() && today.getMonth() === dateParam.getMonth() && today.getFullYear() === dateParam.getFullYear()) {
+        isToday = true;
+    }
+    var options = $.extend({}, {
+            year: isToday ? undefined : 'numeric',
+            month: isToday ? undefined : 'numeric',
+            day: isToday ? undefined : 'numeric',
+            minute: '2-digit',
+            hour: '2-digit'
+        }),
+        formattedDate = new Date(dateParam).toLocaleString(locale, options);
+
+    returnDate = isToday ? 'Azi la ' + formattedDate : formattedDate;
+    return returnDate;
+};
+
 var showModal = function (id, title, content, buttons) {
     var modalHtml = EMPTY;
     var modalId = '#' + id;
@@ -375,6 +396,17 @@ var getProfile = function () {
     return profile;
 };
 
+var moveCursorToEnd = function (element) {
+    if (typeof element.selectionStart === 'number') {
+        element.selectionStart = element.selectionEnd = element.value.length;
+    } else if (typeof element.createTextRange !== 'undefined') {
+        element.focus();
+        var range = element.createTextRange();
+        range.collapse(false);
+        range.select();
+    }
+};
+
 Array.prototype.remove = function () {
     var what, a = arguments, L = a.length, ax;
     while (L && this.length) {
@@ -411,6 +443,10 @@ var chain = function (obj) {
     return obj;
 };
 
+//recalculate when window is loaded and also when window is resized.
+window.addEventListener('resize', calculatePopups);
+window.addEventListener('load', calculatePopups);
+
 $(document).ready(function () {
     $('#an-copyright').text(new Date().getFullYear());
     $('input[type=file]').bootstrapFileInput();
@@ -436,6 +472,94 @@ $(document).ready(function () {
         var linkLocation = $($(this).attr('href')).offset();
         if (linkLocation)
             $('html,body').animate({scrollTop: linkLocation.top}, "10000", 'linear');
+    });
+
+    getProfile();
+    loadContacts();
+    connectToChatserver('raindrop');
+    $('#messages').on('click', function () {
+        $('#chat-window').fadeToggle('600');
+    });
+
+    $(document).on('keypress', '.chat-input', function (event) {
+        var chatInput = $(this),
+            message = chatInput.val(),
+            receiver,
+            style,
+            classes,
+            textbox,
+            input,
+            id;
+        if (event.keyCode === ENTER_KEY) {
+            receiver = chatInput.closest('.chat-popup').prop('id');
+            sendMessage(message, receiver);
+            chatInput.val(EMPTY).focus();
+
+            event.preventDefault();
+            return;
+        }
+
+        if (message.length == 27) {
+            style = chatInput.prop('style');
+            classes = chatInput.prop('class');
+            id = chatInput.prop('id');
+            textbox = $(document.createElement('textarea'))
+                .prop('style', style)
+                .prop('class', classes)
+                .prop('id', id)
+                .val(message);
+            $(this).replaceWith(textbox);
+            //$('#' + id).focus();
+            moveCursorToEnd(document.getElementById(id));
+        }
+
+    });
+
+    $(document).on('focus', '.chat-input', function (event) {
+        var chatInput = $(this),
+            message = chatInput.val(),
+            $messageCount = $('#message-count'),
+            $messageAnnimation = $('#new-message-received'),
+            receiver = chatInput.closest('.chat-popup').prop('id');
+        messageCount += newMessageAllert(receiver, true);
+        if (messageCount === 0) {
+            $messageAnnimation.removeClass('icon-animated-vertical');
+            $messageCount.removeClass('count-circle count-circle-middle count-circle-red');
+            $messageCount.text(EMPTY);
+        } else {
+            $messageCount.text(messageCount);
+        }
+        event.preventDefault();
+
+    });
+
+    $(document).on('mouseup', '.chat-popup button', function (event) {
+        var chatInput = $(this).closest('.input-group').find('.chat-input'),
+            message = chatInput.val(),
+            receiver = chatInput.closest('.chat-popup').prop('id');
+        sendMessage(message, receiver);
+        chatInput.val(EMPTY).focus();
+
+        event.preventDefault();
+    });
+
+    $('#leave-room').click(function () {
+        leaveRoom();
+    });
+
+    $(document).on('mouseup', '.chat-popup .close', function (event) {
+        var id = $(this).closest('.chat-popup').prop('id');
+        closePopup(id);
+
+        event.preventDefault();
+    });
+
+    $(document).on('mouseup', '.sidebar-name a', function (event) {
+        var username = $(this).data('username'),
+            name = $(this).data('name');
+        registerPopup(username, name);
+        $('.chat-sidebar').offcanvas('hide');
+        event.preventDefault();
     });
 
     $(document).on('click', '.date .input-group-addon', function (event) {
