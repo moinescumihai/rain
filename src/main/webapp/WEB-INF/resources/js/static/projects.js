@@ -4,6 +4,8 @@ var addProjectForm = $('#modal-addProiect-form'),
     $persoaneHolder = $('#persoane-holder'),
     $persoaneModal = $('#modal-persoane'),
     $addPersoanaForm = $('#add-persoana-to-project-form'),
+    $taskModal = $('#modal-tasks'),
+    $filesModal = $('#modal-files'),
     alertType = ['alert-primary', 'alert-success', 'alert-warning', 'alert-info'],
     projectsTable;
 
@@ -158,8 +160,7 @@ var getProjects = function () {
 
 var getPersoaneForProject = function (idProject) {
     var token = $('meta[name="_csrf"]').prop('content'),
-        header = $('meta[name="_csrf_header"]').prop('content'),
-        randomAlertType;
+        header = $('meta[name="_csrf_header"]').prop('content');
 
     $.ajax({
         method: 'get',
@@ -173,9 +174,8 @@ var getPersoaneForProject = function (idProject) {
             $persoaneHolder.data('idProiect', idProject);
             $('#add-persoana-to-project-idProiect').val(idProject);
             $.each(response, function (index, mapping) {
-                randomAlertType = alertType[Math.floor(Math.random() * alertType.length)];
                 $persoaneHolder.append(
-                    '<div id="' + mapping.idUserOnProject + '-user-on-project" class="col-md-3 alert ' + randomAlertType + ' alert-dismissible" role="alert">' +
+                    '<div id="' + mapping.idUserOnProject + '-user-on-project" class="col-md-3 alert alert-info alert-dismissible" role="alert">' +
                     '<button type="button" class="close" data-dismiss="alert" aria-label="&Icirc;nchide"><span aria-hidden="true">&times;</span></button>' +
                     mapping.persoana.fullName +
                     '</div>');
@@ -228,8 +228,8 @@ $(document).ready(function () {
                             + '</ul></div>'
                             + '<div class="col-md-6"><ul class="popover-options">'
                             + '<li><a id="pop-proj-persoane-' + idProject + '"><span class="fa fa-group fa-fw">&nbsp;</span>&nbsp; Persoane</a></li>'
-                            + '<li><a><span class="fa fa-tasks fa-fw">&nbsp;</span>&nbsp; Sarcini</a></li>'
-                            + '<li><a><span class="fa fa-paperclip fa-fw">&nbsp;</span>&nbsp; Fi&\#x219;iere</a></li>'
+                            + '<li><a id="pop-proj-task-' + idProject + '"><span class="fa fa-tasks fa-fw">&nbsp;</span>&nbsp; Sarcini</a></li>'
+                            + '<li><a id="pop-proj-files-' + idProject + '"><span class="fa fa-paperclip fa-fw">&nbsp;</span>&nbsp; Fi&\#x219;iere</a></li>'
                             + '<li><a><span class="fa fa-line-chart fa-fw">&nbsp;</span>&nbsp; Rapoarte</a></li>'
                             + '</ul></div>';
 
@@ -265,6 +265,20 @@ $(document).ready(function () {
                 ].join('\n')
             }
         });
+
+    $(document).on('click', 'a[id^="pop-proj-task-"]', function (event) {
+        var idProject = $(this).prop('id').replace(/pop-proj-task-/g, '');
+        $taskModal.modal('show');
+
+        event.preventDefault();
+    });
+
+    $(document).on('click', 'a[id^="pop-proj-files-"]', function (event) {
+        var idProject = $(this).prop('id').replace(/pop-proj-files-/g, '');
+        $filesModal.modal('show');
+
+        event.preventDefault();
+    });
 
     $(document).on('click', 'a[id^="pop-proj-persoane-"]', function (event) {
         var idProject = $(this).prop('id').replace(/pop-proj-persoane-/g, '');

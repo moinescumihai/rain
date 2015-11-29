@@ -254,7 +254,7 @@
 </div>
 [/#macro]
 
-[#macro modalDialog name title icon additionalButtons]
+[#macro modalDialog name title icon additionalButtons=""]
 <div id="${name}" class="modal fade">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">

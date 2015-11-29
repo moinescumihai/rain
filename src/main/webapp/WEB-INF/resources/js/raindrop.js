@@ -61,11 +61,11 @@ var popoverDefaultSettings = {
     padding: true//content padding
 };
 
-var startSpinner = function () {
+var pleaseWaitOn = function () {
     $("#overlay").show();
 };
 
-var stopSpinner = function () {
+var pleaseWaitOff = function () {
     $("#overlay").hide();
 };
 
@@ -330,7 +330,7 @@ var getTari = function (container) {
 };
 
 var getProfile = function () {
-    startSpinner();
+    pleaseWaitOn();
     var profile = {},
         token = $("meta[name='_csrf']").prop("content"),
         header = $("meta[name='_csrf_header']").prop("content"),
@@ -387,7 +387,7 @@ var getProfile = function () {
             dataAngajare.val(response.dataAngajare);
             zileConcediu.val(response.zileConcediu);
             $('.chosen-select').trigger(chosenUpdated);
-            stopSpinner();
+            pleaseWaitOff();
         },
         error: function (e) {
             showNotification("Error. Please try again later." + e.Message, "Error", DANGER);
