@@ -44,7 +44,7 @@ public interface InventoryService {
 
     List<GrupStoc> findTipuriByCategorieStoc(Long idCategorieStoc);
 
-    List<ResurseUmane> findAllPersoane();
+    List<Persoana> findAllPersoane();
 
     CategorieStoc saveCategorie(CategorieStoc entity);
 

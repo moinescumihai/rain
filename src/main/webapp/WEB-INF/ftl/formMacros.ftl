@@ -11,7 +11,7 @@
 </div>
 [/#macro]
 
-[#macro modalContainer additionalClass=""]
+[#macro container additionalClass=""]
 <div class="row ${additionalClass}">
     [#nested]
     <span class="eroare-generala"></span>
@@ -208,7 +208,14 @@
 </button>
 [/#macro]
 
-[#macro buttonOpenModal name label modal type="success" icon="plus-square-o"]
+[#macro buttonOpenModal name label modal size=2 type="success" icon="plus-square-o"]
+<button type="button" id="${name}-open" name="${name}" title="[@spring.message label /]"
+        class="btn btn-${type} col-md-${size}" data-toggle="modal" data-target="#${modal}">
+    <i class="fa fa-${icon}"></i>&nbsp;&nbsp;[@spring.message label /]
+</button>
+[/#macro]
+
+[#macro sidebarButtonOpenModal name label modal type="success" icon="plus-square-o"]
 <div class="sidebar-button col-md-7">
     <button type="button" id="${name}-open" name="${name}" title="[@spring.message label /]"
             class="btn btn-${type} full-width" data-toggle="modal" data-target="#${modal}">
@@ -254,6 +261,13 @@
 </div>
 [/#macro]
 
+[#macro infobox name text right top additionalClass=""]
+<div class="well-sm infobox ${additionalClass}" style="right: ${right}%; top: ${top}%;">
+    <span class="fa fa-info-circle"></span>
+    <span class="small text-justify">[@spring.message text /]</span>
+</div>
+[/#macro]
+
 [#macro modalDialog name title icon additionalButtons=""]
 <div id="${name}" class="modal fade">
     <div class="modal-dialog modal-lg">
@@ -265,9 +279,9 @@
                         class="custom-modal-title"></span></h4>
             </div>
             <div class="modal-body">
-                [@modalContainer]
+                [@container]
                     [#nested]
-                [/@modalContainer]
+                [/@container]
             </div>
             <div class="modal-footer">
                 <div class="pull-left">${additionalButtons}</div>
@@ -425,4 +439,31 @@
 <div id="formatTemplate" class="hidden">
     [#nested/]
 </div>
+[/#macro]
+
+[#macro row]
+<div class="row">
+    [#nested /]
+</div>
+[/#macro]
+
+[#macro hiddenSelectNotAdmin id name label size="3"]
+    [@security.authorize access="hasAnyRole('ROLE_ADMIN')"]
+    <div class="col-md-${size}">
+        [#nested]
+    </div>
+    [/@security.authorize]
+[/#macro]
+
+
+[#macro embedableMultiSelectBox id name label placeholder="SELECT.PLACEHOLDER" noResultsText="SEARCH.NO_RESULTS"]
+<label for="${id}">[@spring.message label /]</label>
+<select data-placeholder="[@spring.message placeholder /]" multiple
+        data-no_results_text="[@spring.message noResultsText/]"
+        class="chosen-select" id="${id}" name="${name}" title="[@spring.message label /]" required="true">
+    <option></option>
+    [#nested]
+</select>
+
+<div id="${name}-error" class="help-block"></div>
 [/#macro]

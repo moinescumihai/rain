@@ -7,7 +7,7 @@ import javax.persistence.*;
 public class UserOnProject extends BaseEntity {
     private long idUserOnProject;
     private Proiect proiect;
-    private ResurseUmane persoana;
+    private Persoana persoana;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,12 +31,12 @@ public class UserOnProject extends BaseEntity {
     }
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "id_resurse_umane")
-    public ResurseUmane getPersoana() {
+    @JoinColumn(name = "id_persoana")
+    public Persoana getPersoana() {
         return persoana;
     }
 
-    public void setPersoana(ResurseUmane persoana) {
+    public void setPersoana(Persoana persoana) {
         this.persoana = persoana;
     }
 

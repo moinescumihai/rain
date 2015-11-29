@@ -1,6 +1,6 @@
 package controllers.rest;
 
-import model.domain.ResurseUmane;
+import model.domain.Persoana;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,7 +42,7 @@ public class HrRestController {
     @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_HR')")
     @RequestMapping(value = "/get-persoane-by-first-letter/{firstLetter}", method = RequestMethod.GET, produces = "application/json")
     @ResponseBody
-    public List<ResurseUmane> getPersoane(@PathVariable String firstLetter) {
+    public List<Persoana> getPersoane(@PathVariable String firstLetter) {
         return resurseUmaneService.getPersoaneByFirstLetter(firstLetter);
     }
 

@@ -10,7 +10,7 @@
     <!-- Tab content -->
     <div class="tab-content">
         <div class="tab-pane fade in active" id="iesire-detalii" role="tabpanel">
-        [@modalContainer]
+        [@container]
             [@hiddenInput "iesire-form-idStoc" "idStoc" /]
             [@elementWithModalLink "modal-addPlace" "INVENTAR.ADDPLACE" "6"]
                 [@embedableSelectBox "iesire-form-idLoc" "idLoc" "INVENTAR.LOC" "SELECT.PLACEHOLDER" "SEARCH.NO_RESULTS"]
@@ -18,7 +18,7 @@
             [/@elementWithModalLink]
             [@rowBreak/]
             [@elementWithModalLink "modal-addUser" "MODAL.ADD_USER" "6"]
-                [@embedableSelectBox "iesire-form-idResurseUmane" "idResurseUmane" "INVENTAR.PERSOANA" "SELECT.PLACEHOLDER" "SEARCH.NO_RESULTS"]
+                [@embedableSelectBox "iesire-form-idPersoana" "idPersoana" "INVENTAR.PERSOANA" "SELECT.PLACEHOLDER" "SEARCH.NO_RESULTS"]
                 [/@embedableSelectBox]
             [/@elementWithModalLink]
             [@rowBreak/]
@@ -29,12 +29,12 @@
             [@rowBreak/]
             [@textarea "iesire-form-detalii" "detalii" "MODAL.DETAILS" "MODAL.DETAILS.PLACEHOLDER" "12"/]
             [@topInfobox "iesire-infobox" "INFOBOX.IESIRE_1"/]
-        [/@modalContainer]
+        [/@container]
         </div>
 
         <div class="tab-pane fade" id="iesire-scaneaza" role="tabpanel">
         [@scanInput "iesire-form-scan" "scan" /]
-        [@modalContainer ]
+        [@container ]
             <div id="iesire-schimba-scanare" class="hidden col-md-1 schimba-scanare">
                 <button id="button-iesire-schimba-scanare" type="button" class="btn btn-warning" title="[@spring.message "SCANEAZA_SCHIMBA"/]"><i class="fa fa-barcode"></i></button>
             </div>
@@ -57,7 +57,7 @@
             <div id="iesire-form-list-articole" class="hidden">
 
             </div>
-        [/@modalContainer]
+        [/@container]
         </div>
     </div>
 </div>

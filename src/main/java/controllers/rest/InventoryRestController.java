@@ -86,7 +86,7 @@ public class InventoryRestController {
     @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_INVENTAR')")
     @RequestMapping(value = "/getpersoane", method = RequestMethod.GET, produces = "application/json")
     @ResponseBody
-    public List<ResurseUmane> getAllPersoane() {
+    public List<Persoana> getAllPersoane() {
         return inventoryService.findAllPersoane();
     }
 

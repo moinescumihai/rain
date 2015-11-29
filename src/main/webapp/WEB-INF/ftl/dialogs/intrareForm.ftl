@@ -10,7 +10,7 @@
     <!-- Tab content -->
     <div class="tab-content">
         <div class="tab-pane fade in active" id="intrare-detalii" role="tabpanel">
-        [@modalContainer]
+        [@container]
             [@hiddenInput "intrare-form-idStoc" "idStoc" /]
             [@elementWithModalLink "modal-addPlace" "INVENTAR.ADDPLACE" "6"]
             [@embedableSelectBox "intrare-form-idLoc" "idLoc" "INVENTAR.LOC" "SELECT.PLACEHOLDER" "SEARCH.NO_RESULTS"]
@@ -19,12 +19,12 @@
             [@rowBreak/]
             [@textarea "intrare-form-detalii" "detalii" "MODAL.DETAILS" "MODAL.DETAILS.PLACEHOLDER" "12"/]
             [@topInfobox "intrare-infobox" "INFOBOX.INTRARE"/]
-        [/@modalContainer]
+        [/@container]
         </div>
 
         <div class="tab-pane fade" id="intrare-scaneaza" role="tabpanel">
         [@scanInput "intrare-form-scan" "scan" /]
-        [@modalContainer ]
+        [@container ]
             <div id="intrare-schimba-scanare" class="hidden col-md-1 schimba-scanare">
                 <button id="button-intrare-schimba-scanare" type="button" class="btn btn-warning" title="[@spring.message "SCANEAZA_SCHIMBA"/]"><i class="fa fa-barcode"></i></button>
             </div>
@@ -47,7 +47,7 @@
             <div id="intrare-form-list-articole" class="hidden">
 
             </div>
-        [/@modalContainer]
+        [/@container]
         </div>
     </div>
 </div>

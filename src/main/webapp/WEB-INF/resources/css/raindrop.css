@@ -1121,6 +1121,7 @@ div[id$='-container'] div.todo-task {
     padding-left: 3em;
     font-size: 14px;
     height: 100px;
+    cursor: pointer;
 }
 
 div[id$='-container'] div.todo-task i {
@@ -2714,3 +2715,26 @@ div[id^="history"] .modal-body {
 }
 
 /*chat */
+
+.admin-navs.nav-tabs > li.active > a,
+.admin-navs.nav-tabs > li.active > a:focus,
+.admin-navs.nav-tabs > li.active > a:hover {
+    cursor: pointer;
+    background-color: #fff;
+    border: 1px solid #bdbdbd;
+}
+
+.width-43 {
+    width: 43%;
+}
+
+.navbar-rain.navbar,
+#admin {
+    height: 50px;
+}
+
+#admin a,
+#admin a:hover {
+    height: 50px;
+    padding-top: 12px;
+}

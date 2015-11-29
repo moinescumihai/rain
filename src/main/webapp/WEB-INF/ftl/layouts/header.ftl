@@ -64,7 +64,7 @@
             </ul>
             <ul class="nav navbar-nav navbar-right">
             [@security.authorize ifAnyGranted="ROLE_ADMIN"]
-                <li id="admin"><a href="/administration">[@spring.message "ADMIN"/]</a></li>
+                <li id="admin"><a href="/administration"><i class="fa fa-cog fa-1-5x"></i> [@spring.message "ADMIN"/]</a></li>
             [/@security.authorize]
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" role="button" title="Notific&acirc;ri">

@@ -1,7 +1,7 @@
 package services;
 
+import model.domain.Persoana;
 import model.domain.Proiect;
-import model.domain.ResurseUmane;
 import model.domain.UserOnProject;
 import model.forms.PersonOnProjectFormModel;
 import model.forms.ProiectFormModel;
@@ -112,8 +112,8 @@ public class ProjectServiceImpl implements ProjectsService {
     }
 
     @Override
-    public List<ResurseUmane> getUsersOnProject(long idProiect) {
-        List<ResurseUmane> usersOnProject;
+    public List<Persoana> getUsersOnProject(long idProiect) {
+        List<Persoana> usersOnProject;
         Proiect proiect = proiectRepository.findOne(idProiect);
         try {
             usersOnProject = userOnProjectRepository.findAllByProiectEquals(proiect);
@@ -126,7 +126,7 @@ public class ProjectServiceImpl implements ProjectsService {
     }
 
     @Override
-    public UserOnProject removePersoanaFromProiect(ResurseUmane persoana, Proiect proiect) {
+    public UserOnProject removePersoanaFromProiect(Persoana persoana, Proiect proiect) {
         UserOnProject toDelete = userOnProjectRepository.findByPersoanaAndProiectEquals(persoana, proiect);
 
         return removePersoanaFromProiect(toDelete.getIdUserOnProject());
@@ -144,7 +144,7 @@ public class ProjectServiceImpl implements ProjectsService {
     @Override
     @Transactional
     public UserOnProject assignPersoanaToProiect(PersonOnProjectFormModel personOnProject) {
-        ResurseUmane persoana = resurseUmaneService.findByFullNameEquals(personOnProject.getFullName());
+        Persoana persoana = resurseUmaneService.findByFullNameEquals(personOnProject.getFullName());
         Proiect proiect = proiectRepository.findOne(personOnProject.getIdProiect());
         UserOnProject mapping = userOnProjectRepository.findByPersoanaAndProiectEquals(persoana, proiect);
         if (mapping == null) {

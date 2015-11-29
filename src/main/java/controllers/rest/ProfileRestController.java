@@ -1,8 +1,9 @@
 package controllers.rest;
 
 import model.common.JSONResponseWithId;
-import model.domain.ResurseUmane;
+import model.domain.Persoana;
 import model.domain.Tara;
+import model.domain.UserRole;
 import model.forms.PasswordString;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
@@ -44,9 +45,16 @@ public class ProfileRestController {
     }
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
-    @RequestMapping(value = "/{username}", method = RequestMethod.GET, produces = "application/json")
+    @RequestMapping(value = "/get-roles/{idUser}", method = RequestMethod.GET)
     @ResponseBody
-    public ResurseUmane getRaindropUser(@PathVariable("username") String username) {
+    public List<UserRole> getRolesForUser(@PathVariable("idUser") long idUser) {
+        return profileService.getRolesForUser(idUser);
+    }
+
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
+    @RequestMapping(value = "/{username}", method = RequestMethod.GET)
+    @ResponseBody
+    public Persoana getRaindropUser(@PathVariable("username") String username) {
         return profileService.getRaindropUser(username);
     }
 
@@ -60,19 +68,26 @@ public class ProfileRestController {
     @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
     @RequestMapping(value = "/get-users", method = RequestMethod.GET)
     @ResponseBody
-    public List<ResurseUmane> getUsers() {
+    public List<Persoana> getEnabledUsers() {
         return profileService.getEnabledUsers();
     }
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
-    @RequestMapping(value = "/", method = RequestMethod.GET, produces = "application/json")
+    @RequestMapping(value = "/get-all-users", method = RequestMethod.GET)
     @ResponseBody
-    public ResurseUmane getLoggedInUser() {
+    public List<Persoana> getAllUsers() {
+        return profileService.getAllUsers();
+    }
+
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
+    @RequestMapping(value = "/", method = RequestMethod.GET)
+    @ResponseBody
+    public Persoana getLoggedInUser() {
         return profileService.getLoggedInRaindropUser();
     }
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
-    @RequestMapping(value = "/change-password", method = RequestMethod.POST, consumes = "application/json")
+    @RequestMapping(value = "/change-password", method = RequestMethod.POST)
     @ResponseBody
     public JSONResponseWithId changePassword(@RequestBody PasswordString password) {
         JSONResponseWithId response = new JSONResponseWithId();

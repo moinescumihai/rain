@@ -1,8 +1,10 @@
 package services;
 
 import common.utils.UserUtils;
-import model.domain.ResurseUmane;
+import model.domain.Persoana;
 import model.domain.User;
+import model.domain.UserRole;
+import model.forms.PersoanaFormModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,12 +29,12 @@ public class ProfileServiceImpl implements ProfileService {
     private PasswordEncoder passwordEncoder;
 
     @Override
-    public ResurseUmane getRaindropUser(String username) {
+    public Persoana getRaindropUser(String username) {
         return resurseUmaneService.findByUsername(username);
     }
 
     @Override
-    public ResurseUmane getLoggedInRaindropUser() {
+    public Persoana getLoggedInRaindropUser() {
         return getRaindropUser(UserUtils.getLoggedInUsername());
     }
 
@@ -43,15 +45,41 @@ public class ProfileServiceImpl implements ProfileService {
         userCurent.setLastPassChange(new Timestamp(new Date().getTime()));
         userService.save(userCurent);
 
+        LOGGER.info(String.format("Utilizatorul %s si-a schimbat parola", userCurent.getUsername()));
         return "Parola a fost schimbata cu success";
     }
 
     @Override
-    public List<ResurseUmane> getEnabledUsers() {
+    public List<Persoana> getEnabledUsers() {
         return resurseUmaneService.findAllPersoane()
                 .stream()
                 .filter(persoana -> persoana.getIdUser().getEnabled() == 1 &&
                         !persoana.getIdUser().getUsername().equals(UserUtils.getLoggedInUsername()))
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Persoana> getAllUsers() {
+        return resurseUmaneService.findAllPersoane();
+    }
+
+    @Override
+    public Persoana activateUser(long idUser) {
+        return resurseUmaneService.activateUser(idUser);
+    }
+
+    @Override
+    public Persoana deactivateUser(long idUser) {
+        return resurseUmaneService.deactivateUser(idUser);
+    }
+
+    @Override
+    public List<UserRole> getRolesForUser(long idUser) {
+        return userService.getRolesForUser(idUser);
+    }
+
+    @Override
+    public Persoana addPersoana(PersoanaFormModel persoanaFormModel) {
+        return null;
     }
 }

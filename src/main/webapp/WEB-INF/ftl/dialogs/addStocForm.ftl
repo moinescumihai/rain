@@ -2,7 +2,7 @@
 [#include "../formMacros.ftl"]
 
 [@rowBreak/]
-[@modalContainer]
+[@container]
     [@input "addStoc-form-numeStoc" "numeStoc" "MODAL.STOC_NAME" "MODAL.NAME" "" "4"/]
     [@elementWithModalLink "modal-addPlace" "INVENTAR.ADDPLACE" "4"]
         [@embedableSelectBox "addStoc-form-idLoc" "idLoc" "INVENTAR.LOC" "SELECT.PLACEHOLDER" "SEARCH.NO_RESULTS"]
@@ -20,4 +20,4 @@
     [/@elementWithModalLink]
     [@rowBreak/]
     [@textarea "addStoc-form-detalii" "detalii" "MODAL.DETAILS" "MODAL.DETAILS.PLACEHOLDER" "8"/]
-[/@modalContainer]
+[/@container]

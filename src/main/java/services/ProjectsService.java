@@ -1,7 +1,7 @@
 package services;
 
+import model.domain.Persoana;
 import model.domain.Proiect;
-import model.domain.ResurseUmane;
 import model.domain.UserOnProject;
 import model.forms.PersonOnProjectFormModel;
 import model.forms.ProiectFormModel;
@@ -20,9 +20,9 @@ public interface ProjectsService {
 
     long emptyTrash();
 
-    List<ResurseUmane> getUsersOnProject(long proiect);
+    List<Persoana> getUsersOnProject(long proiect);
 
-    UserOnProject removePersoanaFromProiect(ResurseUmane persoana, Proiect proiect);
+    UserOnProject removePersoanaFromProiect(Persoana persoana, Proiect proiect);
 
     UserOnProject removePersoanaFromProiect(long idUserOnProject);
 

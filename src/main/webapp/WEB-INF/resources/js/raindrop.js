@@ -16,6 +16,11 @@ jQuery.validator.addMethod("samePasswords", function (value, element, param) {
     return this.optional(element) || passwordsAreTheSame();
 }, "Parolele nu se potrivesc");
 
+jQuery.validator.addMethod("nospace", function (value, element) {
+    return this.optional(element) || checkNoSpace();
+}, jQuery.validator.format("Utilizatorul nu poate con&#539;ine spa&#539;ii"));
+
+
 if (!('contains' in String.prototype)) {
     String.prototype.contains = function (str, startIndex) {
         return -1 !== String.prototype.indexOf.call(this, str, startIndex);
@@ -35,6 +40,11 @@ $.extend($.fn.dataTable.defaults, {
 var passwordsAreTheSame = function () {
     return $('#changePassword-form-password').val() === $('#changePassword-form-repeatPassword').val();
 };
+
+function checkNoSpace() {
+    var user = $('#addUser-form-username').val();
+    return user.indexOf(' ') == -1;
+}
 
 var popoverDefaultSettings = {
     placement: 'bottom',//values: auto,top,right,bottom,left,top-right,top-left,bottom-right,bottom-left,auto-top,auto-right,auto-bottom,auto-left
@@ -299,7 +309,7 @@ var getPersoaneForContainer = function (container) {
         contentType: "application/json",
         success: function (response) {
             $.each(response, function (index, persoana) {
-                persoaneSelect.append($("<option>").val(persoana.idResurseUmane).text(persoana.prenume + ' ' + persoana.nume));
+                persoaneSelect.append($("<option>").val(persoana.idPersoana).text(persoana.fullName));
             });
             persoaneSelect.trigger(chosenUpdated);
         },
@@ -332,8 +342,8 @@ var getTari = function (container) {
 var getProfile = function () {
     pleaseWaitOn();
     var profile = {},
-        token = $("meta[name='_csrf']").prop("content"),
-        header = $("meta[name='_csrf_header']").prop("content"),
+        token = $("meta[name='_csrf']").prop('content'),
+        header = $("meta[name='_csrf_header']").prop('content'),
 
         nume = $('#userProfile-form-nume'),
         prenume = $('#userProfile-form-prenume'),
@@ -359,7 +369,8 @@ var getProfile = function () {
     $.ajax({
         type: 'get',
         url: '/app/secure/profile/',
-        contentType: "application/json",
+        contentType: 'application/json',
+        async: false,
         beforeSend: function (xhr) {
             xhr.setRequestHeader(header, token);
         },

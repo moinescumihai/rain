@@ -70,7 +70,7 @@ public class ProjectsRestController {
     @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER','ROLE_SUPERUSER')")
     @RequestMapping(value = "/get-users-on-project/{idProiect}", method = RequestMethod.GET)
     @ResponseBody
-    public List<ResurseUmane> getUsersOnProject(@PathVariable long idProiect) {
+    public List<Persoana> getUsersOnProject(@PathVariable long idProiect) {
         return projectsService.getUsersOnProject(idProiect);
     }
 

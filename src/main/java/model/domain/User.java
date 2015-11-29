@@ -103,4 +103,18 @@ public class User extends BaseEntity {
         result = 31 * result + (enabled != null ? enabled.hashCode() : 0);
         return result;
     }
+
+    public enum Active {
+        YES(1), NO(0);
+
+        private int code;
+
+        Active(int code) {
+            this.code = code;
+        }
+
+        public int getCode() {
+            return code;
+        }
+    }
 }
