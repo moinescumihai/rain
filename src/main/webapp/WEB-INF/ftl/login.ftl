@@ -10,7 +10,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Login into Raindrop">
-    <meta name="author" content="Raindrop Solutions">
+    <meta name="author" content="Raindrop Software">
 
     <link rel="icon" href="/img/raindrop-logo.png">
 
@@ -49,7 +49,7 @@
     </div>
 
     <div class="custom-footer">
-        <p><span class="copyright">Copyright &copy; &middot; <span class="green">Raindrop Solutions <span id="an-copyright"></span></span>
+        <p><span class="copyright">Copyright &copy; &middot; <span class="green">Raindrop Software <span id="an-copyright"></span></span>
         </p>
     </div>
 

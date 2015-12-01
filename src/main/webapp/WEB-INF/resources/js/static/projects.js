@@ -312,6 +312,9 @@ $(document).ready(function () {
             required: true,
             nume: {
                 minlength: 3
+            },
+            idCategorieParinte: {
+                required: false
             }
         }
     });
@@ -320,16 +323,14 @@ $(document).ready(function () {
         if (!$(this).valid()) {
             return;
         }
-        var token = $("meta[name='_csrf']").prop('content');
-        var header = $("meta[name='_csrf_header']").prop('content');
-
-        var nume = $('#addCategory-form-nume').val();
-        var idCategorieParinte = $('#addCategory-form-categorie-parinte').val();
-
-        var data = {
-            "nume": nume,
-            "idCategorieParinte": idCategorieParinte
-        };
+        var token = $("meta[name='_csrf']").prop('content'),
+            header = $("meta[name='_csrf_header']").prop('content'),
+            nume = $('#addCategory-form-nume').val(),
+            idCategorieParinte = $('#addCategory-form-categorie-parinte').val(),
+            data = {
+                nume: nume,
+                idCategorieParinte: idCategorieParinte
+            };
 
         $.ajax({
             type: 'post',
