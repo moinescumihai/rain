@@ -12,10 +12,10 @@
         <div class="tab-pane fade in active" id="intrare-detalii" role="tabpanel">
         [@container]
             [@hiddenInput "intrare-form-idStoc" "idStoc" /]
-            [@elementWithModalLink "modal-addPlace" "INVENTAR.ADDPLACE" "6"]
+            [@elementWithAdminModalLink "modal-addPlace" "INVENTAR.ADDPLACE" "6"]
             [@embedableSelectBox "intrare-form-idLoc" "idLoc" "INVENTAR.LOC" "SELECT.PLACEHOLDER" "SEARCH.NO_RESULTS"]
             [/@embedableSelectBox]
-        [/@elementWithModalLink]
+        [/@elementWithAdminModalLink]
             [@rowBreak/]
             [@textarea "intrare-form-detalii" "detalii" "MODAL.DETAILS" "MODAL.DETAILS.PLACEHOLDER" "12"/]
             [@topInfobox "intrare-infobox" "INFOBOX.INTRARE"/]

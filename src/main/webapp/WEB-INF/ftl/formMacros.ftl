@@ -18,12 +18,19 @@
 </div>
 [/#macro]
 
-[#macro elementWithModalLink target label size="6"]
+[#macro elementWithAdminModalLink target label size="6"]
 <div class="form-group col-md-${size}">
     [#nested]
     [@security.authorize access="hasAnyRole('ROLE_ADMIN','ROLE_SUPERUSER')"]
         <a data-toggle="modal" data-target="#${target}" class="small form-link">[@spring.message label /]</a>
     [/@security.authorize]
+</div>
+[/#macro]
+
+[#macro elementWithModalLink target label size="6"]
+<div class="form-group col-md-${size}">
+    [#nested]
+    <a data-toggle="modal" data-target="#${target}" class="small form-link">[@spring.message label /]</a>
 </div>
 [/#macro]
 

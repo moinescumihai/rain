@@ -2738,3 +2738,7 @@ div[id^="history"] .modal-body {
     height: 50px;
     padding-top: 12px;
 }
+
+#inventory-table {
+    font-size: 12px;
+}

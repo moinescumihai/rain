@@ -25,19 +25,19 @@
         </div>
         <div class="tab-pane fade" id="company-project" role="tabpanel">
         [@container ]
-                [@elementWithModalLink "modal-addClient" "MODAL.ADDCLIENT" "6"]
+                [@elementWithAdminModalLink "modal-addClient" "MODAL.ADDCLIENT" "6"]
                     [@embedableSelectBox "addProject-form-client" "idClient" "CLIENT" "SELECT.PLACEHOLDER" "SEARCH.NO_RESULTS"]
                     [/@embedableSelectBox]
-            [/@elementWithModalLink]
+        [/@elementWithAdminModalLink]
                 [@bottomInfobox "client-info" "INFOBOX.ADDCLIENT"/]
             [/@container]
         </div>
         <div class="tab-pane fade" id="category-project" role="tabpanel">
         [@container ]
-                [@elementWithModalLink "modal-addCategory" "MODAL.ADDCATEGORY" "6"]
+                [@elementWithAdminModalLink "modal-addCategory" "MODAL.ADDCATEGORY" "6"]
                     [@embedableSelectBox "addProject-form-category" "categorieProiect" "CATEGORY" "SELECT.PLACEHOLDER" "SEARCH.NO_RESULTS"]
                     [/@embedableSelectBox]
-            [/@elementWithModalLink]
+        [/@elementWithAdminModalLink]
                 [@bottomInfobox "client-info" "INFOBOX.ADDCATEGORY"/]
             [/@container]
         </div>
