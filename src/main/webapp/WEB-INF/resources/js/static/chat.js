@@ -17,7 +17,7 @@ var getCurrentUser = (function () {
             $.ajax({
                 type: 'get',
                 url: '/app/secure/profile/',
-                contentType: "application/json",
+                contentType: 'application/json',
                 async: false,
                 success: function (response) {
                     memory = user = response;
@@ -42,7 +42,6 @@ var connectCallback = function (frame) {
 };
 
 var errorCallback = function (error) {
-    // display the error's message header:
     showNotification(error.headers.message, 'Eroare', ERROR);
 };
 
@@ -59,14 +58,14 @@ var loadContacts = function () {
     $.ajax({
         type: 'get',
         url: '/app/secure/profile/get-users',
-        contentType: "application/json",
+        contentType: 'application/json',
         success: function (response) {
             $.each(response, function (index, persoana) {
                 $contactsHolder.append(generateContact(persoana));
             });
         },
         error: function (e) {
-            showNotification("Eroare. Re&icirc;nc&abreve;rca&#539;i pagina." + e.message, "Eroare", DANGER);
+            showNotification('Eroare. Re&icirc;nc&abreve;rca&#539;i pagina.' + e.message, 'Eroare', DANGER);
         }
     });
 };
@@ -147,7 +146,7 @@ var getUserByUsername = (function () {
             $.ajax({
                 type: 'get',
                 url: '/app/secure/profile/' + username,
-                contentType: "application/json",
+                contentType: 'application/json',
                 async: false,
                 success: function (response) {
                     memory = user = response;
@@ -190,10 +189,10 @@ var sendMessage = function (message, receiver) {
     displayMessage(chatWindow, chatMessage);
 };
 
-function leaveRoom() {
+var leaveRoom = function () {
     stompClient.disconnect();
-    console.log("Deconectat");
-}
+    console.log('Deconectat');
+};
 
 //this function can remove a array element.
 Array.remove = function (array, from, to) {

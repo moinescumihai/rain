@@ -5,7 +5,7 @@ import java.sql.Date;
 
 @Entity
 @Table(name = "persoane", schema = "", catalog = "raindrop")
-public class Persoana extends BaseEntity {
+public class Persoana extends BaseEntity implements Comparable<Persoana> {
     private long idPersoana;
     private Attachment userPhoto;
     private String nume;
@@ -233,7 +233,7 @@ public class Persoana extends BaseEntity {
 
     @PostLoad
     public void setFullName() {
-        this.fullName = this.prenume + " " + this.nume;
+        this.fullName = this.nume + " " + this.prenume;
     }
 
     public String getFullName() {
@@ -311,5 +311,10 @@ public class Persoana extends BaseEntity {
         result = 31 * result + (zileConcediu != null ? zileConcediu.hashCode() : 0);
         result = 31 * result + (fullName != null ? fullName.hashCode() : 0);
         return result;
+    }
+
+    @Override
+    public int compareTo(Persoana o) {
+        return this.getFullName().compareTo(o.getFullName());
     }
 }

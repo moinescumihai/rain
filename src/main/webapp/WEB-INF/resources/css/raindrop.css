@@ -1323,6 +1323,7 @@ div[id$='-container'] div.todo-task input[type=checkbox] {
     display: inline-block;
     width: 100%;
     margin-top: 20px;
+    margin-bottom: 40px;
 }
 
 .directory-info-row .social-links {

@@ -12,6 +12,7 @@ import services.repository.ResurseUmaneRepository;
 import services.user.UserService;
 
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 @Service
@@ -48,7 +49,9 @@ public class ResurseUmaneServiceImpl implements ResurseUmaneService {
     @Override
     public List<Persoana> findAllPersoane() {
         try {
-            return (List<Persoana>) resurseUmaneRepository.findAll();
+            List<Persoana> toti = (List<Persoana>) resurseUmaneRepository.findAll();
+            toti.sort(Comparator.<Persoana>naturalOrder());
+            return toti;
         } catch (DataAccessException e) {
             LOGGER.error("RESURSE_UMANE.NO_RESURSE_UMANE", e);
             return Collections.emptyList();
@@ -60,7 +63,9 @@ public class ResurseUmaneServiceImpl implements ResurseUmaneService {
         if (firstLetter.equalsIgnoreCase(TOTI)) {
             return findAllPersoane();
         } else {
-            return resurseUmaneRepository.findAllByNumeStartingWithOrderByNumeAsc(firstLetter);
+            List<Persoana> persoane = resurseUmaneRepository.findAllByNumeStartingWithOrderByNumeAsc(firstLetter);
+            persoane.sort(Comparator.<Persoana>naturalOrder());
+            return persoane;
         }
     }
 
