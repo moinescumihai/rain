@@ -1,20 +1,24 @@
 package services;
 
-import model.domain.ResurseUmane;
+import model.domain.Persoana;
 import model.domain.User;
 
 import java.util.List;
 
 public interface ResurseUmaneService {
-    ResurseUmane findByIdUser(User id);
+    Persoana findByIdUser(User id);
 
-    ResurseUmane findOne(long id);
+    Persoana findOne(long id);
 
-    ResurseUmane findByUsername(String username);
+    Persoana findByUsername(String username);
 
-    List<ResurseUmane> findAllPersoane();
+    List<Persoana> findAllPersoane();
 
-    List<ResurseUmane> getPersoaneByFirstLetter(String firstLetter);
+    List<Persoana> getPersoaneByFirstLetter(String firstLetter);
 
-    ResurseUmane findByFullNameEquals(String fullName);
+    Persoana findByFullNameEquals(String fullName);
+
+    Persoana activateUser(long idUser);
+
+    Persoana deactivateUser(long idUser);
 }

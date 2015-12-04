@@ -14,7 +14,7 @@ public class Stoc extends BaseEntity {
     private String codStoc;
     private StareStoc idStare;
     private Loc idLoc;
-    private ResurseUmane idResurseUmane;
+    private Persoana idPersoana;
     private String detalii;
     private Attachment factura;
     private Attachment imagine;
@@ -74,13 +74,13 @@ public class Stoc extends BaseEntity {
     }
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "id_resurse_umane")
-    public ResurseUmane getIdResurseUmane() {
-        return idResurseUmane;
+    @JoinColumn(name = "id_persoana")
+    public Persoana getIdPersoana() {
+        return idPersoana;
     }
 
-    public void setIdResurseUmane(ResurseUmane idResurseUmane) {
-        this.idResurseUmane = idResurseUmane;
+    public void setIdPersoana(Persoana idPersoana) {
+        this.idPersoana = idPersoana;
     }
 
     @Basic
@@ -158,7 +158,7 @@ public class Stoc extends BaseEntity {
         if (codStoc != null ? !codStoc.equals(stoc.codStoc) : stoc.codStoc != null) return false;
         if (idStare != null ? !idStare.equals(stoc.idStare) : stoc.idStare != null) return false;
         if (idLoc != null ? !idLoc.equals(stoc.idLoc) : stoc.idLoc != null) return false;
-        if (idResurseUmane != null ? !idResurseUmane.equals(stoc.idResurseUmane) : stoc.idResurseUmane != null) return false;
+        if (idPersoana != null ? !idPersoana.equals(stoc.idPersoana) : stoc.idPersoana != null) return false;
         if (detalii != null ? !detalii.equals(stoc.detalii) : stoc.detalii != null) return false;
         if (factura != null ? !factura.equals(stoc.factura) : stoc.factura != null) return false;
         return !(imagine != null ? !imagine.equals(stoc.imagine) : stoc.imagine != null);
@@ -174,7 +174,7 @@ public class Stoc extends BaseEntity {
         result = 31 * result + (codStoc != null ? codStoc.hashCode() : 0);
         result = 31 * result + (idStare != null ? idStare.hashCode() : 0);
         result = 31 * result + (idLoc != null ? idLoc.hashCode() : 0);
-        result = 31 * result + (idResurseUmane != null ? idResurseUmane.hashCode() : 0);
+        result = 31 * result + (idPersoana != null ? idPersoana.hashCode() : 0);
         result = 31 * result + (detalii != null ? detalii.hashCode() : 0);
         result = 31 * result + (factura != null ? factura.hashCode() : 0);
         result = 31 * result + (imagine != null ? imagine.hashCode() : 0);

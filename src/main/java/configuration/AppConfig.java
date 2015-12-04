@@ -22,6 +22,7 @@ import org.springframework.web.servlet.config.annotation.*;
 import org.springframework.web.servlet.handler.SimpleMappingExceptionResolver;
 import org.springframework.web.servlet.i18n.CookieLocaleResolver;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
+import org.springframework.web.servlet.mvc.WebContentInterceptor;
 import org.springframework.web.servlet.view.ContentNegotiatingViewResolver;
 import org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver;
 import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
@@ -58,12 +59,24 @@ public class AppConfig extends WebMvcConfigurerAdapter {
         registry.addResourceHandler("/plugins/**").addResourceLocations("/WEB-INF/resources/plugins/");
     }
 
+    @Bean
+    public WebContentInterceptor webContentInterceptor() {
+        WebContentInterceptor interceptor = new WebContentInterceptor();
+        interceptor.setCacheSeconds(0);
+        interceptor.setUseExpiresHeader(true);
+        interceptor.setUseCacheControlHeader(true);
+        interceptor.setUseCacheControlNoStore(true);
+
+        return interceptor;
+    }
+
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
 
         LocaleChangeInterceptor localeChangeInterceptor = new LocaleChangeInterceptor();
         localeChangeInterceptor.setParamName("lang");
         registry.addInterceptor(localeChangeInterceptor);
+        registry.addInterceptor(webContentInterceptor());
     }
 
     @Bean

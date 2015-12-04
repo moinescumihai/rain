@@ -1,9 +1,8 @@
 package services.chat;
 
 
-import model.domain.ChatMessage;
+import model.chat.ChatMessage;
 
-import javax.inject.Inject;
 import javax.json.Json;
 import javax.json.JsonObject;
 import javax.websocket.DecodeException;
@@ -13,8 +12,6 @@ import java.io.StringReader;
 import java.sql.Timestamp;
 
 public class ChatMessageDecoder implements Decoder.Text<ChatMessage> {
-    @Inject
-    private ChatService chatService;
 
     @Override
     public void init(final EndpointConfig config) {
@@ -27,15 +24,13 @@ public class ChatMessageDecoder implements Decoder.Text<ChatMessage> {
     @Override
     public ChatMessage decode(final String textMessage) throws DecodeException {
         ChatMessage chatMessage = new ChatMessage();
-        JsonObject obj = Json.createReader(new StringReader(textMessage))
-                .readObject();
-        chatMessage.setMessage(obj.getString("message"));
-        chatMessage.setSender(obj.getString("sender"));
-        chatMessage.setReceiver(obj.getString("receiver"));
-        chatMessage.setUnitate(obj.getString("unitate"));
+        JsonObject jsonMessage = Json.createReader(new StringReader(textMessage)).readObject();
+
+        chatMessage.setMessage(jsonMessage.getString("message"));
+        chatMessage.setSender(jsonMessage.getString("sender"));
+        chatMessage.setReceiver(jsonMessage.getString("receiver"));
         chatMessage.setReceived(new Timestamp(System.currentTimeMillis()));
 
-        chatService.save(chatMessage);
         return chatMessage;
     }
 

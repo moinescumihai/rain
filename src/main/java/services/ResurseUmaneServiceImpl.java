@@ -1,6 +1,6 @@
 package services;
 
-import model.domain.ResurseUmane;
+import model.domain.Persoana;
 import model.domain.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,6 +12,7 @@ import services.repository.ResurseUmaneRepository;
 import services.user.UserService;
 
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 @Service
@@ -26,7 +27,7 @@ public class ResurseUmaneServiceImpl implements ResurseUmaneService {
 
 
     @Override
-    public ResurseUmane findByIdUser(User id) {
+    public Persoana findByIdUser(User id) {
         try {
             return resurseUmaneRepository.findByIdUser(id);
         } catch (DataAccessException e) {
@@ -36,19 +37,21 @@ public class ResurseUmaneServiceImpl implements ResurseUmaneService {
     }
 
     @Override
-    public ResurseUmane findOne(long id) {
+    public Persoana findOne(long id) {
         return resurseUmaneRepository.findOne(id);
     }
 
     @Override
-    public ResurseUmane findByUsername(String username) {
+    public Persoana findByUsername(String username) {
         return findByIdUser(userService.findByUsername(username));
     }
 
     @Override
-    public List<ResurseUmane> findAllPersoane() {
+    public List<Persoana> findAllPersoane() {
         try {
-            return (List<ResurseUmane>) resurseUmaneRepository.findAll();
+            List<Persoana> toti = (List<Persoana>) resurseUmaneRepository.findAll();
+            toti.sort(Comparator.<Persoana>naturalOrder());
+            return toti;
         } catch (DataAccessException e) {
             LOGGER.error("RESURSE_UMANE.NO_RESURSE_UMANE", e);
             return Collections.emptyList();
@@ -56,16 +59,34 @@ public class ResurseUmaneServiceImpl implements ResurseUmaneService {
     }
 
     @Override
-    public List<ResurseUmane> getPersoaneByFirstLetter(String firstLetter) {
+    public List<Persoana> getPersoaneByFirstLetter(String firstLetter) {
         if (firstLetter.equalsIgnoreCase(TOTI)) {
             return findAllPersoane();
         } else {
-            return resurseUmaneRepository.findAllByNumeStartingWithOrderByNumeAsc(firstLetter);
+            List<Persoana> persoane = resurseUmaneRepository.findAllByNumeStartingWithOrderByNumeAsc(firstLetter);
+            persoane.sort(Comparator.<Persoana>naturalOrder());
+            return persoane;
         }
     }
 
     @Override
-    public ResurseUmane findByFullNameEquals(String fullName) {
+    public Persoana findByFullNameEquals(String fullName) {
         return resurseUmaneRepository.findByFullNameEquals(fullName);
+    }
+
+    @Override
+    public Persoana activateUser(long idUser) {
+        User user = userService.findByIdUser(idUser);
+        user.setEnabled(User.Active.YES.getCode());
+        userService.save(user);
+        return findByIdUser(user);
+    }
+
+    @Override
+    public Persoana deactivateUser(long idUser) {
+        User user = userService.findByIdUser(idUser);
+        user.setEnabled(User.Active.NO.getCode());
+        userService.save(user);
+        return findByIdUser(user);
     }
 }

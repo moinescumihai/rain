@@ -1,3 +1,4 @@
+const ENTER_KEY = 13;
 const SUCCESS = 'success';
 const DANGER = 'danger';
 const ERROR = 'error';
@@ -14,6 +15,11 @@ var $changePasswordForm = $('#modal-changePassword-form'),
 jQuery.validator.addMethod("samePasswords", function (value, element, param) {
     return this.optional(element) || passwordsAreTheSame();
 }, "Parolele nu se potrivesc");
+
+jQuery.validator.addMethod("nospace", function (value, element) {
+    return this.optional(element) || checkNoSpace();
+}, jQuery.validator.format("Utilizatorul nu poate con&#539;ine spa&#539;ii"));
+
 
 if (!('contains' in String.prototype)) {
     String.prototype.contains = function (str, startIndex) {
@@ -34,6 +40,11 @@ $.extend($.fn.dataTable.defaults, {
 var passwordsAreTheSame = function () {
     return $('#changePassword-form-password').val() === $('#changePassword-form-repeatPassword').val();
 };
+
+function checkNoSpace() {
+    var user = $('#addUser-form-username').val();
+    return user.indexOf(' ') == -1;
+}
 
 var popoverDefaultSettings = {
     placement: 'bottom',//values: auto,top,right,bottom,left,top-right,top-left,bottom-right,bottom-left,auto-top,auto-right,auto-bottom,auto-left
@@ -60,11 +71,11 @@ var popoverDefaultSettings = {
     padding: true//content padding
 };
 
-var startSpinner = function () {
+var pleaseWaitOn = function () {
     $("#overlay").show();
 };
 
-var stopSpinner = function () {
+var pleaseWaitOff = function () {
     $("#overlay").hide();
 };
 
@@ -135,7 +146,7 @@ var toJSDateTime = function (dateParam) {
     var locale = 'ro';
     var returnDate;
     var options = {
-        weekday: 'long',
+        //weekday: 'long',
         year: 'numeric',
         month: 'long',
         day: 'numeric',
@@ -145,6 +156,27 @@ var toJSDateTime = function (dateParam) {
     };
 
     returnDate = new Date(dateParam).toLocaleString(locale, options);
+    return returnDate;
+};
+
+var toChatTime = function (dateParam) {
+    var today = new Date(),
+        locale = 'ro',
+        isToday = false,
+        returnDate;
+    if (today.getDay() === dateParam.getDay() && today.getMonth() === dateParam.getMonth() && today.getFullYear() === dateParam.getFullYear()) {
+        isToday = true;
+    }
+    var options = $.extend({}, {
+            year: isToday ? undefined : 'numeric',
+            month: isToday ? undefined : 'numeric',
+            day: isToday ? undefined : 'numeric',
+            minute: '2-digit',
+            hour: '2-digit'
+        }),
+        formattedDate = new Date(dateParam).toLocaleString(locale, options);
+
+    returnDate = isToday ? 'Azi la ' + formattedDate : formattedDate;
     return returnDate;
 };
 
@@ -277,7 +309,7 @@ var getPersoaneForContainer = function (container) {
         contentType: "application/json",
         success: function (response) {
             $.each(response, function (index, persoana) {
-                persoaneSelect.append($("<option>").val(persoana.idResurseUmane).text(persoana.prenume + ' ' + persoana.nume));
+                persoaneSelect.append($("<option>").val(persoana.idPersoana).text(persoana.fullName));
             });
             persoaneSelect.trigger(chosenUpdated);
         },
@@ -308,9 +340,10 @@ var getTari = function (container) {
 };
 
 var getProfile = function () {
+    pleaseWaitOn();
     var profile = {},
-        token = $("meta[name='_csrf']").prop("content"),
-        header = $("meta[name='_csrf_header']").prop("content"),
+        token = $("meta[name='_csrf']").prop('content'),
+        header = $("meta[name='_csrf_header']").prop('content'),
 
         nume = $('#userProfile-form-nume'),
         prenume = $('#userProfile-form-prenume'),
@@ -336,11 +369,11 @@ var getProfile = function () {
     $.ajax({
         type: 'get',
         url: '/app/secure/profile/',
-        contentType: "application/json",
+        contentType: 'application/json',
+        async: false,
         beforeSend: function (xhr) {
             xhr.setRequestHeader(header, token);
         },
-        async: false,
         success: function (response) {
             profile = response;
             nume.val(response.nume);
@@ -357,6 +390,7 @@ var getProfile = function () {
             codPostal.val(response.codPostal);
             idTara.val(response.idTara.idTara);
             username.val(response.idUser.username);
+            $('#nick-name').val(response.idUser.username);
             cnp.val(response.cnp);
             serieCi.val(response.serieCi);
             nrCi.val(response.nrCi);
@@ -364,12 +398,24 @@ var getProfile = function () {
             dataAngajare.val(response.dataAngajare);
             zileConcediu.val(response.zileConcediu);
             $('.chosen-select').trigger(chosenUpdated);
+            pleaseWaitOff();
         },
         error: function (e) {
             showNotification("Error. Please try again later." + e.Message, "Error", DANGER);
         }
     });
     return profile;
+};
+
+var moveCursorToEnd = function (element) {
+    if (typeof element.selectionStart === 'number') {
+        element.selectionStart = element.selectionEnd = element.value.length;
+    } else if (typeof element.createTextRange !== 'undefined') {
+        element.focus();
+        var range = element.createTextRange();
+        range.collapse(false);
+        range.select();
+    }
 };
 
 Array.prototype.remove = function () {
@@ -408,6 +454,10 @@ var chain = function (obj) {
     return obj;
 };
 
+//recalculate when window is loaded and also when window is resized.
+window.addEventListener('resize', calculatePopups);
+window.addEventListener('load', calculatePopups);
+
 $(document).ready(function () {
     $('#an-copyright').text(new Date().getFullYear());
     $('input[type=file]').bootstrapFileInput();
@@ -433,6 +483,94 @@ $(document).ready(function () {
         var linkLocation = $($(this).attr('href')).offset();
         if (linkLocation)
             $('html,body').animate({scrollTop: linkLocation.top}, "10000", 'linear');
+    });
+
+    getProfile();
+    loadContacts();
+    connectToChatserver('raindrop');
+    $('#messages').on('click', function () {
+        $('#chat-window').fadeToggle('600');
+    });
+
+    $(document).on('keypress', '.chat-input', function (event) {
+        var chatInput = $(this),
+            message = chatInput.val(),
+            receiver,
+            style,
+            classes,
+            textbox,
+            input,
+            id;
+        if (event.keyCode === ENTER_KEY) {
+            receiver = chatInput.closest('.chat-popup').prop('id');
+            sendMessage(message, receiver);
+            chatInput.val(EMPTY).focus();
+
+            event.preventDefault();
+            return;
+        }
+
+        if (message.length == 27) {
+            style = chatInput.prop('style');
+            classes = chatInput.prop('class');
+            id = chatInput.prop('id');
+            textbox = $(document.createElement('textarea'))
+                .prop('style', style)
+                .prop('class', classes)
+                .prop('id', id)
+                .val(message);
+            $(this).replaceWith(textbox);
+            //$('#' + id).focus();
+            moveCursorToEnd(document.getElementById(id));
+        }
+
+    });
+
+    $(document).on('focus', '.chat-input', function (event) {
+        var chatInput = $(this),
+            message = chatInput.val(),
+            $messageCount = $('#message-count'),
+            $messageAnnimation = $('#new-message-received'),
+            receiver = chatInput.closest('.chat-popup').prop('id');
+        messageCount += newMessageAllert(receiver, true);
+        if (messageCount === 0) {
+            $messageAnnimation.removeClass('icon-animated-vertical');
+            $messageCount.removeClass('count-circle count-circle-middle count-circle-red');
+            $messageCount.text(EMPTY);
+        } else {
+            $messageCount.text(messageCount);
+        }
+        event.preventDefault();
+
+    });
+
+    $(document).on('mouseup', '.chat-popup button', function (event) {
+        var chatInput = $(this).closest('.input-group').find('.chat-input'),
+            message = chatInput.val(),
+            receiver = chatInput.closest('.chat-popup').prop('id');
+        sendMessage(message, receiver);
+        chatInput.val(EMPTY).focus();
+
+        event.preventDefault();
+    });
+
+    $('#leave-room').click(function () {
+        leaveRoom();
+    });
+
+    $(document).on('mouseup', '.chat-popup .close', function (event) {
+        var id = $(this).closest('.chat-popup').prop('id');
+        closePopup(id);
+
+        event.preventDefault();
+    });
+
+    $(document).on('mouseup', '.sidebar-name a', function (event) {
+        var username = $(this).data('username'),
+            name = $(this).data('name');
+        registerPopup(username, name);
+        $('.chat-sidebar').offcanvas('hide');
+        event.preventDefault();
     });
 
     $(document).on('click', '.date .input-group-addon', function (event) {

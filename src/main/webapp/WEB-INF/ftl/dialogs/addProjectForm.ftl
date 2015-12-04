@@ -13,7 +13,7 @@
     <!-- Tab content -->
     <div class="tab-content">
         <div class="tab-pane fade in active" id="general-project" role="tabpanel">
-            [@modalContainer]
+        [@container]
                 [@input "addProject-form-nume" "numeProiect" "MODAL.PROJECTNAME" "MODAL.NAME" "" "6"/]
                 [@selectBox "addProject-form-status" "statusProiect" "MODAL.PROJECTSTATUS" "SELECT.PLACEHOLDER" "SEARCH.NO_RESULTS" "6" ]
                     [#list listaStatus?keys as key]
@@ -21,33 +21,33 @@
                     [/#list]
                 [/@selectBox]
                 [@textarea "addProject-form-descriere" "descriere" "MODAL.DESCRIPTION" "DESCRIPTION.PLACEHOLDER" "12"/]
-            [/@modalContainer]
+        [/@container]
         </div>
         <div class="tab-pane fade" id="company-project" role="tabpanel">
-            [@modalContainer ]
-                [@elementWithModalLink "modal-addClient" "MODAL.ADDCLIENT" "6"]
+        [@container ]
+                [@elementWithAdminModalLink "modal-addClient" "MODAL.ADDCLIENT" "6"]
                     [@embedableSelectBox "addProject-form-client" "idClient" "CLIENT" "SELECT.PLACEHOLDER" "SEARCH.NO_RESULTS"]
                     [/@embedableSelectBox]
-            [/@elementWithModalLink]
+        [/@elementWithAdminModalLink]
                 [@bottomInfobox "client-info" "INFOBOX.ADDCLIENT"/]
-            [/@modalContainer]
+            [/@container]
         </div>
         <div class="tab-pane fade" id="category-project" role="tabpanel">
-            [@modalContainer ]
-                [@elementWithModalLink "modal-addCategory" "MODAL.ADDCATEGORY" "6"]
+        [@container ]
+                [@elementWithAdminModalLink "modal-addCategory" "MODAL.ADDCATEGORY" "6"]
                     [@embedableSelectBox "addProject-form-category" "categorieProiect" "CATEGORY" "SELECT.PLACEHOLDER" "SEARCH.NO_RESULTS"]
                     [/@embedableSelectBox]
-            [/@elementWithModalLink]
+        [/@elementWithAdminModalLink]
                 [@bottomInfobox "client-info" "INFOBOX.ADDCATEGORY"/]
-            [/@modalContainer]
+            [/@container]
         </div>
         <div class="tab-pane fade" id="dates-project" role="tabpanel">
-            [@modalContainer ]
+        [@container ]
                 [@datepicker "addProject-form-start-date" "dataStart" "STARTDATE" "DATE.PLACEHOLDER" "6" /]
                 [@rowBreak/]
                 [@datepicker "addProject-form-end-date" "dataEndEstimativa" "ENDDATE" "DATE.PLACEHOLDER" "6" /]
                 [@bottomInfobox "client-info" "INFOBOX.ADDDATE"/]
-            [/@modalContainer]
+            [/@container]
         </div>
     </div>
 </div>

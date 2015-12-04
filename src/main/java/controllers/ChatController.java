@@ -1,38 +1,36 @@
 package controllers;
 
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import model.chat.ChatMessage;
 import model.chat.Result;
-import model.domain.ChatMessage;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.handler.annotation.MessageExceptionHandler;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
+import org.springframework.messaging.simp.annotation.SendToUser;
 import org.springframework.stereotype.Controller;
-import services.chat.ChatService;
 
-import javax.json.Json;
-import javax.json.JsonObject;
-import java.io.StringReader;
+import java.security.Principal;
 import java.sql.Timestamp;
 
 @Controller
 public class ChatController {
 
-    @Autowired
-    private ChatService chatService;
-
     @MessageMapping("/chat")
-    @SendTo("/topic/greetings")
-    public Result result(String messageJson) throws Exception {
-        ChatMessage message = new ChatMessage();
-        JsonObject obj = Json.createReader(new StringReader(messageJson)).readObject();
-        obj = Json.createReader(new StringReader(obj.getString("message"))).readObject();
-        message.setMessage(obj.getString("message"));
-        message.setSender(obj.getString("sender"));
-        message.setReceiver(obj.getString("receiver"));
-        message.setUnitate(obj.getString("unitate"));
+    @SendTo("/topic/message")
+    public Result result(String messageJson, Principal principal) throws Exception {
+        ChatMessage message;
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+        message = mapper.readValue(messageJson, ChatMessage.class);
         message.setReceived(new Timestamp(System.currentTimeMillis()));
 
-        chatService.save(message);
+        return new Result(messageJson);
+    }
 
-        return new Result(message.toString());
+    @MessageExceptionHandler
+    @SendToUser("/queue/errors")
+    public String handleException(Throwable exception) {
+        return exception.getMessage();
     }
 }

@@ -1,6 +1,6 @@
 package services.chat;
 
-import model.domain.ChatMessage;
+import model.chat.ChatMessage;
 
 import javax.json.Json;
 import javax.websocket.EncodeException;
@@ -19,15 +19,13 @@ public class ChatMessageEncoder implements Encoder.Text<ChatMessage> {
 
     @Override
     public String encode(final ChatMessage chatMessage) throws EncodeException {
-        String retVal = Json.createObjectBuilder()
+
+        return Json.createObjectBuilder()
                 .add("message", chatMessage.getMessage())
                 .add("sender", chatMessage.getSender())
                 .add("receiver", chatMessage.getReceiver())
-                .add("unitate", chatMessage.getUnitate())
                 .add("received", chatMessage.getReceived().toString()).build()
 
                 .toString();
-
-        return retVal;
     }
 }

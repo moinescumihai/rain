@@ -7,7 +7,7 @@ import java.sql.Date;
 @Table(name = "pontaj", schema = "", catalog = "raindrop")
 public class Pontaj extends BaseEntity {
     private long idPontaj;
-    private ResurseUmane idResurseUmane;
+    private Persoana idPersoana;
     private UMPontaj idUMPontaj;
     private String zi;
     private String luna;
@@ -26,13 +26,13 @@ public class Pontaj extends BaseEntity {
     }
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "id_resurse_umane")
-    public ResurseUmane getIdResurseUmane() {
-        return idResurseUmane;
+    @JoinColumn(name = "id_persoana")
+    public Persoana getIdPersoana() {
+        return idPersoana;
     }
 
-    public void setIdResurseUmane(ResurseUmane idResurseUmane) {
-        this.idResurseUmane = idResurseUmane;
+    public void setIdPersoana(Persoana idPersoana) {
+        this.idPersoana = idPersoana;
     }
 
     @ManyToOne(fetch = FetchType.EAGER)

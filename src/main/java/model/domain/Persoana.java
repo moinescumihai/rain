@@ -4,20 +4,16 @@ import javax.persistence.*;
 import java.sql.Date;
 
 @Entity
-@Table(name = "resurse_umane", schema = "", catalog = "raindrop")
-public class ResurseUmane extends BaseEntity {
-    private long idResurseUmane;
+@Table(name = "persoane", schema = "", catalog = "raindrop")
+public class Persoana extends BaseEntity implements Comparable<Persoana> {
+    private long idPersoana;
     private Attachment userPhoto;
     private String nume;
     private String prenume;
-    private String prenume2;
-    private String email;
     private Client idClient;
     private String pozitie;
     private String pozitieAnterioara;
     private String cnp;
-    private String serieCi;
-    private String nrCi;
     private String workTel;
     private String mobilTel;
     private String homeTel;
@@ -30,21 +26,19 @@ public class ResurseUmane extends BaseEntity {
     private Date dataAngajare;
     private User idUser;
     private Date dataNastere;
-    private Integer esteDepartament;
-    private Integer esteContact;
     private String zileConcediu;
     @Transient
     private String fullName;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_resurse_umane", nullable = false, insertable = true, updatable = true)
-    public long getIdResurseUmane() {
-        return idResurseUmane;
+    @Column(name = "id_persoana", nullable = false, insertable = true, updatable = true)
+    public long getIdPersoana() {
+        return idPersoana;
     }
 
-    public void setIdResurseUmane(long idResurseUmane) {
-        this.idResurseUmane = idResurseUmane;
+    public void setIdPersoana(long idPersoana) {
+        this.idPersoana = idPersoana;
     }
 
     @Basic
@@ -67,26 +61,6 @@ public class ResurseUmane extends BaseEntity {
         this.prenume = prenume;
     }
 
-    @Basic
-    @Column(name = "prenume2", nullable = false, insertable = true, updatable = true, length = 150)
-    public String getPrenume2() {
-        return prenume2;
-    }
-
-    public void setPrenume2(String prenume2) {
-        this.prenume2 = prenume2;
-    }
-
-    @Basic
-    @Column(name = "email", nullable = true, insertable = true, updatable = true, length = 150)
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_client")
     public Client getIdClient() {
@@ -98,7 +72,7 @@ public class ResurseUmane extends BaseEntity {
     }
 
     @Basic
-    @Column(name = "pozitie", nullable = false, insertable = true, updatable = true, length = 150)
+    @Column(name = "pozitie", nullable = true, insertable = true, updatable = true, length = 150)
     public String getPozitie() {
         return pozitie;
     }
@@ -118,33 +92,13 @@ public class ResurseUmane extends BaseEntity {
     }
 
     @Basic
-    @Column(name = "cnp", nullable = false, insertable = true, updatable = true, length = 20)
+    @Column(name = "cnp", nullable = true, insertable = true, updatable = true, length = 20)
     public String getCnp() {
         return cnp;
     }
 
     public void setCnp(String cnp) {
         this.cnp = cnp;
-    }
-
-    @Basic
-    @Column(name = "serie_ci", nullable = true, insertable = true, updatable = true, length = 45)
-    public String getSerieCi() {
-        return serieCi;
-    }
-
-    public void setSerieCi(String serieCi) {
-        this.serieCi = serieCi;
-    }
-
-    @Basic
-    @Column(name = "nr_ci", nullable = true, insertable = true, updatable = true, length = 45)
-    public String getNrCi() {
-        return nrCi;
-    }
-
-    public void setNrCi(String nrCi) {
-        this.nrCi = nrCi;
     }
 
     @Basic
@@ -238,7 +192,7 @@ public class ResurseUmane extends BaseEntity {
     }
 
     @Basic
-    @Column(name = "data_angajare", nullable = false, insertable = true, updatable = true)
+    @Column(name = "data_angajare", nullable = true, insertable = true, updatable = true)
     public Date getDataAngajare() {
         return dataAngajare;
     }
@@ -258,33 +212,13 @@ public class ResurseUmane extends BaseEntity {
     }
 
     @Basic
-    @Column(name = "data_nastere", nullable = false, insertable = true, updatable = true)
+    @Column(name = "data_nastere", nullable = true, insertable = true, updatable = true)
     public Date getDataNastere() {
         return dataNastere;
     }
 
     public void setDataNastere(Date dataNastere) {
         this.dataNastere = dataNastere;
-    }
-
-    @Basic
-    @Column(name = "este_departament", nullable = true, insertable = true, updatable = true)
-    public Integer getEsteDepartament() {
-        return esteDepartament;
-    }
-
-    public void setEsteDepartament(Integer esteDepartament) {
-        this.esteDepartament = esteDepartament;
-    }
-
-    @Basic
-    @Column(name = "este_contact", nullable = true, insertable = true, updatable = true)
-    public Integer getEsteContact() {
-        return esteContact;
-    }
-
-    public void setEsteContact(Integer esteContact) {
-        this.esteContact = esteContact;
     }
 
     @Basic
@@ -299,7 +233,7 @@ public class ResurseUmane extends BaseEntity {
 
     @PostLoad
     public void setFullName() {
-        this.fullName = this.prenume + " " + this.nume;
+        this.fullName = this.nume + " " + this.prenume;
     }
 
     public String getFullName() {
@@ -325,53 +259,43 @@ public class ResurseUmane extends BaseEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        ResurseUmane that = (ResurseUmane) o;
+        Persoana persoana = (Persoana) o;
 
-        if (idResurseUmane != that.idResurseUmane) return false;
-        if (userPhoto != null ? !userPhoto.equals(that.userPhoto) : that.userPhoto != null) return false;
-        if (nume != null ? !nume.equals(that.nume) : that.nume != null) return false;
-        if (prenume != null ? !prenume.equals(that.prenume) : that.prenume != null) return false;
-        if (prenume2 != null ? !prenume2.equals(that.prenume2) : that.prenume2 != null) return false;
-        if (email != null ? !email.equals(that.email) : that.email != null) return false;
-        if (idClient != null ? !idClient.equals(that.idClient) : that.idClient != null) return false;
-        if (pozitie != null ? !pozitie.equals(that.pozitie) : that.pozitie != null) return false;
-        if (pozitieAnterioara != null ? !pozitieAnterioara.equals(that.pozitieAnterioara) : that.pozitieAnterioara != null) return false;
-        if (cnp != null ? !cnp.equals(that.cnp) : that.cnp != null) return false;
-        if (serieCi != null ? !serieCi.equals(that.serieCi) : that.serieCi != null) return false;
-        if (nrCi != null ? !nrCi.equals(that.nrCi) : that.nrCi != null) return false;
-        if (workTel != null ? !workTel.equals(that.workTel) : that.workTel != null) return false;
-        if (mobilTel != null ? !mobilTel.equals(that.mobilTel) : that.mobilTel != null) return false;
-        if (homeTel != null ? !homeTel.equals(that.homeTel) : that.homeTel != null) return false;
-        if (fax != null ? !fax.equals(that.fax) : that.fax != null) return false;
-        if (adresa != null ? !adresa.equals(that.adresa) : that.adresa != null) return false;
-        if (oras != null ? !oras.equals(that.oras) : that.oras != null) return false;
-        if (judet != null ? !judet.equals(that.judet) : that.judet != null) return false;
-        if (codPostal != null ? !codPostal.equals(that.codPostal) : that.codPostal != null) return false;
-        if (idTara != null ? !idTara.equals(that.idTara) : that.idTara != null) return false;
-        if (dataAngajare != null ? !dataAngajare.equals(that.dataAngajare) : that.dataAngajare != null) return false;
-        if (idUser != null ? !idUser.equals(that.idUser) : that.idUser != null) return false;
-        if (dataNastere != null ? !dataNastere.equals(that.dataNastere) : that.dataNastere != null) return false;
-        if (esteDepartament != null ? !esteDepartament.equals(that.esteDepartament) : that.esteDepartament != null) return false;
-        if (esteContact != null ? !esteContact.equals(that.esteContact) : that.esteContact != null) return false;
-        if (zileConcediu != null ? !zileConcediu.equals(that.zileConcediu) : that.zileConcediu != null) return false;
-        return !(fullName != null ? !fullName.equals(that.fullName) : that.fullName != null);
+        if (idPersoana != persoana.idPersoana) return false;
+        if (userPhoto != null ? !userPhoto.equals(persoana.userPhoto) : persoana.userPhoto != null) return false;
+        if (nume != null ? !nume.equals(persoana.nume) : persoana.nume != null) return false;
+        if (prenume != null ? !prenume.equals(persoana.prenume) : persoana.prenume != null) return false;
+        if (idClient != null ? !idClient.equals(persoana.idClient) : persoana.idClient != null) return false;
+        if (pozitie != null ? !pozitie.equals(persoana.pozitie) : persoana.pozitie != null) return false;
+        if (pozitieAnterioara != null ? !pozitieAnterioara.equals(persoana.pozitieAnterioara) : persoana.pozitieAnterioara != null) return false;
+        if (cnp != null ? !cnp.equals(persoana.cnp) : persoana.cnp != null) return false;
+        if (workTel != null ? !workTel.equals(persoana.workTel) : persoana.workTel != null) return false;
+        if (mobilTel != null ? !mobilTel.equals(persoana.mobilTel) : persoana.mobilTel != null) return false;
+        if (homeTel != null ? !homeTel.equals(persoana.homeTel) : persoana.homeTel != null) return false;
+        if (fax != null ? !fax.equals(persoana.fax) : persoana.fax != null) return false;
+        if (adresa != null ? !adresa.equals(persoana.adresa) : persoana.adresa != null) return false;
+        if (oras != null ? !oras.equals(persoana.oras) : persoana.oras != null) return false;
+        if (judet != null ? !judet.equals(persoana.judet) : persoana.judet != null) return false;
+        if (codPostal != null ? !codPostal.equals(persoana.codPostal) : persoana.codPostal != null) return false;
+        if (idTara != null ? !idTara.equals(persoana.idTara) : persoana.idTara != null) return false;
+        if (dataAngajare != null ? !dataAngajare.equals(persoana.dataAngajare) : persoana.dataAngajare != null) return false;
+        if (idUser != null ? !idUser.equals(persoana.idUser) : persoana.idUser != null) return false;
+        if (dataNastere != null ? !dataNastere.equals(persoana.dataNastere) : persoana.dataNastere != null) return false;
+        if (zileConcediu != null ? !zileConcediu.equals(persoana.zileConcediu) : persoana.zileConcediu != null) return false;
+        return !(fullName != null ? !fullName.equals(persoana.fullName) : persoana.fullName != null);
 
     }
 
     @Override
     public int hashCode() {
-        int result = (int) (idResurseUmane ^ (idResurseUmane >>> 32));
+        int result = (int) (idPersoana ^ (idPersoana >>> 32));
         result = 31 * result + (userPhoto != null ? userPhoto.hashCode() : 0);
         result = 31 * result + (nume != null ? nume.hashCode() : 0);
         result = 31 * result + (prenume != null ? prenume.hashCode() : 0);
-        result = 31 * result + (prenume2 != null ? prenume2.hashCode() : 0);
-        result = 31 * result + (email != null ? email.hashCode() : 0);
         result = 31 * result + (idClient != null ? idClient.hashCode() : 0);
         result = 31 * result + (pozitie != null ? pozitie.hashCode() : 0);
         result = 31 * result + (pozitieAnterioara != null ? pozitieAnterioara.hashCode() : 0);
         result = 31 * result + (cnp != null ? cnp.hashCode() : 0);
-        result = 31 * result + (serieCi != null ? serieCi.hashCode() : 0);
-        result = 31 * result + (nrCi != null ? nrCi.hashCode() : 0);
         result = 31 * result + (workTel != null ? workTel.hashCode() : 0);
         result = 31 * result + (mobilTel != null ? mobilTel.hashCode() : 0);
         result = 31 * result + (homeTel != null ? homeTel.hashCode() : 0);
@@ -384,10 +308,13 @@ public class ResurseUmane extends BaseEntity {
         result = 31 * result + (dataAngajare != null ? dataAngajare.hashCode() : 0);
         result = 31 * result + (idUser != null ? idUser.hashCode() : 0);
         result = 31 * result + (dataNastere != null ? dataNastere.hashCode() : 0);
-        result = 31 * result + (esteDepartament != null ? esteDepartament.hashCode() : 0);
-        result = 31 * result + (esteContact != null ? esteContact.hashCode() : 0);
         result = 31 * result + (zileConcediu != null ? zileConcediu.hashCode() : 0);
         result = 31 * result + (fullName != null ? fullName.hashCode() : 0);
         return result;
+    }
+
+    @Override
+    public int compareTo(Persoana o) {
+        return this.getFullName().compareTo(o.getFullName());
     }
 }

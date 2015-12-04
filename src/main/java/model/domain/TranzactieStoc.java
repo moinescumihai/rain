@@ -10,7 +10,7 @@ public class TranzactieStoc extends BaseEntity {
     private Colet idColet;
     private Stoc idStoc;
     private Loc idLoc;
-    private ResurseUmane idResurseUmane;
+    private Persoana idPersoana;
     private StareStoc idStare;
     private StareStoc idStareAnterioara;
     private String detalii;
@@ -59,12 +59,12 @@ public class TranzactieStoc extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_resurse_umnane")
-    public ResurseUmane getIdResurseUmane() {
-        return idResurseUmane;
+    public Persoana getIdPersoana() {
+        return idPersoana;
     }
 
-    public void setIdResurseUmane(ResurseUmane idResurseUmane) {
-        this.idResurseUmane = idResurseUmane;
+    public void setIdPersoana(Persoana idPersoana) {
+        this.idPersoana = idPersoana;
     }
 
     @Basic
@@ -119,7 +119,7 @@ public class TranzactieStoc extends BaseEntity {
         if (idColet != null ? !idColet.equals(that.idColet) : that.idColet != null) return false;
         if (idStoc != null ? !idStoc.equals(that.idStoc) : that.idStoc != null) return false;
         if (idLoc != null ? !idLoc.equals(that.idLoc) : that.idLoc != null) return false;
-        if (idResurseUmane != null ? !idResurseUmane.equals(that.idResurseUmane) : that.idResurseUmane != null) return false;
+        if (idPersoana != null ? !idPersoana.equals(that.idPersoana) : that.idPersoana != null) return false;
         if (idStare != null ? !idStare.equals(that.idStare) : that.idStare != null) return false;
         if (idStareAnterioara != null ? !idStareAnterioara.equals(that.idStareAnterioara) : that.idStareAnterioara != null) return false;
         if (detalii != null ? !detalii.equals(that.detalii) : that.detalii != null) return false;
@@ -133,7 +133,7 @@ public class TranzactieStoc extends BaseEntity {
         result = 31 * result + (idColet != null ? idColet.hashCode() : 0);
         result = 31 * result + (idStoc != null ? idStoc.hashCode() : 0);
         result = 31 * result + (idLoc != null ? idLoc.hashCode() : 0);
-        result = 31 * result + (idResurseUmane != null ? idResurseUmane.hashCode() : 0);
+        result = 31 * result + (idPersoana != null ? idPersoana.hashCode() : 0);
         result = 31 * result + (idStare != null ? idStare.hashCode() : 0);
         result = 31 * result + (idStareAnterioara != null ? idStareAnterioara.hashCode() : 0);
         result = 31 * result + (detalii != null ? detalii.hashCode() : 0);

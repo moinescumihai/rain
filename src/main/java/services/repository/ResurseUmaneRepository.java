@@ -1,16 +1,16 @@
 package services.repository;
 
 
-import model.domain.ResurseUmane;
+import model.domain.Persoana;
 import model.domain.User;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
 
-public interface ResurseUmaneRepository extends CrudRepository<ResurseUmane, Long> {
-    ResurseUmane findByIdUser(User idUser);
+public interface ResurseUmaneRepository extends CrudRepository<Persoana, Long> {
+    Persoana findByIdUser(User idUser);
 
-    List<ResurseUmane> findAllByNumeStartingWithOrderByNumeAsc(String firstLetter);
+    List<Persoana> findAllByNumeStartingWithOrderByNumeAsc(String firstLetter);
 
-    ResurseUmane findByFullNameEquals(String fullName);
+    Persoana findByFullNameEquals(String fullName);
 }

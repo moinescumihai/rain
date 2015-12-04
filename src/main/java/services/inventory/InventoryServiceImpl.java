@@ -69,9 +69,9 @@ public class InventoryServiceImpl implements InventoryService {
 
     @Override
     public List<Stoc> findItemsForUser() {
-        ResurseUmane user = resurseUmaneService.findByUsername(UserUtils.getLoggedInUsername());
+        Persoana user = resurseUmaneService.findByUsername(UserUtils.getLoggedInUsername());
         try {
-            return stocRepository.findAllByIdResurseUmaneAndDeleted(user, 0);
+            return stocRepository.findAllByIdPersoanaAndDeleted(user, 0);
         } catch (DataAccessException e) {
             LOGGER.error("INVENTAR.NO_INVENTORY_ITEMS", e);
             return Collections.emptyList();
@@ -107,7 +107,7 @@ public class InventoryServiceImpl implements InventoryService {
         stoc.setIdGrupStoc(grupStocRepository.findOne(entity.getIdGrupStoc()));
         stoc.setIdStare(stareStocRepository.findOne(entity.getIdStare()));
         stoc.setIdLoc(locRepository.findOne(entity.getIdLoc()));
-        stoc.setIdResurseUmane(resurseUmaneService.findOne(entity.getIdResurseUmane()));
+        stoc.setIdPersoana(resurseUmaneService.findOne(entity.getIdResurseUmane()));
         stoc = stocRepository.save(stoc);
         buildAndSaveTranzactieStoc(stoc, null, entity.getDetalii());
 
@@ -123,7 +123,7 @@ public class InventoryServiceImpl implements InventoryService {
         TranzactieStoc newStockAdded = new TranzactieStoc();
         newStockAdded.setIdStoc(entity);
         newStockAdded.setIdLoc(entity.getIdLoc());
-        newStockAdded.setIdResurseUmane(entity.getIdResurseUmane());
+        newStockAdded.setIdPersoana(entity.getIdPersoana());
         newStockAdded.setIdStareAnterioara(idStareAnterioara);
         newStockAdded.setIdStare(entity.getIdStare());
         newStockAdded.setIdColet(idColet);
@@ -289,7 +289,7 @@ public class InventoryServiceImpl implements InventoryService {
     }
 
     @Override
-    public List<ResurseUmane> findAllPersoane() {
+    public List<Persoana> findAllPersoane() {
         return resurseUmaneService.findAllPersoane();
     }
 
@@ -319,7 +319,7 @@ public class InventoryServiceImpl implements InventoryService {
         for (long idArticol : model.getArticole()) {
             stoc = stocRepository.findOne(idArticol);
             stoc.setIdLoc(locRepository.findOne(model.getIdLoc()));
-            stoc.setIdResurseUmane(resurseUmaneService.findOne(model.getIdResurseUmane()));
+            stoc.setIdPersoana(resurseUmaneService.findOne(model.getIdResurseUmane()));
             stoc.setIdStare(stareStoc);
             stocRepository.save(stoc);
             buildAndSaveTranzactieStoc(stoc, colet, model.getDetalii());
@@ -338,7 +338,7 @@ public class InventoryServiceImpl implements InventoryService {
         for (long idArticol : model.getArticole()) {
             stoc = stocRepository.findOne(idArticol);
             stoc.setIdLoc(locRepository.findOne(model.getIdLoc()));
-            stoc.setIdResurseUmane(resurseUmaneService.findOne(1L));
+            stoc.setIdPersoana(resurseUmaneService.findOne(1L));
             stoc.setIdStare(stareStoc);
             stocRepository.save(stoc);
             buildAndSaveTranzactieStoc(stoc, colet, model.getDetalii());

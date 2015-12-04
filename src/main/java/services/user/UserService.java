@@ -1,7 +1,7 @@
 package services.user;
 
 import model.domain.User;
-import org.springframework.stereotype.Service;
+import model.domain.UserRole;
 
 import java.util.List;
 
@@ -12,4 +12,8 @@ public interface UserService {
     List<User> findAll();
 
     User findByUsername(String username);
+
+    User findByIdUser(long idUser);
+
+    List<UserRole> getRolesForUser(long idUser);
 }

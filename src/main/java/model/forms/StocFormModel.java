@@ -10,7 +10,7 @@ public class StocFormModel {
     private String codStoc;
     private long idStare;
     private long idLoc;
-    private long idResurseUmane;
+    private long idPersoana;
     private String detalii;
     private long factura;
     private long imagine;
@@ -76,11 +76,11 @@ public class StocFormModel {
     }
 
     public long getIdResurseUmane() {
-        return idResurseUmane;
+        return idPersoana;
     }
 
-    public void setIdResurseUmane(long idResurseUmane) {
-        this.idResurseUmane = idResurseUmane;
+    public void setIdResurseUmane(long idPersoana) {
+        this.idPersoana = idPersoana;
     }
 
     public String getDetalii() {
@@ -151,7 +151,7 @@ public class StocFormModel {
         if (idGrupStoc != that.idGrupStoc) return false;
         if (idStare != that.idStare) return false;
         if (idLoc != that.idLoc) return false;
-        if (idResurseUmane != that.idResurseUmane) return false;
+        if (idPersoana != that.idPersoana) return false;
         if (factura != that.factura) return false;
         if (imagine != that.imagine) return false;
         if (numeStoc != null ? !numeStoc.equals(that.numeStoc) : that.numeStoc != null) return false;
@@ -173,7 +173,7 @@ public class StocFormModel {
         result = 31 * result + (codStoc != null ? codStoc.hashCode() : 0);
         result = 31 * result + (int) (idStare ^ (idStare >>> 32));
         result = 31 * result + (int) (idLoc ^ (idLoc >>> 32));
-        result = 31 * result + (int) (idResurseUmane ^ (idResurseUmane >>> 32));
+        result = 31 * result + (int) (idPersoana ^ (idPersoana >>> 32));
         result = 31 * result + (detalii != null ? detalii.hashCode() : 0);
         result = 31 * result + (int) (factura ^ (factura >>> 32));
         result = 31 * result + (int) (imagine ^ (imagine >>> 32));
