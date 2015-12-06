@@ -27,4 +27,6 @@ public interface ProjectsService {
     UserOnProject removePersoanaFromProiect(long idUserOnProject);
 
     UserOnProject assignPersoanaToProiect(PersonOnProjectFormModel personOnProject);
+
+    Proiect findProjectByKey(String projectKey);
 }

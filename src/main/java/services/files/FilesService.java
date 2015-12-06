@@ -17,4 +17,6 @@ public interface FilesService {
     List<Attachment> listFiles(long id);
 
     long getFolderForPath(String path);
+
+    List<Attachment> getFilesForProject(long idProject);
 }

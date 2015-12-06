@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import services.ListaTariService;
+import services.ProfileService;
 import services.repository.IndustrieRepository;
 import services.repository.StatusProiectRepository;
 
@@ -24,6 +25,8 @@ public class ProjectsController {
     private ListaTariService listaTariRepository;
     @Autowired
     private StatusProiectRepository statusProiectRepository;
+    @Autowired
+    private ProfileService profileService;
 
     @RequestMapping(value = "/projects", method = RequestMethod.GET)
     public ModelAndView getProjects() {
@@ -44,6 +47,7 @@ public class ProjectsController {
         model.addObject("listaIndustrie", listaIndustrie);
         model.addObject("listaTari", listaTari);
         model.addObject("listaStatus", listaStatus);
+        model.addObject("loggedInUser", profileService.getLoggedInRaindropUser());
         model.setViewName("projects");
         return model;
     }

@@ -9,4 +9,6 @@ public interface AttachmentRepository extends CrudRepository<Attachment, Long> {
     List<Attachment> findAllByIsDirectoryAndParent(Integer isDirectory, Integer parent);
 
     Attachment findByPathEquals(String path);
+
+    List<Attachment> findAllByIdProiectEqualsOrderByCreatLaDesc(long idProject);
 }

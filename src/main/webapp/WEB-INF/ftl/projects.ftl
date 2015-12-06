@@ -61,7 +61,19 @@
             <i class="fa fa-info-circle"></i>
             [@spring.message "LISTA_FISIERE.INFO"/]
         </div>
-        <div id="files-holder"></div>
+        <table class="table table-hover table-condensed table-striped">
+            <thead>
+            <tr class="text-table-head">
+                <th class="align-center">#</th>
+                <th class="align-left">Nume</th>
+                <th class="align-right">M&abreve;rime</th>
+                <th class="align-right">Ultima accesare</th>
+                <th class="align-right">Ultima modificare</th>
+            </tr>
+            </thead>
+            <tbody id="file-holder" class="text-center"></tbody>
+
+        </table>
         [/@modalDialog]
 
     [/@content]

@@ -71,7 +71,7 @@ public class ProjectServiceImpl implements ProjectsService {
         Proiect proiect = new Proiect();
         proiect.setNumeProiect(entity.getNumeProiect());
         while (matcher.find()) {
-            proiect.setCodroiect(matcher.group(1).toUpperCase());
+            proiect.setCodProiect(matcher.group(1).toUpperCase());
         }
         proiect.setDescriere(entity.getDescriere());
         proiect.setIdStatusProiect(statusProiectRepository.findOne(entity.getIdStatusProiect()));
@@ -156,6 +156,11 @@ public class ProjectServiceImpl implements ProjectsService {
         }
 
         return mapping;
+    }
+
+    @Override
+    public Proiect findProjectByKey(String projectKey) {
+        return proiectRepository.findOneByCodProiectEquals(projectKey);
     }
 
 

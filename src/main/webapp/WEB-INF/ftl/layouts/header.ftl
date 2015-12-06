@@ -42,7 +42,7 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <li id="tasks"><a href="/tasks">[@spring.message "TASKS"/]</a></li>
+                <li id="tasks"><a href="/tasks?proiect=${loggedInUser.getFavorit().getCodProiect()}">[@spring.message "TASKS"/]</a></li>
                 <li id="projects">
                     <a href="/projects">[@spring.message "PROJECTS"/]</a>
                 </li>

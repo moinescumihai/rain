@@ -52,6 +52,13 @@ public class FilesRestController {
         return filesService.getStocImage(idStoc);
     }
 
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
+    @RequestMapping(value = "/get-files-for-project/{idProject}", method = RequestMethod.GET)
+    @ResponseBody
+    public List<Attachment> getFilesForProject(@PathVariable("idProject") long idProject) {
+        return filesService.getFilesForProject(idProject);
+    }
+
     @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_FILES')")
     @RequestMapping(value = "/list-files", method = RequestMethod.GET, produces = "application/json")
     @ResponseBody

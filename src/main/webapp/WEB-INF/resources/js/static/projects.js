@@ -6,23 +6,24 @@ var addProjectForm = $('#modal-addProiect-form'),
     $addPersoanaForm = $('#add-persoana-to-project-form'),
     $taskModal = $('#modal-tasks'),
     $filesModal = $('#modal-files'),
+    $fileHolder = $('#file-holder'),
     alertType = ['alert-primary', 'alert-success', 'alert-warning', 'alert-info'],
     projectsTable;
 
 var getClients = function (container) {
     var clientsSelect = $('#' + container);
     clientsSelect.html(EMPTY);
-    clientsSelect.append("<option></option>");
+    clientsSelect.append('<option></option>');
     $.ajax({
         type: 'get',
         url: '/app/secure/projects/getclients',
         contentType: 'application/json',
         success: function (response) {
             if (response.length === 0) {
-                clientsSelect.append($("<option>").prop('disabled', true).text('Nu ai definit niciun client'));
+                clientsSelect.append($('<option>').prop('disabled', true).text('Nu ai definit niciun client'));
             }
             $.each(response, function (index, client) {
-                clientsSelect.append($("<option>").val(client.idClient).text(client.numeClient));
+                clientsSelect.append($('<option>').val(client.idClient).text(client.numeClient));
             });
             clientsSelect.trigger(chosenUpdated);
         },
@@ -42,7 +43,7 @@ var getCategories = function (container) {
         contentType: 'application/json',
         success: function (response) {
             if (response.length === 0) {
-                categoriesSelect.append($("<option>").prop('disabled', true).text('Nu ai definit nicio categorie'));
+                categoriesSelect.append($('<option>').prop('disabled', true).text('Nu ai definit nicio categorie'));
             }
             $.each(response, function (index, category) {
                 categoriesSelect.append($('<option>').val(category.idCategorieProiect).text(category.nume));
@@ -126,8 +127,8 @@ var getProjects = function () {
             var tableFooter = '</tbody></table>';
             projectContainer.html(tableHeader + rows.join('') + tableFooter);
             projectsTable = $('#project-table').DataTable({
-                "sDom": 'ltipr',
-                "columns": [
+                sDom: 'ltipr',
+                columns: [
                     {
                         "bSortable": true,
                         "orderable": true,
@@ -204,6 +205,27 @@ var unassignUserFromProject = function (idUserOnProject) {
     });
 };
 
+var getFilesForProject = function (idProject) {
+    var token = $("meta[name='_csrf']").prop('content'),
+        header = $("meta[name='_csrf_header']").prop('content');
+
+    $.ajax({
+        method: 'get',
+        dataType: 'json',
+        url: '/app/secure/files/get-files-for-project/' + idProject,
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader(header, token);
+        },
+        success: function (response) {
+            $fileHolder.html(EMPTY);
+            displayFiles(response, $fileHolder);
+        },
+        error: function () {
+            showNotification('Error. Please try again later.', 'Error', ERROR);
+        }
+    });
+};
+
 $(document).ready(function () {
     $('#projects').addClass('active');
 
@@ -276,6 +298,7 @@ $(document).ready(function () {
     $(document).on('click', 'a[id^="pop-proj-files-"]', function (event) {
         var idProject = $(this).prop('id').replace(/pop-proj-files-/g, '');
         $filesModal.modal('show');
+        getFilesForProject(idProject);
 
         event.preventDefault();
     });

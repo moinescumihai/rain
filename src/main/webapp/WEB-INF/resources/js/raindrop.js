@@ -10,7 +10,8 @@ const UNSELECT = [];
 const ZERO = 0;
 const chosenUpdated = 'chosen:updated';
 var $changePasswordForm = $('#modal-changePassword-form'),
-    $changePasswordModal = $('#modal-changePassword');
+    $changePasswordModal = $('#modal-changePassword'),
+    faFiles;
 
 jQuery.validator.addMethod("samePasswords", function (value, element, param) {
     return this.optional(element) || passwordsAreTheSame();
@@ -452,6 +453,82 @@ var chain = function (obj) {
         }
     }
     return obj;
+};
+
+$.getJSON('/js/static/fa-files.json', function (data) {
+    faFiles = data;
+});
+
+var computeExtension = (function () {
+    var memory = [];
+    return function (fileName) {
+        var extension = /(?:\.([^.]+))?$/.exec(fileName)[1];
+        if (typeof extension === 'undefined') {
+            extension = EMPTY;
+        }
+        extension = extension.toLowerCase();
+        var icon = memory[extension];
+        if (typeof icon !== 'string') {
+            $.each(faFiles.files[0], function (index, fileType) {
+                $.each(fileType.extensions, function (index, fileExtension) {
+                    if (fileExtension === extension) {
+                        icon = fileType.icon;
+                    }
+                })
+            });
+            memory[extension] = icon;
+        }
+        return icon;
+    };
+}());
+
+var humanReadableSize = function (sizeInBytes) {
+    var readableSize;
+    if (sizeInBytes <= 0) {
+        readableSize = '�';
+    } else if (sizeInBytes < 1024) {
+        readableSize = sizeInBytes + ' B';
+    } else if (sizeInBytes < 1048576) {
+        readableSize = +(sizeInBytes / 1024).toFixed(2) + ' KB';
+    } else if (sizeInBytes < 1073741824) {
+        readableSize = +(sizeInBytes / 1048576).toFixed(2) + ' MB';
+    } else {
+        readableSize = +(sizeInBytes / 1073741824).toFixed(2) + ' GB'
+    }
+    return readableSize;
+};
+
+var displayFiles = function (files, fileHolder) {
+    var ultimaAccesare,
+        ultimaModificare,
+        fileName,
+        icon,
+        isFolder,
+        id;
+
+    fileHolder.html(EMPTY);
+    $.each(files, function (index, file) {
+        fileName = file.originalFileName;
+        ultimaAccesare = file.accesatLa ? toJSDateTime(file.accesatLa) : '&mdash;';
+        ultimaModificare = file.modificatLa !== null ? toJSDateTime(file.modificatLa) : toJSDateTime(file.creatLa);
+        isFolder = file.isDirectory;
+        id = file.idAttachment;
+        if (isFolder) {
+            icon = faFiles.folder;
+        } else {
+            icon = computeExtension(fileName);
+        }
+
+        fileHolder.append(
+            '<tr><td align="center">'
+            + (index + 1)
+            + ' </td><td align="left">'
+            + '<i class="fa fa-fw ' + icon + '"></i>  <a data-id="' + id + '" data-is-folder="' + isFolder + '" data-path="' + file.path + '" class="clickable-file">' + fileName + '</a>'
+            + '</td><td align="right">' + humanReadableSize(file.size)
+            + '<td align="right">' + ultimaAccesare + '</td>'
+            + '<td align="right">' + ultimaModificare + '</td>'
+            + '</td></tr>');
+    });
 };
 
 //recalculate when window is loaded and also when window is resized.

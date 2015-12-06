@@ -11,7 +11,7 @@ import java.sql.Date;
 public class Proiect extends BaseEntity {
     private long idProiect;
     private String numeProiect;
-    private String codroiect;
+    private String codProiect;
     private String descriere;
     private Client idClient;
     private CategorieProiect idCategorieProiect;
@@ -115,12 +115,12 @@ public class Proiect extends BaseEntity {
 
     @Basic
     @Column(name = "cod_proiect", nullable = false, insertable = true, updatable = true)
-    public String getCodroiect() {
-        return codroiect;
+    public String getCodProiect() {
+        return codProiect;
     }
 
-    public void setCodroiect(String codroiect) {
-        this.codroiect = codroiect;
+    public void setCodProiect(String codProiect) {
+        this.codProiect = codProiect;
     }
 
     @Override
@@ -133,7 +133,7 @@ public class Proiect extends BaseEntity {
         if (idProiect != proiect.idProiect) return false;
         if (deleted != proiect.deleted) return false;
         if (numeProiect != null ? !numeProiect.equals(proiect.numeProiect) : proiect.numeProiect != null) return false;
-        if (codroiect != null ? !codroiect.equals(proiect.codroiect) : proiect.codroiect != null) return false;
+        if (codProiect != null ? !codProiect.equals(proiect.codProiect) : proiect.codProiect != null) return false;
         if (descriere != null ? !descriere.equals(proiect.descriere) : proiect.descriere != null) return false;
         if (idClient != null ? !idClient.equals(proiect.idClient) : proiect.idClient != null) return false;
         if (idCategorieProiect != null ? !idCategorieProiect.equals(proiect.idCategorieProiect) : proiect.idCategorieProiect != null) return false;
@@ -147,7 +147,7 @@ public class Proiect extends BaseEntity {
     public int hashCode() {
         int result = (int) (idProiect ^ (idProiect >>> 32));
         result = 31 * result + (numeProiect != null ? numeProiect.hashCode() : 0);
-        result = 31 * result + (codroiect != null ? codroiect.hashCode() : 0);
+        result = 31 * result + (codProiect != null ? codProiect.hashCode() : 0);
         result = 31 * result + (descriere != null ? descriere.hashCode() : 0);
         result = 31 * result + (idClient != null ? idClient.hashCode() : 0);
         result = 31 * result + (idCategorieProiect != null ? idCategorieProiect.hashCode() : 0);
