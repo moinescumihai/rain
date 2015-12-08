@@ -275,7 +275,7 @@ $(document).ready(function () {
                         retValue = '<div class="col-md-6"><ul class="popover-options">'
                             + '<li><a><span class="fa fa-cog fa-fw">&nbsp;</span>&nbsp; Editeaz&abreve;</a></li>'
                             + '<li><a><span class="fa fa-archive fa-fw">&nbsp;</span>&nbsp; Arhiveaz&abreve;</a></li>'
-                            + '<li><a id="pop-proj-fav-' + idProject + '"><span class="fa fa-heart fa-fw">&nbsp;</span>&nbsp; Favorit</a></li>'
+                            + '<li><a id="pop-proj-fav-' + idProject + '"><span class="fa fa-star fa-fw">&nbsp;</span>&nbsp; Favorit</a></li>'
                             + '<li><a id="pop-proj-del-' + idProject + '"><span class="fa fa-trash-o fa-fw">&nbsp;</span>&nbsp; &#350;terge</a></li>'
                             + '</ul></div>'
                             + '<div class="col-md-6"><ul class="popover-options">'
