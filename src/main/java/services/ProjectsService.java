@@ -29,4 +29,6 @@ public interface ProjectsService {
     UserOnProject assignPersoanaToProiect(PersonOnProjectFormModel personOnProject);
 
     Proiect findProjectByKey(String projectKey);
+
+    Proiect markAsFavourite(long idProiect);
 }

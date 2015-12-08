@@ -111,13 +111,18 @@ var getProjects = function () {
                 var dataStart = toJSDateTime(project.dataStart);
                 var isOverdue = dataNow > new Date(project.dataEndEstimativa);
                 var overdue = '';
+                var isFav = profile.favorit.idProiect === idProiect;
+                var fav = '';
                 if (isOverdue && project.idStatusProiect == '3') {
-                    overdue = '<span class="fa fa-exclamation-circle text-danger" data-toggle="tooltip" data-placement="bottom" title="Project is overdue">&nbsp;</span>';
+                    overdue = '<span class="fa fa-exclamation-circle text-danger" data-toggle="tooltip" data-placement="bottom" title="Proiectul a dep&abreve;sit data de sfarsit">&nbsp;</span>';
+                }
+                if (isFav) {
+                    fav = '<i class="fa fa-star" title="Favorit"></i>';
                 }
                 projectString = '<tr id="proiect-item' + idProiect + '" class="project-item"><td>'
                     + '<a id="project-options' + idProiect + '" tabindex="0" role="button" class="btn-xs popup-marker" data-load="idProiect=' + idProiect
                     + '" data-placement="bottom"><span class="fa fa-sliders"></span></a>'
-                    + '&nbsp;&nbsp;<span id="proiect-nume-' + idProiect + '" class="proiect-nume">' + overdue + numeProiect + '</span></td>'
+                    + '&nbsp;&nbsp;<span id="proiect-nume-' + idProiect + '" class="proiect-nume">' + overdue + fav + numeProiect + '</span></td>'
                     + '<td>' + categorie + '</td>'
                     + '<td><p id="proiect-data-start-' + idProiect + '" class="proiect-date"> ' + dataStart + '</p></td>'
                     + '<td><p id="proiect-data-end-' + idProiect + '" class="proiect-date"> ' + dataEnd + '</p>'
@@ -226,6 +231,30 @@ var getFilesForProject = function (idProject) {
     });
 };
 
+var markAsFavourite = function (idProject) {
+    var token = $("meta[name='_csrf']").prop('content'),
+        header = $("meta[name='_csrf_header']").prop('content'),
+        $taskNavButton = $('#tasks').find('a'),
+        newHref;
+
+    $.ajax({
+        method: 'get',
+        dataType: 'json',
+        url: '/app/secure/projects/mark-fav/' + idProject,
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader(header, token);
+        },
+        success: function (proiect) {
+            newHref = $taskNavButton.attr('href').replace(/proiect=.+/, 'proiect=' + proiect.codProiect);
+            $taskNavButton.attr('href', newHref);
+            showNotification(proiect.numeProiect + ' a fost marcat ca favorit', 'Succes', SUCCESS);
+        },
+        error: function () {
+            showNotification('Error. Please try again later.', 'Error', ERROR);
+        }
+    });
+};
+
 $(document).ready(function () {
     $('#projects').addClass('active');
 
@@ -245,13 +274,14 @@ $(document).ready(function () {
                         var idProject = data[1];
                         retValue = '<div class="col-md-6"><ul class="popover-options">'
                             + '<li><a><span class="fa fa-cog fa-fw">&nbsp;</span>&nbsp; Editeaz&abreve;</a></li>'
-                            + '<li><a><span class="fa fa-archive fa-fw">&nbsp;</span>&nbsp; Arhiv&abreve;</a></li>'
-                            + '<li><a id="pop-proj-del-' + idProject + '"><span class="fa fa-trash-o fa-fw">&nbsp;</span>&nbsp; &\#350;terge</a></li>'
+                            + '<li><a><span class="fa fa-archive fa-fw">&nbsp;</span>&nbsp; Arhiveaz&abreve;</a></li>'
+                            + '<li><a id="pop-proj-fav-' + idProject + '"><span class="fa fa-heart fa-fw">&nbsp;</span>&nbsp; Favorit</a></li>'
+                            + '<li><a id="pop-proj-del-' + idProject + '"><span class="fa fa-trash-o fa-fw">&nbsp;</span>&nbsp; &#350;terge</a></li>'
                             + '</ul></div>'
                             + '<div class="col-md-6"><ul class="popover-options">'
                             + '<li><a id="pop-proj-persoane-' + idProject + '"><span class="fa fa-group fa-fw">&nbsp;</span>&nbsp; Persoane</a></li>'
                             + '<li><a id="pop-proj-task-' + idProject + '"><span class="fa fa-tasks fa-fw">&nbsp;</span>&nbsp; Sarcini</a></li>'
-                            + '<li><a id="pop-proj-files-' + idProject + '"><span class="fa fa-paperclip fa-fw">&nbsp;</span>&nbsp; Fi&\#x219;iere</a></li>'
+                            + '<li><a id="pop-proj-files-' + idProject + '"><span class="fa fa-paperclip fa-fw">&nbsp;</span>&nbsp; Fi&#x219;iere</a></li>'
                             + '<li><a><span class="fa fa-line-chart fa-fw">&nbsp;</span>&nbsp; Rapoarte</a></li>'
                             + '</ul></div>';
 
@@ -287,6 +317,12 @@ $(document).ready(function () {
                 ].join('\n')
             }
         });
+
+    $(document).on('click', 'a[id^="pop-proj-fav-"]', function (event) {
+        var idProject = $(this).prop('id').replace(/pop-proj-fav-/g, '');
+        markAsFavourite(idProject);
+        event.preventDefault();
+    });
 
     $(document).on('click', 'a[id^="pop-proj-task-"]', function (event) {
         var idProject = $(this).prop('id').replace(/pop-proj-task-/g, '');

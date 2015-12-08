@@ -11,7 +11,8 @@ const ZERO = 0;
 const chosenUpdated = 'chosen:updated';
 var $changePasswordForm = $('#modal-changePassword-form'),
     $changePasswordModal = $('#modal-changePassword'),
-    faFiles;
+    faFiles,
+    profile;
 
 jQuery.validator.addMethod("samePasswords", function (value, element, param) {
     return this.optional(element) || passwordsAreTheSame();
@@ -342,8 +343,7 @@ var getTari = function (container) {
 
 var getProfile = function () {
     pleaseWaitOn();
-    var profile = {},
-        token = $("meta[name='_csrf']").prop('content'),
+    var token = $("meta[name='_csrf']").prop('content'),
         header = $("meta[name='_csrf_header']").prop('content'),
 
         nume = $('#userProfile-form-nume'),

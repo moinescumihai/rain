@@ -1,5 +1,6 @@
 package services;
 
+import common.utils.UserUtils;
 import model.domain.Persoana;
 import model.domain.Proiect;
 import model.domain.UserOnProject;
@@ -161,6 +162,16 @@ public class ProjectServiceImpl implements ProjectsService {
     @Override
     public Proiect findProjectByKey(String projectKey) {
         return proiectRepository.findOneByCodProiectEquals(projectKey);
+    }
+
+    @Override
+    public Proiect markAsFavourite(long idProiect) {
+        Proiect proiect = proiectRepository.findOne(idProiect);
+        Persoana persoana = resurseUmaneService.findByUsername(UserUtils.getLoggedInUsername());
+        persoana.setFavorit(proiect);
+
+        resurseUmaneService.updatePersoana(persoana);
+        return proiect;
     }
 
 

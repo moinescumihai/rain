@@ -21,4 +21,6 @@ public interface ResurseUmaneService {
     Persoana activateUser(long idUser);
 
     Persoana deactivateUser(long idUser);
+
+    Persoana updatePersoana(Persoana persoana);
 }

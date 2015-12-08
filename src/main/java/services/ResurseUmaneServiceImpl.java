@@ -89,4 +89,9 @@ public class ResurseUmaneServiceImpl implements ResurseUmaneService {
         userService.save(user);
         return findByIdUser(user);
     }
+
+    @Override
+    public Persoana updatePersoana(Persoana persoana) {
+        return resurseUmaneRepository.save(persoana);
+    }
 }

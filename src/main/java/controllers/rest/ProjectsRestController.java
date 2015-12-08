@@ -82,7 +82,15 @@ public class ProjectsRestController {
 
         UserOnProject removed = projectsService.removePersoanaFromProiect(idUserOnProject);
         response.setMessage(String.format("%s a fost exclus din %s", removed.getPersoana().getFullName(), removed.getProiect().getNumeProiect()));
+
         return response;
+    }
+
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER','ROLE_SUPERUSER')")
+    @RequestMapping(value = "/mark-fav/{idProiect}", method = RequestMethod.GET)
+    @ResponseBody
+    public Proiect favProject(@PathVariable long idProiect) {
+        return projectsService.markAsFavourite(idProiect);
     }
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
