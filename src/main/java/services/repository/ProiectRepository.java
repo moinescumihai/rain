@@ -10,4 +10,6 @@ public interface ProiectRepository extends CrudRepository<Proiect, Long> {
     List<Proiect> findByDeletedEquals(int deleted);
 
     List<Proiect> findAllByDeletedEquals(int deleted);
+
+    Proiect findOneByCodProiectEquals(String projectKey);
 }

@@ -110,4 +110,9 @@ public class FilesServiceImpl implements FilesService {
     public long getFolderForPath(String path) {
         return attachmentRepository.findByPathEquals(path).getIdAttachment();
     }
+
+    @Override
+    public List<Attachment> getFilesForProject(long idProject) {
+        return attachmentRepository.findAllByIdProiectEqualsOrderByCreatLaDesc(idProject);
+    }
 }

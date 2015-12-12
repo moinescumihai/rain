@@ -27,6 +27,7 @@ public class Persoana extends BaseEntity implements Comparable<Persoana> {
     private User idUser;
     private Date dataNastere;
     private String zileConcediu;
+    private Proiect favorit;
     @Transient
     private String fullName;
 
@@ -255,6 +256,21 @@ public class Persoana extends BaseEntity implements Comparable<Persoana> {
     }
 
     @Override
+    public int compareTo(Persoana o) {
+        return this.getFullName().compareTo(o.getFullName());
+    }
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "id_proiect")
+    public Proiect getFavorit() {
+        return favorit;
+    }
+
+    public void setFavorit(Proiect favorit) {
+        this.favorit = favorit;
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
@@ -282,6 +298,7 @@ public class Persoana extends BaseEntity implements Comparable<Persoana> {
         if (idUser != null ? !idUser.equals(persoana.idUser) : persoana.idUser != null) return false;
         if (dataNastere != null ? !dataNastere.equals(persoana.dataNastere) : persoana.dataNastere != null) return false;
         if (zileConcediu != null ? !zileConcediu.equals(persoana.zileConcediu) : persoana.zileConcediu != null) return false;
+        if (favorit != null ? !favorit.equals(persoana.favorit) : persoana.favorit != null) return false;
         return !(fullName != null ? !fullName.equals(persoana.fullName) : persoana.fullName != null);
 
     }
@@ -309,12 +326,8 @@ public class Persoana extends BaseEntity implements Comparable<Persoana> {
         result = 31 * result + (idUser != null ? idUser.hashCode() : 0);
         result = 31 * result + (dataNastere != null ? dataNastere.hashCode() : 0);
         result = 31 * result + (zileConcediu != null ? zileConcediu.hashCode() : 0);
+        result = 31 * result + (favorit != null ? favorit.hashCode() : 0);
         result = 31 * result + (fullName != null ? fullName.hashCode() : 0);
         return result;
-    }
-
-    @Override
-    public int compareTo(Persoana o) {
-        return this.getFullName().compareTo(o.getFullName());
     }
 }

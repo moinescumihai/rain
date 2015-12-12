@@ -184,7 +184,6 @@
       <column name="data_angajare" sqlType="DATE" precision="10" scale="0" nullable="true" jdbcType="91"/>
       <column name="data_nastere" sqlType="DATE" precision="10" scale="0" nullable="true" jdbcType="91"/>
       <column name="fax" sqlType="VARCHAR" precision="45" scale="0" nullable="true" jdbcType="12"/>
-      <column name="fullName" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
       <column name="home_tel" sqlType="VARCHAR" precision="45" scale="0" nullable="true" jdbcType="12"/>
       <column name="judet" sqlType="VARCHAR" precision="45" scale="0" nullable="true" jdbcType="12"/>
       <column name="mobil_tel" sqlType="VARCHAR" precision="45" scale="0" nullable="true" jdbcType="12"/>
@@ -199,8 +198,10 @@
       <column name="id_tara" sqlType="BIGINT" precision="19" scale="0" nullable="true" jdbcType="-5"/>
       <column name="id_user" sqlType="BIGINT" precision="19" scale="0" nullable="true" jdbcType="-5"/>
       <column name="user_photo" sqlType="BIGINT" precision="19" scale="0" nullable="true" jdbcType="-5"/>
+      <column name="id_proiect" sqlType="BIGINT" precision="19" scale="0" nullable="true" jdbcType="-5"/>
       <primary-key name="PRIMARY" columns="id_persoana"/>
       <foreign-key name="FK1ob3yt0l07xpukliorql6ulr0" columns="id_tara" ref-table="lista_tari" ref-schema="" ref-catalog="raindrop" ref-columns="id_tara" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="FK48p2e5olgnym1hcv1l425yep5" columns="id_proiect" ref-table="proiect" ref-schema="" ref-catalog="raindrop" ref-columns="id_proiect" update-rule="3" delete-rule="3" deferrability="2"/>
       <foreign-key name="FKc855gvjr1uvd1c38yt9jwg7c7" columns="id_client" ref-table="client" ref-schema="" ref-catalog="raindrop" ref-columns="id_client" update-rule="3" delete-rule="3" deferrability="2"/>
       <foreign-key name="FKe22qm2hbd6alt1jpmgpgete0h" columns="id_user" ref-table="user" ref-schema="" ref-catalog="raindrop" ref-columns="id_user" update-rule="3" delete-rule="3" deferrability="2"/>
       <foreign-key name="FKei1ymjpotus2lqir1c94fo1il" columns="user_photo" ref-table="attachment" ref-schema="" ref-catalog="raindrop" ref-columns="id_attachment" update-rule="3" delete-rule="3" deferrability="2"/>
@@ -211,6 +212,7 @@
       <exported-key name="FKsqj4aw03ems1t6xamkot81jfk" table="tranzactie_stoc" schema="" catalog="raindrop" columns="id_resurse_umnane"/>
       <exported-key name="FKgsfvhh7k4jx9td6k06m324pdy" table="users_on_projects" schema="" catalog="raindrop" columns="id_persoana"/>
       <index name="FK1ob3yt0l07xpukliorql6ulr0" unique="false" columns="id_tara"/>
+      <index name="FK48p2e5olgnym1hcv1l425yep5" unique="false" columns="id_proiect"/>
       <index name="FKc855gvjr1uvd1c38yt9jwg7c7" unique="false" columns="id_client"/>
       <index name="FKe22qm2hbd6alt1jpmgpgete0h" unique="false" columns="id_user"/>
       <index name="FKei1ymjpotus2lqir1c94fo1il" unique="false" columns="user_photo"/>
@@ -254,6 +256,7 @@
       <foreign-key name="FKqrtyl69osc5rfk2qla9f39rrk" columns="id_categorie_proiect" ref-table="categorie_proiect" ref-schema="" ref-catalog="raindrop" ref-columns="id_categorie_proiect" update-rule="3" delete-rule="3" deferrability="2"/>
       <exported-key name="FKlxp1of0wh5d2hxh1w7dnsrmfs" table="milestone" schema="" catalog="raindrop" columns="id_proiect"/>
       <exported-key name="FKcesk0x3fthcar6xux4cldijs4" table="obiectiv" schema="" catalog="raindrop" columns="id_proiect"/>
+      <exported-key name="FK48p2e5olgnym1hcv1l425yep5" table="persoane" schema="" catalog="raindrop" columns="id_proiect"/>
       <exported-key name="FK57tprh0h6vdxpd72ky63e5lqd" table="risc" schema="" catalog="raindrop" columns="id_proiect"/>
       <exported-key name="FKogshbdkh6sqcmktl0fdyp9r71" table="task" schema="" catalog="raindrop" columns="id_proiect"/>
       <exported-key name="FKjhy53n351102d4jqvqgkpcrn3" table="users_on_projects" schema="" catalog="raindrop" columns="id_proiect"/>

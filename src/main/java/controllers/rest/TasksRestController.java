@@ -43,32 +43,32 @@ public class TasksRestController {
     }
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
-    @RequestMapping(value = "/get-task/{idTask}", method = RequestMethod.GET, produces = "application/json")
+    @RequestMapping(value = "/get-task/{idTask}", method = RequestMethod.GET)
     @ResponseBody
     public Task getTaskById(@PathVariable long idTask) {
         return taskService.getTaskById(idTask);
     }
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
-    @RequestMapping(value = "/get-current", method = RequestMethod.GET, produces = "application/json")
+    @RequestMapping(value = "/get-tasks", method = RequestMethod.GET)
     @ResponseBody
-    public List<Task> getTasks() {
+    public List<Task> getTasks(@RequestParam(value = "proiect", required = false) String projectKey) {
         if (UserUtils.isUserInRole("ROLE_ADMIN") || UserUtils.isUserInRole("ROLE_SUPERUSER")) {
-            return taskService.getCurrentTasks();
+            return taskService.getCurrentTasks(projectKey);
         } else {
-            return taskService.getCurrentTasksForUser(UserUtils.getLoggedInUsername());
+            return taskService.getCurrentTasksForUser(UserUtils.getLoggedInUsername(), projectKey);
         }
     }
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
-    @RequestMapping(value = "/get-all-status", method = RequestMethod.GET, produces = "application/json")
+    @RequestMapping(value = "/get-all-status", method = RequestMethod.GET)
     @ResponseBody
     public List<StatusTask> getAllStatus() {
         return taskService.getAllStatusTask();
     }
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_SUPERUSER', 'ROLE_USER')")
-    @RequestMapping(value = "/update-task", method = RequestMethod.POST, produces = "application/json")
+    @RequestMapping(value = "/update-task", method = RequestMethod.POST)
     @ResponseBody
     public JSONResponseWithId updataTask(@RequestBody Task model) {
         JSONResponseWithId response = new JSONResponseWithId();
@@ -84,7 +84,7 @@ public class TasksRestController {
     }
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_SUPERUSER', 'ROLE_USER')")
-    @RequestMapping(value = "/add-task", method = RequestMethod.POST, produces = "application/json")
+    @RequestMapping(value = "/add-task", method = RequestMethod.POST)
     @ResponseBody
     public JSONResponseWithId addTask(@RequestBody TaskFormModel model) {
         JSONResponseWithId response = new JSONResponseWithId();

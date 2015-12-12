@@ -14,6 +14,7 @@ import services.user.UserService;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ResurseUmaneServiceImpl implements ResurseUmaneService {
@@ -71,7 +72,12 @@ public class ResurseUmaneServiceImpl implements ResurseUmaneService {
 
     @Override
     public Persoana findByFullNameEquals(String fullName) {
-        return resurseUmaneRepository.findByFullNameEquals(fullName);
+        String[] numeSiPrenume = fullName.split(" ");
+        String nume = numeSiPrenume[0];
+        String prenume = numeSiPrenume[1];
+        List<Persoana> persoane = (List<Persoana>) resurseUmaneRepository.findAll();
+        return persoane.parallelStream().filter(persoana -> persoana.getNume().equals(nume) && persoana.getPrenume().equals(prenume))
+                .limit(1L).collect(Collectors.toList()).get(0);
     }
 
     @Override
@@ -88,5 +94,10 @@ public class ResurseUmaneServiceImpl implements ResurseUmaneService {
         user.setEnabled(User.Active.NO.getCode());
         userService.save(user);
         return findByIdUser(user);
+    }
+
+    @Override
+    public Persoana updatePersoana(Persoana persoana) {
+        return resurseUmaneRepository.save(persoana);
     }
 }

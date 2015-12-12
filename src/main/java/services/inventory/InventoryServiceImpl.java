@@ -319,7 +319,7 @@ public class InventoryServiceImpl implements InventoryService {
         for (long idArticol : model.getArticole()) {
             stoc = stocRepository.findOne(idArticol);
             stoc.setIdLoc(locRepository.findOne(model.getIdLoc()));
-            stoc.setIdPersoana(resurseUmaneService.findOne(model.getIdResurseUmane()));
+            stoc.setIdPersoana(resurseUmaneService.findOne(model.getIdPersoana()));
             stoc.setIdStare(stareStoc);
             stocRepository.save(stoc);
             buildAndSaveTranzactieStoc(stoc, colet, model.getDetalii());
@@ -338,7 +338,7 @@ public class InventoryServiceImpl implements InventoryService {
         for (long idArticol : model.getArticole()) {
             stoc = stocRepository.findOne(idArticol);
             stoc.setIdLoc(locRepository.findOne(model.getIdLoc()));
-            stoc.setIdPersoana(resurseUmaneService.findOne(1L));
+            stoc.setIdPersoana(null);
             stoc.setIdStare(stareStoc);
             stocRepository.save(stoc);
             buildAndSaveTranzactieStoc(stoc, colet, model.getDetalii());
