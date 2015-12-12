@@ -1506,10 +1506,6 @@ div[id$='-container'] div.todo-task input[type=checkbox] {
     text-decoration: none;
 }
 
-ul.popover-options > li > a:hover {
-    font-weight: bolder;
-}
-
 a.dropdown-carret:focus {
     outline: none;
     outline-offset: 0;
@@ -2742,4 +2738,9 @@ div[id^="history"] .modal-body {
 
 #inventory-table {
     font-size: 12px;
+}
+
+.golden {
+    color: gold;
+    font-size: x-large;
 }

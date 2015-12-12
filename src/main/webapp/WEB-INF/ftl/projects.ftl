@@ -19,6 +19,15 @@
     </div>
     [/@sidebar]
     [@content]
+        [@ajaxDataTable "project-table"]
+        <th></th>
+        <th>Nume</th>
+        <th>Categorie</th>
+        <th>Descriere</th>
+        <th>Dat&abreve; start</th>
+        <th>Dat&abreve; final</th>
+        [/@ajaxDataTable]
+
     <div id="project-container"></div>
         [@modalForm "modal-addProiect" "MODAL.ADDPROJECT" "/app/secure/projects/addproject" "PROJECTS.ADDPROJECT" "book"]
             [#include "dialogs/addProjectForm.ftl"]

@@ -49,7 +49,7 @@
     </div>
 
     <div class="custom-footer">
-        <p><span class="copyright">Copyright &copy; &middot; <span class="green">Raindrop Software <span id="an-copyright"></span></span>
+        <p><span class="copyright">Copyright &copy; &middot; <span id="an-copyright"></span> <span class="green">Raindrop Software </span>
         </p>
     </div>
 

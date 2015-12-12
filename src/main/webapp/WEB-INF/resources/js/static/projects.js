@@ -8,7 +8,8 @@ var addProjectForm = $('#modal-addProiect-form'),
     $filesModal = $('#modal-files'),
     $fileHolder = $('#file-holder'),
     alertType = ['alert-primary', 'alert-success', 'alert-warning', 'alert-info'],
-    projectsTable;
+    $projectsTableHolder = $('#project-table'),
+    $projectsTable;
 
 var getClients = function (container) {
     var clientsSelect = $('#' + container);
@@ -68,100 +69,13 @@ var deleteProject = function (id) {
             xhr.setRequestHeader(header, token);
         },
         success: function (response) {
-            getProjects();
+            $projectsTable.ajax.reload(null, false);
             showNotification(response.message, 'Success', SUCCESS);
         },
         error: function () {
             showNotification('Error. Please try again later.', 'Error', ERROR);
         }
     });
-};
-
-var getProjects = function () {
-    var projectContainer = $('#project-container');
-    projectContainer.html(EMPTY);
-    var token = $("meta[name='_csrf']").prop('content');
-    var header = $("meta[name='_csrf_header']").prop('content');
-
-    var tableHeader = '<table id="project-table" class="table table-hover table-responsive">'
-        + '<thead><tr class="text-table-head">'
-        + '<td>Nume</td>'
-        + '<td>Categorie</td>'
-        + '<td>Dat&abreve; start</td>'
-        + '<td>Dat&abreve; final</td>'
-        + '</tr></thead><tbody>';
-
-    $.ajax({
-        method: 'get',
-        dataType: 'json',
-        url: '/app/secure/projects/getprojects',
-        beforeSend: function (xhr) {
-            xhr.setRequestHeader(header, token);
-        },
-        success: function (response) {
-            var rows = [];
-            var projectString;
-
-            $.each(response, function (index, project) {
-                var idProiect = project.idProiect;
-                var numeProiect = project.numeProiect;
-                var categorie = project.idCategorieProiect.nume;
-                var dataNow = new Date();
-                var dataEnd = toJSDateTime(project.dataEndEstimativa);
-                var dataStart = toJSDateTime(project.dataStart);
-                var isOverdue = dataNow > new Date(project.dataEndEstimativa);
-                var overdue = '';
-                var isFav = profile.favorit.idProiect === idProiect;
-                var fav = '';
-                if (isOverdue && project.idStatusProiect == '3') {
-                    overdue = '<span class="fa fa-exclamation-circle text-danger" data-toggle="tooltip" data-placement="bottom" title="Proiectul a dep&abreve;sit data de sfarsit">&nbsp;</span>';
-                }
-                if (isFav) {
-                    fav = '<i class="fa fa-star" title="Favorit"></i>';
-                }
-                projectString = '<tr id="proiect-item' + idProiect + '" class="project-item"><td>'
-                    + '<a id="project-options' + idProiect + '" tabindex="0" role="button" class="btn-xs popup-marker" data-load="idProiect=' + idProiect
-                    + '" data-placement="bottom"><span class="fa fa-sliders"></span></a>'
-                    + '&nbsp;&nbsp;<span id="proiect-nume-' + idProiect + '" class="proiect-nume">' + overdue + fav + numeProiect + '</span></td>'
-                    + '<td>' + categorie + '</td>'
-                    + '<td><p id="proiect-data-start-' + idProiect + '" class="proiect-date"> ' + dataStart + '</p></td>'
-                    + '<td><p id="proiect-data-end-' + idProiect + '" class="proiect-date"> ' + dataEnd + '</p>'
-                    + '</td></tr>';
-                rows.push(projectString);
-            });
-            var tableFooter = '</tbody></table>';
-            projectContainer.html(tableHeader + rows.join('') + tableFooter);
-            projectsTable = $('#project-table').DataTable({
-                sDom: 'ltipr',
-                columns: [
-                    {
-                        "bSortable": true,
-                        "orderable": true,
-                        "searchable": true
-                    }, {
-                        "bSortable": true,
-                        "orderable": true,
-                        "searchable": true
-                    },
-                    {
-                        "bSortable": false,
-                        "orderable": false,
-                        "searchable": true
-                    },
-                    {
-                        "bSortable": false,
-                        "orderable": false,
-                        "searchable": true
-                    }
-                ]
-            });
-            $('#project-search').on('keyup', function () {
-                projectsTable.search(this.value).draw();
-            });
-            $('[data-toggle="tooltip"]').tooltip();
-        }
-    });
-
 };
 
 var getPersoaneForProject = function (idProject) {
@@ -247,6 +161,8 @@ var markAsFavourite = function (idProject) {
         success: function (proiect) {
             newHref = $taskNavButton.attr('href').replace(/proiect=.+/, 'proiect=' + proiect.codProiect);
             $taskNavButton.attr('href', newHref);
+            getProfile();
+            $projectsTable.ajax.reload(null, false);
             showNotification(proiect.numeProiect + ' a fost marcat ca favorit', 'Succes', SUCCESS);
         },
         error: function () {
@@ -258,10 +174,141 @@ var markAsFavourite = function (idProject) {
 $(document).ready(function () {
     $('#projects').addClass('active');
 
-    getProjects();
     getClients('addProject-form-client');
     getCategories('addProject-form-category');
     getCategories('addCategory-form-categorie-parinte');
+
+    try {
+        $projectsTable = $projectsTableHolder.DataTable({
+            sDom: '<"clear"><"break-row"><"pull-right"B>lrtip<"break-row-lg">',
+            ajax: {
+                url: '/app/secure/projects/getprojects',
+                dataSrc: ""
+            },
+            buttons: [
+                {
+                    extend: 'excel',
+                    text: '<span class="fa fa-file-excel-o" title="Apasa ALT+X pentru a salva tabelul in format Excel">&nbsp;&nbsp;</span><span>XLS</span>',
+                    className: 'btn btn-default',
+                    key: {
+                        key: 'x'
+                    },
+                    exportOptions: {
+                        columns: ':visible'
+                    }
+                }, {
+                    extend: 'pdf',
+                    text: '<span class="fa fa-file-pdf-o" title="Apasa ALT+F pentru a salva tabelul in format PDF">&nbsp;&nbsp;</span><span>PDF</span>',
+                    className: 'btn btn-default',
+                    key: {
+                        key: 'f'
+                    },
+                    orientation: 'landscape',
+                    title: 'Proiecte',
+                    exportOptions: {
+                        columns: ':visible'
+                    }
+                }, {
+                    extend: 'print',
+                    text: '<span class="fa fa-print" title="Apasa ALT+P pentru a trimite la print">&nbsp;&nbsp;</span><span>Print</span>',
+                    className: 'btn btn-default',
+                    key: {
+                        key: 'p'
+                    },
+                    title: 'Proiecte',
+                    exportOptions: {
+                        columns: ':visible'
+                    }
+                },
+                {
+                    extend: 'colvis',
+                    text: '<span class="fa fa-adjust">&nbsp;&nbsp;</span><span>Alege coloane vizibile</span>',
+                    className: 'btn btn-default'
+                }
+            ],
+            columns: [
+                {
+                    sWidth: '15px',
+                    bSortable: false,
+                    orderable: false,
+                    data: null,
+                    defaultContent: EMPTY,
+                    searchable: false
+                }, {
+                    data: null,
+                    defaultContent: EMPTY,
+                    sWidth: '15px'
+                },
+                {
+                    data: 'numeProiect',
+                    className: 'proiect-nume'
+                }, {
+                    data: 'idCategorieProiect.nume'
+                },
+                {data: 'descriere'},
+                {
+                    data: 'dataStart'
+                },
+                {
+                    data: 'dataEndEstimativa'
+                }
+            ],
+            columnDefs: [
+                {
+                    targets: [0],
+                    searchable: false,
+                    bSortable: false,
+                    orderable: false,
+                    bUseRendered: true,
+                    visible: true,
+                    fnCreatedCell: function (nTd, sData, oData, i) {
+                        $(nTd).parent().addClass('project-item').prop('id', 'proiect-item' + oData.idProiect);
+                        $(nTd).html('<a id="project-options' + oData.idProiect + '" tabindex="0" role="button" class="btn-xs popup-marker" data-load="idProiect=' + oData.idProiect
+                            + '" data-placement="bottom"><span class="fa fa-sliders"></span></a>');
+                    }
+                },
+                {
+                    targets: [1],
+                    bUseRendered: true,
+                    visible: true,
+                    fnCreatedCell: function (nTd, sData, oData, i) {
+                        var isFav = profile.favorit.idProiect === oData.idProiect,
+                            fav;
+                        if (isFav) {
+                            fav = '<i class="fa fa-star golden" title="Favorit"></i>';
+                        }
+                        $(nTd).html(fav);
+                    }
+                },
+                {
+                    targets: [2],
+                    bUseRendered: true,
+                    visible: true,
+                    fnCreatedCell: function (nTd, sData, oData, i) {
+                        $(nTd).prop('id', 'project-options' + sData);
+                    }
+                },
+                {
+                    targets: [5, 6],
+                    bUseRendered: true,
+                    visible: true,
+                    render: function (data, type, row) {
+                        if (data) {
+                            return generateFormattedDate(new Date(data));
+                        } else {
+                            return EMPTY;
+                        }
+                    }
+                }
+            ]
+        });
+        $('#project-search').on('keyup', function () {
+            $projectsTable.search(this.value).draw();
+        });
+        $('[data-toggle="tooltip"]').tooltip();
+    } catch (err) {
+        console.log(err);
+    }
 
     $(document).on('mouseover', '.project-item', function () {
         $(this).find('a.popup-marker').webuiPopover($.extend({}, popoverDefaultSettings, {
@@ -573,7 +620,7 @@ $(document).ready(function () {
                     addProjectForm.trigger('reset');
                     $('.chosen-select').trigger(chosenUpdated);
                     showNotification(response.message, 'Success', SUCCESS);
-                    getProjects();
+                    $projectsTable.ajax.reload(null, false);
                 }
             },
             error: function () {
