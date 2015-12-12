@@ -24,10 +24,17 @@
 
 <body class="custom-body">
 
+<!-- Exista un padding aiurea care iti pune placeholderele aiurea la form-control -->
+<!-- Cam asa ar trebui sa fie. Dar trebuie mutat in stylesheet-->
+<style>
+.form-control {
+padding: 5px 5px 5px 30px;
+}
+</style>
 
 <div>
     <div id="content">
-        <form class="login-form" name='loginForm' action="/login?${_csrf.parameterName}=${_csrf.token}" method="POST">
+        <form class="login-form form-horizontal" name='loginForm' action="/login" method="POST">
             <h1><img src="/img/raindrop-logo.png" class="logo login-logo"/>  [@spring.message "APPTITLE"/]</h1>
         [#if error?? && error == true]
             <div class="error">[@spring.message "LOGINERROR" /]</div>
@@ -35,12 +42,13 @@
         [#if msg?? && msg == true]
             <div class="msg">[@spring.message "LOGOUTMSG" /]</div>
         [/#if]
-            <div>
+            <div class="form-group">
                 <input name="username" id="username" autocomplete="off" type="text" class="form-control" placeholder="[@spring.message "USER"/]"/>
             </div>
-            <div>
+            <div class="form-group">
                 <input name="password" id="password" type="password" autocomplete="off" class="form-control" placeholder="[@spring.message "PASSWORD"/]"/>
             </div>
+			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
             <button id="btnLogin" class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
             <div class="lost-pass">
                 <a class="righta">Lost your password?</a>
